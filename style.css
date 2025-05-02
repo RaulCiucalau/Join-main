@@ -96,7 +96,9 @@
     border-color: #29ABE2;
 }
 
-.email_input_container {
+.content_input_container {
     border-radius: 10px;
     border: 1px solid #D1D1D1;
+    display: flex;
+    align-items: center;
 }
