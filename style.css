@@ -26,8 +26,8 @@
 
 .login_container {
     position: relative;
-    width: 588px;
-    height: 480px;
+    width: 652px;
+    height: 448px;
     background-color: #ffffff;
     box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
     border-radius: 24px;
@@ -76,30 +76,25 @@
 }
 
 .btn_login {
-    background-color: #cccccca9;
+    background-color: #2A3647;
     color: white;
-    width: 90px;
-    height: 53px;
-    border-radius: 10px;
+    width: 110px;
+    height: 48px;
+    border-radius: 8px;
     border: none;
     font-weight: 600;
-    font-size: 18px;
-}
-
-.btn_login:hover {
-    color: white;
-    background-color: #29ABE2;
+    font-size: 21px;
 }
 
 .btn_guest {
     background-color: white;
-    color: #2A3547;
-    width: 144px;
-    height: 53px;
-    border-radius: 10px;
+    color: #2A3647;
+    width: 177px;
+    height: 48px;
+    border-radius: 8px;
     border: 1px solid #2A3547;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 21px;
 }
 
 .btn_guest:hover {

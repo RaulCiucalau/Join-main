@@ -14,7 +14,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 82px;
+    padding: 12px 82px 86px 82p
 
 }
 
@@ -46,14 +46,14 @@ a {
 }
 
 h1 {
-    font-size: 58px;
+    font-size: 61px;
 }
 
 input {
-    height: 46px;
-    width: 358px;
+    height: 48px;
+    width: 422px;
     border-radius: 10px;
-    border: 1px solid rgb(202, 202, 202);
+    border: 1px solid #D1D1D1;
     padding-left: 10px;
 }
 
