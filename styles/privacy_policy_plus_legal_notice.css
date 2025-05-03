@@ -32,3 +32,8 @@ a {
 li {
     margin-bottom: 8px;
 }
+
+ul {
+    list-style-type: disc;
+    padding-left: 20px; 
+}
