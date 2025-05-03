@@ -10,6 +10,10 @@ h2 {
     line-height: 120%;
 }
 
+h3 {
+    font-size: 20px;
+}
+
 p {
     font-weight: 400;
     font-size: 16px;
@@ -36,4 +40,18 @@ li {
 ul {
     list-style-type: disc;
     padding-left: 20px; 
+}
+
+.usage-steps {
+    padding-left: 1.5rem;
+}
+
+.usage-steps li {
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.usage-steps li::marker {
+    font-size: 20px;
 }
