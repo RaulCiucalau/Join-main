@@ -40,6 +40,7 @@
 .login_links {
     display: flex;
     gap: 44px;
+    text-align: center;
 }
 
 .login_container_header {

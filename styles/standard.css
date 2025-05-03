@@ -42,7 +42,11 @@ footer {
 
 a {
     text-decoration: none;
-    color: #b4b4b4;
+    color: #CDCDCD;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    min-width: 120px;
 }
 
 h1 {
@@ -71,4 +75,9 @@ input:focus {
 
 button {
     cursor: pointer;
+}
+
+a:hover {
+    color: #29ABE2;
+    font-weight: 700;
 }
