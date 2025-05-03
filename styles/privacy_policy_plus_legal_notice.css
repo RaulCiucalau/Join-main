@@ -1,0 +1,34 @@
+h1 {
+    font-weight: 700;
+    font-size: 62px;
+    line-height: 120%;
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 120%;
+}
+
+p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-inline: 96px;
+    padding-block: 110px;
+}
+
+a {
+    color: #29ABE2;
+    ;
+}
+
+li {
+    margin-bottom: 8px;
+}
