@@ -3,23 +3,37 @@
     padding-block: 110px;
 }
 
+.board_header_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 h1 {
     font-size: 62px;
     font-weight: 700;
     line-height: 120%;
 }
 
+.board_header_btn_input_container {
+    display: flex;
+    gap: 32px;
+}
+
 .board_header_input {
-    width: 312px;
+    width: 336px;
     height: 48px;
     border-radius: 10px;
     border: 1px solid #A8A8A8;
     background: #FFFFFF;
-    padding-top: 8px;
-    padding-right: 16px;
-    padding-bottom: 8px;
-    padding-left: 16px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
+.board_header_input:focus-within {
+    border: 1px solid #29ABE2;
 }
 
 .board_header_input input {
@@ -34,5 +48,56 @@ h1 {
 }
 
 ::placeholder {
-    color: #D1D1D1;;
-  }
+    color: #D1D1D1;
+}
+
+.board_separator_header_input {
+    height: 32px;
+    width: 1px;
+    background-color: #D1D1D1;
+}
+
+.search_icon_btn {
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+}
+
+.search_icon_btn:hover {
+    background: rgb(218, 218, 218);
+}
+
+.search_container {
+    display: flex;
+    align-items: center;
+    width: 48px;
+    height: 32px;
+    gap: 16px;
+}
+
+.add_task_header_btn {
+    width: 160px;
+    height: 48px;
+    border-radius: 10px;
+    border-width: 1px;
+    padding: 8px 16px;
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 120%;
+    background: #2A3647;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.columns_items {
+    margin-top: 48px;
+    display: flex;
+    gap: 24px;
+}

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,18 +10,42 @@
     <link rel="stylesheet" href="./styles/board.css">
     <link rel="shortcut icon" href="./assets/img/favicon/fav_white.png" type="image/x-icon">
 </head>
+
 <body>
     <div class="content">
         <div class="board_header_container">
             <h1>Board</h1>
-            <div class="board_header_btn_input">
+            <div class="board_header_btn_input_container">
                 <div class="board_header_input">
                     <input type="text" placeholder="Find Task" id="boardInput">
+                    <div class="search_container">
+                        <div class="board_separator_header_input"></div>
+                        <button class="search_icon_btn">
+                            <img class="search_icon" src="./assets/img/board_icons/search.svg" alt="Search">
+                        </button>
+                    </div>
                 </div>
+                <button class="add_task_header_btn">
+                    <p>Add Task</p>
+                    <img src="./assets/img/board_icons/add.svg" alt="Add">
+                </button>
             </div>
-            
         </div>
-        
+        <div class="columns_items">
+            <div class="to_do">
+                <h2>To do</h2>
+            </div>
+            <div class="in_progress">
+                <h2>In progress</h2>
+            </div>
+            <div class="await_feedback">
+                <h2>Await Feedback</h2>
+            </div>
+            <div class="done">
+                <h2>Done</h2>
+            </div>
+        </div>
     </div>
 </body>
+
 </html>
