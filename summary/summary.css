@@ -1,0 +1,33 @@
+body{
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-style: groove;
+    padding-left: 200px;
+    background-color: #FFFFFF;
+}
+
+.question-mark{
+    width: 12px;
+    height: 12px;
+}
+
+.menu_left{
+    position: fixed;
+    top: 0;
+    width: 232px;
+    height: 1024px;
+    background-color: #2A3647;
+}
+
+.join-cover{
+    width: 64px;
+    height: 88px;
+    padding-top: 64px;
+    padding-left: 64px;
+}
