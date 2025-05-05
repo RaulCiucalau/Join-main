@@ -1,36 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../assets/img/favicon/fav_blue.png" type="image/x-icon">
-    <!-- <link rel="stylesheet" href="./styles/standard_all.css"> -->
-    <link rel="stylesheet" href="./summary.css">
-    <title>Summary Guest</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="../styles/add-task.css" />
+  <link rel="stylesheet" href="../styles/navbar-header.css" />
+  <link rel="stylesheet" href="../styles/standard_all.css">
+  <!-- <link rel="stylesheet" href="../summary.css"> -->
+  <link rel="shortcut icon" href="../assets/img/favicon/fav_blue.png" type="image/x-icon">
+  <title>Summary Guest</title>
 </head>
 <body>
-    <header class="header">
-        <p>Kanban Project Management Tool</p>
-        <img class="question-mark" src="../assets/img/favicon/question.png" alt="">
-        <svg height="100" width="100">
-            <circle r="30" cx="50" cy="50" stroke="black" stroke-width="4" fill="none" />
-          </svg> 
-     </header>
-    <main >
-        <div>
-        <div class="menu_left">
-            <img class="join-cover" src="../assets/img/favicon/fav_white.png" alt="join">
-        </div>
+  <aside class="sidebar">
+ 
+    <img src="../assets/img/favicon/fav_white.png" alt="Join Logo" class="logo" />
 
+  <nav class="nav-menu">
+    <a href="../add_task.html" class=" nav-link active">
+      <img src="../assets/icons/icon-summary.png" alt="Summary Icon" />
+      <span>Summary</span>
+    </a>
+    <a href="../add_task.html" class="nav-link">
+      <img src="../assets/icons/icon-add-task.png" alt="Add Task Icon" />
+      <span>Add Task</span>
+    </a>
+    <a href="../board.html" class="nav-link">
+      <img src="../assets/icons/icon-board.png" alt="Board Icon" />
+      <span>Board</span>
+    </a>
+    <a href="contacts.html" class="nav-link">
+      <img src="../assets/icons/icon-contacts.png" alt="Contacts Icon" />
+      <span>Contacts</span>
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="../privacy_policy.html">Privacy Policy</a>
+    <a href="../legal_notice.html">Legal Notice</a>
+  </div>
+</aside>
 
+  <header class="app-header">
+    <h1 class="app-title">Kanban Project Management Tool</h1>
+    <div class="header-actions">
+      <a href="../help.html" class="help-link">
+        <img src="../assets/icons/help.svg" alt="Help" />
+      </a>
+      <div class="user-circle" id="initialLetter">G</div>
+    </div>
+  </header>
 
-            <div>
+  <main class="main-place">
+    <b class="join-360">Join 360 |</b><p>Key Metrics at a Glance</p>
 
-            </div>
-        </div>
-
-      </div>
-    </main>
-    
+  </main>
 </body>
 </html>
