@@ -1,32 +1,31 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    scroll-behavior: smooth;
-    text-decoration: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  text-decoration: none;
 }
 
 body {
-    font-family: "Inter", sans-serif;
-    background: #F6F7F8;
+  font-family: "Inter", sans-serif;
+  background: #F6F7F8;
 }
 
 @font-face {
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 100 900;
-    font-display: swap;
-    src: url("./assets/font/Inter/Inter-VariableFont_opsz\,wght.ttf") format("ttf");
-  }
+  font-family: "Inter";
+  src: url("./assets/font/Inter/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-optical-sizing: auto;
+}
 
-  @font-face {
-    font-family: "Open Sans";
-    font-style: normal;
-    font-weight: 100 900;
-    font-display: swap;
-    src: url("./assets/font/Open_Sans/OpenSans-VariableFont_wdth\,wght.ttf") format("ttf");
-  }
 
-  a {
-    text-decoration: none;
+@font-face {
+  font-family: "Open Sans";
+  src: url("./assets/font/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-stretch: 75% 100%;
+}
+
+a {
+  text-decoration: none;
 }
