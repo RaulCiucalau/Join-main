@@ -1,6 +1,8 @@
 .content {
-    padding-inline: 96px;
-    padding-block: 110px;
+    padding-inline: 80px;
+    padding-block: 64px;
+    margin-left: 260px;
+    max-width: 1400px;
 }
 
 .board-header-container {
@@ -99,8 +101,8 @@ h1 {
 .columns-items {
     margin-top: 48px;
     display: flex;
-    justify-content: space-between;
-    width: 1208px;
+    justify-content: space-around;
+    gap: 26px;
     height: 24px;
 }
 
