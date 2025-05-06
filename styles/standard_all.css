@@ -13,17 +13,23 @@ body {
 
 @font-face {
   font-family: "Inter";
+<<<<<<< HEAD
   src: url("../assets/font/Inter/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+=======
+  src: url("/assets/font/Inter/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+>>>>>>> a0365c9c5672070d804eae6f91063ea3a34e65a4
   font-weight: 100 900;
-  font-optical-sizing: auto;
 }
 
 
 @font-face {
   font-family: "Open Sans";
+<<<<<<< HEAD
   src: url("../assets/font/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf") format("truetype");
+=======
+  src: url("/assets/font/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf") format("truetype");
+>>>>>>> a0365c9c5672070d804eae6f91063ea3a34e65a4
   font-weight: 100 900;
-  font-stretch: 75% 100%;
 }
 
 a {
