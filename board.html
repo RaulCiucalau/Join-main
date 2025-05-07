@@ -16,78 +16,162 @@
 
 <body onload="init()">
     <div w3-include-html="./assets/templates/nav-header_template.html"></div>
-        <div class="content">
-            <div class="board-header-container">
-                <h1>Board</h1>
-                <div class="board-header-btn-input">
-                    <div class="board_header_input">
-                        <input type="text" placeholder="Find Task" id="boardInput">
-                        <div class="search_container">
-                            <div class="board_separator_header_input"></div>
-                            <button class="search_icon_btn">
-                                <img class="search_icon" src="./assets/img/board_icons/search.svg" alt="Search">
-                            </button>
-                        </div>
+    <div class="content">
+        <div class="board-header-container">
+            <h1>Board</h1>
+            <div class="board-header-btn-input">
+                <div class="board_header_input">
+                    <input type="text" placeholder="Find Task" id="boardInput">
+                    <div class="search_container">
+                        <div class="board_separator_header_input"></div>
+                        <button class="search_icon_btn">
+                            <img class="search_icon" src="./assets/img/board_icons/search.svg" alt="Search">
+                        </button>
                     </div>
-                    <button class="add_task_header_btn">
-                        <p>Add Task</p>
-                        <img src="./assets/img/board_icons/add.svg" alt="Add">
-                    </button>
                 </div>
+                <button class="add_task_header_btn">
+                    <p>Add Task</p>
+                    <img src="./assets/img/board_icons/add.svg" alt="Add">
+                </button>
             </div>
-            <div class="columns-items">
-                <div class="status_container">
-                    <div class="status_title">
-                        <h2>To do</h2>
-                        <img src="./assets/img/board_icons/plus button.svg" alt="Plus Button">
-                    </div>
-                    <div class="status-content">
+        </div>
+        <div class="columns-items">
+            <div class="status_container">
+                <div class="status_title">
+                    <h2>To do</h2>
+                    <img src="./assets/img/board_icons/plus_button.svg" alt="Plus Button">
+                </div>
+                <div class="status-content">
+                    <div class="task-card">
                         <div class="empty-task dashed-border">No tasks to do</div>
                     </div>
                 </div>
-                <div class="status_container">
-                    <div class="status_title">
-                        <h2>In progress</h2>
-                        <img src="./assets/img/board_icons/plus button.svg" alt="Plus Button">
-                    </div>
-                    <div class="status-content">
+            </div>
+            <div class="status_container">
+                <div class="status_title">
+                    <h2>In progress</h2>
+                    <img src="./assets/img/board_icons/plus_button.svg" alt="Plus Button">
+                </div>
+                <div class="status-content">
+                    <div class="task-card">
                         <div class="empty-task dashed-border d-none">No tasks in progress</div>
                         <div class="status-card">
                             <label class="user-story-label typography-label" for="">User Story</label>
-                            <p class="typography-card-title">Kochwelt Page & Recipe Recommender</p>
-                            <p class="typography-card-subtitle">Build start page with recipe recommendation...</p>
+                            <div class="card-text">
+                                <p class="typography-card-title">Contact Form & Imprint</p>
+                                <p class="typography-card-subtitle">Create a contact form and imprint page...</p>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 50%;"></div>
+                                </div>
+                                <p class="progress-text">1/2 Subtasks</p>
+                            </div>
+                            <div class="contacts-priority-container">
+                                <div class="contacts-container">
+                                    <img class="profile-badge" src="./assets/img/board_icons/badge_anja.svg"
+                                        alt="Profile Badge">
+                                    <img class="profile-badge margin-left-contacts"
+                                        src="./assets/img/board_icons/badge_david.svg" alt="Profile Badge">
+                                    <img class="profile-badge margin-left-contacts"
+                                        src="./assets/img/board_icons/badge_eva.svg" alt="Profile Badge">
+                                </div>
+                                <img class="priority-symbol" src="./assets/img/board_icons/priority_urgent.svg"
+                                    alt="Priority symbol">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="status_container">
-                    <div class="status_title">
-                        <h2>Await feedback</h2>
-                        <img src="./assets/img/board_icons/plus button.svg" alt="Plus Button">
-                    </div>
-                    <div class="status-content">
+            </div>
+            <div class="status_container">
+                <div class="status_title">
+                    <h2>Await feedback</h2>
+                    <img src="./assets/img/board_icons/plus_button.svg" alt="Plus Button">
+                </div>
+                <div class="status-content">
+                    <div class="task-card">
                         <div class="empty-task dashed-border d-none">No tasks awaiting feedback</div>
                         <div class="status-card">
                             <label class="tehnical-task-label typography-label" for="">Technical Task</label>
-                            <p class="typography-card-title">HTML Base Template Creation</p>
-                            <p class="typography-card-subtitle">Create reusable HTML base templates...</p>
+                            <div class="card-text">
+                                <p class="typography-card-title">HTML Base Template Creation</p>
+                                <p class="typography-card-subtitle">Create reusable HTML base templates...</p>
+                            </div>
+                            <div class="contacts-priority-container">
+                                <div class="contacts-container">
+                                    <img class="profile-badge" src="./assets/img/board_icons/badge_david.svg"
+                                        alt="Profile Badge">
+                                    <img class="profile-badge margin-left-contacts"
+                                        src="./assets/img/board_icons/badge_benedikt.svg" alt="Profile Badge">
+                                    <img class="profile-badge margin-left-contacts"
+                                        src="./assets/img/board_icons/badge_anja.svg" alt="Profile Badge">
+                                </div>
+                                <img class="priority-symbol" src="./assets/img/board_icons/priority_low.svg"
+                                    alt="Priority symbol">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-card">
+                        <div class="empty-task dashed-border d-none">No tasks awaiting feedback</div>
+                        <div class="status-card">
+                            <label class="user-story-label typography-label" for="">User Story</label>
+                            <div class="card-text">
+                                <p class="typography-card-title">Daily Kochwelt Recipe</p>
+                                <p class="typography-card-subtitle">Implement daily recipe and portion calculator....
+                                </p>
+                            </div>
+                            <div class="contacts-priority-container">
+                                <div class="contacts-container">
+                                    <img class="profile-badge" src="./assets/img/board_icons/badge_eva.svg"
+                                        alt="Profile Badge">
+                                    <img class="profile-badge margin-left-contacts"
+                                        src="./assets/img/board_icons/badge_anja.svg" alt="Profile Badge">
+                                    <img class="profile-badge margin-left-contacts"
+                                        src="./assets/img/board_icons/badge_tatjana.svg" alt="Profile Badge">
+                                </div>
+                                <img class="priority-symbol" src="./assets/img/board_icons/priority_medium.svg"
+                                    alt="Priority symbol">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="status_container">
-                    <div class="status_title">
-                        <h2>Done</h2>
-                    </div>
-                    <div class="status-content">
+            </div>
+            <div class="status_container">
+                <div class="status_title">
+                    <h2>Done</h2>
+                </div>
+                <div class="status-content">
+                    <div class="task-card">
                         <div class="empty-task dashed-border d-none">No tasks done</div>
                         <div class="status-card">
                             <label class="tehnical-task-label typography-label" for="">Technical Task</label>
-                            <p class="typography-card-title">CSS Architecture Planning</p>
-                            <p class="typography-card-subtitle">Define CSS naming conventions and structure...</p>
+                            <div class="card-text">
+                                <p class="typography-card-title">CSS Architecture Planning</p>
+                                <p class="typography-card-subtitle">Define CSS naming conventions and structure...</p>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 100%;"></div>
+                                </div>
+                                <p class="progress-text">2/2 Subtasks</p>
+                            </div>
+                            <div class="contacts-priority-container">
+                                <div class="contacts-container">
+                                    <img class="profile-badge" src="./assets/img/board_icons/badge_sofia.svg"
+                                        alt="Profile Badge">
+                                    <img class="profile-badge margin-left-contacts"
+                                        src="./assets/img/board_icons/badge_benedikt.svg" alt="Profile Badge">
+                                </div>
+                                <img class="priority-symbol" src="./assets/img/board_icons/priority_urgent.svg"
+                                    alt="Priority symbol">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
 </body>
 
 </html>
