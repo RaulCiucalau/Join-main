@@ -8,6 +8,7 @@ h2 {
     font-weight: 700;
     font-size: 27px;
     line-height: 120%;
+    margin-top: 20px;
 }
 
 h3 {
@@ -24,8 +25,10 @@ p {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding-inline: 96px;
-    padding-block: 110px;
+    padding-inline: 80px;
+    padding-block: 64px;
+    margin-left: 260px;
+    max-width: 1400px;
 }
 
 a {
