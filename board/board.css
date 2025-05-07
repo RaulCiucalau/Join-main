@@ -103,13 +103,21 @@ h1 {
     display: flex;
     justify-content: space-around;
     gap: 26px;
-    height: 24px;
+    padding: 0 64px 0 0;
 }
 
 .status_title {
     display: flex;
     justify-content: space-between;
     width: 260px;
+}
+
+.status_title img {
+    cursor: pointer;
+}
+
+.status_title img:hover {
+    content: url(../assets/img/board_icons/plus_button_hover.svg);
 }
 
 .status_title h2 {
@@ -121,6 +129,9 @@ h1 {
 
 .status-content {
     margin-top: 16px;
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
 }
 
 .empty-task {
@@ -152,6 +163,9 @@ h1 {
     padding: 16px;
     background: #FFFFFF;
     box-shadow: 0px 0px 10px 3px #00000014;
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
 }
 
 .user-story-label {
@@ -161,7 +175,6 @@ h1 {
     padding: 4px 16px;
     border-radius: 8px;
     background: #0038FF;
-    margin-bottom: 24px;
 }
 
 .tehnical-task-label {
@@ -171,7 +184,6 @@ h1 {
     padding: 4px 16px;
     border-radius: 8px;
     background: #1FD7C1;
-    margin-bottom: 24px;
 }
 
 .typography-label {
@@ -193,4 +205,46 @@ h1 {
     font-size: 16px;
     line-height: 120%;
     color: #A8A8A8;
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.progress-bar-container {
+    width: 128px;
+    height: 8px;
+    border-radius: 16px;
+    background: #F4F4F4;
+}
+
+.progress-bar {
+    height: 8px;
+    background: #4589FF;
+    border-radius: 16px;
+}
+
+.progress-text {
+    font-size: 12px;
+}
+
+.contacts-priority-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-badge {
+    width: 36px;
+    height: 36px;
+}
+
+.margin-left-contacts {
+    margin-left: -16px;
+}
+
+.priority-symbol {
+    width: 32px;
+    height: 32px;
 }
