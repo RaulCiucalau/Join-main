@@ -35,16 +35,83 @@ body{
     padding-left: 64px;
 }
 
-.join-360{
-    padding-left: 200px;
-    color: black;
+.main-place{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 64px;
+    height: 100px;
 }
 
-.main-place{
-    background-color: gray;
-    margin-left: 400px;
-    width: 100px;
-    height: 100px;
+.right-down-place{
+  background-color: rgb(224, 223, 223);
+  height: 832px;
+}
+
+.join-360{
+    padding-left: 160px;
+    color:  #2A3647;
+}
+
+.stroked{
+    color: #29abe2;
+}
+
+.center-part{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 256px;
+}
+
+.center-summary{
+    width: 240px;
+    height: 360px;
+    padding-top: 240px;
+    padding-left: 64px; 
+}
+
+.up-part-box{
+    border-radius: 8px;
+    width: 120px;
+    height: 80px;
+    background-color: white;
+
+}
+
+.up-part{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.ToDo{
+    color: black;
+    font-size: medium;
+}
+
+.middle-part-box{
+    border-radius: 8px;
+    width: 240px;
+    height: 80px;
+    background-color: white;
+}
+
+.down-part-box{
+    border-radius: 8px;
+    width: 160px;
+    height: 80px;
+    background-color: white;
+}
+
+.good-morning{
+    color:  #2A3647;
+}
+
+.font-size{
+    font-size: x-large;
 }
 
 /* Sidebar */
