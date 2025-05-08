@@ -1,93 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Add Task</title>
-  <link rel="stylesheet" href="styles/add-task.css" />
-  <link rel="stylesheet" href="styles/navbar-header.css" />
-  <link rel="stylesheet" href="styles/standard_all.css">
-  <link rel="shortcut icon" href="../assets/img/favicon/fav_blue.png" type="image/x-icon">
-</head>
-<body>
-  <aside class="sidebar">
-    <img src="assets/icons/join-main-logo.png" alt="Join Logo" class="logo" />
-    <nav class="nav-menu">
-      <a href="summary.html" class="nav-link">
-        <img src="./assets/icons/icon-summary.png" alt="Summary Icon" />
-        <span>Summary</span>
-      </a>
-      <a href="add_task.html" class="nav-link active">
-        <img src="./assets/icons/icon-add-task.png" alt="Add Task Icon" />
-        <span>Add Task</span>
-      </a>
-      <a href="board.html" class="nav-link">
-        <img src="./assets/icons/icon-board.png" alt="Board Icon" />
-        <span>Board</span>
-      </a>
-      <a href="contacts.html" class="nav-link">
-        <img src="./assets/icons/icon-contacts.png" alt="Contacts Icon" />
-        <span>Contacts</span>
-      </a>
-    </nav>
-    <div class="sidebar-footer">
-      <a href="privacy_policy.html">Privacy Policy</a>
-      <a href="legal_notice.html">Legal Notice</a>
-    </div>
-  </aside>
-
-  <header class="app-header">
-    <h1 class="app-title">Kanban Project Management Tool</h1>
-    <div class="header-actions">
-      <a href="./help.html" class="help-link">
-        <img src="./assets/icons/help.svg" alt="Help" />
-      </a>
-      <div class="user-circle" id="initialLetter">G</div>
-    </div>
-  </header>
-
-  <div class="add-task-container">
-    <div class="task-form-left">
-      <h1>Add Task</h1>
-      <label for="title">Title*</label>
-      <input type="text" id="title" placeholder="Enter a title" required/>
-
-      <label for="description">Description</label>
-      <textarea id="description" placeholder="Enter a description"></textarea>
-
-      <label for="due-date">Due date*</label>
-      <input type="date" id="due-date" required/>
-
-      <label>Priority</label>
-      <div class="priority-group">
-        <button type="button" class="priority urgent">Urgent</button>
-        <button type="button" class="priority medium active">Medium</button>
-        <button type="button" class="priority low">Low</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Task</title>
+    
+    <link rel="stylesheet" href="styles/add-task.css" />
+    
+    <link rel="stylesheet" href="styles/standard_all.css" />
+    <link rel="stylesheet" href="styles/navbar-header.css" />
+    <link rel="icon" href="./assets/icons/join-main-logo.png" type="image/png">
+  </head>
+  <body>
+    <aside class="sidebar">
+      <img src="../../assets/icons/join-main-logo.png" alt="Join Logo" class="logo" />
+    
+      <nav class="nav-menu">
+        <a href="../summary/summary.html" class="nav-link">
+          <img src="../../assets/icons/icon-summary.png" alt="Summary Icon" />
+          <span>Summary</span>
+        </a>
+        <a href="../add_task.html" class="nav-link">
+          <img src="../../assets/icons/icon-add-task.png" alt="Add Task Icon" />
+          <span>Add Task</span>
+        </a>
+        <a href="./board/board.html" class="nav-link">
+          <img src="../../assets/icons/icon-board.png" alt="Board Icon" />
+          <span>Board</span>
+        </a>
+        <a href="contacts.html" class="nav-link">
+          <img src="../../assets/icons/icon-contacts.png" alt="Contacts Icon" />
+          <span>Contacts</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="../privacy_policy.html">Privacy Policy</a>
+        <a href="../legal_notice.html">Legal Notice</a>
       </div>
-    </div>
-
-    <div class="task-form-right">
-      <label for="assigned">Assigned to</label>
-      <select id="assigned">
-        <option>Select contacts to assign</option>
-      </select>
-
-      <label for="category">Category*</label>
-      <select id="category" required>
-        <option>Select task category</option>
-      </select>
-
-      <label for="subtask">Subtasks</label>
-      <div class="subtask-row">
-        <input type="text" id="subtask" placeholder="Add new subtask" />
-        <button type="button">+</button>
+    </aside>
+    <header class="app-header">
+      <h1 class="app-title">Kanban Project Management Tool</h1>
+      <div class="header-actions">
+        <a href="../help.html" class="help-link">
+          <img src="../../assets/icons/help.svg" alt="Help" />
+        </a>
+        <div class="user-circle" id="initialLetter">G</div>
       </div>
+    </header>
 
-      <div class="task-buttons">
-        <button type="reset" class="btn-clear">Clear</button>
-        <button type="submit" class="btn-submit">Create Task</button>
+      <div class="add-task-content">
+        <div class="add-task-main-title"><h1>Add Task</h1></div>
+        <form class="add-task-form">
+          <section class="add-task-1">
+            <div class="add-title-content">
+              <div class="add-title frame-219">
+                <label for="add-task-title"
+                  >Title<span class="red">*</span></label
+                >
+                <input
+               
+                  type="text"
+                  id="add-task-title"
+                  class="add-task-title"
+                  placeholder="Enter a title"
+                  required
+                />
+              </div>
+              <div class="requiredText dp-none" id="required-title">
+                <p class="red">This field is required</p>
+              </div>
+              <div class="task-already-exists dp-none" id="task-already-exists">
+                <p class="red">Task already exists</p>
+              </div>
+            </div>
+            <div class="add-description frame-219">
+              <label for="add-task-description">Description</label>
+              <textarea
+                name=""
+                id="add-task-description"
+                class="add-task-description"
+                placeholder="Enter a Description"
+              ></textarea>
+            </div>
+            <div class="add-date-content">
+              <div class="add-date frame-219">
+                <label for="add-task-due-date"
+                  >Due date<span class="red">*</span></label
+                >
+                <input
+                
+                  type="date"
+                  id="add-task-due-date"
+                  class="add-task-due-date"
+                  placeholder="ide"
+                />
+              </div>
+              <div class="requiredText dp-none" id="required-date">
+                <p class="red dp-none">This field is required</p>
+                <p class="red dp-none">The date must be in the future!</p>
+
+              </div>
+            </div>
+                        <div class="select-priority frame-39">
+              <label for="priority">Priority</label>
+              <div class="priority-btns">
+                <div
+                  class="priority-btn"
+                  id="prio-btn-urgent"
+                  onclick="togglePrio('urgent')"
+                >
+                  <p>Urgent</p>
+                  <img
+                    id="prio-img-urgent"
+                    class="priority-img"
+                    src="./assets/icons/priority-urgent.svg"
+                    alt="Priority Urgent"
+                  />
+                </div>
+                <div
+                  class="priority-btn"
+                  id="prio-btn-medium"
+                  onclick="togglePrio('medium')"
+                >
+                  <p>Medium</p>
+                  <img
+                    id="prio-img-medium"
+                    class="priority-img"
+                    src="./assets/icons/priority-medium.svg"
+                    alt="Priority Medium"
+                  />
+                </div>
+                <div
+                  class="priority-btn"
+                  id="prio-btn-low"
+                  onclick="togglePrio('low')"
+                >
+                  <p>Low</p>
+                  <img
+                    id="prio-img-low"
+                    class="priority-img"
+                    src="./assets/icons/priority-low.svg"
+                    alt="Priority Low"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+          <div class="separator"></div>
+          <section class="add-task-2">
+
+            <div class="assigned-to-section frame-39">
+              <label for="assigned-to">Assigned to</label>
+              <input
+                type="text"
+                id="assigned-to"
+                class="selection"
+                placeholder="Select contacts to assign"
+                
+              />
+              <img
+                id="assigned-to-img-down"
+                class="assigned-to-img dropdown-img"
+                src="./assets/icons/arrow_drop_down.svg"
+                alt="Select contact dropdown arrow"
+                
+              />
+              <img
+                id="assigned-to-img-up"
+                class="assigned-to-img dropdown-img dp-none"
+                src="./assets/icons/arrow_drop_down_up.svg"
+                alt="Select contact dropdown arrow"
+                
+              />
+              <div
+                class="drop-down-contact-list dp-none"
+                id="drop-down-contact-list"
+                
+              ></div>
+              <div id="selected-avatars"></div>
+            </div>
+            <div class="add-category-content">
+              <div class="add-category frame-39">
+                <label for="category">Category<span class="red">*</span></label>
+                <input
+                 
+                  type="text"
+                  id="category"
+                  class="selection"
+                  placeholder="Select task category"
+                 
+                />
+                <img
+                  id="add-category-img-down"
+                  class="add-category-img dropdown-img"
+                  src="./assets/icons/arrow_drop_down.svg"
+                  alt="Add category dropdown arrow"
+                  
+                />
+                <img
+                  id="add-category-img-up"
+                  class="add-category-img dropdown-img dp-none"
+                  src="./assets/icons/arrow_drop_down_up.svg"
+                  alt="Add category dropdown arrow"
+                  
+                />
+                <div
+                  class="drop-down-category-list dp-none"
+                  id="drop-down-category-list"
+                  
+                ></div>
+              </div>
+              <div class="requiredText dp-none" id="required-category">
+                <p class="red">This field is required</p>
+              </div>
+            </div>
+            <div class="add-subtask frame-39">
+              <label for="subtask">Subtasks</label>
+              <input
+                
+                type="text"
+                id="subtask"
+                class="subtask"
+                placeholder="Add new subtask"
+              />
+              <img
+                id="add-subtask-img"
+                class="add-subtask-img"
+                src="./assets/icons/add.svg"
+                alt="Add subtask"
+              />
+              <!-- <div class="cancel-or-accept"> -->
+                <img
+                  
+                  id="cancel-task-img"
+                  class="cancel-task-img subtask-img dp-none"
+                  src="./assets/icons/cancel.svg"
+                  alt="Cancel Subtask"
+                />
+                <div id="small-separator" class="small-separator dp-none"></div>
+                <img
+                  id="accept-task-img"
+                  class="accept-task-img subtask-img dp-none"
+                  src="./assets/icons/check.svg"
+                  alt="Accept Subtask"
+                  
+                />
+              <!-- </div> -->
+              <div class="subtask-list" id="subtask-list"></div>
+            </div>
+          </section>
+        </form>
+        <div class="form-footer">
+          <div class="footnote">
+            <span class="red">*</span>This field is required
+          </div>
+          <div class="form-btns">
+            <div
+             
+              class="clear-btn form-btn"
+              
+              
+            >
+              <p>Clear</p>
+              <img
+                id="clear"
+                class="clear form-btn-img"
+                src="./assets/icons/cancel.svg"
+                alt="Clear Task Image"
+              />
+              <img
+                id="clear-hover"
+                class="clear-hover form-btn-img dp-none"
+                src="./assets/icons/clear-hover.svg"
+                alt="Create Task Image Hover"
+              />
+            </div>
+            <div class="create-btn form-btn">
+              <p>Create Task</p>
+              <img
+                class="create form-btn-img"
+                src="./assets/icons/check-white.svg"
+                alt="Create Task Image"
+              />
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
-  </div>
-</body>
+    </main class="main-add-task">
+    <footer class="footer-resp">
+      <a href="dashboard.html"><div class="menu-btns-resp">
+        <img class="menu-btn-icon-resp"  src="./assets/icons/icon-summary.png" alt="Summary button icon">
+        <p>Summary</p>
+      </div></a>
+      <a href="board.html"><div class="menu-btns-resp">            
+        <img class="menu-btn-icon-resp" src="./assets/icons/icon-board.png" alt="Board button icon">
+        <p>Board</p></div></a>
+      <a href="add-task.html"><div class="menu-btns-resp" id="menu-btn-resp-add-task">            
+        <img class="menu-btn-icon-resp"  src="./assets/icons/icon-add-task.png" alt="Add task button icon">
+        <p>Add Tasks</p></div></a>
+      <a href="contacts.html"><div class="menu-btns-resp">            
+        <img class="menu-btn-icon-resp"  src="./assets/icons/icon-contacts.png" alt="Contacts button icon">
+        <p>Contacts</p>
+      </div></a>
+    </footer>
+</div>
+   
+  </body>
+
+  <script src="js/add-task/prioBtn.js"></script>
 </html>
