@@ -259,3 +259,135 @@ h1 {
     width: 32px;
     height: 32px;
 }
+
+.dialog-container {
+    overflow: hidden;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.13);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+}
+
+.dialog-card {
+    width: 525px;
+    border-radius: 30px;
+    border: none;
+    padding: 36px 40px 36px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 4px 0px #00000029;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: 914px;
+    overflow-y: auto;
+}
+
+.dialog-card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dialog-card-header img:hover {
+    cursor: pointer;
+    filter: brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(600%) hue-rotate(180deg);
+}
+
+.dialog-card-title {
+    font-weight: 700;
+    font-size: 61px;
+    line-height: 120%;
+}
+
+.dialog-card-typography-content {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 120%;
+}
+
+.font-blue {
+    color: #2A3647;
+}
+
+.dialog-card-date-section {
+    display: flex;
+    gap: 26px;
+}
+
+.dialog-card-priority-section {
+    display: flex;
+    align-items: center;
+    gap: 44px;
+}
+
+.dialog-card-priority-type {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dialog-card-contacts-list-badge {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 7px 16px 7px;
+}
+
+.margin-bottom8 {
+    margin-bottom: 8px;
+}
+
+.font-size-16 {
+    font-size: 16px !important;
+}
+
+.dialog-card-subtask-checkbox {
+    display: flex;
+    gap: 16px;
+    margin-left: 16px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    padding: 4px;
+    width: 328px;
+}
+
+.dialog-card-subtask-checkbox:hover {
+    background-color: #d1d1d148;
+}
+
+.dialog-card-subtask-checkbox img:hover {
+    border-radius: 50%;
+    background: #D1D1D1;
+}
+
+.dialog-card-btns-bottom {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.dialog-card-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dialog-card-btn:hover {
+    filter: brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(600%) hue-rotate(180deg);
+    cursor: pointer;
+}
+
+.dialog-card-separator {
+    height: 24;
+    border-width: 1px;
+    border: 1px solid #D1D1D1;
+}
+
+.d-none {
+    display: none;
+}
