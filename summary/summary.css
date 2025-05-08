@@ -4,6 +4,7 @@ body{
     font-family: "Inter", sans-serif;
     background: #F6F7F8;
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 .header{
@@ -252,4 +253,41 @@ body{
     justify-content: center;
     font-weight: bold;
   }
-  
+
+  .guest-button{
+    background-color: #29abe2;
+    border: none;
+    cursor: pointer;
+  }
+
+  .user-circle:hover{
+    cursor: pointer;
+  }
+
+  .switch-left{
+    right: -320px;
+    transition: right 0.3s ease;
+    position: relative;
+    display: inline-block;
+  }
+
+  .user-circle:hover .side-menu-box{
+    display: block;
+  }
+
+  .side-menu-box{
+    width: 150px;
+    background-color: #2a3647;
+    border-radius: 4px;
+  }
+
+  .side-menu-text{
+    font-size: larger;
+    padding-left: 16px;
+    color: white;
+    text-decoration: none;
+  }
+
+  .side-menu-text:hover{
+    color: #29abe2;
+  }  

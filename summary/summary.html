@@ -45,13 +45,22 @@
       <a href="../help.html" class="help-link">
         <img src="../assets/icons/help.svg" alt="Help" />
       </a>
-      <div class="user-circle" id="initialLetter">G</div>
+      <div onclick="openSideMenu()" class="user-circle" id="initialLetter"><button class="guest-button" onclick="openSideMenu()">G</button></div>
     </div>
   </header>
 
   <div class="right-down-place">
    <div class="main-place">
     <h1 class="join-360">Join 360</h1><h1 class="stroked">|</h1><p>Key Metrics at a Glance</p>
+    
+      <div id="sideMenu" class="switch-left" onclick="closeSideMenu()">
+       <div class="side-menu-box">
+        <a class="side-menu-text" href="../legal_notice.html">Legal Notice</a>
+        <a class="side-menu-text" href="../privacy_policy.html">Privacy Policy</a>
+        <a class="side-menu-text" href="../index.html">Log out</a>
+       </div>
+      </div>
+
     </div>
 
     <div class="center-part">
@@ -95,5 +104,14 @@
      </div>
    </div>
 
+   <script>
+    function closeSideMenu(){
+        document.getElementById("sideMenu").style.right = "-320px";
+    }
+    function openSideMenu(){
+        document.getElementById("sideMenu").style.right = "0px";
+    }
+
+   </script>
 </body>
 </html>
