@@ -136,6 +136,10 @@ h1 {
     color: #42526E;
 }
 
+.task-card {
+    cursor: pointer;
+}
+
 .status-content {
     margin-top: 16px;
     gap: 16px;
@@ -175,7 +179,6 @@ h1 {
     gap: 24px;
     display: flex;
     flex-direction: column;
-    cursor: pointer;
 }
 
 .user-story-label {
@@ -355,6 +358,10 @@ h1 {
     width: 328px;
 }
 
+.dialog-card-subtask-checkbox img {
+    cursor: pointer;
+}
+
 .dialog-card-subtask-checkbox:hover {
     background-color: #d1d1d148;
 }
@@ -390,3 +397,4 @@ h1 {
 .d-none {
     display: none;
 }
+
