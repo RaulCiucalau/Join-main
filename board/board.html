@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../../styles/navbar-header.css">
     <script src="../js/nav_header.js"></script>
     <script src="board.js"></script>
+    <script src="dialog-add-task.js"></script>
 </head>
 
 <body onload="init()">
@@ -78,7 +79,7 @@
             </div>
         </div>
     </div>
-    <div class="dialog-add-task-container d-none">
+    <div class="dialog-add-task-container">
         <div class="dialog-add-task">
             <form class="add-task-form">
                 <section class="add-task-1">
@@ -116,17 +117,17 @@
                         <div class="priority-btns">
                             <div class="priority-btn" id="prio-btn-urgent" onclick="togglePrio('urgent')">
                                 <p>Urgent</p>
-                                <img id="prio-img-urgent" class="priority-img" src="./assets/icons/priority-urgent.svg"
+                                <img id="prio-img-urgent" class="priority-img" src="../assets/icons/priority-urgent.svg"
                                     alt="Priority Urgent" />
                             </div>
                             <div class="priority-btn" id="prio-btn-medium" onclick="togglePrio('medium')">
                                 <p>Medium</p>
-                                <img id="prio-img-medium" class="priority-img" src="./assets/icons/priority-medium.svg"
+                                <img id="prio-img-medium" class="priority-img" src="../assets/icons/priority-medium.svg"
                                     alt="Priority Medium" />
                             </div>
                             <div class="priority-btn" id="prio-btn-low" onclick="togglePrio('low')">
                                 <p>Low</p>
-                                <img id="prio-img-low" class="priority-img" src="./assets/icons/priority-low.svg"
+                                <img id="prio-img-low" class="priority-img" src="../assets/icons/priority-low.svg"
                                     alt="Priority Low" />
                             </div>
                         </div>
@@ -139,9 +140,9 @@
                         <label for="assigned-to">Assigned to</label>
                         <input type="text" id="assigned-to" class="selection" placeholder="Select contacts to assign" />
                         <img id="assigned-to-img-down" class="assigned-to-img dropdown-img"
-                            src="./assets/icons/arrow_drop_down.svg" alt="Select contact dropdown arrow" />
+                            src="../assets/icons/arrow_drop_down.svg" alt="Select contact dropdown arrow" />
                         <img id="assigned-to-img-up" class="assigned-to-img dropdown-img dp-none"
-                            src="./assets/icons/arrow_drop_down_up.svg" alt="Select contact dropdown arrow" />
+                            src="../assets/icons/arrow_drop_down_up.svg" alt="Select contact dropdown arrow" />
                         <div class="drop-down-contact-list dp-none" id="drop-down-contact-list"></div>
                         <div id="selected-avatars"></div>
                     </div>
@@ -150,9 +151,9 @@
                             <label for="category">Category<span class="red">*</span></label>
                             <input type="text" id="category" class="selection" placeholder="Select task category" />
                             <img id="add-category-img-down" class="add-category-img dropdown-img"
-                                src="./assets/icons/arrow_drop_down.svg" alt="Add category dropdown arrow" />
+                                src="../assets/icons/arrow_drop_down.svg" alt="Add category dropdown arrow" />
                             <img id="add-category-img-up" class="add-category-img dropdown-img dp-none"
-                                src="./assets/icons/arrow_drop_down_up.svg" alt="Add category dropdown arrow" />
+                                src="../assets/icons/arrow_drop_down_up.svg" alt="Add category dropdown arrow" />
                             <div class="drop-down-category-list dp-none" id="drop-down-category-list"></div>
                         </div>
                         <div class="requiredText dp-none" id="required-category">
@@ -162,14 +163,14 @@
                     <div class="add-subtask frame-39">
                         <label for="subtask">Subtasks</label>
                         <input type="text" id="subtask" class="subtask" placeholder="Add new subtask" />
-                        <img id="add-subtask-img" class="add-subtask-img" src="./assets/icons/add.svg"
+                        <img id="add-subtask-img" class="add-subtask-img" style="top: 34px;" src="../assets/icons/add.svg"
                             alt="Add subtask" />
                         <!-- <div class="cancel-or-accept"> -->
                         <img id="cancel-task-img" class="cancel-task-img subtask-img dp-none"
-                            src="./assets/icons/cancel.svg" alt="Cancel Subtask" />
+                            src="../assets/icons/cancel.svg" alt="Cancel Subtask" />
                         <div id="small-separator" class="small-separator dp-none"></div>
                         <img id="accept-task-img" class="accept-task-img subtask-img dp-none"
-                            src="./assets/icons/check.svg" alt="Accept Subtask" />
+                            src="../assets/icons/check.svg" alt="Accept Subtask" />
                         <!-- </div> -->
                         <div class="subtask-list" id="subtask-list"></div>
                     </div>
@@ -182,14 +183,14 @@
                 <div class="form-btns">
                     <div class="clear-btn form-btn">
                         <p>Clear</p>
-                        <img id="clear" class="clear form-btn-img" src="./assets/icons/cancel.svg"
+                        <img id="clear" class="clear form-btn-img" src="../assets/icons/cancel.svg"
                             alt="Clear Task Image" />
                         <img id="clear-hover" class="clear-hover form-btn-img dp-none"
-                            src="./assets/icons/clear-hover.svg" alt="Create Task Image Hover" />
+                            src="../assets/icons/clear-hover.svg" alt="Create Task Image Hover" />
                     </div>
                     <div class="create-btn form-btn">
                         <p>Create Task</p>
-                        <img class="create form-btn-img" src="./assets/icons/check-white.svg" alt="Create Task Image" />
+                        <img class="create form-btn-img" src="../assets/icons/check-white.svg" alt="Create Task Image" />
                     </div>
                 </div>
             </div>
