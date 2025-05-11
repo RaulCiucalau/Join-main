@@ -123,10 +123,13 @@ h1 {
 
 .status_title img {
     cursor: pointer;
+    transition: all 200ms ease-in-out;
 }
 
 .status_title img:hover {
     content: url(../assets/img/board_icons/plus_button_hover.svg);
+    animation-timing-function: ease-in-out;
+    animation-duration: 200ms;
 }
 
 .status_title h2 {
