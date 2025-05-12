@@ -7,21 +7,35 @@ function init() {
 }
 
 async function onloadFunc() {
-    let contactsResponse = await fetchData("contacts");
-    let ContactsKeysArrays = Object.keys(contactsResponse);
-    for (let index = 0; index < ContactsKeysArrays.length; index++) {
-        contacts.push(
-            {
-                id: ContactsKeysArrays[index],
-                name: contactsResponse[ContactsKeysArrays[index]],
-            }
-        )
-        contacts.forEach(contact => console.log(contact.name));
+    const contactsResponse = await fetchData("contacts");
+    contacts = [];
 
+    for (const [id, data] of Object.entries(contactsResponse)) {
+        contacts.push({ id, ...data });
     }
+
+    contacts.forEach(contact => console.log(contact.name));
+    console.table(contacts);
+
+    renderContactstoHTML();
 }
 
 async function fetchData(path) {
-    let response = await fetch(BASE_URL + path + ".json");
-    return responseToJson = await response.json();
+    const response = await fetch(BASE_URL + path + ".json");
+    return await response.json();
+}
+
+function renderContactstoHTML() {
+    const mainDiv = document.getElementById('mainContent');
+
+    const contact = contacts[0];
+
+    if (!contact) {
+        mainDiv.innerHTML += <p>No contact found.</p>;
+        return;
+    }
+
+    document.getElementById('name').textContent = contact.name  || "N/A";
+    document.getElementById('phone').textContent = contact.phone  || "N/A";
+    document.getElementById('e-mail').textContent = contact.e_mail || "N/A";
 }
