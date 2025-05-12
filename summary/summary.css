@@ -263,11 +263,14 @@ body{
     cursor: pointer;
   }
 
-  .switch-left{
-    right: -320px;
-    transition: right 0.3s ease;
+  .side-menu-open{
+    top: 64px;
+    right: 8px;
+    width: 160px;
+    height: 200px;
+    transition: all 0.2s ease;
     position: relative;
-    display: inline-block;
+    overflow-x: hidden;
   }
 
   .user-circle:hover .side-menu-box{
@@ -275,9 +278,16 @@ body{
   }
 
   .side-menu-box{
-    width: 150px;
+    position: absolute;
+    right: 0;
+    width: 160px;
+    height: 200px;
     background-color: #2a3647;
     border-radius: 4px;
+  }
+
+  .side-menu-close{
+    transform: translateX(160%);
   }
 
   .side-menu-text{
@@ -290,3 +300,4 @@ body{
   .side-menu-text:hover{
     color: #29abe2;
   }  
+
