@@ -213,7 +213,7 @@
             <h1>Board</h1>
             <div class="board-header-btn-input">
                 <div class="board_header_input">
-                    <input type="text" placeholder="Find Task" id="boardInput">
+                    <input class="find-task-input" type="text" placeholder="Find Task" id="boardInput">
                     <div class="search_container">
                         <div class="board_separator_header_input"></div>
                         <button class="search_icon_btn">
@@ -231,7 +231,7 @@
             <div class="status_container">
                 <div class="status_title">
                     <h2>To do</h2>
-                    <img src="../assets/img/board_icons/plus_button.svg" alt="Plus Button">
+                    <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg" alt="Plus Button">
                 </div>
                 <div class="status-content">
                     <div class="task-card">
@@ -242,7 +242,7 @@
             <div class="status_container">
                 <div class="status_title">
                     <h2>In progress</h2>
-                    <img src="../assets/img/board_icons/plus_button.svg" alt="Plus Button">
+                    <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg" alt="Plus Button">
                 </div>
                 <div class="status-content">
                     <div class="task-card">
@@ -278,7 +278,7 @@
             <div class="status_container">
                 <div class="status_title">
                     <h2>Await feedback</h2>
-                    <img src="../assets/img/board_icons/plus_button.svg" alt="Plus Button">
+                    <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg" alt="Plus Button">
                 </div>
                 <div class="status-content">
                     <div class="task-card">
