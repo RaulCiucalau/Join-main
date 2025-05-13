@@ -39,42 +39,51 @@ body{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-left: 64px;
-    height: 100px;
+    padding-left: 184px;
+    height: 160px;
 }
 
 .right-down-place{
   background-color: rgb(224, 223, 223);
-  height: 832px;
+  height: 90vh;
 }
 
 .join-360{
-    padding-left: 160px;
+    padding-left: 48px;
     color:  #2A3647;
+    font-size: 56px;
 }
 
 .stroked{
+  font-size: 56px;
     color: #29abe2;
+}
+
+.key-metrics{
+  font-size: 24px;
 }
 
 .center-part{
     display: flex;
-    justify-content: center;
     align-items: center;
-    margin-left: 256px;
+    margin-left: 216px;
 }
 
 .center-summary{
-    width: 240px;
-    height: 360px;
-    padding-top: 240px;
-    padding-left: 64px; 
+    width: 560px;
+    height: 562px;
+    padding-top: 120px;
+    padding-left: 24px; 
 }
 
 .up-part-box{
-    border-radius: 8px;
-    width: 120px;
-    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    border-radius: 16px;
+    width: 176px;
+    height: 144px;
     background-color: white;
 
 }
@@ -83,7 +92,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 24px;
+    gap: 12px;
     margin-top: 24px;
 }
 
@@ -93,16 +102,20 @@ body{
 }
 
 .middle-part-box{
-    border-radius: 8px;
-    width: 240px;
-    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    border-radius: 16px;
+    width: 360px;
+    height: 144px;
     background-color: white;
 }
 
 .down-part-box{
-    border-radius: 8px;
-    width: 160px;
-    height: 80px;
+    border-radius: 16px;
+    width: 112px;
+    height: 144px;
     background-color: white;
 }
 
@@ -111,7 +124,7 @@ body{
 }
 
 .font-size{
-    font-size: x-large;
+    font-size: 32px;
 }
 
 /* Sidebar */
@@ -138,6 +151,7 @@ body{
   }
   
   .logo {
+    padding-top: 56px;
     width: 72px;
     height: auto;
   }
@@ -198,7 +212,7 @@ body{
     gap: 8px;
     font-size: 14px;
     color: #cdcdcd;
-    margin-bottom: 32px;
+    margin-bottom: 48px;
     width: 100%;
   }
   
@@ -253,6 +267,30 @@ body{
     font-weight: bold;
   }
 
+  .check-white{
+    background-color: #2a3647;
+    color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+
+    .priority-urgent-white{
+    background-color: #FF3D00;
+    color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+
   .guest-button{
     background-color: #29abe2;
     border: none;
@@ -264,7 +302,7 @@ body{
   }
 
   .side-menu-open{
-    top: 64px;
+    top: 20px;
     right: 8px;
     width: 160px;
     height: 200px;
@@ -301,3 +339,11 @@ body{
     color: #29abe2;
   }  
 
+  .p-big-number{
+  font-weight: bold;
+  font-size: 24px;
+  }
+
+  .p-small-number{
+    font-size: 12px;
+  }

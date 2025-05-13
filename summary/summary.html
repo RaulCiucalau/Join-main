@@ -8,6 +8,7 @@
   <!-- <link rel="stylesheet" href="../styles/standard_all.css"> -->
   <link rel="stylesheet" href="summary.css">
   <link rel="shortcut icon" href="../assets/img/favicon/fav_blue.png" type="image/x-icon">
+  <script src="./summary.js"></script>
   <title>Summary Guest</title>
 </head>
 <body>
@@ -45,13 +46,13 @@
       <a href="../help.html" class="help-link">
         <img src="../assets/icons/help.svg" alt="Help" />
       </a>
-      <div onclick="openCloseSideMenu()" class="user-circle" id="initialLetter"><button class="guest-button" onclick="openSideMenu()">G</button></div>
+      <div onclick="openCloseSideMenu()" class="user-circle" id="initialLetter"><button class="guest-button" onclick="openCloseSideMenu()">G</button></div>
     </div>
   </header>
 
   <div class="right-down-place">
    <div class="main-place">
-    <h1 class="join-360">Join 360</h1><h1 class="stroked">|</h1><p>Key Metrics at a Glance</p>
+    <h1 class="join-360">Join 360</h1><h1 class="stroked">|</h1><p class="key-metrics">Key Metrics at a Glance</p>
     
       <div id="sideMenu" class="side-menu-open side-menu-close" onclick="openCloseSideMenu()">
        <div class="side-menu-box">
@@ -69,28 +70,52 @@
 
           <div class="up-part">
            <div class="up-part-box">
-            <p class="ToDo">1 To-do</p>
+            <div class="user-circle check-white"><img src="../assets/icons/edit-blue.svg" /></div>
+            <div>
+             <p class="p-big-number">1</p>
+             <p class="ToDo">To-Do</p>
+            </div>
            </div>
+
            <div class="up-part-box">
-            <p class="ToDo">1 Done</p>
+            <div class="user-circle check-white"><img src="../assets/icons/check-white.svg" /></div>
+            <div>
+            <p class="p-big-number">1</p>
+            <p class="ToDo">Done</p>
+            </div>
            </div>
           </div>
 
           <div class="up-part">
            <div class="middle-part-box">
-            <p class="ToDo">1 Urgent | Date</p>
-           </div>
+            <div class="user-circle priority-urgent-white"><img src="../assets/icons/priority-urgent-white.svg" /></div>
+              <div>
+               <p class="p-big-number">1</p><p class="ToDo">Urgent</p>
+              </div>
+
+              <div>
+               <p>|</p>
+              </div>
+
+              <div>
+               <p class="p-small-number">October 16, 2022</p><p class="ToDo">Upcoming Deadline</p>
+              </div>
+
+            </div>
           </div>
 
           <div class="up-part">
             <div class="down-part-box">
-              <p class="ToDo">5 Task in Board</p>
+              <p class="p-big-number">5</p>
+              <p class="ToDo">Tasks in Board</p>
             </div>
             <div class="down-part-box">
-              <p class="ToDo">2 Task in Progress</p>
+              <p class="p-big-number">2</p>
+              <p class="ToDo">Tasks in Progress</p>
             </div>
             <div class="down-part-box">
-              <p class="ToDo">2 Awaiting feedback</p>
+              <p class="p-big-number">2</p>
+              <p class="ToDo">Awaiting feedback</p>
             </div>
            </div>
 
@@ -104,12 +129,5 @@
      </div>
    </div>
 
-   <script>
-    function openCloseSideMenu(){
-        document.getElementById("sideMenu").classList.toggle('side-menu-close');
-    }
-
-
-   </script>
 </body>
 </html>
