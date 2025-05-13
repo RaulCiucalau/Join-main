@@ -1,7 +1,7 @@
 .content {
-    padding-inline: 80px;
+    padding-inline: 100px;
     padding-block: 64px;
-    margin-left: 260px;
+    margin-left: 200px;
     max-width: 1400px;
 }
 
@@ -401,3 +401,20 @@ h1 {
     display: none;
 }
 
+.close-btn {
+    width: 32px;
+    height: 32px;
+
+}
+
+.close-btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.close-btn:hover {
+    background-color: rgba(238, 238, 238, 1);
+    border-radius: 50%;
+    cursor: pointer;
+}
