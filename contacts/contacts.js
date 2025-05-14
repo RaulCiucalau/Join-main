@@ -41,6 +41,7 @@ function init() {
   rightContactDetailsHideOnLoad();
 }
 
+<<<<<<< HEAD
 function renderLeftColumnContacts() {
   leftContactsList.innerHTML = "";
   users = fireBase.users;
@@ -253,4 +254,38 @@ async function saveEditedContact(key) {
   } catch (error) {
     console.error("Error updating contact:", error);
   }
+=======
+async function onloadFunc() {
+    const contactsResponse = await fetchData("contacts");
+    contacts = [];
+
+    for (const [id, data] of Object.entries(contactsResponse)) {
+        contacts.push({ id, ...data });
+    }
+
+    contacts.forEach(contact => console.log(contact.name));
+    console.table(contacts);
+
+    renderContactstoHTML();
+}
+
+async function fetchData(path) {
+    const response = await fetch(BASE_URL + path + ".json");
+    return await response.json();
+>>>>>>> 838681081a96435657132c4016760221ef6798c7
+}
+
+function renderContactstoHTML() {
+    const mainDiv = document.getElementById('mainContent');
+
+    const contact = contacts[0];
+
+    if (!contact) {
+        mainDiv.innerHTML += <p>No contact found.</p>;
+        return;
+    }
+
+    document.getElementById('name').textContent = contact.name  || "N/A";
+    document.getElementById('phone').textContent = contact.phone  || "N/A";
+    document.getElementById('e-mail').textContent = contact.e_mail || "N/A";
 }
