@@ -97,8 +97,10 @@ body{
 }
 
 .ToDo{
+    display: flex;
+    justify-content: center;
     color: black;
-    font-size: medium;
+    font-size: 18px;
 }
 
 .middle-part-box{
@@ -279,7 +281,7 @@ body{
     font-weight: bold;
   }
 
-    .priority-urgent-white{
+  .priority-urgent-white{
     background-color: #FF3D00;
     color: white;
     border-radius: 50%;
@@ -302,8 +304,7 @@ body{
   }
 
   .side-menu-open{
-    top: 20px;
-    right: 8px;
+    padding-top: 44px;
     width: 160px;
     height: 200px;
     transition: all 0.2s ease;
@@ -317,11 +318,18 @@ body{
 
   .side-menu-box{
     position: absolute;
-    right: 0;
-    width: 160px;
-    height: 200px;
+    width: 150px;
+    height: 158px;
     background-color: #2a3647;
-    border-radius: 4px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+  }
+
+  .side-box-menu{
+    padding-top: 24px;
+    width: 150px;
+    height: 140px;
   }
 
   .side-menu-close{
@@ -329,6 +337,7 @@ body{
   }
 
   .side-menu-text{
+    padding-top: 16px;
     font-size: larger;
     padding-left: 16px;
     color: white;
@@ -340,10 +349,34 @@ body{
   }  
 
   .p-big-number{
+  display: flex;
+  justify-content: center;
   font-weight: bold;
-  font-size: 24px;
+  margin: 8px;
+  font-size: 48px;
   }
 
   .p-small-number{
-    font-size: 12px;
+    font-size: 18px;
+    font-weight: bold;
   }
+
+  .overflow{
+    padding-left: 8px;
+    overflow-x: hidden;
+  }
+
+  .gap-between-a-tags{
+    padding-bottom: 20px;
+  }
+
+ .text-center{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+ }
+
+ div.a{
+   text-align: center;
+ }
