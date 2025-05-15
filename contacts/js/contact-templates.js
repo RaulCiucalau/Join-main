@@ -125,3 +125,50 @@ function displayAddContactOverlay()
         </div>
       </div>`;
 }
+
+function editContactOverlay(key, users)
+{
+  let user = users[key];
+  let overlayBody = document.getElementById('overlayArea'); 
+  overlayBody.innerHTML = `
+      <div onclick="closeEditOverlay()" id="outer-edit-contact-overlay">
+        <div onclick="stopPropagation(event)" id="edit-contact-overlay">
+          <div id="left-edit-contact-column" onclick="stopPropagation(event)">
+            <button id="closeEditOverlay" onclick="closeEditOverlay()">X</button>
+            <h1 id="edit-contact-heading">Edit contact</h1>
+            <img id="overlay-join-logo" src="/assets/icons/Capa 2.svg" alt="" />
+          </div>
+          <div id="right-edit-contact-column">
+            <div class="new-contact-icon">
+              <img src="/assets/icons/new-contact-icon.svg"/>
+            </div>
+            <div id="edit-contact-options">
+              <form id="editContactForm" data-key="${key}" class="edit-contact-form" onsubmit="return validateAndSubmitForm(event)">
+                <div class="input-group">
+                  <input type="text" id="fullName" value="${user.name}" placeholder="Name" />
+                  <img class="icon" src="/assets/icons/person.svg">
+                  <small class="error-message"></small>
+                </div>
+                <div class="input-group">
+                  <input id="new-email" value="${user.e_mail}" placeholder="E-Mail" />
+                  <img class="icon" src="/assets/icons/mail.svg">
+                  <small class="error-message"></small>
+                </div>
+                <div class="input-group">
+                  <input type="tel" id="new-phone" value="${user.phone}" placeholder="Phone" />
+                  <img class="icon" src="/assets/icons/call.svg">
+                  <small class="error-message"></small>
+                </div>
+                <div id="button-area">
+                  <button type="button" onclick="deleteContactFromDatabase('${key}', users)" id="cancel-edit-contact" class="edit-contacts-overlay-btns">
+                    Delete
+                  </button>
+                  <button type="submit" class="edit-contacts-overlay-btns">
+                    Save ✓
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>`;
+}
