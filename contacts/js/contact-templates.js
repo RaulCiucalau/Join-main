@@ -73,3 +73,55 @@ function contactDetailsAreaTemplate(paramKey, users) {
               </div>
             </div>`;
 }
+
+function displayAddContactOverlay()
+{
+  let overlayBody = document.getElementById('overlayArea'); 
+  let realBody = document.getElementById('body');
+  
+  overlayBody.innerHTML += `
+      <div onclick="closeAddContactOverlay()" id="outer-add-contact-overlay">
+        <div onclick="stopPropagation(event)" id="add-contact-overlay">
+          <div id="left-add-contact-column">
+            <div id="add-contact-header-area">
+              <img id="overlay-join-logo" src="/assets/icons/Capa 2.svg" alt="" />
+              <h1 id="add-contact-heading">Add contact</h1>
+              <h2>Tasks are better with a team!</h2>
+            </div>
+            <div><button id="closeOverlayButton" onclick="closeOverlay()">X</button></div>
+          </div>
+          <div id="right-add-contact-column">
+            <div class="new-contact-icon">
+              <img src="/assets/icons/new-contact-icon.svg" alt="" />
+            </div>
+            <div id="add-contact-options">
+              <form id="addContactForm" class="add-contact-form" onsubmit="return validateAndSubmitForm(event)">
+                <div class="input-group">
+                  <input type="text" id="fullName" placeholder="Name" />
+                  <img class="icon" src="/assets/icons/person.svg">
+                  <small class="error-message"></small>
+                </div>
+                <div class="input-group">
+                  <input id="new-email" placeholder="E-Mail" />
+                  <img class="icon" src="/assets/icons/mail.svg">
+                  <small class="error-message"></small>
+                </div>
+                <div class="input-group">
+                  <input type="tel" id="new-phone" placeholder="Phone" />
+                  <img class="icon" src="/assets/icons/call.svg">
+                  <small class="error-message"></small>
+                </div>
+                <div class="create-contact-btn" id="button-area">
+                  <button type="button" onclick="closeOverlay()" id="cancel-add-contact" class="add-contacts-overlay-btns">
+                    Cancel X
+                  </button>
+                  <button type="button" onclick="getOverlayData()" id="create-contact" class="add-contacts-overlay-btns">
+                    Create contact ✓
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>`;
+}
