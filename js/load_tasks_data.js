@@ -14,7 +14,8 @@ async function onloadFunc() {
                 category: data.category,
                 priority: data.priority,
                 due_date: data.due_date,
-                assigned_to: data.assigned_to
+                assigned_to: data.assigned_to,
+                status: data.status
             }
         
         )

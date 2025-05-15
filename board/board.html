@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Board</title>
+    <script src="../js/nav_header.js"></script>
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <link rel="stylesheet" href="../styles/assets.css">
     <link rel="stylesheet" href="../styles/standard_all.css">
@@ -12,10 +13,12 @@
     <link rel="stylesheet" href="dialog-add-task.css">
     <link rel="shortcut icon" href="../assets/img/favicon/fav_blue.png" type="image/x-icon">
     <link rel="stylesheet" href="../../styles/navbar-header.css">
-    <script src="../js/nav_header.js"></script>
-    <script src="board.js"></script>
+    
     <script src="dialog-add-task.js"></script>
     <script src="../js/load_tasks_data.js"></script>
+    <script src="board-templates.js"></script>
+    <script src="board.js"></script>
+    
 </head>
 
 <body onload="init()">
@@ -233,7 +236,7 @@
                     <h2>To do</h2>
                     <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg" alt="Plus Button">
                 </div>
-                <div class="status-content">
+                <div id="statusToDo" class="status-content">
                     <div class="task-card">
                         <div class="empty-task dashed-border">No tasks to do</div>
                     </div>
@@ -244,34 +247,9 @@
                     <h2>In progress</h2>
                     <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg" alt="Plus Button">
                 </div>
-                <div class="status-content">
+                <div id="statusInProgress" class="status-content">
                     <div class="task-card">
-                        <div class="empty-task dashed-border d-none">No tasks in progress</div>
-                        <div class="status-card">
-                            <div class="user-story-label typography-label" for="">User Story</div>
-                            <div class="card-text">
-                                <p class="typography-card-title">Contact Form & Imprint</p>
-                                <p class="typography-card-subtitle">Create a contact form and imprint page...</p>
-                            </div>
-                            <div class="progress-container">
-                                <div class="progress-bar-container">
-                                    <div class="progress-bar" style="width: 50%;"></div>
-                                </div>
-                                <p class="progress-text">1/2 Subtasks</p>
-                            </div>
-                            <div class="contacts-priority-container">
-                                <div class="contacts-container">
-                                    <img class="profile-badge" src="../assets/img/board_icons/badge_anja.svg"
-                                        alt="Profile Badge">
-                                    <img class="profile-badge margin-left-contacts"
-                                        src="../assets/img/board_icons/badge_david.svg" alt="Profile Badge">
-                                    <img class="profile-badge margin-left-contacts"
-                                        src="../assets/img/board_icons/badge_eva.svg" alt="Profile Badge">
-                                </div>
-                                <img class="priority-symbol" src="../assets/img/board_icons/priority_urgent.svg"
-                                    alt="Priority symbol">
-                            </div>
-                        </div>
+                        <div class="empty-task dashed-border">No tasks in progress</div>
                     </div>
                 </div>
             </div>
@@ -280,51 +258,9 @@
                     <h2>Await feedback</h2>
                     <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg" alt="Plus Button">
                 </div>
-                <div class="status-content">
+                <div id="statusAwaitFeedback" class="status-content">
                     <div class="task-card">
-                        <div class="empty-task dashed-border d-none">No tasks awaiting feedback</div>
-                        <div class="status-card">
-                            <div class="tehnical-task-label typography-label" for="">Technical Task</div>
-                            <div class="card-text">
-                                <p class="typography-card-title">HTML Base Template Creation</p>
-                                <p class="typography-card-subtitle">Create reusable HTML base templates...</p>
-                            </div>
-                            <div class="contacts-priority-container">
-                                <div class="contacts-container">
-                                    <img class="profile-badge" src="../assets/img/board_icons/badge_david.svg"
-                                        alt="Profile Badge">
-                                    <img class="profile-badge margin-left-contacts"
-                                        src="../assets/img/board_icons/badge_benedikt.svg" alt="Profile Badge">
-                                    <img class="profile-badge margin-left-contacts"
-                                        src="../assets/img/board_icons/badge_anja.svg" alt="Profile Badge">
-                                </div>
-                                <img class="priority-symbol" src="../assets/img/board_icons/priority_low.svg"
-                                    alt="Priority symbol">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="task-card">
-                        <div class="empty-task dashed-border d-none">No tasks awaiting feedback</div>
-                        <div class="status-card">
-                            <div class="user-story-label typography-label" for="">User Story</div>
-                            <div class="card-text">
-                                <p class="typography-card-title">Daily Kochwelt Recipe</p>
-                                <p class="typography-card-subtitle">Implement daily recipe and portion calculator....
-                                </p>
-                            </div>
-                            <div class="contacts-priority-container">
-                                <div class="contacts-container">
-                                    <img class="profile-badge" src="../assets/img/board_icons/badge_eva.svg"
-                                        alt="Profile Badge">
-                                    <img class="profile-badge margin-left-contacts"
-                                        src="../assets/img/board_icons/badge_anja.svg" alt="Profile Badge">
-                                    <img class="profile-badge margin-left-contacts"
-                                        src="../assets/img/board_icons/badge_tatjana.svg" alt="Profile Badge">
-                                </div>
-                                <img class="priority-symbol" src="../assets/img/board_icons/priority_medium.svg"
-                                    alt="Priority symbol">
-                            </div>
-                        </div>
+                        <div class="empty-task dashed-border">No tasks awaiting feedback</div>
                     </div>
                 </div>
             </div>
@@ -332,32 +268,9 @@
                 <div class="status_title">
                     <h2>Done</h2>
                 </div>
-                <div class="status-content">
+                <div id="statusDone" class="status-content">
                     <div class="task-card">
-                        <div class="empty-task dashed-border d-none">No tasks done</div>
-                        <div class="status-card">
-                            <div class="tehnical-task-label typography-label" for="">Technical Task</div>
-                            <div class="card-text">
-                                <p class="typography-card-title">CSS Architecture Planning</p>
-                                <p class="typography-card-subtitle">Define CSS naming conventions and structure...</p>
-                            </div>
-                            <div class="progress-container">
-                                <div class="progress-bar-container">
-                                    <div class="progress-bar" style="width: 100%;"></div>
-                                </div>
-                                <p class="progress-text">2/2 Subtasks</p>
-                            </div>
-                            <div class="contacts-priority-container">
-                                <div class="contacts-container">
-                                    <img class="profile-badge" src="../assets/img/board_icons/badge_sofia.svg"
-                                        alt="Profile Badge">
-                                    <img class="profile-badge margin-left-contacts"
-                                        src="../assets/img/board_icons/badge_benedikt.svg" alt="Profile Badge">
-                                </div>
-                                <img class="priority-symbol" src="../assets/img/board_icons/priority_urgent.svg"
-                                    alt="Priority symbol">
-                            </div>
-                        </div>
+                        <div class="empty-task dashed-border">No tasks done</div>
                     </div>
                 </div>
             </div>
