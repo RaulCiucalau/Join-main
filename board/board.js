@@ -19,13 +19,13 @@ const statusIds = [
     { id: "AwaitFeedback", label: "awaiting feedback" },
     { id: "Done", label: "done" }
 ];
-
 let currentDraggedTaskId;
 
 async function init() {
     await onloadFunc();
     includeHTML();
     renderCards(tasks);
+    renderBigTaskDialog(tasks);
 }
 
 function openAddTaskDialog() {
@@ -33,9 +33,22 @@ function openAddTaskDialog() {
     dialog.classList.toggle('d-none');
 }
 
-function toggleDialog() {
+function toggleAddTaskDialog() {
     let dialog = document.getElementById('addTaskDialog')
     dialog.classList.toggle('d-none');
+}
+
+function toggleBigTaskDialog() {
+    let bigDialog = document.getElementById('bigTaskDialog')
+    bigDialog.classList.toggle('d-none-big-dialog');
+}
+
+function openBigTaskDialogById(taskId) {
+    const task = tasks.find(t => t.id === taskId);
+    if (!task) return;
+    const bigDialog = document.getElementById('bigTaskDialog');
+    bigDialog.innerHTML = getBigTaskDialog(task);
+    bigDialog.classList.remove('d-none-big-dialog');
 }
 
 function stopPropagation(event) {
@@ -120,17 +133,41 @@ async function moveTo(event, newStatus) {
 }
 
 async function updateTaskInDatabase(task) {
-  try {
-    const response = await fetch(`${BASE_URL}tasks/${task.id}.json`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status: task.status })
-    });
-
-    if (!response.ok) {
-      console.error('Fehler beim Aktualisieren:', response.statusText);
+    try {
+        const response = await fetch(`${BASE_URL}tasks/${task.id}.json`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: task.status })
+        });
+    } catch (error) {
+        console.error('Fetch-Fehler:', error);
     }
-  } catch (error) {
-    console.error('Fetch-Fehler:', error);
-  }
+}
+
+function renderBigTaskDialog(tasks) {
+    let container = document.getElementById('bigDialog');
+    container.innerHTML = '';
+    tasks.forEach(task => {
+        container.innerHTML += getBigTaskDialog(task);
+    });
+}
+
+function renderSubtasks(task) {
+    if (!task.subtasks || task.subtasks.length === 0) {
+        return '<p class="dialog-card-typography-content">No subtasks available.</p>';
+    }
+
+    return task.subtasks.map(subtask => {
+        const isCompleted = subtask.completed.trim().toLowerCase() === 'true';
+        const checkboxIcon = isCompleted 
+            ? '../assets/img/board_icons/checked_button.svg' 
+            : '../assets/img/board_icons/unchecked_button.svg';
+
+        return `
+            <div class="dialog-card-subtask-checkbox">
+                <img src="${checkboxIcon}" alt="${isCompleted ? 'Checked' : 'Unchecked'} Button">
+                <p class="dialog-card-typography-content font-size-16">${subtask.title}</p>
+            </div>
+        `;
+    }).join('');
 }

@@ -299,7 +299,7 @@ h1 {
     justify-content: space-between;
 }
 
-.dialog-card-header img:hover {
+.blue-filter:hover {
     cursor: pointer;
     filter: brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(600%) hue-rotate(180deg);
 }
@@ -430,10 +430,15 @@ h1 {
 
 .no-cursor-pointer {
     cursor: default !important;
+    height: 200px
 }
 
 .drag-highlight {
     background-color: rgba(0, 0, 0, 0.05);
     border: 2px dashed #797979;
     border-radius: 10px;
+}
+
+.d-none-big-dialog {
+    display: none;
 }
