@@ -17,7 +17,7 @@ function getCardsTemplate(task) {
                 <div class="contacts-container">
                     ${renderAssignedContacts(task.assigned_to)}
                 </div>
-                <img class="priority-symbol" src="../assets/img/board_icons/priority_urgent.svg" alt="Priority symbol">
+                ${renderPriority(task.priority)}
             </div>
         </div>
     </div>
