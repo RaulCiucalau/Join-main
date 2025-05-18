@@ -13,12 +13,12 @@
     <link rel="stylesheet" href="dialog-add-task.css">
     <link rel="shortcut icon" href="../assets/img/favicon/fav_blue.png" type="image/x-icon">
     <link rel="stylesheet" href="../../styles/navbar-header.css">
-    
+
     <script src="dialog-add-task.js"></script>
     <script src="../js/load_tasks_data.js"></script>
     <script src="board-templates.js"></script>
     <script src="board.js"></script>
-    
+
 </head>
 
 <body onload="init()">
@@ -234,9 +234,11 @@
             <div class="status_container">
                 <div class="status_title">
                     <h2>To do</h2>
-                    <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg" alt="Plus Button">
+                    <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg"
+                        alt="Plus Button">
                 </div>
-                <div id="statusToDo" class="status-content">
+                <div id="statusToDo" ondrop="moveTo(event, 'ToDo')" ondragover="allowDrop(event)"
+                    ondragleave="removeHighlight(event)" class="status-content">
                     <div class="task-card">
                         <div class="empty-task dashed-border">No tasks to do</div>
                     </div>
@@ -245,9 +247,11 @@
             <div class="status_container">
                 <div class="status_title">
                     <h2>In progress</h2>
-                    <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg" alt="Plus Button">
+                    <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg"
+                        alt="Plus Button">
                 </div>
-                <div id="statusInProgress" class="status-content">
+                <div id="statusInProgress" ondrop="moveTo(event, 'InProgress')" ondragover="allowDrop(event)"
+                    ondragleave="removeHighlight(event)" class="status-content">
                     <div class="task-card">
                         <div class="empty-task dashed-border">No tasks in progress</div>
                     </div>
@@ -256,9 +260,11 @@
             <div class="status_container">
                 <div class="status_title">
                     <h2>Await feedback</h2>
-                    <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg" alt="Plus Button">
+                    <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg"
+                        alt="Plus Button">
                 </div>
-                <div id="statusAwaitFeedback" class="status-content">
+                <div id="statusAwaitFeedback" ondrop="moveTo(event, 'AwaitFeedback')" ondragover="allowDrop(event)"
+                    ondragleave="removeHighlight(event)" class="status-content">
                     <div class="task-card">
                         <div class="empty-task dashed-border">No tasks awaiting feedback</div>
                     </div>
@@ -268,7 +274,8 @@
                 <div class="status_title">
                     <h2>Done</h2>
                 </div>
-                <div id="statusDone" class="status-content">
+                <div id="statusDone" ondrop="moveTo(event, 'Done')" ondragover="allowDrop(event)"
+                    ondragleave="removeHighlight(event)" class="status-content">
                     <div class="task-card">
                         <div class="empty-task dashed-border">No tasks done</div>
                     </div>

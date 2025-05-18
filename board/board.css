@@ -148,6 +148,7 @@ h1 {
     gap: 16px;
     display: flex;
     flex-direction: column;
+    width: 266px
 }
 
 .empty-task {
@@ -429,4 +430,10 @@ h1 {
 
 .no-cursor-pointer {
     cursor: default !important;
+}
+
+.drag-highlight {
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 2px dashed #797979;
+    border-radius: 10px;
 }

@@ -20,7 +20,7 @@ const statusIds = [
     { id: "Done", label: "done" }
 ];
 
-let currentDraggedElement;
+let currentDraggedTaskId;
 
 async function init() {
     await onloadFunc();
@@ -68,10 +68,6 @@ function getLabelClass(category) {
     return category.toLowerCase().replace(/\s+/g, '-') + '-label';
 }
 
-function startDragging(id) {
-    currentDraggedElement = id;
-}
-
 function renderAssignedContacts(assignedList) {
     return assignedList
         .map(name => {
@@ -80,7 +76,6 @@ function renderAssignedContacts(assignedList) {
         })
         .join('');
 }
-
 
 function renderPriority(priority) {
     const validPriority = Object.keys(priorityImg).find(p => p === priority);
@@ -99,3 +94,43 @@ function getProgressText(subtasks) {
     return `${completed}/${subtasks.length} Subtasks`;
 }
 
+function startDragging(taskId) {
+    currentDraggedTaskId = taskId;
+}
+
+function allowDrop(event) {
+    event.preventDefault();
+    event.currentTarget.classList.add("drag-highlight");
+}
+
+function removeHighlight(event) {
+    event.currentTarget.classList.remove("drag-highlight");
+}
+
+async function moveTo(event, newStatus) {
+    event.preventDefault();
+    event.currentTarget.classList.remove("drag-highlight");
+    const task = tasks.find(t => t.id === currentDraggedTaskId);
+    if (task && task.status !== newStatus) {
+        task.status = newStatus;
+        await updateTaskInDatabase(task);
+        renderCards(tasks);
+    }
+    currentDraggedTaskId = null;
+}
+
+async function updateTaskInDatabase(task) {
+  try {
+    const response = await fetch(`${BASE_URL}tasks/${task.id}.json`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: task.status })
+    });
+
+    if (!response.ok) {
+      console.error('Fehler beim Aktualisieren:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Fetch-Fehler:', error);
+  }
+}
