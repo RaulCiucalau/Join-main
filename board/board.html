@@ -25,7 +25,7 @@
     <div w3-include-html="../assets/templates/nav-header_template.html"></div>
     <div onclick="toggleBigTaskDialog()" id="bigTaskDialog" class="dialog-container d-none-big-dialog">
         <div onclick="stopPropagation(event)" id="bigDialog" class="dialog-card">
-            <div  class="dialog-card-header">
+            <div class="dialog-card-header">
                 <label class="user-story-label typography-label" for="">User Story</label>
                 <img onclick="toggleBigTaskDialog()" class="close-btn" src="../assets/img/board_icons/close_button.svg"
                     alt="">
@@ -218,7 +218,9 @@
             <h1>Board</h1>
             <div class="board-header-btn-input">
                 <div class="board_header_input">
-                    <input class="find-task-input" type="text" placeholder="Find Task" id="boardInput">
+                    <form onsubmit="searchTasks(); return false">
+                        <input id="findTaskInput" onkeyup="searchTasks()" class="find-task-input" type="text" placeholder="Find Task">
+                    </form>
                     <div class="search_container">
                         <div class="board_separator_header_input"></div>
                         <button class="search_icon_btn">

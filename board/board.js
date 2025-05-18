@@ -171,3 +171,14 @@ function renderSubtasks(task) {
         `;
     }).join('');
 }
+
+function searchTasks() {
+    let inputText = document.getElementById('findTaskInput').value.toLowerCase().trim();
+    const filteredTasks = tasks.filter(task => {
+        return (
+            task.title.toLowerCase().includes(inputText) ||
+            task.description.toLowerCase().includes(inputText)
+        );
+    });
+    renderCards(filteredTasks);
+}
