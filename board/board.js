@@ -70,5 +70,17 @@ function renderAssignedContacts(assignedList) {
 function renderPriority(priority) {
     const validPriority = Object.keys(priorityImg).find(p => p === priority);
     return `<img class="priority-symbol" src="${priorityImg[validPriority]}" alt="Priority symbol">`
-
 }
+
+function getProgressPercentage(subtasks) {
+    if (!subtasks || subtasks.length === 0) return 0;
+    const completed = subtasks.filter(subtask => subtask.completed === true || subtask.completed === "true").length;
+    return Math.round((completed / subtasks.length) * 100);
+}
+
+function getProgressText(subtasks) {
+    if (!subtasks || subtasks.length === 0) return '0/0 Subtasks';
+    const completed = subtasks.filter(subtask => subtask.completed === true || subtask.completed === "true").length;
+    return `${completed}/${subtasks.length} Subtasks`;
+}
+

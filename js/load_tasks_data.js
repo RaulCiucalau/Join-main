@@ -15,12 +15,12 @@ async function onloadFunc() {
                 priority: data.priority,
                 due_date: data.due_date,
                 assigned_to: data.assigned_to,
-                status: data.status
+                status: data.status,
+                subtasks: data.subtasks
             }
         
         )
     }
-    console.log(tasks);
 }
 
 async function fetchData(path) {
