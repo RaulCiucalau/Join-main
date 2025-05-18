@@ -8,12 +8,17 @@ let profileBadges = {
     "Marcel": "../assets/img/board_icons/badge_Marcel.svg",
     "Tatjana": "../assets/img/board_icons/badge_Tatjana.svg",
 };
-
 let priorityImg = {
     "Low": "../assets/img/board_icons/priority_low.svg",
     "Medium": "../assets/img/board_icons/priority_medium.svg",
     "Urgent": "../assets/img/board_icons/priority_urgent.svg"
 }
+const statusIds = [
+    { id: "ToDo", label: "to do" },
+    { id: "InProgress", label: "in progress" },
+    { id: "AwaitFeedback", label: "awaiting feedback" },
+    { id: "Done", label: "done" }
+];
 
 let currentDraggedElement;
 
@@ -38,16 +43,26 @@ function stopPropagation(event) {
 }
 
 function renderCards(tasks) {
-    const statusIds = ["ToDo", "InProgress", "AwaitFeedback", "Done"];
-    statusIds.forEach((status) => {
-        const container = document.getElementById(`status${status}`);
+    statusIds.forEach(({ id, label }) => {
+        const container = document.getElementById(`status${id}`);
         container.innerHTML = '';
-    });
-    tasks.forEach(task => {
-        const container = document.getElementById(`status${task.status}`);
-        container.innerHTML += getCardsTemplate(task);
+
+        const filteredTasks = tasks.filter(task => task.status === id);
+
+        if (filteredTasks.length === 0) {
+            container.innerHTML = `
+                <div class="task-card no-cursor-pointer">
+                    <div class="empty-task dashed-border">No tasks ${label}</div>
+                </div>
+            `;
+        } else {
+            filteredTasks.forEach(task => {
+                container.innerHTML += getCardsTemplate(task);
+            });
+        }
     });
 }
+
 
 function getLabelClass(category) {
     return category.toLowerCase().replace(/\s+/g, '-') + '-label';

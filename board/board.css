@@ -426,3 +426,7 @@ h1 {
 .contacts-container {
     margin-left: 12px;
 }
+
+.no-cursor-pointer {
+    cursor: default !important;
+}
