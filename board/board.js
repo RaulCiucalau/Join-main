@@ -1,3 +1,14 @@
+let profileBadges = {
+    "Anton": "../assets/img/board_icons/badge_anton.svg",
+    "Anja": "../assets/img/board_icons/badge_anja.svg",
+    "Benedikt": "../assets/img/board_icons/badge_benedikt.svg",
+    "David": "../assets/img/board_icons/badge_david.svg",
+    "Eva": "../assets/img/board_icons/badge_eva.svg",
+    "Emmanuel": "../assets/img/board_icons/badge_emmanuel.svg",
+    "Marcel": "../assets/img/board_icons/badge_Marcel.svg",
+    "Tatjana": "../assets/img/board_icons/badge_Tatjana.svg",
+};
+
 let currentDraggedElement;
 
 async function init() {
@@ -39,3 +50,14 @@ function getLabelClass(category) {
 function startDragging(id) {
     currentDraggedElement = id;
 }
+
+function renderAssignedContacts(assignedList) {
+    return assignedList
+        .map(name => {
+            const validName = Object.keys(profileBadges).find(badgeName => badgeName === name);
+            return `<img class="profile-badge margin-left-contacts" src="${profileBadges[validName]}" alt="${validName}'s Badge">`;
+        })
+        .join('');
+}
+
+

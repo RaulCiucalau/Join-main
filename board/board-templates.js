@@ -15,9 +15,7 @@ function getCardsTemplate(task) {
             </div>
             <div class="contacts-priority-container">
                 <div class="contacts-container">
-                    <img class="profile-badge" src="../assets/img/board_icons/badge_anja.svg" alt="Profile Badge">
-                    <img class="profile-badge margin-left-contacts" src="../assets/img/board_icons/badge_david.svg" alt="Profile Badge">
-                    <img class="profile-badge margin-left-contacts" src="../assets/img/board_icons/badge_eva.svg" alt="Profile Badge">
+                    ${renderAssignedContacts(task.assigned_to)}
                 </div>
                 <img class="priority-symbol" src="../assets/img/board_icons/priority_urgent.svg" alt="Priority symbol">
             </div>

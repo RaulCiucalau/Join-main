@@ -422,3 +422,7 @@ h1 {
 .find-task-input {
     border-radius: 0;
 }
+
+.contacts-container {
+    margin-left: 12px;
+}
