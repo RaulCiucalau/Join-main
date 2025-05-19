@@ -148,6 +148,7 @@ h1 {
     gap: 16px;
     display: flex;
     flex-direction: column;
+    width: 266px
 }
 
 .empty-task {
@@ -193,7 +194,7 @@ h1 {
     background: #0038FF;
 }
 
-.tehnical-task-label {
+.technical-task-label {
     display: flex;
     width: 144px;
     height: 27px;
@@ -298,7 +299,7 @@ h1 {
     justify-content: space-between;
 }
 
-.dialog-card-header img:hover {
+.blue-filter:hover {
     cursor: pointer;
     filter: brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(600%) hue-rotate(180deg);
 }
@@ -421,4 +422,24 @@ h1 {
 
 .find-task-input {
     border-radius: 0;
+}
+
+.contacts-container {
+    margin-left: 12px;
+}
+
+.no-cursor-pointer {
+    cursor: default !important;
+    height: 500px;
+}
+
+.drag-highlight {
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 2px dashed #797979;
+    border-radius: 10px;
+    height: 100%;
+}
+
+.d-none-big-dialog {
+    display: none;
 }

@@ -25,9 +25,9 @@ p {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding-inline: 80px;
+    padding-inline: 100px;
     padding-block: 64px;
-    margin-left: 260px;
+    margin-left: 200px;
     max-width: 1400px;
 }
 

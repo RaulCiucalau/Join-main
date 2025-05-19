@@ -44,10 +44,14 @@ function init() {
 function renderLeftColumnContacts() {
   leftContactsList.innerHTML = "";
   users = fireBase.users;
+
+  let validUserKeys = Object.keys(users).filter(key => users[key] !== null);
+
   let lastInitial = "";
-  let sortedUserKeys = Object.keys(users).sort((a, b) =>
+  let sortedUserKeys = validUserKeys.sort((a, b) =>
     users[a].name.localeCompare(users[b].name)
   );
+
   sortedUserKeys.forEach((keyObj, indexOfUser) => {
     let user = users[keyObj];
     let initial = user.name.charAt(0).toUpperCase();
@@ -59,6 +63,7 @@ function renderLeftColumnContacts() {
     makeLeftContactActive();
   });
 }
+
 
 function renderLeftColumnContactsInitalsTemplate(initial) {
   return `
@@ -209,33 +214,7 @@ function hideContactOptionsForMobile() {
   }
 }
 
-function addContactToDatabase(event) {
-  event.preventDefault();
-  const form = document.getElementById("addContactForm");
-  if (!form.checkValidity()) return false;
 
-  let name = document.getElementById("fullName").value;
-  let email = document.getElementById("new-email").value;
-  let phone = document.getElementById("new-phone").value;
-  let color = colours[Math.floor(Math.random() * colours.length)];
-
-  fetch(getUserUrl(), {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name, e_mail: email, phone, color }),
-  })
-    .then(() => {
-      closeAddContactOverlay();
-      contactsuccessfullyAddedNotification();
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-    })
-    .catch((error) => {
-      console.error("Error adding contact:", error);
-    });
-  return false;
-}
 
 async function saveEditedContact(key) {
   let name = document.getElementById("fullName").value;
@@ -252,6 +231,33 @@ async function saveEditedContact(key) {
     contactFirebase();
   } catch (error) {
     console.error("Error updating contact:", error);
+  }
+}
+
+async function addNewContactToDatabase(name, email, phone)
+{
+  const randomColor = colours[Math.floor(Math.random() * colours.length)];
+
+  const newContact = 
+  {
+    name: name.trim(),
+    e_mail: email.trim(),
+    phone: phone.trim(),
+    color: randomColor,
+  };
+
+ try {
+    await fetch(getUserUrl(), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newContact),
+    });
+
+    
+    closeOverlay();               // Overlay schließen
+    contactFirebase();                      // Kontakte neu laden
+  } catch (error) {
+    console.error("Fehler beim Speichern in Firebase:", error);
   }
 }
 
