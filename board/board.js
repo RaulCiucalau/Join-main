@@ -44,8 +44,7 @@ function toggleBigTaskDialog() {
 }
 
 function openBigTaskDialogById(taskId) {
-    const task = tasks.find(t => t.id === taskId);
-    if (!task) return;
+    const task = tasks.find(task => task.id === taskId);
     const bigDialog = document.getElementById('bigTaskDialog');
     bigDialog.innerHTML = getBigTaskDialog(task);
     bigDialog.classList.remove('d-none-big-dialog');
