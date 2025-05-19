@@ -1,6 +1,7 @@
 async function init() {
     await onloadFunc();
     showTasksCounts(tasks);
+    dateToday();
 }
 
 function showTasksCounts(tasks) {
@@ -49,4 +50,9 @@ function showUrgentTasksCount(tasks) {
     const content = document.getElementById('urgentTasksCount');
     const urgentTasks = tasks.filter(task => task.priority === 'Urgent');
     content.innerHTML = `${urgentTasks.length}`;
+}
+
+function dateToday(){
+   let time = new Date();
+   document.getElementById("Date-today").innerHTML = time;
 }
