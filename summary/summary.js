@@ -53,6 +53,6 @@ function showUrgentTasksCount(tasks) {
 }
 
 function dateToday(){
-   let time = new Date();
+   let time = new Date().toLocaleDateString();
    document.getElementById("Date-today").innerHTML = time;
 }

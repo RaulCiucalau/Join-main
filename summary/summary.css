@@ -88,6 +88,17 @@ body{
 
 }
 
+.p:hover, p:active{
+  cursor: pointer;
+  background-color:  #2A3647;
+  color: white;
+  transform: scale(1.05);
+}
+
+.hovertext:hover{
+  background-color: white;
+}
+
 .up-part{
     display: flex;
     justify-content: center;
