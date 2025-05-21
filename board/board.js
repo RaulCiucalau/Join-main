@@ -58,9 +58,8 @@ function renderCards(tasks) {
     statusIds.forEach(({ id, label }) => {
         const container = document.getElementById(`status${id}`);
         container.innerHTML = '';
-
-        const filteredTasks = tasks.filter(task => task.status === id);
-
+        const tasksArray = Object.values(tasks || {}).filter(task => task && task.status !== undefined);
+        const filteredTasks = tasksArray.filter(task => task.status === id);
         if (filteredTasks.length === 0) {
             container.innerHTML = `
                 <div class="task-card no-cursor-pointer">
@@ -96,13 +95,13 @@ function renderPriority(priority) {
 
 function getProgressPercentage(subtasks) {
     if (!subtasks || subtasks.length === 0) return 0;
-    const completed = subtasks.filter(subtask => subtask.completed === true || subtask.completed === "true").length;
+    const completed = subtasks.filter(subtask => subtask.completed).length;
     return Math.round((completed / subtasks.length) * 100);
 }
 
 function getProgressText(subtasks) {
     if (!subtasks || subtasks.length === 0) return '0/0 Subtasks';
-    const completed = subtasks.filter(subtask => subtask.completed === true || subtask.completed === "true").length;
+    const completed = subtasks.filter(subtask => subtask.completed).length;
     return `${completed}/${subtasks.length} Subtasks`;
 }
 
@@ -155,16 +154,20 @@ function renderSubtasks(task) {
     if (!task.subtasks || task.subtasks.length === 0) {
         return '<p class="dialog-card-typography-content">No subtasks available.</p>';
     }
-
     return task.subtasks.map(subtask => {
-        const isCompleted = subtask.completed.trim().toLowerCase() === 'true';
-        const checkboxIcon = isCompleted 
-            ? '../assets/img/board_icons/checked_button.svg' 
+        const isCompleted = subtask.completed === true;
+        const checkboxIcon = isCompleted
+            ? '../assets/img/board_icons/checked_button.svg'
             : '../assets/img/board_icons/unchecked_button.svg';
-
         return `
             <div class="dialog-card-subtask-checkbox">
-                <img src="${checkboxIcon}" alt="${isCompleted ? 'Checked' : 'Unchecked'} Button">
+                <img 
+                    data-task-id="${subtask.taskId}" 
+                    data-subtask-id="${subtask.id}" 
+                    onclick="toggleSubtaskCompletion(event)" 
+                    src="${checkboxIcon}" 
+                    alt="${isCompleted ? 'Checked' : 'Unchecked'} Button"
+                >
                 <p class="dialog-card-typography-content font-size-16">${subtask.title}</p>
             </div>
         `;
@@ -180,4 +183,21 @@ function searchTasks() {
         );
     });
     renderCards(filteredTasks);
+}
+
+async function toggleSubtaskCompletion(event) {
+    const taskId = event.target.dataset.taskId;
+    const subtaskId = event.target.dataset.subtaskId;
+    const url = `${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}/completed.json`;
+    const res = await fetch(url);
+    const completed = await res.json();
+    const newCompleted = !completed;
+    event.target.src = newCompleted
+        ? '../assets/img/board_icons/checked_button.svg'
+        : '../assets/img/board_icons/unchecked_button.svg';
+    await fetch(url, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newCompleted),
+    }); 
 }

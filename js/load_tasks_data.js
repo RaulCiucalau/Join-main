@@ -5,10 +5,19 @@ async function onloadFunc() {
     let tasksResponse = await fetchData("tasks");
     let tasksKeysArrays = Object.keys(tasksResponse);
     for (let index = 0; index < tasksKeysArrays.length; index++) {
-        let data = tasksResponse[tasksKeysArrays[index]];
+        let taskId = tasksKeysArrays[index];
+        let data = tasksResponse[taskId];
+        let subtasksArray = [];
+        if (data.subtasks) {
+            subtasksArray = Object.entries(data.subtasks).map(([subtaskId, subtask]) => ({
+                ...subtask,
+                id: subtaskId,
+                taskId: taskId
+            }));
+        }
         tasks.push(
             {
-                id : tasksKeysArrays[index],
+                id: tasksKeysArrays[index],
                 title: data.title,
                 description: data.description,
                 category: data.category,
@@ -16,9 +25,8 @@ async function onloadFunc() {
                 due_date: data.due_date,
                 assigned_to: data.assigned_to,
                 status: data.status,
-                subtasks: data.subtasks
+                subtasks: subtasksArray
             }
-        
         )
     }
 }
