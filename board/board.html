@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="dialog-add-task.css">
     <link rel="shortcut icon" href="../assets/img/favicon/fav_blue.png" type="image/x-icon">
     <link rel="stylesheet" href="../../styles/navbar-header.css">
-
+    <link rel="stylesheet" href="board_edit_dialog.css">
     <script src="dialog-add-task.js"></script>
     <script src="../js/load_tasks_data.js"></script>
     <script src="board-templates.js"></script>
@@ -23,9 +23,47 @@
 
 <body onload="init()">
     <div w3-include-html="../assets/templates/nav-header_template.html"></div>
-    <div onclick="" id="" class="dialog-container d-none">
+    <div onclick="" id="" class="dialog-container">
         <div onclick="" id="" class="dialog-card">
-            
+            <div class="dialog-card-header flex-end">
+                <img onclick="" class="close-btn" src="../assets/img/board_icons/close_button.svg" alt="">
+            </div>
+            <div class="content-edit-task-dialog">
+                <div class="dialog-edit-title">
+                    <p class="dialog-card-typography-content font-blue">Title</p>
+                    <input class="standard-input-edit-task hover-active-border" type="text">
+                </div>
+                <div class="dialog-edit-description">
+                    <p class="dialog-card-typography-content font-blue">Description</p>
+                    <textarea class="description-input-edit-task hover-active-border" cols="60" rows="20"
+                        name="content"></textarea>
+                </div>
+                <div class="dialog-edit-due-date">
+                    <p class="dialog-card-typography-content font-blue">Due Date</p>
+                    <input class="standard-input-edit-task hover-active-border" type="text">
+                </div>
+                <div class="dialog-edit-priority">
+                    <p class="dialog-card-typography-content font-blue">Priority</p>
+                    <div>
+                        <button>u</button>----<button>o</button>----<button>o</button>
+                    </div>
+                </div>
+                <div class="dialog-edit-assigned">
+                    <p class="dialog-card-typography-content font-blue">Assigned to</p>
+                    <div class="input-assigned-to-container">
+                        <input class="standard-input-edit-task assign" type="text"
+                            placeholder="Select contacts to assign">
+                    </div>
+                </div>
+                <div class="dialog-edit-subtasks">
+                    <p class="dialog-card-typography-content font-blue">Subtasks</p>
+                    <input class="standard-input-edit-task hover-active-border" type="text"
+                        placeholder="Add new Subtask">
+                </div>
+            </div>
+            <div class="edit-task-btn-container">
+                <button class="edit-task-ok-btn">OK</button>
+            </div>
         </div>
     </div>
     <div onclick="toggleBigTaskDialog()" id="bigTaskDialog" class="dialog-container d-none-big-dialog">
@@ -224,7 +262,8 @@
             <div class="board-header-btn-input">
                 <div class="board_header_input">
                     <form onsubmit="searchTasks(); return false">
-                        <input id="findTaskInput" onkeyup="searchTasks()" class="find-task-input" type="text" placeholder="Find Task">
+                        <input id="findTaskInput" onkeyup="searchTasks()" class="find-task-input" type="text"
+                            placeholder="Find Task">
                     </form>
                     <div class="search_container">
                         <div class="board_separator_header_input"></div>

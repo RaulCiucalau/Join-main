@@ -9,9 +9,9 @@ function getCardsTemplate(task) {
             </div>
             <div class="progress-container">
                 <div class="progress-bar-container">
-                    <div id="progressBarId" class="progress-bar" style="width: ${getProgressPercentage(task.subtasks)}%;"></div>
+                    <div id="progressBar-${task.id}" class="progress-bar" style="width: ${getProgressPercentage(task.subtasks)}%;"></div>
                 </div>
-                <p class="progress-text">${getProgressText(task.subtasks)}</p>
+                <p id="progress-bar-text-${task.id}" class="progress-text">${getProgressText(task.subtasks)}</p>
             </div>
             <div class="contacts-priority-container">
                 <div class="contacts-container">
