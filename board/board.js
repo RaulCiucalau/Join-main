@@ -179,7 +179,8 @@ function searchTasks() {
     const filteredTasks = tasks.filter(task => {
         return (
             task.title.toLowerCase().includes(inputText) ||
-            task.description.toLowerCase().includes(inputText)
+            task.description.toLowerCase().includes(inputText) ||
+            task.category.toLowerCase().includes(inputText)
         );
     });
     renderCards(filteredTasks);
