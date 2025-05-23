@@ -66,7 +66,7 @@ function getBigTaskDialog(task) {
                 <p>Delete</p>
             </div>
             <div class="dialog-card-separator"></div>
-            <div class="dialog-card-btn" onclick="editTask('${task.id}')">
+            <div class="dialog-card-btn" onclick="openEditTaskDialogById()">
                 <img class="blue-filter" src="../assets/img/board_icons/edit_button.svg" alt="Edit">
                 <p>Edit</p>
             </div>
@@ -74,8 +74,6 @@ function getBigTaskDialog(task) {
     </div>
     `;
 }
-
-
 
 function contactListDropDownTemplate(i) {
   return `<div class="contactListElement" id="${i}" onclick="toggleContactSelection(${i})">
@@ -85,4 +83,76 @@ function contactListDropDownTemplate(i) {
               </div>
               <div><img id="btn-checkbox-${i}" src="./assets/icons/btn-unchecked.svg" alt="Button Unchecked"/></div>
               </div>`;
+}
+
+function getEditTaskDialog() {
+    return `
+    <div onclick="stopPropagation(event)" id="editDialog" class="dialog-card">
+            <div class="dialog-card-header flex-end">
+                <img onclick="toggleEditTaskDialog()" class="close-btn" src="../assets/img/board_icons/close_button.svg" alt="">
+            </div>
+            <div class="content-edit-task-dialog">
+                <div class="dialog-edit-title">
+                    <p class="dialog-card-typography-content font-blue">Title</p>
+                    <input class="standard-input-edit-task hover-active-border" type="text">
+                </div>
+                <div class="dialog-edit-description">
+                    <p class="dialog-card-typography-content font-blue">Description</p>
+                    <textarea class="description-input-edit-task hover-active-border" cols="60" rows="20"
+                        name="content"></textarea>
+                </div>
+                <div class="dialog-edit-due-date">
+                    <p class="dialog-card-typography-content font-blue">Due Date</p>
+                    <input type="date" id="add-task-due-date"  class="standard-input-edit-task hover-active-border" type="text">
+                </div>
+                <div class="dialog-edit-priority">
+                    <div class="select-priority frame-39">
+                        <label class="dialog-card-typography-content font-blue" for="priority">Priority</label>
+                        <div class="priority-btns">
+                            <div class="priority-btn" id="prio-btn-urgent" onclick="togglePriority('urgent')">
+                                <p>Urgent</p>
+                                <img id="prio-img-urgent" class="priority-img" src="../assets/icons/priority-urgent.svg"
+                                    alt="Priority Urgent" />
+                            </div>
+                            <div class="priority-btn" id="prio-btn-medium" onclick="togglePriority('medium')">
+                                <p>Medium</p>
+                                <img id="prio-img-medium" class="priority-img" src="../assets/icons/priority-medium.svg"
+                                    alt="Priority Medium" />
+                            </div>
+                            <div class="priority-btn" id="prio-btn-low" onclick="togglePriority('low')">
+                                <p>Low</p>
+                                <img id="prio-img-low" class="priority-img" src="../assets/icons/priority-low.svg"
+                                    alt="Priority Low" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dialog-edit-assigned">
+                    <div class="assigned-to-section frame-39 some-height">
+                        <label class="dialog-card-typography-content font-blue">Assigned to</label>
+                        <input type="text" id="assigned-to" class="selection" placeholder="Select contacts to assign"
+                            onclick="showDropDownContactList(event)" />
+                        <img id="assigned-to-img-down" class="assigned-to-img dropdown-img"
+                            src="../assets/icons/arrow_drop_down.svg" alt="Select contact dropdown arrow"
+                            onclick="showDropDownContactList(event)">
+                        <img id="assigned-to-img-up" class="assigned-to-img dropdown-img dp-none "
+                            src="../assets/icons/arrow_drop_down_up.svg" alt="Select contact dropdown arrow"
+                            onclick="showDropDownContactList(event)">
+                        <div class="drop-down-contact-list dp-none" id="drop-down-contact-list">
+                        </div>
+                        <div id="selected-avatars">
+                        </div>
+                    </div>
+                </div>
+                <div class="dialog-edit-subtasks">
+                    <p class="dialog-card-typography-content font-blue">Subtasks</p>
+                    <input class="standard-input-edit-task hover-active-border" type="text"
+                        placeholder="Add new Subtask">
+                </div>
+            </div>
+            <div class="edit-task-btn-container">
+                <img class="edit-task-ok-btn" src="../assets/img/board_icons/edit_task_ok_btn.svg" alt="">
+            </div>
+        </div>
+    `
 }

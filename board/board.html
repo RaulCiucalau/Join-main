@@ -23,10 +23,10 @@
 
 <body onload="init()">
     <div w3-include-html="../assets/templates/nav-header_template.html"></div>
-    <div onclick="" id="" class="dialog-container d-none">
-        <div onclick="" id="" class="dialog-card">
+    <div onclick="toggleEditTaskDialog()" id="editTaskDialog" class="dialog-container d-none-edit-dialog">
+        <div onclick="stopPropagation(event)" id="editDialog" class="dialog-card">
             <div class="dialog-card-header flex-end">
-                <img onclick="" class="close-btn" src="../assets/img/board_icons/close_button.svg" alt="">
+                <img onclick="toggleEditTaskDialog()" class="close-btn" src="../assets/img/board_icons/close_button.svg" alt="">
             </div>
             <div class="content-edit-task-dialog">
                 <div class="dialog-edit-title">
@@ -88,7 +88,7 @@
                 </div>
             </div>
             <div class="edit-task-btn-container">
-                <button class="edit-task-ok-btn">OK</button>
+                <img class="edit-task-ok-btn" src="../assets/img/board_icons/edit_task_ok_btn.svg" alt="">
             </div>
         </div>
     </div>

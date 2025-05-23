@@ -77,10 +77,7 @@
 }
 
 .edit-task-ok-btn {
-    width: 88px;
-    height: 56px;
-    border-radius: 10px;
-    padding: 16px;
+    cursor: pointer;
 }
 
 textarea {
@@ -179,4 +176,8 @@ input.assign::placeholder {
 .drop-down-container {
     display: flex;
     align-items: center;
+}
+
+.d-none-edit-dialog {
+    display: none;
 }

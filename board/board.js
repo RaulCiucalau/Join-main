@@ -26,6 +26,7 @@ async function init() {
     includeHTML();
     renderCards(tasks);
     renderBigTaskDialog(tasks);
+    renderEditTaskDialog();
 }
 
 function openAddTaskDialog() {

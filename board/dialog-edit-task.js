@@ -122,3 +122,24 @@ function getPrioColor(prio) {
       return "white";
   }
 }
+
+function toggleEditTaskDialog() {
+  let editDialog = document.getElementById('editTaskDialog');
+  editDialog.classList.toggle('d-none-edit-dialog');
+}
+
+function renderEditTaskDialog() {
+  let container = document.getElementById('editTaskDialog');
+  container.innerHTML = '';
+  tasks.forEach(task => {
+    container.innerHTML += getEditTaskDialog();
+  });
+}
+
+function openEditTaskDialogById() {
+  const bigDialog = document.getElementById('bigTaskDialog');
+  const editDialog = document.getElementById('editTaskDialog');
+  bigDialog.classList.add('d-none-big-dialog');
+  editDialog.innerHTML = getEditTaskDialog();
+  editDialog.classList.remove('d-none-edit-dialog');
+}
