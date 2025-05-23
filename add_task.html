@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles/add-task.css" />
     <link rel="stylesheet" href="styles/standard_all.css" />
     <link rel="stylesheet" href="styles/navbar-header.css" />
+    <link rel="stylesheet" href="/add-task/add-task-contact.css">
     <link rel="icon" href="./assets/icons/join-main-logo.png" type="image/png">
   </head>
   <body onload="init()">
@@ -124,18 +125,21 @@
                 id="assigned-to"
                 class="selection"
                 placeholder="Select contacts to assign"
+                onclick="showContactList(event)"
               />
               <img
                 id="assigned-to-img-down"
                 class="assigned-to-img dropdown-img"
                 src="./assets/icons/arrow_drop_down.svg"
                 alt="Select contact dropdown arrow"
+                onclick="showContactList(event)"
               />
               <img
                 id="assigned-to-img-up"
                 class="assigned-to-img dropdown-img dp-none"
                 src="./assets/icons/arrow_drop_down_up.svg"
                 alt="Select contact dropdown arrow"
+                onclick="showContactList(event)"
               />
               <div class="drop-down-contact-list dp-none" id="drop-down-contact-list"></div>
               <div id="selected-avatars"></div>
@@ -273,6 +277,7 @@
     <script src="/add-task/add-task.js"></script>
     <script src="/add-task/category-add-task.js"></script>
     <script src="/add-task/contacts-add-task.js"></script>
+    <script src="/add-task/add-task-template.js"></script>
     <script src="js/add-task/prioBtn.js"></script>
   </body>
 </html>

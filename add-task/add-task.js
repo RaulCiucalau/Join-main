@@ -1,7 +1,5 @@
 let selectedColumn = "to-do";
 let tasksArr = [];
-let selectedContacts = [];
-let selectedContactsNames = [];
 let selectedPrio = "medium";
 let subtasks = [];
 let contacts = [];
@@ -36,90 +34,6 @@ async function init() {
   highlightMenuActual();
 }
 
-function renderContactList() {
-  const list = document.getElementById("drop-down-contact-list");
-  list.innerHTML = "";
-  for (let i = 0; i < contacts.length; i++) {
-    list.innerHTML += contactListDropDownTemplate(i);
-    if (selectedContacts.includes(i)) {
-      selectContact(i);
-    }
-  }
-}
-
-function showContactList(event) {
-  event.stopPropagation();
-  const list = document.getElementById("drop-down-contact-list");
-  const up = document.getElementById("assigned-to-img-up");
-  const down = document.getElementById("assigned-to-img-down");
-
-  if (up.classList.contains("dp-none")) {
-    up.classList.remove("dp-none");
-    down.classList.add("dp-none");
-    list.classList.remove("dp-none");
-    renderContactList();
-  } else {
-    closeContactList();
-  }
-  closeCategoryList();
-}
-
-function closeContactList() {
-  document.getElementById("drop-down-contact-list").classList.add("dp-none");
-  document.getElementById("assigned-to-img-up").classList.add("dp-none");
-  document.getElementById("assigned-to-img-down").classList.remove("dp-none");
-  document.getElementById("drop-down-contact-list").innerHTML = "";
-}
-
-function selectContact(i) {
-  document.getElementById(`${i}`).style.backgroundColor = "#2a3647";
-  document.getElementById(`${i}`).style.color = "white";
-  document.getElementById(`btn-checkbox-${i}`).src = "./assets/icons/btn-checked.svg";
-  if (!selectedContacts.includes(i)) {
-    selectedContacts.push(i);
-    if (!selectedContactsNames.includes(contacts[i].name)) {
-      selectedContactsNames.push(contacts[i].name);
-    }
-  }
-  showSelectedAvatar(i);
-}
-
-function unselectContact(i) {
-  document.getElementById(`${i}`).style.backgroundColor = "white";
-  document.getElementById(`${i}`).style.color = "black";
-  document.getElementById(`${i}`).style.borderRadius = "10px";
-  document.getElementById(`btn-checkbox-${i}`).src = "./assets/icons/btn-unchecked.svg";
-  const index = selectedContacts.indexOf(i);
-  if (index > -1) {
-    selectedContacts.splice(index, 1);
-  }
-  removeUnSelectedAvatar(i);
-}
-
-function toggleContactSelection(i) {
-  const contactElement = document.getElementById(i);
-  contactElement.style.backgroundColor === "rgb(42, 54, 71)" ? unselectContact(i) : selectContact(i);
-}
-
-function showSelectedAvatar(i) {
-  const container = document.getElementById("selected-avatars");
-  const element = document.getElementById(`avatar-${i}`);
-  if (!element) {
-    container.innerHTML += `<div class="selected-avatar" style="background-color:${contacts[i].color};" id="avatar-${i}">${contacts[i].avatar}</div>`;
-  }
-  const selectedAvatars = selectedContacts
-    .slice(0, 4)
-    .map(index =>
-      `<div class="selected-avatar" style="background-color:${contacts[index].color};">${contacts[index].avatar}</div>`
-    ).join("");
-  const extraCount = selectedContacts.length - 4;
-  container.innerHTML = selectedAvatars + (extraCount > 0 ? `<div class="selected-avatar extra-avatar">+${extraCount}</div>` : "");
-}
-
-function removeUnSelectedAvatar(i) {
-  const el = document.getElementById(`avatar-${i}`);
-  if (el) el.remove();
-}
 
 function createTask() {
   if (areInputsEmpty()) {
