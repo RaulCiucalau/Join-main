@@ -18,12 +18,12 @@
     <script src="../js/load_tasks_data.js"></script>
     <script src="board-templates.js"></script>
     <script src="board.js"></script>
-
+    <script src="dialog-edit-task.js"></script>
 </head>
 
 <body onload="init()">
     <div w3-include-html="../assets/templates/nav-header_template.html"></div>
-    <div onclick="" id="" class="dialog-container d-none">
+    <div onclick="" id="" class="dialog-container">
         <div onclick="" id="" class="dialog-card">
             <div class="dialog-card-header flex-end">
                 <img onclick="" class="close-btn" src="../assets/img/board_icons/close_button.svg" alt="">
@@ -49,10 +49,19 @@
                     </div>
                 </div>
                 <div class="dialog-edit-assigned">
-                    <p class="dialog-card-typography-content font-blue">Assigned to</p>
-                    <div class="input-assigned-to-container">
-                        <input class="standard-input-edit-task assign" type="text"
-                            placeholder="Select contacts to assign">
+                    <div class="assigned-to-section frame-39">
+                        <label class="dialog-card-typography-content font-blue" for="assigned-to">Assigned to</label>
+                        <input type="text" id="assigned-to" class="selection" placeholder="Select contacts to assign"
+                            onclick="showDropDownContactList(event)" />
+                        <img id="assigned-to-img-down" class="assigned-to-img dropdown-img" src="../assets/icons/arrow_drop_down.svg"
+                            alt="Select contact dropdown arrow" onclick="showDropDownContactList(event)">
+                        <img id="assigned-to-img-up" class="assigned-to-img dropdown-img dp-none "
+                            src="../assets/icons/arrow_drop_down_up.svg" alt="Select contact dropdown arrow"
+                            onclick="showDropDownContactList(event)">
+                        <div class="drop-down-contact-list dp-none" id="drop-down-contact-list">
+                        </div>
+                        <div id="selected-avatars">
+                        </div>
                     </div>
                 </div>
                 <div class="dialog-edit-subtasks">
