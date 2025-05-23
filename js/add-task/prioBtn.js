@@ -2,7 +2,7 @@
  * Stores the currently selected priority.
  * @type {string}
  */
-let selectedPrio;
+
 
 /**
  * Selects a priority button and updates its style.
