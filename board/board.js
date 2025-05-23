@@ -188,16 +188,50 @@ function searchTasks() {
 async function toggleSubtaskCompletion(event) {
     const taskId = event.target.dataset.taskId;
     const subtaskId = event.target.dataset.subtaskId;
-    const url = `${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}/completed.json`;
-    const res = await fetch(url);
-    const completed = await res.json();
-    const newCompleted = !completed;
-    event.target.src = newCompleted
-        ? '../assets/img/board_icons/checked_button.svg'
-        : '../assets/img/board_icons/unchecked_button.svg';
-    await fetch(url, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newCompleted),
-    }); 
+    const completedUrl = `${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}/completed.json`;
+    const subtasksUrl = `${BASE_URL}tasks/${taskId}/subtasks.json`;
+    try {
+        const resGet = await fetch(completedUrl);
+        if (!resGet.ok) throw new Error('Fehler beim GET Subtask Status');
+        const completed = await resGet.json();
+        const newCompleted = !completed;
+        event.target.src = newCompleted
+            ? '../assets/img/board_icons/checked_button.svg'
+            : '../assets/img/board_icons/unchecked_button.svg';
+        const resPut = await fetch(completedUrl, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newCompleted),
+        });
+        if (!resPut.ok) throw new Error('Fehler beim PUT Subtask Status');
+        const resSubtasks = await fetch(subtasksUrl);
+        if (!resSubtasks.ok) throw new Error('Fehler beim Laden der Subtasks');
+        const subtasks = await resSubtasks.json();
+        const completedCount = subtasks.filter(subtask => subtask.completed === true).length;
+        const totalCount = subtasks.length;
+        const progressPercent = totalCount === 0 ? 0 : Math.round((completedCount / totalCount) * 100);
+        const progressBarFill = document.getElementById(`progressBar-${taskId}`);
+        if (progressBarFill) {
+            progressBarFill.style.width = `${progressPercent}%`;
+        }
+        updateSubtasksText({ id: taskId }, subtasks);
+    } catch (error) {
+        console.error('Fehler beim Toggle:', error);
+    }
+}
+
+function updateSubtasksText(task, subtasks) {
+    const progressBarElement = document.getElementById(`progress-bar-text-${task.id}`);
+    if (!subtasks || subtasks.length === 0) {
+        if (progressBarElement) {
+            progressBarElement.innerHTML = '0/0 Subtasks';
+        }
+        return '0/0 Subtasks';
+    }
+    const completed = subtasks.filter(subtask => subtask.completed).length;
+    const text = `${completed}/${subtasks.length} Subtasks`;
+    if (progressBarElement) {
+        progressBarElement.innerHTML = text;
+    }
+    return text;
 }

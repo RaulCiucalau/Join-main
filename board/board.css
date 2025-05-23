@@ -291,7 +291,6 @@ h1 {
     flex-direction: column;
     gap: 24px;
     height: 914px;
-    overflow-y: auto;
 }
 
 .dialog-card-header {

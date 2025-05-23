@@ -1,0 +1,144 @@
+.flex-end {
+    justify-content: flex-end !important;
+}
+
+.standard-input-edit-task {
+    height: 42px;
+    border-radius: 10px;
+    padding-top: 12px;
+    padding-right: 21px;
+    padding-bottom: 12px;
+    padding-left: 21px;
+}
+
+.description-input-edit-task {
+    height: 120px;
+    border-radius: 10px;
+    padding-top: 18px;
+    padding-right: 16px;
+    padding-bottom: 18px;
+    padding-left: 16px;
+}
+
+.content-edit-task-dialog {
+    height: 696px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-edit-title {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 32px;
+}
+
+.dialog-edit-description {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 32px;
+}
+
+.dialog-edit-due-date {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 40px;
+}
+
+.dialog-edit-priority {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.dialog-edit-assigned {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dialog-edit-subtasks {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.edit-task-btn-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.edit-task-ok-btn {
+    width: 88px;
+    height: 56px;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+textarea {
+    color: #2a3647;
+    font-size: 18px;
+    resize: none;
+    border: 1px solid #D1D1D1;
+}
+
+input.assign::placeholder {
+  color: black;
+}
+
+.input-assigned-to-container {
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    width: 444px;
+}
+
+.hover-active-border:hover,
+.hover-active-border:active,
+.hover-active-border:focus {
+  border: 1px solid #29ABE2;
+  outline: none;
+}
+
+.input-assigned-to-container:hover {
+    border: 1px solid #29ABE2;
+}
+
+.arrow-drop-down-btn {
+    right: 14px;
+    position: relative;
+    cursor: pointer;
+}
+
+.arrow-drop-down-btn:hover {
+    border-radius: 50%;
+    background-color: #d1d1d154;
+}
+
+.assign {
+    border: none;
+}
+
+input.assign:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.drop-down-contacts-list {
+    height: 300px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-radius: 10px;
+}
+
+.input-assign {
+    display: flex;
+    align-items: center;
+}
