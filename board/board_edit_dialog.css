@@ -33,7 +33,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-bottom: 32px;
+    margin-bottom: 26px;
     width: 420px;
 }
 
@@ -41,14 +41,14 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-bottom: 32px;
+    margin-bottom: 26px;
 }
 
 .dialog-edit-due-date {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-bottom: 40px;
+    margin-bottom: 36px;
 }
 
 .dialog-edit-priority {
@@ -159,6 +159,10 @@ input.assign::placeholder {
 
 .dp-none {
     display: none;
+}
+
+.some-height {
+    height: 88px !important;
 }
 
 .drop-down-contact-list {
