@@ -66,7 +66,7 @@ function getBigTaskDialog(task) {
                 <p>Delete</p>
             </div>
             <div class="dialog-card-separator"></div>
-            <div class="dialog-card-btn" onclick="openEditTaskDialogById()">
+            <div class="dialog-card-btn" onclick="openEditTaskDialogById('${task.id}')">
                 <img class="blue-filter" src="../assets/img/board_icons/edit_button.svg" alt="Edit">
                 <p>Edit</p>
             </div>
@@ -85,7 +85,7 @@ function contactListDropDownTemplate(i) {
               </div>`;
 }
 
-function getEditTaskDialog() {
+function getEditTaskDialog(task) {
     return `
     <div onclick="stopPropagation(event)" id="editDialog" class="dialog-card">
             <div class="dialog-card-header flex-end">
@@ -94,16 +94,16 @@ function getEditTaskDialog() {
             <div class="content-edit-task-dialog">
                 <div class="dialog-edit-title">
                     <p class="dialog-card-typography-content font-blue">Title</p>
-                    <input class="standard-input-edit-task hover-active-border" type="text">
+                    <input value="${task.title}" class="standard-input-edit-task hover-active-border" type="text">
                 </div>
                 <div class="dialog-edit-description">
                     <p class="dialog-card-typography-content font-blue">Description</p>
                     <textarea class="description-input-edit-task hover-active-border" cols="60" rows="20"
-                        name="content"></textarea>
+                        name="content">${task.description}</textarea>
                 </div>
                 <div class="dialog-edit-due-date">
                     <p class="dialog-card-typography-content font-blue">Due Date</p>
-                    <input type="date" id="add-task-due-date"  class="standard-input-edit-task hover-active-border" type="text">
+                    <input value="${task.due_date}" type="date" id="add-task-due-date"  class="standard-input-edit-task hover-active-border" type="text">
                 </div>
                 <div class="dialog-edit-priority">
                     <div class="select-priority frame-39">

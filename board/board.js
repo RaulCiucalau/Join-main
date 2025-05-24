@@ -21,12 +21,12 @@ const statusIds = [
 ];
 let currentDraggedTaskId;
 
-async function init() {
+async function init(sss) {
     await onloadFunc();
     includeHTML();
     renderCards(tasks);
     renderBigTaskDialog(tasks);
-    renderEditTaskDialog();
+    renderEditTaskDialog(tasks);
 }
 
 function openAddTaskDialog() {

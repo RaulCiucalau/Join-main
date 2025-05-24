@@ -17,8 +17,8 @@
     <script src="dialog-add-task.js"></script>
     <script src="../js/load_tasks_data.js"></script>
     <script src="board-templates.js"></script>
-    <script src="board.js"></script>
     <script src="dialog-edit-task.js"></script>
+    <script src="board.js"></script>
 </head>
 
 <body onload="init()">
@@ -26,7 +26,8 @@
     <div onclick="toggleEditTaskDialog()" id="editTaskDialog" class="dialog-container d-none-edit-dialog">
         <div onclick="stopPropagation(event)" id="editDialog" class="dialog-card">
             <div class="dialog-card-header flex-end">
-                <img onclick="toggleEditTaskDialog()" class="close-btn" src="../assets/img/board_icons/close_button.svg" alt="">
+                <img onclick="toggleEditTaskDialog()" class="close-btn" src="../assets/img/board_icons/close_button.svg"
+                    alt="">
             </div>
             <div class="content-edit-task-dialog">
                 <div class="dialog-edit-title">
@@ -40,7 +41,8 @@
                 </div>
                 <div class="dialog-edit-due-date">
                     <p class="dialog-card-typography-content font-blue">Due Date</p>
-                    <input type="date" id="add-task-due-date"  class="standard-input-edit-task hover-active-border" type="text">
+                    <input type="date" id="add-task-due-date" class="standard-input-edit-task hover-active-border"
+                        type="text">
                 </div>
                 <div class="dialog-edit-priority">
                     <div class="select-priority frame-39">

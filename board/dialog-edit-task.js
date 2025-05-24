@@ -128,18 +128,16 @@ function toggleEditTaskDialog() {
   editDialog.classList.toggle('d-none-edit-dialog');
 }
 
-function renderEditTaskDialog() {
+function renderEditTaskDialog(tasks) {
   let container = document.getElementById('editTaskDialog');
-  container.innerHTML = '';
-  tasks.forEach(task => {
-    container.innerHTML += getEditTaskDialog();
-  });
+  container.innerHTML = tasks.map(getEditTaskDialog).join('');
 }
 
-function openEditTaskDialogById() {
+function openEditTaskDialogById(taskId) {
+  const task = tasks.find(task => task.id === taskId);
   const bigDialog = document.getElementById('bigTaskDialog');
   const editDialog = document.getElementById('editTaskDialog');
   bigDialog.classList.add('d-none-big-dialog');
-  editDialog.innerHTML = getEditTaskDialog();
+  editDialog.innerHTML = getEditTaskDialog(task);
   editDialog.classList.remove('d-none-edit-dialog');
 }
