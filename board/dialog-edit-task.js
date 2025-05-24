@@ -140,4 +140,14 @@ function openEditTaskDialogById(taskId) {
   bigDialog.classList.add('d-none-big-dialog');
   editDialog.innerHTML = getEditTaskDialog(task);
   editDialog.classList.remove('d-none-edit-dialog');
+  renderPriorityFromAPI(task);
+}
+
+function renderPriorityFromAPI(task) {
+  if (!task || !task.priority) return;
+  const prio = task.priority.toLowerCase();
+  const validPrios = ["urgent", "medium", "low"];
+  if (validPrios.includes(prio)) {
+    selectPrio(prio);
+  }
 }
