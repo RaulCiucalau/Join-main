@@ -1,27 +1,40 @@
 let selectedContacts = [];
 let selectedContactsNames = []
+let currentTaskId = 0;
 
 function renderContactList() {
-  document.getElementById("drop-down-contact-list").innerHTML += "";
-  for (let indexContact = 0; indexContact < contacts.length; indexContact++) {
-    document.getElementById("drop-down-contact-list").innerHTML += contactListDropDownTemplate(indexContact);
-    if (selectedContacts.includes(indexContact)) {
-      selectContact(indexContact);
+  const container = document.getElementById("drop-down-contact-list");
+  container.innerHTML = "";
+
+  const assignedTo = tasks[currentTaskId].assigned_to;
+
+  for (let i = 0; i < assignedTo.length; i++) {
+    const contact = assignedTo[i];
+    container.innerHTML += contactListDropDownTemplate(contact, i);
+
+    if (selectedContacts.includes(i)) {
+      selectContact(i);
     }
   }
 }
 
 function showDropDownContactList(event) {
   event.stopPropagation();
-  if (document.getElementById("assigned-to-img-up").classList.contains("dp-none")) {
-    document.getElementById("assigned-to-img-up").classList.remove("dp-none");
-    document.getElementById("assigned-to-img-down").classList.add("dp-none");
-    document.getElementById("drop-down-contact-list").classList.remove("dp-none");
+
+  const arrowUp = document.getElementById("assigned-to-img-up");
+  const arrowDown = document.getElementById("assigned-to-img-down");
+  const dropDown = document.getElementById("drop-down-contact-list");
+
+  const isHidden = arrowUp.classList.contains("dp-none");
+
+  if (isHidden) {
+    arrowUp.classList.remove("dp-none");
+    arrowDown.classList.add("dp-none");
+    dropDown.classList.remove("dp-none");
     renderContactList();
   } else {
     closeContactList();
   }
-  closeCategoryList();
 }
 
 function closeContactList() {
@@ -34,11 +47,11 @@ function closeContactList() {
 function selectContact(i) {
   document.getElementById(`${i}`).style.backgroundColor = "#2a3647";
   document.getElementById(`${i}`).style.color = "white";
-  document.getElementById(`btn-checkbox-${i}`).src = "./assets/icons/btn-checked.svg";
+  document.getElementById(`btn-checkbox-${i}`).src = "../assets/icons/btn-checked.svg";
   if (!selectedContacts.includes(i)) {
     selectedContacts.push(i);
-    if (!selectedContactsNames.includes(contacts[i].name)) {
-      selectedContactsNames.push(contacts[i].name);
+    if (!selectedContactsNames.includes(tasks.assigned_to[i])) {
+      selectedContactsNames.push(tasks.assigned_to[i]);
     }
   }
   showSelectedAvatars();
@@ -48,12 +61,20 @@ function unselectContact(i) {
   document.getElementById(`${i}`).style.backgroundColor = "white";
   document.getElementById(`${i}`).style.color = "black";
   document.getElementById(`${i}`).style.borderRadius = "10px";
-  document.getElementById(`btn-checkbox-${i}`).src = "./assets/icons/btn-unchecked.svg";
+  document.getElementById(`btn-checkbox-${i}`).src = "../assets/icons/btn-unchecked.svg";
   const index = selectedContacts.indexOf(i);
   if (index > -1) {
     selectedContacts.splice(index, 1);
   }
   removeUnSelectedAvatar(i);
+}
+
+function toggleContactSelection(index) {
+  if (selectedContacts.includes(index)) {
+    unselectContact(index);
+  } else {
+    selectContact(index);
+  }
 }
 
 function toggleContactSelection(i) {

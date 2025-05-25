@@ -21,7 +21,7 @@ const statusIds = [
 ];
 let currentDraggedTaskId;
 
-async function init(sss) {
+async function init() {
     await onloadFunc();
     includeHTML();
     renderCards(tasks);
