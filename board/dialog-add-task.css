@@ -255,7 +255,7 @@ textarea::-ms-input-placeholder {
   height: 14px;
   width: 14px;
   position: absolute;
-  top: 50px;
+  top: 50px !important;
   right: 12px;
 }
 

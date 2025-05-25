@@ -1,3 +1,7 @@
+async function init(){
+  renderSubtasks();
+}
+
 /**
  * Stores the currently selected priority.
  * @type {string}
@@ -56,4 +60,30 @@ function getPrioColor(prio) {
     default:
       return "white";
   }
+}
+
+
+
+
+let subtasks = [];
+
+function renderSubtasks(){
+    let renderSubtasks = document.getElementById('subtask-list');
+    renderSubtasks.innerHTML += subtasks;
+     creatNewSubtask(newSubtaskValue);
+}
+
+function creatNewSubtask(subtasks){
+  return `<input type="checkbox"><p>${subtasks}</p>`;
+}
+
+function addNewSubtask(){
+  let newSubtask = document.getElementById('subtask');
+  let newSubtaskValue = newSubtask.value;
+
+  subtasks.push(newSubtaskValue);
+
+  renderSubtasks();
+  
+  newSubtask.value = '';
 }
