@@ -140,6 +140,7 @@ function getEditTaskDialog(task) {
                             src="../assets/icons/arrow_drop_down_up.svg" alt="Select contact dropdown arrow"
                             onclick="showDropDownContactList(event)">
                         <div class="drop-down-contact-list dp-none" id="drop-down-contact-list">
+                            
                         </div>
                         <div id="selected-avatars">
                         </div>
@@ -149,6 +150,9 @@ function getEditTaskDialog(task) {
                     <p class="dialog-card-typography-content font-blue">Subtasks</p>
                     <input class="standard-input-edit-task hover-active-border" type="text"
                         placeholder="Add new Subtask">
+                    <div id="subtasksList">
+                        ${renderSubtasksToEdit(task)}
+                    </div>
                 </div>
             </div>
             <div class="edit-task-btn-container">
