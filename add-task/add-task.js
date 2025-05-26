@@ -1,7 +1,6 @@
 let selectedColumn = "to-do";
 let tasksArr = [];
 let selectedPrio = "medium";
-let subtasks = [];
 let contacts = [];
 let currentMaxId = 3; // startet bei 3, damit die nächste ID 4 ist
 
