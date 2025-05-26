@@ -172,3 +172,38 @@ function renderPriorityFromAPI(task) {
     selectPrio(prio);
   }
 }
+
+function renderSubtasksToEdit(task) {
+    return task.subtasks.map(subtask => {
+        return `
+            <div id="dialogSubtaskEdit" class="edit-dialog-subtask">
+                <span class="subtask-text">• ${subtask.title}</span>
+                <div class="subtask-list-item-btns">
+                  <img onclick="editSelectedSubtask(${task.id}, ${task.subtasks.indexOf(subtask)})" src="../assets/icons/edit.svg" class="subtask-edit-icons pointer" title="Edit">
+                  <img src="../assets/icons/delete.svg" class="subtask-edit-icons pointer" title="Delete">
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function editSelectedSubtask(taskId, subtaskIndex) {
+    const task = tasks[taskId];
+    const subtask = task.subtasks[subtaskIndex];
+    const subtaskElements = document.querySelectorAll('.edit-dialog-subtask');
+    const container = subtaskElements[subtaskIndex];
+    container.innerHTML = `
+        <input type="text" class="subtask-edit-input" value="${subtask.title}">
+        <div class="subtask-list-item-btns">
+            <img onclick="" 
+                 src="../assets/icons/check.svg" 
+                 class="subtask-edit-icons pointer" 
+                 title="Save">
+            <img onclick="" 
+                 src="../assets/icons/cancel.svg" 
+                 class="subtask-edit-icons pointer" 
+                 title="Cancel">
+        </div>
+    `;
+}
+

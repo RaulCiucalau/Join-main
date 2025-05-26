@@ -562,7 +562,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .subtask-edit-icons {
   width: 24px;
   height: 24px;
-  margin-top: 8px;
 }
 
 .subtask-list-item-separator {
@@ -636,4 +635,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .d-none {
   display: none;
+}
+
+.pointer {
+  cursor: pointer;
 }
