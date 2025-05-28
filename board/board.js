@@ -81,13 +81,16 @@ function getLabelClass(category) {
 }
 
 function renderAssignedContacts(assignedList) {
+    if (!Array.isArray(assignedList)) return '';
     return assignedList
         .map(name => {
             const validName = Object.keys(profileBadges).find(badgeName => badgeName === name);
+            if (!validName) return ''; // optionaler Schutz, falls Name nicht gefunden
             return `<img class="profile-badge margin-left-contacts" src="${profileBadges[validName]}" alt="Profile Badge">`;
         })
         .join('');
 }
+
 
 function renderPriority(priority) {
     const validPriority = Object.keys(priorityImg).find(p => p === priority);

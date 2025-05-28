@@ -1,0 +1,372 @@
+@media (max-width: 1250px) {
+  .add-task-description,
+  .priority-btns {
+    width: 360px;
+  }
+  .assigned-to-section input,
+  .add-category input,
+  .add-subtask input,
+  .assigned-to-section,
+  .add-category,
+  .add-subtask,
+  .drop-down-contact-list,
+  .drop-down-category-list,
+  .subtask-list {
+    width: 390px;
+  }
+  .priority-btn {
+    width: 110px;
+    height: 50px;
+  }
+  /* .change-input{
+    width:100%;
+  }*/
+  .change-input input {
+    width: 80%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .add-task-form {
+    flex-direction: column;
+    padding-bottom: 180px;
+  }
+  .separator {
+    display: none;
+  }
+
+  .add-task-description,
+  .priority-btns {
+    width: 550px;
+  }
+  .priority-btn {
+    width: 410px;
+    height: 50px;
+  }
+  .add-task-2 input,
+  .add-task-1 input {
+    width: 550px;
+  }
+  .form-footer {
+    width: 580px;
+    background-color: rgb(246, 245, 245);
+    height: 120px;
+    position: fixed;
+    bottom: 0;
+    right: 0px;
+    left: 0px;
+    margin-left: 300px;
+    padding-bottom: 30px;
+    justify-content: flex-start;
+    gap: 70px;
+  }
+
+  h1 {
+    font-size: 55px;
+  }
+  .assigned-to-section input,
+  .add-category input,
+  .add-subtask input,
+  .assigned-to-section,
+  .add-category,
+  .add-subtask,
+  .drop-down-contact-list,
+  .drop-down-category-list,
+  .subtask-list {
+    width: 550px;
+  }
+  .change-input input {
+    width: 80%;
+  }
+}
+
+@media (max-width: 900px) {
+  .add-task-2 input,
+  .add-task-1 input {
+    width: 450px;
+  }
+  input,
+  .add-task-description,
+  .priority-btns {
+    width: 450px;
+  }
+
+  .form-footer {
+    width: 450px;
+    background-color: rgb(246, 245, 245);
+    height: 120px;
+    position: fixed;
+    bottom: 0;
+    right: 0px;
+    left: 0px;
+    margin-left: 300px;
+    padding-bottom: 30px;
+    padding-top: 10px;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .form-btn {
+    font-size: 16px;
+    height: 50px;
+    width: 150px;
+  }
+  h1 {
+    font-size: 50px;
+  }
+  .assigned-to-section input,
+  .add-category input,
+  .add-subtask input,
+  .assigned-to-section,
+  .add-category,
+  .add-subtask,
+  .drop-down-contact-list,
+  .drop-down-category-list,
+  .subtask-list {
+    width: 450px;
+  }
+  .change-input input {
+    width: 80%;
+  }
+}
+
+@media (max-width: 800px) {
+  .add-task-content {
+    margin: 0px;
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+  .form-footer {
+    justify-content: center;
+    width: 100%;
+    flex-direction: row;
+    margin-left: 0;
+    height: 80px;
+    bottom: 80px;
+    right: 0px;
+    left: 0px;
+  }
+  .frame-3 {
+    z-index: 999;
+  }
+  .add-task-form {
+    align-items: center;
+    padding-bottom: 230px;
+  }
+
+  .add-task-2 input,
+  .add-task-1 input {
+    width: 550px;
+  }
+  input,
+  .add-task-description,
+  .priority-btns {
+    width: 550px;
+    height: 45px;
+  }
+  .assigned-to-section input,
+  .add-category input,
+  .add-subtask input,
+  .assigned-to-section,
+  .add-category,
+  .add-subtask,
+  .drop-down-contact-list,
+  .drop-down-category-list,
+  .subtask-list {
+    width: 550px;
+  }
+  .add-task-1,
+  .add-task-2 {
+    width: 550px;
+  }
+  h1 {
+    font-size: 40px;
+  }
+  .add-task-description {
+    height: 88px;
+  }
+  .clear-btn,
+  .form-btn {
+    font-size: 15px;
+    height: 42px;
+    width: 150px;
+  }
+  .footnote {
+    font-size: 16px;
+  }
+  input::placeholder,
+  .add-task-description::placeholder {
+    font-size: 16px;
+  }
+  input[type="date"] {
+    font-size: 16px;
+  }
+  .add-subtask-img {
+    top: 47px;
+  }
+  .cancel-task-img,
+  .accept-task-img,
+  .small-separator {
+    top: 41px;
+  }
+  #add-category-img-down,
+  #add-category-img-down,
+  #assigned-to-img-down,
+  #assigned-to-img-up {
+    top: 52px;
+  }
+  .change-input input {
+    width: 80%;
+  }
+}
+
+@media (max-width: 600px) {
+  .add-task-2 input,
+  .add-task-1 input {
+    width: 450px;
+  }
+
+  .add-task-description,
+  .priority-btns {
+    width: 450px;
+  }
+
+  .assigned-to-section input,
+  .add-category input,
+  .add-subtask input,
+  .assigned-to-section,
+  .add-category,
+  .add-subtask,
+  .drop-down-contact-list,
+  .drop-down-category-list,
+  .subtask-list {
+    width: 450px;
+  }
+  .add-task-1,
+  .add-task-2 {
+    width: 450px;
+  }
+  .form-footer {
+    flex-direction: column;
+    align-items: center;
+    height: 95px;
+    padding: 10px;
+  }
+  input::placeholder,
+  .add-task-description::placeholder,
+  input[type="date"] {
+    font-size: 16px;
+  }
+  .cancel-task-img,
+  .accept-task-img,
+  .small-separator {
+    top: 41px;
+  }
+  .change-input input {
+    width: 80%;
+  }
+}
+
+@media (max-width: 500px) {
+  .add-task-2 input,
+  .add-task-1 input {
+    width: 360px;
+  }
+  .priority-btns {
+    width: 360px;
+    height: 40px;
+  }
+  .assigned-to-section input,
+  .add-category input,
+  .add-subtask input,
+  .assigned-to-section,
+  .add-category,
+  .add-subtask,
+  .drop-down-contact-list,
+  .drop-down-category-list,
+  .subtask-list {
+    width: 360px;
+  }
+  .add-task-description {
+    width: 360px;
+  }
+  .add-task-1,
+  .add-task-2 {
+    width: 360px;
+  }
+  input::placeholder,
+  .add-task-description::placeholder {
+    font-size: 16px;
+  }
+  .priority-btns {
+    font-size: 16px;
+  }
+
+  .cancel-or-accept {
+    top: 40px;
+  }
+  .change-input input {
+    width: 80%;
+  }
+}
+
+@media (max-width: 400px) {
+  .priority-btns {
+    font-size: 16px;
+  }
+  .priority-btn {
+    padding: 0;
+  }
+  .priority-img {
+    width: 17px;
+  }
+  .add-task-2 input,
+  .add-task-1 input {
+    width: 280px;
+  }
+
+  .add-task-description,
+  .priority-btns {
+    width: 280px;
+  }
+  .assigned-to-section input,
+  .add-category input,
+  .add-subtask input,
+  .assigned-to-section,
+  .add-category,
+  .add-subtask,
+  .drop-down-contact-list,
+  .drop-down-category-list,
+  .subtask-list {
+    width: 280px;
+  }
+  .add-task-1,
+  .add-task-2 {
+    width: 280px;
+  }
+  .form-footer {
+    padding-left: 20px;
+  }
+  .clear-btn,
+  .form-btn {
+    font-size: 16px;
+    height: 40px;
+    width: 153px;
+  }
+  .clear-btn {
+    width: 100px;
+  }
+
+  .clear-btn {
+    width: 100px;
+  }
+  .contact {
+    font-size: 16px;
+  }
+  .avatar {
+    width: 25px;
+    height: 35px;
+  }
+  .change-input input {
+    width: 70%;
+  }
+}
