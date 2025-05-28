@@ -20,9 +20,10 @@
     <script src="dialog-edit-task.js"></script>
     <script src="board.js"></script>
 </head>
-
+<div w3-include-html="../assets/templates/nav-header_template.html"></div>
 <body onload="init()">
-    <div w3-include-html="../assets/templates/nav-header_template.html"></div>
+    
+
     <div onclick="toggleEditTaskDialog()" id="editTaskDialog" class="dialog-container d-none-edit-dialog">
         <div onclick="stopPropagation(event)" id="editDialog" class="dialog-card">
             <div class="dialog-card-header flex-end">
