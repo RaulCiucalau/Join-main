@@ -153,7 +153,6 @@ function toggleEditTaskDialog() {
 function renderEditTaskDialog(tasks) {
   let container = document.getElementById('editTaskDialog');
   container.innerHTML = tasks.map(getEditTaskDialog).join('');
-  eventListeners();
 }
 
 function openEditTaskDialogById(taskId) {
@@ -178,11 +177,11 @@ function renderPriorityFromAPI(task) {
 function renderSubtasksToEdit(task) {
   return task.subtasks.map(subtask => {
     return `
-            <div id="dialogSubtaskEdit" class="edit-dialog-subtask">
+            <div onmouseenter="mouseOverSubtaskEdit(this)" onmouseleave="mouseLeaveSubtaskEdit(this)" id="dialogSubtaskEdit" class="edit-dialog-subtask">
                 <span class="subtask-text">• ${subtask.title}</span>
-                <div class="subtask-list-item-btns">
-                  <img onclick="editSelectedSubtask(${task.id}, ${task.subtasks.indexOf(subtask)})" src="../assets/icons/edit.svg" class="subtask-edit-page-icons subtask-icons-d-none pointer" title="Edit">
-                  <img src="../assets/icons/delete.svg" class="subtask-edit-page-icons subtask-icons-d-none pointer" title="Delete">
+                <div id="subtaskEditBtns" class="subtask-list-item-btns subtask-icons-d-none">
+                  <img onclick="editSelectedSubtask(${task.id}, ${task.subtasks.indexOf(subtask)})" src="../assets/icons/edit.svg" class="subtask-edit-page-icons pointer" title="Edit">
+                  <img src="../assets/icons/delete.svg" class="subtask-edit-page-icons pointer" title="Delete">
                 </div>
             </div>
         `;
@@ -209,4 +208,14 @@ function editSelectedSubtask(taskId, subtaskIndex) {
            </div>
          </div>    
     `;
+}
+
+function mouseOverSubtaskEdit(element) {
+  const btns = element.querySelector('.subtask-list-item-btns');
+  btns.classList.remove('subtask-icons-d-none');
+}
+
+function mouseLeaveSubtaskEdit(element) {
+  const btns = element.querySelector('.subtask-list-item-btns');
+  btns.classList.add('subtask-icons-d-none');
 }

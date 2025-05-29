@@ -88,14 +88,14 @@ textarea {
 }
 
 input.assign::placeholder {
-  color: black;
+    color: black;
 }
 
 .hover-active-border:hover,
 .hover-active-border:active,
 .hover-active-border:focus {
-  border: 1px solid #29ABE2;
-  outline: none;
+    border: 1px solid #29ABE2;
+    outline: none;
 }
 
 .add-task-2 {
@@ -193,6 +193,10 @@ input.assign::placeholder {
     height: 32px;
 }
 
+.edit-dialog-subtask:hover {
+    background-color: #D1D1D1;
+}
+
 .subtask-list-item {
     display: flex;
     justify-content: space-between;
@@ -225,6 +229,11 @@ input.assign::placeholder {
 .subtask-edit-page-icons {
     width: 24px;
     height: 24px;
+}
+
+.subtask-edit-page-icons:hover {
+    border-radius: 40%;
+    background-color: #ababab;
 }
 
 .subtask-icons-d-none {
