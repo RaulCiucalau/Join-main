@@ -1,6 +1,7 @@
 let selectedContacts = [];
 let selectedContactsNames = []
 let currentTaskId = 0;
+let subtaskIcons = document.querySelector('dialogSubtaskEdit');
 
 function renderContactList() {
   const container = document.getElementById("drop-down-contact-list");
@@ -152,6 +153,7 @@ function toggleEditTaskDialog() {
 function renderEditTaskDialog(tasks) {
   let container = document.getElementById('editTaskDialog');
   container.innerHTML = tasks.map(getEditTaskDialog).join('');
+  eventListeners();
 }
 
 function openEditTaskDialogById(taskId) {
@@ -174,36 +176,37 @@ function renderPriorityFromAPI(task) {
 }
 
 function renderSubtasksToEdit(task) {
-    return task.subtasks.map(subtask => {
-        return `
+  return task.subtasks.map(subtask => {
+    return `
             <div id="dialogSubtaskEdit" class="edit-dialog-subtask">
                 <span class="subtask-text">• ${subtask.title}</span>
                 <div class="subtask-list-item-btns">
-                  <img onclick="editSelectedSubtask(${task.id}, ${task.subtasks.indexOf(subtask)})" src="../assets/icons/edit.svg" class="subtask-edit-icons pointer" title="Edit">
-                  <img src="../assets/icons/delete.svg" class="subtask-edit-icons pointer" title="Delete">
+                  <img onclick="editSelectedSubtask(${task.id}, ${task.subtasks.indexOf(subtask)})" src="../assets/icons/edit.svg" class="subtask-edit-page-icons subtask-icons-d-none pointer" title="Edit">
+                  <img src="../assets/icons/delete.svg" class="subtask-edit-page-icons subtask-icons-d-none pointer" title="Delete">
                 </div>
             </div>
         `;
-    }).join('');
+  }).join('');
 }
 
 function editSelectedSubtask(taskId, subtaskIndex) {
-    const task = tasks[taskId];
-    const subtask = task.subtasks[subtaskIndex];
-    const subtaskElements = document.querySelectorAll('.edit-dialog-subtask');
-    const container = subtaskElements[subtaskIndex];
-    container.innerHTML = `
-        <input type="text" class="subtask-edit-input" value="${subtask.title}">
-        <div class="subtask-list-item-btns">
+  const task = tasks[taskId];
+  const subtask = task.subtasks[subtaskIndex];
+  const subtaskElements = document.querySelectorAll('.edit-dialog-subtask');
+  const container = subtaskElements[subtaskIndex];
+  container.innerHTML = `
+        <div class="input-container-subtask">
+          <input type="text" class="subtask-edit-input" value="${subtask.title}">
+          <div class="subtask-list-item-btns">
             <img onclick="" 
-                 src="../assets/icons/check.svg" 
-                 class="subtask-edit-icons pointer" 
-                 title="Save">
+              src="../assets/icons/check.svg" 
+              class="subtask-edit-page-icons pointer" 
+              title="Save">
             <img onclick="" 
-                 src="../assets/icons/cancel.svg" 
-                 class="subtask-edit-icons pointer" 
-                 title="Cancel">
-        </div>
+              src="../assets/icons/cancel.svg" 
+              class="subtask-edit-page-icons pointer" 
+              title="Cancel">
+           </div>
+         </div>    
     `;
 }
-

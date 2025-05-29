@@ -1,9 +1,9 @@
 .content {
-  padding-left: 240px;
-  padding-right: 100px;
-  padding-top: 64px;
-  max-width: 1440px;
-  box-sizing: border-box;
+    padding-inline: 100px;
+    padding-block: 64px;
+    margin-left: 200px;
+    max-width: 1400px;
+    box-sizing: border-box;
 }
 
 .board-header-container {
@@ -114,7 +114,7 @@ h1 {
     justify-content: space-around;
     gap: 26px;
     padding: 0 64px 0 0;
-    
+
 }
 
 .status_title {

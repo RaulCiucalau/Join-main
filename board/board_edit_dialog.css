@@ -190,6 +190,7 @@ input.assign::placeholder {
     padding: 4px;
     align-items: center;
     justify-content: space-between;
+    height: 32px;
 }
 
 .subtask-list-item {
@@ -202,4 +203,30 @@ input.assign::placeholder {
     padding-left: 10px;
     border-radius: 10px;
     position: relative;
+}
+
+.subtask-edit-input {
+    width: 100%;
+    height: 32px;
+    border: none;
+    padding: 12px 21px;
+}
+
+.subtask-edit-input:focus {
+    outline: none;
+}
+
+.input-container-subtask {
+    display: flex;
+    width: 420px;
+    border-bottom: 1px solid #29ABE2;
+}
+
+.subtask-edit-page-icons {
+    width: 24px;
+    height: 24px;
+}
+
+.subtask-icons-d-none {
+    display: none;
 }
