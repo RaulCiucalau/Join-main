@@ -95,16 +95,16 @@ function getEditTaskDialog(task) {
             <div class="content-edit-task-dialog">
                 <div class="dialog-edit-title">
                     <p class="dialog-card-typography-content font-blue">Title</p>
-                    <input value="${task.title}" class="standard-input-edit-task hover-active-border" type="text">
+                    <input id="editedTitle" value="${task.title}" class="standard-input-edit-task hover-active-border" type="text">
                 </div>
                 <div class="dialog-edit-description">
                     <p class="dialog-card-typography-content font-blue">Description</p>
-                    <textarea class="description-input-edit-task hover-active-border" cols="60" rows="20"
+                    <textarea id="editedDescription" class="description-input-edit-task hover-active-border" cols="60" rows="20"
                         name="content">${task.description}</textarea>
                 </div>
                 <div class="dialog-edit-due-date">
                     <p class="dialog-card-typography-content font-blue">Due Date</p>
-                    <input value="${task.due_date}" type="date" id="add-task-due-date"  class="standard-input-edit-task hover-active-border" type="text">
+                    <input id="editedDate" value="${task.due_date}" type="date" id="add-task-due-date"  class="standard-input-edit-task hover-active-border" type="text">
                 </div>
                 <div class="dialog-edit-priority">
                     <div class="select-priority frame-39">
@@ -148,15 +148,19 @@ function getEditTaskDialog(task) {
                 </div>
                 <div class="dialog-edit-subtasks">
                     <p class="dialog-card-typography-content font-blue">Subtasks</p>
-                    <input class="standard-input-edit-task hover-active-border" type="text"
-                        placeholder="Add new Subtask">
+                    <div class="input-container-add-subtask hover-active-border">
+                        <input id="newSubtaskInput" class="noborder-input standard-input-edit-task" type="text" placeholder="Add new Subtask">
+                        <img onclick="" src="../assets/icons/cancel.svg" class="subtask-edit-page-icons pointer" title="Cancel">
+                        <img onclick="addNewSubtask()" src="../assets/icons/check.svg" class="subtask-edit-page-icons pointer" title="Save">
+                        
+                    </div>
                     <div id="subtasksList">
                         ${renderSubtasksToEdit(task)}
                     </div>
                 </div>
             </div>
             <div class="edit-task-btn-container">
-                <img class="edit-task-ok-btn" src="../assets/img/board_icons/edit_task_ok_btn.svg" alt="">
+                <img onclick="updateTaskDatainAPI(${task.id})" class="edit-task-ok-btn" src="../assets/img/board_icons/edit_task_ok_btn.svg" alt="">
             </div>
         </div>
     `

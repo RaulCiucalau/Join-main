@@ -1,5 +1,6 @@
 let selectedContacts = [];
-let selectedContactsNames = []
+let selectedContactsNames = [];
+let subtaskIdCounter = 0;
 let currentTaskId = 0;
 let subtaskIcons = document.querySelector('dialogSubtaskEdit');
 
@@ -177,11 +178,11 @@ function renderPriorityFromAPI(task) {
 function renderSubtasksToEdit(task) {
   return task.subtasks.map(subtask => {
     return `
-            <div onmouseenter="mouseOverSubtaskEdit(this)" onmouseleave="mouseLeaveSubtaskEdit(this)" id="dialogSubtaskEdit" class="edit-dialog-subtask">
+            <div onmouseenter="mouseOverSubtaskEdit(this)" onmouseleave="mouseLeaveSubtaskEdit(this)" id="dialogSubtaskEdit" class="edit-dialog-subtask hover">
                 <span class="subtask-text">• ${subtask.title}</span>
                 <div id="subtaskEditBtns" class="subtask-list-item-btns subtask-icons-d-none">
                   <img onclick="editSelectedSubtask(${task.id}, ${task.subtasks.indexOf(subtask)})" src="../assets/icons/edit.svg" class="subtask-edit-page-icons pointer" title="Edit">
-                  <img src="../assets/icons/delete.svg" class="subtask-edit-page-icons pointer" title="Delete">
+                  <img onclick="deleteSelectedTask(${task.id}, ${task.subtasks.indexOf(subtask)})" src="../assets/icons/delete.svg" class="subtask-edit-page-icons pointer" title="Delete">
                 </div>
             </div>
         `;
@@ -193,18 +194,15 @@ function editSelectedSubtask(taskId, subtaskIndex) {
   const subtask = task.subtasks[subtaskIndex];
   const subtaskElements = document.querySelectorAll('.edit-dialog-subtask');
   const container = subtaskElements[subtaskIndex];
+  container.removeAttribute('onmouseenter');
+  container.removeAttribute('onmouseleave');
+  container.classList.remove('hover');
   container.innerHTML = `
         <div class="input-container-subtask">
-          <input type="text" class="subtask-edit-input" value="${subtask.title}">
+          <input id="inputSubtaskEdit" type="text" class="subtask-edit-input" value="${subtask.title}">
           <div class="subtask-list-item-btns">
-            <img onclick="" 
-              src="../assets/icons/check.svg" 
-              class="subtask-edit-page-icons pointer" 
-              title="Save">
-            <img onclick="" 
-              src="../assets/icons/cancel.svg" 
-              class="subtask-edit-page-icons pointer" 
-              title="Cancel">
+            <img onclick="deleteSelectedTask(${task.id}, ${task.subtasks.indexOf(subtask)})" src="../assets/icons/delete.svg" class="subtask-edit-page-icons pointer" title="Delete">
+            <img onclick="saveSelectedTask(${task.id}, ${task.subtasks.indexOf(subtask)})" src="../assets/icons/check.svg" class="subtask-edit-page-icons pointer" title="Save">
            </div>
          </div>    
     `;
@@ -218,4 +216,68 @@ function mouseOverSubtaskEdit(element) {
 function mouseLeaveSubtaskEdit(element) {
   const btns = element.querySelector('.subtask-list-item-btns');
   btns.classList.add('subtask-icons-d-none');
+}
+
+function deleteSelectedTask(taskId, subtaskIndex) {
+  const container = document.getElementById('subtasksList');
+  const task = tasks[taskId];
+  task.subtasks.splice(subtaskIndex, 1);
+  container.innerHTML = renderSubtasksToEdit(task);
+}
+
+function saveSelectedTask(taskId, subtaskIndex) {
+  const task = tasks[taskId];
+  const input = document.getElementById('inputSubtaskEdit').value;
+  const container = document.getElementById('subtasksList');
+  task.subtasks[subtaskIndex].title = input;
+  container.innerHTML = renderSubtasksToEdit(task);
+}
+
+function saveEditInputFields(taskId) {
+  const task = tasks[taskId];
+  const title = document.getElementById('editedTitle').value;
+  const description = document.getElementById('editedDescription').value;
+  const date = document.getElementById('editedDate').value;
+  task.title = title;
+  task.description = description;
+  task.due_date = date;
+}
+
+async function updateTaskDatainAPI(taskId) {
+  const task = tasks[taskId];
+  saveEditInputFields(taskId);
+  try {
+    await fetch(`https://join-460-default-rtdb.europe-west1.firebasedatabase.app/tasks/${task.id}.json`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(task),
+    });
+  } catch (error) {
+    console.error("Fehler beim Schreiben in die Datenbank:", error);
+  }
+}
+
+function writeSubtask() {
+
+}
+
+function addNewSubtask() {
+  const inputText = document.getElementById('newSubtaskInput');
+   if (inputText.length > 0) 
+      addNewSubtaskToList(inputText);
+      inputText.value = '';
+}
+
+
+function addNewSubtaskToList(text) {
+  const task = tasks[taskId];
+  const list = document.getElementById('subtask-list');
+  const subtaskObject = {
+    id: subtaskIdCounter.toString(),
+    taskId: currentTaskId.toString(),
+    title: text, 
+    completed: false
+  };
+  task.subtasks.push(subtaskObject);
+  subtaskIdCounter++;
 }

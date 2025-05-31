@@ -193,7 +193,7 @@ input.assign::placeholder {
     height: 32px;
 }
 
-.edit-dialog-subtask:hover {
+.hover:hover {
     background-color: #D1D1D1;
 }
 
@@ -238,4 +238,23 @@ input.assign::placeholder {
 
 .subtask-icons-d-none {
     display: none;
+}
+
+.subtask-text {
+    word-break: break-all;
+}
+
+.input-container-add-subtask {
+    display: flex;
+    align-items: center;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+}
+
+.noborder-input {
+    border: 0;
+}
+
+.noborder-input:focus {
+    outline: 0 !important;
 }
