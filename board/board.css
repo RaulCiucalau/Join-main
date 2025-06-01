@@ -150,7 +150,8 @@ h1 {
     gap: 16px;
     display: flex;
     flex-direction: column;
-    width: 266px
+    width: 266px;
+    height: 100%;
 }
 
 .empty-task {
