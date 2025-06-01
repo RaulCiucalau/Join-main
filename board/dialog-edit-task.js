@@ -1,15 +1,12 @@
 let selectedContacts = [];
 let selectedContactsNames = [];
 let subtaskIdCounter = 0;
-let currentTaskId = 0;
 let subtaskIcons = document.querySelector('dialogSubtaskEdit');
 
-function renderContactList() {
+function renderContactList(taskId) {
   const container = document.getElementById("drop-down-contact-list");
   container.innerHTML = "";
-
-  const assignedTo = tasks[currentTaskId].assigned_to;
-
+  const assignedTo = tasks[taskId].assigned_to;
   for (let i = 0; i < assignedTo.length; i++) {
     const contact = assignedTo[i];
     container.innerHTML += contactListDropDownTemplate(contact, i);
@@ -20,9 +17,9 @@ function renderContactList() {
   }
 }
 
-function showDropDownContactList(event) {
+function showDropDownContactList(event, taskId) {
   event.stopPropagation();
-
+  const task = tasks[taskId];
   const arrowUp = document.getElementById("assigned-to-img-up");
   const arrowDown = document.getElementById("assigned-to-img-down");
   const dropDown = document.getElementById("drop-down-contact-list");
@@ -33,7 +30,7 @@ function showDropDownContactList(event) {
     arrowUp.classList.remove("dp-none");
     arrowDown.classList.add("dp-none");
     dropDown.classList.remove("dp-none");
-    renderContactList();
+    renderContactList(taskId);
   } else {
     closeContactList();
   }
@@ -258,6 +255,7 @@ async function updateTaskDatainAPI(taskId) {
 }
 
 function addNewSubtaskToList(taskId) {
+  const inputContainer = document.querySelector('.btns-new-subtask');
   const task = tasks[taskId];
   const text = document.getElementById('newSubtaskInput').value;
    const container = document.getElementById('subtasksList');
@@ -272,4 +270,16 @@ function addNewSubtaskToList(taskId) {
   subtaskIdCounter++;
   document.getElementById('newSubtaskInput').value = '';
   container.innerHTML = renderSubtasksToEdit(task);
+  inputContainer.classList.add('visibility-hidden');
+}
+
+function showBtnToAddSubtask() {
+  const container = document.querySelector('.btns-new-subtask');
+  container.classList.remove('visibility-hidden');
+}
+
+function cancelBtnAddSubtask() {
+  const container = document.querySelector('.btns-new-subtask');
+  document.getElementById('newSubtaskInput').value = '';
+  container.classList.add('visibility-hidden');
 }

@@ -258,3 +258,13 @@ input.assign::placeholder {
 .noborder-input:focus {
     outline: 0 !important;
 }
+
+.btns-new-subtask {
+    display: flex;
+    gap: 15px;
+    margin-right: 2px;
+}
+
+.visibility-hidden {
+    display: none;
+}

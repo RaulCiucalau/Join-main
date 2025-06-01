@@ -75,13 +75,13 @@ function getBigTaskDialog(task) {
     `;
 }
 
-function contactListDropDownTemplate(contact, index) {
+function contactListDropDownTemplate(contact, index, i) {
   const isChecked = selectedContacts.includes(index);
   const checkboxIcon = isChecked ? "btn-checked.svg" : "btn-unchecked.svg";
   return `
     <div id="${index}" class="contact-item" onclick="toggleContactSelection(${index})">
-      <span>${contact}</span>
-      <img id="btn-checkbox-${index}" src="../assets/icons/${checkboxIcon}" alt="checkbox">
+        <span>${contact}</span>
+        <img id="btn-checkbox-${index}" src="../assets/icons/${checkboxIcon}" alt="checkbox">
     </div>
   `;
 }
@@ -132,13 +132,13 @@ function getEditTaskDialog(task) {
                     <div class="assigned-to-section frame-39 some-height">
                         <label class="dialog-card-typography-content font-blue">Assigned to</label>
                         <input type="text" id="assigned-to" class="selection" placeholder="Select contacts to assign"
-                            onclick="showDropDownContactList(event)" />
+                            onclick="showDropDownContactList(event, ${task.id})" />
                         <img id="assigned-to-img-down" class="assigned-to-img dropdown-img"
                             src="../assets/icons/arrow_drop_down.svg" alt="Select contact dropdown arrow"
-                            onclick="showDropDownContactList(event)">
+                            onclick="showDropDownContactList(event, ${task.id})">
                         <img id="assigned-to-img-up" class="assigned-to-img dropdown-img dp-none "
                             src="../assets/icons/arrow_drop_down_up.svg" alt="Select contact dropdown arrow"
-                            onclick="showDropDownContactList(event)">
+                            onclick="showDropDownContactList(event, ${task.id})">
                         <div class="drop-down-contact-list dp-none" id="drop-down-contact-list">
                             
                         </div>
@@ -149,10 +149,11 @@ function getEditTaskDialog(task) {
                 <div class="dialog-edit-subtasks">
                     <p class="dialog-card-typography-content font-blue">Subtasks</p>
                     <div class="input-container-add-subtask hover-active-border">
-                        <input id="newSubtaskInput" class="noborder-input standard-input-edit-task" type="text" placeholder="Add new Subtask">
-                        <img onclick="" src="../assets/icons/cancel.svg" class="subtask-edit-page-icons pointer" title="Cancel">
-                        <img onclick="addNewSubtaskToList(${task.id})" src="../assets/icons/check.svg" class="subtask-edit-page-icons pointer" title="Save">
-                        
+                        <input onclick="showBtnToAddSubtask()" id="newSubtaskInput" class="noborder-input standard-input-edit-task" type="text" placeholder="Add new Subtask">
+                        <div class="btns-new-subtask visibility-hidden">
+                            <img onclick="cancelBtnAddSubtask()" src="../assets/icons/cancel.svg" class="subtask-edit-page-icons pointer" title="Cancel">
+                            <img onclick="addNewSubtaskToList(${task.id})" src="../assets/icons/check.svg" class="subtask-edit-page-icons pointer" title="Save">
+                        </div>
                     </div>
                     <div id="subtasksList">
                         ${renderSubtasksToEdit(task)}
