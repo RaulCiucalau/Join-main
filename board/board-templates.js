@@ -151,7 +151,7 @@ function getEditTaskDialog(task) {
                     <div class="input-container-add-subtask hover-active-border">
                         <input id="newSubtaskInput" class="noborder-input standard-input-edit-task" type="text" placeholder="Add new Subtask">
                         <img onclick="" src="../assets/icons/cancel.svg" class="subtask-edit-page-icons pointer" title="Cancel">
-                        <img onclick="addNewSubtask()" src="../assets/icons/check.svg" class="subtask-edit-page-icons pointer" title="Save">
+                        <img onclick="addNewSubtaskToList(${task.id})" src="../assets/icons/check.svg" class="subtask-edit-page-icons pointer" title="Save">
                         
                     </div>
                     <div id="subtasksList">

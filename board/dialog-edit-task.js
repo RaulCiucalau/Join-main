@@ -257,27 +257,19 @@ async function updateTaskDatainAPI(taskId) {
   }
 }
 
-function writeSubtask() {
-
-}
-
-function addNewSubtask() {
-  const inputText = document.getElementById('newSubtaskInput');
-   if (inputText.length > 0) 
-      addNewSubtaskToList(inputText);
-      inputText.value = '';
-}
-
-
-function addNewSubtaskToList(text) {
+function addNewSubtaskToList(taskId) {
   const task = tasks[taskId];
-  const list = document.getElementById('subtask-list');
+  const text = document.getElementById('newSubtaskInput').value;
+   const container = document.getElementById('subtasksList');
+  if (!text) return;
   const subtaskObject = {
     id: subtaskIdCounter.toString(),
-    taskId: currentTaskId.toString(),
-    title: text, 
+    taskId: taskId,
+    title: text,
     completed: false
   };
   task.subtasks.push(subtaskObject);
   subtaskIdCounter++;
+  document.getElementById('newSubtaskInput').value = '';
+  container.innerHTML = renderSubtasksToEdit(task);
 }
