@@ -1,20 +1,45 @@
 let selectedContacts = [];
 let selectedContactsNames = [];
 let subtaskIdCounter = 0;
+let selectedPriority = "";
+let currentTaskId = null;
 let subtaskIcons = document.querySelector('dialogSubtaskEdit');
 
 function renderContactList(taskId) {
+  const assignedTo = tasks[taskId]?.assigned_to || [];
   const container = document.getElementById("drop-down-contact-list");
   container.innerHTML = "";
-  const assignedTo = tasks[taskId].assigned_to;
-  for (let i = 0; i < assignedTo.length; i++) {
-    const contact = assignedTo[i];
-    container.innerHTML += contactListDropDownTemplate(contact, i);
+  if (!contacts || contacts.length === 0) return;
+  resetSelectedContacts();
+  contacts.forEach((contact, i) => {
+    const isAssigned = assignedTo.includes(contact.name);
+    container.innerHTML += contactListDropDownTemplate(contact, i, isAssigned);
+    if (isAssigned) addToSelected(contact.name, i);
+  });
+  applySelectedStyles();
+  showSelectedAvatars();
+}
 
-    if (selectedContacts.includes(i)) {
-      selectContact(i);
+function resetSelectedContacts() {
+  selectedContacts = [];
+  selectedContactsNames = [];
+}
+
+function addToSelected(name, index) {
+  selectedContacts.push(index);
+  selectedContactsNames.push(name);
+}
+
+function applySelectedStyles() {
+  selectedContacts.forEach(i => {
+    const el = document.getElementById(i);
+    const icon = document.getElementById(`btn-checkbox-${i}`);
+    if (el && icon) {
+      el.style.backgroundColor = "#2a3647";
+      el.style.color = "white";
+      icon.src = "../assets/icons/btn-checked.svg";
     }
-  }
+  });
 }
 
 function showDropDownContactList(event, taskId) {
@@ -23,9 +48,7 @@ function showDropDownContactList(event, taskId) {
   const arrowUp = document.getElementById("assigned-to-img-up");
   const arrowDown = document.getElementById("assigned-to-img-down");
   const dropDown = document.getElementById("drop-down-contact-list");
-
   const isHidden = arrowUp.classList.contains("dp-none");
-
   if (isHidden) {
     arrowUp.classList.remove("dp-none");
     arrowDown.classList.add("dp-none");
@@ -44,61 +67,74 @@ function closeContactList() {
 }
 
 function selectContact(i) {
-  document.getElementById(`${i}`).style.backgroundColor = "#2a3647";
-  document.getElementById(`${i}`).style.color = "white";
-  document.getElementById(`btn-checkbox-${i}`).src = "../assets/icons/btn-checked.svg";
+  const contactElement = document.getElementById(`${i}`);
+  const checkboxIcon = document.getElementById(`btn-checkbox-${i}`);
+  const contact = contacts[i];
+  if (!contactElement || !checkboxIcon || !contact) return;
+  contactElement.style.backgroundColor = "#2a3647";
+  contactElement.style.color = "white";
+  checkboxIcon.src = "../assets/icons/btn-checked.svg";
   if (!selectedContacts.includes(i)) {
     selectedContacts.push(i);
-    if (!selectedContactsNames.includes(tasks.assigned_to[i])) {
-      selectedContactsNames.push(tasks.assigned_to[i]);
-    }
+  }
+  if (!selectedContactsNames.includes(contact.name)) {
+    selectedContactsNames.push(contact.name);
   }
   showSelectedAvatars();
 }
 
 function unselectContact(i) {
-  document.getElementById(`${i}`).style.backgroundColor = "white";
-  document.getElementById(`${i}`).style.color = "black";
-  document.getElementById(`${i}`).style.borderRadius = "10px";
-  document.getElementById(`btn-checkbox-${i}`).src = "../assets/icons/btn-unchecked.svg";
+  const contactElement = document.getElementById(`${i}`);
+  const checkboxIcon = document.getElementById(`btn-checkbox-${i}`);
+  const contact = contacts[i];
+  if (!contactElement || !checkboxIcon || !contact) return;
+  contactElement.style.backgroundColor = "white";
+  contactElement.style.color = "black";
+  contactElement.style.borderRadius = "10px";
+  checkboxIcon.src = "../assets/icons/btn-unchecked.svg";
   const index = selectedContacts.indexOf(i);
   if (index > -1) {
     selectedContacts.splice(index, 1);
   }
-  removeUnSelectedAvatar(i);
-}
-
-function toggleContactSelection(index) {
-  if (selectedContacts.includes(index)) {
-    unselectContact(index);
-  } else {
-    selectContact(index);
+  const nameIndex = selectedContactsNames.indexOf(contact.name);
+  if (nameIndex > -1) {
+    selectedContactsNames.splice(nameIndex, 1);
   }
+  showSelectedAvatars();
 }
 
 function toggleContactSelection(i) {
-  const contactElement = document.getElementById(i);
-  contactElement.style.backgroundColor === "rgb(42, 54, 71)" ? unselectContact(i) : selectContact(i);
+  const contactElement = document.getElementById(`${i}`);
+  if (!contactElement) return;
+
+  const isSelected = selectedContacts.includes(i);
+  isSelected ? unselectContact(i) : selectContact(i);
 }
 
 function showSelectedAvatars() {
   const container = document.getElementById("selected-avatars");
   container.innerHTML = "";
-
   const visibleContacts = selectedContacts
     .map(index => contacts[index])
-    .filter(contact => contact);
-
-  const avatarHtml = visibleContacts
-    .slice(0, 4)
-    .map(contact =>
-      `<div class="selected-avatar" style="background-color:${contact.color};">${contact.avatar}</div>`
-    )
-    .join("");
-
+    .filter(Boolean);
+  const avatarHtml = visibleContacts.slice(0, 4).map(contact => {
+    const initials = getInitials(contact.name);
+    return `
+      <div class="selected-avatar" style="background-color: ${contact.color}">
+        ${initials}
+      </div>`;
+  }).join("");
   const extraCount = visibleContacts.length - 4;
   container.innerHTML =
     avatarHtml + (extraCount > 0 ? `<div class="selected-avatar extra-avatar">+${extraCount}</div>` : "");
+}
+
+function getInitials(name) {
+  return name
+    .split(" ")
+    .map(part => part[0])
+    .join("")
+    .toUpperCase();
 }
 
 function removeUnSelectedAvatar(i) {
@@ -108,25 +144,36 @@ function removeUnSelectedAvatar(i) {
 
 function selectPrio(prio) {
   const prios = ["urgent", "medium", "low"];
-  prios.forEach((p) => unselectPrio(p));
+  prios.forEach(p => {
+    document.getElementById(`prio-img-${p}`).src = `../assets/icons/priority-${p}.svg`;
+    document.getElementById(`prio-btn-${p}`).style.backgroundColor = "white";
+    document.getElementById(`prio-btn-${p}`).style.color = "black";
+  });
   document.getElementById(`prio-img-${prio}`).src = `../assets/icons/priority-${prio}-white.svg`;
   document.getElementById(`prio-btn-${prio}`).style.backgroundColor = getPrioColor(prio);
   document.getElementById(`prio-btn-${prio}`).style.color = "white";
-  selectedPrio = `${prio}`;
-}
-
-function unselectPrio(prio) {
-  document.getElementById(`prio-img-${prio}`).src = `../assets/icons/priority-${prio}.svg`;
-  document.getElementById(`prio-btn-${prio}`).style.backgroundColor = "white";
-  document.getElementById(`prio-btn-${prio}`).style.color = "black";
-  selectedPrio = "";
+  selectedPriority = prio;
+  updateTaskPriority(prio);
 }
 
 function togglePriority(prio) {
-  if (document.getElementById(`prio-btn-${prio}`).style.color === "white") {
-    unselectPrio(prio);
+  const btn = document.getElementById(`prio-btn-${prio}`);
+  const isActive = btn.style.color === "white";
+  if (isActive) {
+    document.getElementById(`prio-img-${prio}`).src = `../assets/icons/priority-${prio}.svg`;
+    btn.style.backgroundColor = "white";
+    btn.style.color = "black";
+    selectedPriority = "";
+    updateTaskPriority("");
   } else {
     selectPrio(prio);
+  }
+}
+
+function updateTaskPriority(prio) {
+  const task = tasks.find(t => t.id === currentTaskId);
+  if (task) {
+    task.priority = prio;
   }
 }
 
@@ -148,12 +195,15 @@ function toggleEditTaskDialog() {
   editDialog.classList.toggle('d-none-edit-dialog');
 }
 
-function renderEditTaskDialog(tasks) {
+function renderEditTaskDialog(tasks, taskId) {
+  currentTaskId = taskId;
   let container = document.getElementById('editTaskDialog');
   container.innerHTML = tasks.map(getEditTaskDialog).join('');
+  renderContactList(taskId);
 }
 
 function openEditTaskDialogById(taskId) {
+  currentTaskId = taskId;
   const task = tasks.find(task => task.id === taskId);
   const bigDialog = document.getElementById('bigTaskDialog');
   const editDialog = document.getElementById('editTaskDialog');
@@ -258,7 +308,7 @@ function addNewSubtaskToList(taskId) {
   const inputContainer = document.querySelector('.btns-new-subtask');
   const task = tasks[taskId];
   const text = document.getElementById('newSubtaskInput').value;
-   const container = document.getElementById('subtasksList');
+  const container = document.getElementById('subtasksList');
   if (!text) return;
   const subtaskObject = {
     id: subtaskIdCounter.toString(),
