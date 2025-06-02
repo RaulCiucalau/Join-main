@@ -75,16 +75,16 @@ function getBigTaskDialog(task) {
     `;
 }
 
-function contactListDropDownTemplate(contact, index, i) {
-  const isChecked = selectedContacts.includes(index);
-  const checkboxIcon = isChecked ? "btn-checked.svg" : "btn-unchecked.svg";
+function contactListDropDownTemplate(contact, index, isAssigned) {
+  const checkboxIcon = isAssigned ? "btn-checked.svg" : "btn-unchecked.svg";
   return `
     <div id="${index}" class="contact-item" onclick="toggleContactSelection(${index})">
-        <span>${contact}</span>
+        <span>${contact.name}</span>
         <img id="btn-checkbox-${index}" src="../assets/icons/${checkboxIcon}" alt="checkbox">
     </div>
   `;
 }
+
 
 function getEditTaskDialog(task) {
     return `
@@ -129,7 +129,7 @@ function getEditTaskDialog(task) {
                     </div>
                 </div>
                 <div class="dialog-edit-assigned">
-                    <div class="assigned-to-section frame-39 some-height">
+                    <div class="assigned-to-section frame-39">
                         <label class="dialog-card-typography-content font-blue">Assigned to</label>
                         <input type="text" id="assigned-to" class="selection" placeholder="Select contacts to assign"
                             onclick="showDropDownContactList(event, ${task.id})" />

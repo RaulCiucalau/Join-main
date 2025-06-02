@@ -93,7 +93,8 @@ function renderAssignedContacts(assignedList) {
 
 
 function renderPriority(priority) {
-    const validPriority = Object.keys(priorityImg).find(p => p === priority);
+    const normalized = priority.toLowerCase();
+    const validPriority = Object.keys(priorityImg).find(p => p.toLowerCase() === normalized);
     return `<img class="priority-symbol" src="${priorityImg[validPriority]}" alt="Priority symbol">`
 }
 
