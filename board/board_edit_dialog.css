@@ -268,3 +268,20 @@ input.assign::placeholder {
 .visibility-hidden {
     display: none;
 }
+
+.selected-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 4px;
+}
+
+.extra-avatar {
+  background-color: #2a3647;
+}
