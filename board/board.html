@@ -12,19 +12,18 @@
     <link rel="stylesheet" href="board.css">
     <link rel="stylesheet" href="dialog-add-task.css">
     <link rel="shortcut icon" href="../assets/img/favicon/fav_blue.png" type="image/x-icon">
-    <link rel="stylesheet" href="../../styles/navbar-header.css">
+    <link rel="stylesheet" href="navbar-board.css">
     <link rel="stylesheet" href="board_edit_dialog.css">
+    <link rel="stylesheet" href="board-responsive.css">
     <script src="dialog-add-task.js"></script>
     <script src="../js/load_tasks_data.js"></script>
     <script src="board-templates.js"></script>
     <script src="dialog-edit-task.js"></script>
     <script src="board.js"></script>
 </head>
-<div w3-include-html="../assets/templates/nav-header_template.html"></div>
 
 <body onload="init()">
-
-
+    <div w3-include-html="../assets/templates/nav-header_template.html"></div>
     <div onclick="toggleEditTaskDialog()" id="editTaskDialog" class="dialog-container d-none-edit-dialog">
         <div onclick="stopPropagation(event)" id="editDialog" class="dialog-card">
             <div class="dialog-card-header flex-end">

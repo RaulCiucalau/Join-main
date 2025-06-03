@@ -1,5 +1,5 @@
 .content {
-    padding-inline: 100px;
+    padding-inline: 74px;
     padding-block: 64px;
     margin-left: 200px;
     max-width: 1400px;
@@ -111,10 +111,7 @@ h1 {
 .columns-items {
     margin-top: 48px;
     display: flex;
-    justify-content: space-around;
-    gap: 26px;
-    padding: 0 64px 0 0;
-
+    gap: 18px;
 }
 
 .status_title {
