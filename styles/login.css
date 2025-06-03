@@ -1,20 +1,15 @@
-.animation{
-   width: 100px;
-   height: 100px;
+.header_logo {
+    height: 240px;
+    position: relative;
+    top: 48px;
 }
 
-.header_logo{
-   transform: translateY(300%);
-   animation: left-to-right 2s ease-in;
+.input_icon {
+   width: 24px;
+   height: 24px;
+   margin-right: 16px;
+   object-fit: contain;
 }
-
-@keyframes left-to-right{
-    100% {
-        transform: translateX(300%);
-    }
-}
-
-
 
 
 header {
