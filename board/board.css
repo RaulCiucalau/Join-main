@@ -445,3 +445,7 @@ h1 {
 .d-none-big-dialog {
     display: none;
 }
+
+.overflow-hidden {
+    overflow: hidden !important;
+}

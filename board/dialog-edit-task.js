@@ -157,17 +157,7 @@ function selectPrio(prio) {
 }
 
 function togglePriority(prio) {
-  const btn = document.getElementById(`prio-btn-${prio}`);
-  const isActive = btn.style.color === "white";
-  if (isActive) {
-    document.getElementById(`prio-img-${prio}`).src = `../assets/icons/priority-${prio}.svg`;
-    btn.style.backgroundColor = "white";
-    btn.style.color = "black";
-    selectedPriority = "";
-    updateTaskPriority("");
-  } else {
     selectPrio(prio);
-  }
 }
 
 function updateTaskPriority(prio) {
