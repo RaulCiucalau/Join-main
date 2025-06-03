@@ -13,10 +13,10 @@
     <script src="./js/login.js"></script>
 </head>
 
-<body>
+<body onload="init()">
     <div class="main_content">
         <header>
-            <div class="animation">
+            <div>
               <img class="header_logo" src="assets/img/login_icons/logo_blue.svg" alt="Join">
             </div>  
             
@@ -63,7 +63,13 @@
             </div>
         </footer>
     </div>
-    <div class="overlay-animation"></div>
+    <div id="overlay-animation" class="overlay-animation ">
+
+        <div class="">
+            <img class="join_logo" src="assets/img/login_icons/logo_blue.svg" alt="Join">
+        </div>
+
+    </div>
 </body>
 
 </html>
