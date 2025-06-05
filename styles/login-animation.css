@@ -10,8 +10,8 @@
 
   @keyframes moveToTopLeft {
       to {
-          top: 40px;
-          left: 40px;
+          top: 36px;
+          left: 60px;
           transform: translate(0, 0);
       }
   }
