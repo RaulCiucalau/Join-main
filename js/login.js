@@ -1,6 +1,5 @@
 function init(){
 
-
 }
 
 function redirectToGuestView() {
@@ -8,7 +7,7 @@ function redirectToGuestView() {
 }
 
 
-setTimeout(animationJoinSign, 2800);
+setTimeout(animationJoinSign, 3000);
 
 function animationJoinSign(){
     let animationJoinSign = document.getElementById('overlay-animation');
