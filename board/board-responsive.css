@@ -31,15 +31,15 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, 220px);
     }
-}
 
-@media (max-width: 1035px) {
     .board-header-container {
         flex-direction: column;
         align-items: flex-start;
         gap: 16px;
     }
+}
 
+@media (max-width: 1035px) {
     .frame-3-icon {
         display: none;
     }
@@ -48,7 +48,7 @@
         display: none;
     }
 
-    .frame-3-menu  {
+    .frame-3-menu {
         flex-direction: row;
         width: 100%;
         justify-content: space-around;
@@ -66,6 +66,7 @@
 
     .content {
         margin-left: 0;
+        margin-bottom: 100px;
     }
 
     .menu-btns {
@@ -75,21 +76,67 @@
         justify-content: center;
         width: 80px;
     }
-
 }
 
 @media (max-width: 811px) {
-    /* Mit scroll overflow */
     .content {
-        padding-inline: 40px;
+        padding-inline: 16px;
+    }
+
+    .status-content {
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        display: flex;
+        padding-left: 1rem;
+        padding-block: 1rem;
+        scroll-padding-left: 1rem;
+    }
+
+    .status-card {
+        scroll-snap-align: start;
+        width: 252px;
+    }
+
+    .status_title h2 {
+        font-size: 27px;
+    }
+
+    .status_title img {
+        width: 30px;
+        height: 30px;
+    }
+
+    h1 {
+        font-size: 47px;
+    }
+
+    .add_task_header_btn {
+        display: none;
+    }
+
+    .board-header-btn-input {
+        width: 100%;
+    }
+
+    .board_header_input {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .board-title-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .plus-add-mobile-board {
+        display: block !important;
+    }
+
+    .plus-add-mobile-board:hover {
+        cursor: pointer;
     }
 }
 
-@media (max-width: 1385) {
-    
-}
-
-@media (max-width: 1385) {
-    
-}
-
+@media (max-width: 414px) {}

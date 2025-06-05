@@ -168,9 +168,9 @@
   display: none;
 }
 
-@media (max-width: 800px) {
-  header {
-    padding-left: 40px !important;
+@media (max-width: 1035px) {
+  .header-general {
+    padding: 20px 40px 20px 40px;
   }
 
   .header-p {
@@ -180,7 +180,11 @@
   .frame-3-icon-header {
     display: block;
     height: 64px;
-  }
+  } 
+}
 
-  
+@media (max-width: 811px) {
+  .header-general {
+    padding: 20px 16px 20px 16px;
+  }
 }

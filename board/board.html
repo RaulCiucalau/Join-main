@@ -287,7 +287,10 @@
     </div>
     <div class="content">
         <div class="board-header-container">
-            <h1>Board</h1>
+            <div class="board-title-container">
+                <h1>Board</h1>
+                <img class="plus-add-mobile-board d-none" onclick="redirectToAddTask()" id="addTaskBtn" src="../assets/img/board_icons/plus_add_task_mobile.svg" alt="">
+            </div>
             <div class="board-header-btn-input">
                 <div class="board_header_input">
                     <form onsubmit="searchTasks(); return false">
