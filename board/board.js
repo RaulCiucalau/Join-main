@@ -1,12 +1,12 @@
 let profileBadges = {
-    "Anton": "../assets/img/board_icons/badge_anton.svg",
-    "Anja": "../assets/img/board_icons/badge_anja.svg",
-    "Benedikt": "../assets/img/board_icons/badge_benedikt.svg",
-    "David": "../assets/img/board_icons/badge_david.svg",
-    "Eva": "../assets/img/board_icons/badge_eva.svg",
-    "Emmanuel": "../assets/img/board_icons/badge_emmanuel.svg",
-    "Marcel": "../assets/img/board_icons/badge_Marcel.svg",
-    "Tatjana": "../assets/img/board_icons/badge_Tatjana.svg",
+    "Anton Mayer": "../assets/img/board_icons/badge_anton.svg",
+    "Anja Schulz": "../assets/img/board_icons/badge_anja.svg",
+    "Benedikt Ziegler": "../assets/img/board_icons/badge_benedikt.svg",
+    "David Eisenberg": "../assets/img/board_icons/badge_david.svg",
+    "Eva Fischer": "../assets/img/board_icons/badge_eva.svg",
+    "Emmanuel Mauer": "../assets/img/board_icons/badge_emmanuel.svg",
+    "Marcel Bauer": "../assets/img/board_icons/badge_Marcel.svg",
+    "Tatjana Wolf": "../assets/img/board_icons/badge_Tatjana.svg",
 };
 let priorityImg = {
     "Low": "../assets/img/board_icons/priority_low.svg",
@@ -85,7 +85,7 @@ function renderAssignedContacts(assignedList) {
     return assignedList
         .map(name => {
             const validName = Object.keys(profileBadges).find(badgeName => badgeName === name);
-            if (!validName) return ''; // optionaler Schutz, falls Name nicht gefunden
+            if (!validName) return '';
             return `<img class="profile-badge margin-left-contacts" src="${profileBadges[validName]}" alt="Profile Badge">`;
         })
         .join('');
@@ -93,7 +93,8 @@ function renderAssignedContacts(assignedList) {
 
 
 function renderPriority(priority) {
-    const validPriority = Object.keys(priorityImg).find(p => p === priority);
+    const normalized = priority.toLowerCase();
+    const validPriority = Object.keys(priorityImg).find(p => p.toLowerCase() === normalized);
     return `<img class="priority-symbol" src="${priorityImg[validPriority]}" alt="Priority symbol">`
 }
 

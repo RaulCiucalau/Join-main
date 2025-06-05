@@ -1,4 +1,5 @@
 let tasks = [];
+let contacts = [];
 const BASE_URL = "https://join-460-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function onloadFunc() {
@@ -29,9 +30,27 @@ async function onloadFunc() {
             }
         )
     }
+    contactsFetch();
 }
 
 async function fetchData(path) {
     let response = await fetch(BASE_URL + path + ".json");
     return responseToJson = await response.json();
+}
+
+async function contactsFetch() {
+    let contactsResponse = await fetchData("contacts");
+    let contactKeysArray = Object.keys(contactsResponse);
+    for (let index = 0; index < contactKeysArray.length; index++) {
+        let contactId = contactKeysArray[index];
+        let data = contactsResponse[contactId];
+
+        contacts.push({
+            id: contactId,
+            name: data.name,
+            e_mail: data.e_mail,
+            phone: data.phone,
+            color: data.color
+        });
+    }
 }
