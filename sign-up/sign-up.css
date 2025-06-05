@@ -1,0 +1,225 @@
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #f6f7f8;
+  height: 100%;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  margin-top: 15px;
+}
+.go-back-arrow {
+  position: absolute;
+  top: 20px;
+  left: -120px;
+}
+
+.sign-up-title {
+  font-size: 61px;
+}
+.signup-window-header {
+  position: relative;
+}
+.go-back-arrow:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.join-header-logo {
+  position: absolute;
+  left: 60px;
+  top: 40px;
+}
+button {
+  border: unset;
+}
+
+.signup-window {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 30px;
+  padding: 35px 80px 35px 80px;
+  box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
+  background: white;
+  gap: 30px;
+}
+
+.signup-separator {
+  width: 157px;
+  height: 3px;
+  background-color: rgba(41, 171, 226, 1);
+}
+
+.signup-btns {
+  display: flex;
+}
+.signup-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.inputfield {
+  height: 60px;
+}
+
+.inputfield input::placeholder {
+  color: rgba(209, 209, 209, 1);
+}
+
+.signup-inputs input {
+  width: 422px;
+  height: 48px;
+  border-radius: 10px;
+  padding: 12px 21px 12px 21px;
+  font-size: 18px;
+  border: 1px solid rgba(209, 209, 209, 1);
+}
+
+.signup-inputs input:focus {
+  border-color: #29abe2 !important; /* Change the border color to blue */
+  outline: none;
+  box-shadow: 0 0 0 1px #29abe2; /*Add a blue outline*/
+}
+.signup-inputs input:hover,
+.signup-input-imgs:hover {
+  cursor: pointer;
+}
+
+.signup-input-imgs {
+  position: absolute;
+  height: 24px;
+  width: 24px;
+}
+
+.signup-inputs {
+  position: relative;
+}
+
+.footer-signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer-btn {
+  width: 121px;
+  height: 35px;
+  color: #cdcdcd;
+  cursor: pointer;
+  text-align: center;
+}
+.footer-btn:hover {
+  cursor: pointer;
+  color: #29abe2;
+  font-weight: 700;
+}
+.footer-btns {
+  height: 130px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.accept-pp {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.light-blue {
+  color: #29abe2;
+}
+.pp:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.checkbox:hover {
+  cursor: pointer;
+}
+
+.name-img {
+  top: 15px;
+  right: 10px;
+}
+.pw-img {
+  right: 10px;
+  top: 173px;
+}
+.confirm-pw-img {
+  right: 10px;
+  top: 253px;
+}
+.mail-img {
+  right: 10px;
+  top: 93px;
+}
+
+.error-msg {
+  font-size: 16px;
+  color: red;
+}
+
+.signup-btn-enabled {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(42, 54, 71, 1);
+  color: white;
+  border-radius: 8px;
+  width: 110px;
+  height: 48px;
+  padding: 20px;
+}
+
+.disable {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 110px;
+  height: 48px;
+  border-radius: 8px;
+  font-size: 18px;
+  padding: 20px;
+}
+.signup-btn-enabled:hover {
+  background-color: rgba(41, 171, 226, 1);
+  cursor: pointer;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.25s, box-shadow 0.25s;
+}
+
+.signup-successful-msg {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #2a3647;
+  color: #ffffff;
+  border-radius: 20px;
+  width: 326px;
+  height: 74px;
+  box-shadow: 0px 4px 0px 0px rgb(0, 0, 0, 0.1);
+  position: fixed;
+  left: 50vw;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: myanimation 0.15s forwards;
+  z-index: 9999; /* Animation duration and forwards to keep the end position */
+}
+
+@keyframes myanimation {
+  0% {
+    transform: translate(-50%, 100vh); /* Start from the bottom of the viewport */
+  }
+  100% {
+    transform: translate(-50%, -50%); /* Move to the middle of the viewport */
+  }
+}
