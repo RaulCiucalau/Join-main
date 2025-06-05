@@ -2,27 +2,6 @@
 <html lang="en">
 
 <head>
-
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Log in</title>
-  <link rel="stylesheet" href="./styles/standard_all.css" />
-  <link rel="stylesheet" href="./styles/login.css" />
-  <link rel="stylesheet" href="./styles/assets.css" />
-  <link rel="shortcut icon" href="./assets/img/favicon/fav_blue.png" type="image/x-icon" />
-
-
-  <!-- Dein JS mit defer laden! -->
-  <script src="./js/login.js" defer></script>
-</head>
-
-<body>
-  <div class="main_content">
-    <header>
-      <div class="animation">
-        <img class="header_logo" src="assets/img/login_icons/logo_blue.svg" alt="Join" />
-      </div>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in</title>
@@ -31,10 +10,20 @@
     <link rel="stylesheet" href="./styles/assets.css">
     <link rel="stylesheet" href="./styles/login-animation.css">
     <link rel="shortcut icon" href="./assets/img/favicon/fav_blue.png" type="image/x-icon">
+    
     <script src="./js/login.js"></script>
+    <script src="./index.js"></script>
 </head>
 
-<body onload="init()">
+<body onload="initFirst()">
+    <div id="overlay-animation" class="overlay-animation d_none">
+
+        <div class="">
+            <img class="join_logo" src="assets/img/login_icons/logo_blue.svg" alt="Join">
+        </div>
+
+    </div>
+
     <div class="main_content">
         <header>
             <div>
@@ -47,19 +36,6 @@
             </div>
         </header>
 
-
-      <div class="header_text">
-        <p>Not a Join user?</p>
-        <button class="header_btn" onclick="window.location.href='sign_up.html'">Sign up</button>
-      </div>
-    </header>
-
-
-    <div class="content">
-      <div class="login_container">
-        <div class="login_container_header">
-          <h1>Log in</h1>
-          <img src="./assets/img/login_icons/separator.svg" alt="" />
 
 
         <div class="content">
@@ -89,45 +65,15 @@
             </div>
 
             
-
         </div>
-        <div class="login_content">
-          <div class="input_login_container">
-            <div class="content_input_container">
-              <input type="text" name="" id="inputEmail" placeholder="Email" />
-              <img class="input_icon" src="./assets/img/login_icons/mail.svg" alt="" />
+        <footer>
+            <div class="login_links">
+                <a href="./privacy_policy.html">Privacy Policy</a>
+                <a href="./legal_notice.html">Legal Notice</a>
             </div>
-            <div class="content_input_container">
-              <input type="text" name="" id="inputPassword" placeholder="Password" />
-              <img class="input_icon" src="./assets/img/login_icons/lock.svg" alt="" />
-            </div>
-          </div>
-        </div>
-        <div class="login_btn_container">
-          <button id="btnLogin" class="btn_login" onclick="loginUser()">Log in</button>
-          <button id="btnGuest" class="btn_guest" onclick="redirectToGuestView()">Guest Log in</button>
-        </div>
-      </div>
+        </footer>
     </div>
 
-
-    <footer>
-      <div class="login_links">
-        <a href="./privacy_policy.html">Privacy Policy</a>
-        <a href="./legal_notice.html">Legal Notice</a>
-      </div>
-    </footer>
-  </div>
-
-  <script src="index.js"></script>
-
-    <div id="overlay-animation" class="overlay-animation ">
-
-        <div class="">
-            <img class="join_logo" src="assets/img/login_icons/logo_blue.svg" alt="Join">
-        </div>
-
-    </div>
 </body>
 
 </html>
