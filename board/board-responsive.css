@@ -139,4 +139,22 @@
     }
 }
 
-@media (max-width: 414px) {}
+@media (max-width: 577px) {
+    .dialog-card {
+        width: 90% !important;
+        height: 85% !important;
+        padding: 36px 16px 36px;
+    }
+
+    .dialog-card-title {
+        font-size: 40px;
+    }
+
+    .dialog-card-typography-content {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 492px) {
+
+}

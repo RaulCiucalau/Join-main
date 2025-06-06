@@ -86,11 +86,28 @@ function renderAssignedContacts(assignedList) {
         .map(name => {
             const validName = Object.keys(profileBadges).find(badgeName => badgeName === name);
             if (!validName) return '';
-            return `<img class="profile-badge margin-left-contacts" src="${profileBadges[validName]}" alt="Profile Badge">`;
+            return `
+            <img class="profile-badge margin-left-contacts" src="${profileBadges[validName]}" alt="Profile Badge">
+            `;
         })
         .join('');
 }
 
+function renderAssignedContactsBigDialog(assignedList) {
+    if (!Array.isArray(assignedList)) return '';
+    return assignedList
+        .map(name => {
+            const badgeSrc = profileBadges[name];
+            if (!badgeSrc) return '';
+            return `
+                <div class="contact-item">
+                    <img class="profile-badge" src="${badgeSrc}" alt="${name}'s Badge">
+                    <span class="contact-name">${name}</span>
+                </div>
+            `;
+        })
+        .join('');
+}
 
 function renderPriority(priority) {
     const normalized = priority.toLowerCase();
@@ -157,7 +174,7 @@ function renderBigTaskDialog(tasks) {
 
 function renderSubtasks(task) {
     if (!task.subtasks || task.subtasks.length === 0) {
-        return '<p class="dialog-card-typography-content">No subtasks available.</p>';
+        return '<p class="dialog-card-typography-content">No subtasks.</p>';
     }
     return task.subtasks.map(subtask => {
         const isCompleted = subtask.completed === true;
