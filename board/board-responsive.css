@@ -40,30 +40,6 @@
 }
 
 @media (max-width: 1035px) {
-    .frame-3-icon {
-        display: none;
-    }
-
-    .frame-22 {
-        display: none;
-    }
-
-    .frame-3-menu {
-        flex-direction: row;
-        width: 100%;
-        justify-content: space-around;
-        padding-inline: 16px;
-    }
-
-    .frame-3 {
-        flex-direction: column;
-        height: 86px;
-        top: auto;
-        bottom: 0;
-        width: 100%;
-        padding: 0;
-    }
-
     .content {
         margin-left: 0;
         margin-bottom: 100px;
@@ -74,7 +50,7 @@
         height: 86px;
         padding: 0;
         justify-content: center;
-        width: 80px;
+        width: 73px;
     }
 }
 
@@ -121,7 +97,10 @@
     .board_header_input {
         width: 100%;
         display: flex;
-        justify-content: space-between;
+    }
+
+    .find-task-input {
+        width: 100%;
     }
 
     .board-title-container {
@@ -155,6 +134,8 @@
     }
 }
 
-@media (max-width: 492px) {
-
+@media (max-width: 412px) {
+    .find-task-input {
+        width: 100%;
+    }
 }

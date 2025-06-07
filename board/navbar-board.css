@@ -42,6 +42,7 @@
 .menu-btns:hover {
   cursor: pointer;
   background-color: #131820;
+  border-radius: 10px;
 }
 
 .menu-icon {
@@ -181,9 +182,9 @@
 
   .frame-3-menu {
     flex-direction: row;
-    width: 100%;
     justify-content: space-around;
     padding-inline: 16px;
+    width: 100%;
   }
 
   .frame-3 {
@@ -193,11 +194,6 @@
     bottom: 0;
     width: 100%;
     padding: 0;
-  }
-
-  .content {
-    margin-left: 0;
-    margin-bottom: 100px;
   }
 
   .menu-btns {
@@ -226,4 +222,26 @@
   .header-general {
     padding: 20px 16px 20px 16px;
   }
+}
+
+@media (max-width: 412px) {
+  .menu-icon {
+    height: 24px;
+    width: 24px;
+  }
+
+  .frame-3-menu {
+    gap: 0;
+    padding-inline: 0;
+
+  }
+
+  .frame-3 {
+    justify-content: center;
+  }
+
+  .menu-btns {
+        width: 70px;
+        height: 70px;
+    }
 }

@@ -31,7 +31,12 @@ async function init() {
 
 function openAddTaskDialog() {
     let dialog = document.getElementById('addTaskDialog');
-    dialog.classList.toggle('d-none');
+    const isSmallScreen = window.matchMedia("(max-width: 1035px)").matches;
+    if (isSmallScreen) {
+        window.location.href = "../add_task.html";
+    } else {
+        dialog.classList.toggle('d-none');
+    }
 }
 
 function toggleAddTaskDialog() {
@@ -257,4 +262,8 @@ function updateSubtasksText(task, subtasks) {
         progressBarElement.innerHTML = text;
     }
     return text;
+}
+
+function redirectToAddTask() {
+    window.location.href = "../add_task.html";
 }
