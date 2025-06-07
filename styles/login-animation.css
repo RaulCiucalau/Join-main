@@ -5,7 +5,7 @@
       transform: translate(-50%, -50%); 
       height: 240px;
       width: 240px; 
-      animation: moveToTopLeft 3s ease-out forwards;
+      animation: moveToTopLeft 2s ease-in-out 750ms forwards;
   }
 
   @keyframes moveToTopLeft {
@@ -23,6 +23,13 @@
   height: 100vh;
   width: 100%;
   background-color: white;
+  animation: fadeOutOverlay 2s ease-in-out 1900ms forwards;
+}
+
+@keyframes fadeOutOverlay {
+    to {
+        opacity: 0;
+    }
 }
 
 .d_none{

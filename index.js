@@ -1,22 +1,25 @@
 function initFirst(){
-   
+   animationJoinSign();
 }
 
 function redirectToGuestView() {
     location.replace("summary/summary.html");
 }
 
-// Animation
-setTimeout(animationJoinSign, 1);
-
 function animationJoinSign(){
     let animationJoinSign = document.getElementById('overlay-animation');
-
     animationJoinSign.classList.toggle('d_none');
    initSecond();
+   removeOverlayAfterAnimation();
 }
 
-
+function removeOverlayAfterAnimation() {
+    let animationJoinSign = document.getElementById('overlay-animation');
+    // Wait 1 second (1000 milliseconds) before adding the class
+    setTimeout(() => {
+        animationJoinSign.classList.add('d_none');
+    }, 2800);
+}
 
 /**
  * Speichert Login-Informationen im localStorage.
