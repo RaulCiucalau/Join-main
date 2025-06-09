@@ -1,8 +1,8 @@
 async function init() {
     await onloadFunc();
     showTasksCounts(tasks);
-    dateToday();
-    insertUserName()
+    showUrgentDate();
+    insertUserName();
 }
 
 function showTasksCounts(tasks) {
@@ -53,17 +53,27 @@ function showUrgentTasksCount(tasks) {
     content.innerHTML = `${urgentTasks.length}`;
 }
 
-function dateToday(){
-   let time = new Date().toLocaleDateString();
-   document.getElementById("Date-today").innerHTML = time;
+function showUrgentDate(tasks){
+    const Date_Urgent = document.getElementById('UrgentDate');
+    const urgentTasks = tasks
+        .filter(task => task.priority === 'Urgent')
+        .sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
+
+    if (urgentTasks.length >= 0) {
+        Date_Urgent.innerHTML = urgentTasks[0].due_date;
+    }
 }
+// function dateToday(){
+//    let time = new Date().toLocaleDateString();
+//    document.getElementById("Date-today").innerHTML = time;
+// }
 
 //Great Guest or User
 function guestOurUserGreating(){
     let nameUser = document.getElementById('user-name');
 
     if (isGuestLoggedIn){
-       nameUser = `<h3> Gude Morning!</h3>`
+       nameUser = `<h3> Gude Morning!</h3>`;
     }
     else(userLoggedIn)
        nameUser.innerHTML = insertUserName();
