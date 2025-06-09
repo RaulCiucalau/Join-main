@@ -2,6 +2,7 @@ async function init() {
     await onloadFunc();
     showTasksCounts(tasks);
     dateToday();
+    insertUserName()
 }
 
 function showTasksCounts(tasks) {
@@ -55,4 +56,22 @@ function showUrgentTasksCount(tasks) {
 function dateToday(){
    let time = new Date().toLocaleDateString();
    document.getElementById("Date-today").innerHTML = time;
+}
+
+//Great Guest or User
+function guestOurUserGreating(){
+    let nameUser = document.getElementById('user-name');
+
+    if (isGuestLoggedIn){
+       nameUser = `<h3> Gude Morning!</h3>`
+    }
+    else(userLoggedIn)
+       nameUser.innerHTML = insertUserName();
+}
+
+// Great with name
+function insertUserName(){
+    let nameUser = document.getElementById('user-name');
+    let name = ("Anja");
+    nameUser.innerHTML = `<h3> Gude Morning, ${name}!</h3>`;
 }
