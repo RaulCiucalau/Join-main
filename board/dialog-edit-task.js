@@ -292,6 +292,12 @@ async function updateTaskDatainAPI(taskId) {
   } catch (error) {
     console.error("Fehler beim Schreiben in die Datenbank:", error);
   }
+  removeEditDialog();
+}
+
+function removeEditDialog() {
+  let container = document.querySelector('.dialog-container');
+  container.classList.add('d-none-edit-dialog');
 }
 
 function addNewSubtaskToList(taskId) {

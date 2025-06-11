@@ -29,6 +29,7 @@ p {
     padding-block: 64px;
     margin-left: 200px;
     max-width: 1400px;
+    word-break: break-all;
 }
 
 a {
@@ -42,7 +43,7 @@ li {
 
 ul {
     list-style-type: disc;
-    padding-left: 20px; 
+    padding-left: 20px;
 }
 
 .usage-steps {
@@ -57,4 +58,33 @@ ul {
 
 .usage-steps li::marker {
     font-size: 20px;
+}
+
+@media (max-width: 1418px) {
+    .content {
+        padding-inline: 52px;
+    }
+}
+
+@media (max-width: 1035px) {
+    .content {
+        margin-left: 0;
+        margin-bottom: 100px;
+        padding-inline: 52px;
+    }
+}
+
+@media (max-width: 811px) {
+    .content {
+        padding-inline: 16px;
+    }
+
+    h1 {
+        font-size: 47px;
+        word-break: auto-phrase;
+    }
+
+    h2 {
+        word-break: auto-phrase;
+    }
 }

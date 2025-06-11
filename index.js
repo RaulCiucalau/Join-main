@@ -1,3 +1,26 @@
+function initFirst(){
+   animationJoinSign();
+}
+
+function redirectToGuestView() {
+    location.replace("summary/summary.html");
+}
+
+function animationJoinSign(){
+    let animationJoinSign = document.getElementById('overlay-animation');
+    animationJoinSign.classList.toggle('d_none');
+   initSecond();
+   removeOverlayAfterAnimation();
+}
+
+function removeOverlayAfterAnimation() {
+    let animationJoinSign = document.getElementById('overlay-animation');
+    // Wait 1 second (1000 milliseconds) before adding the class
+    setTimeout(() => {
+        animationJoinSign.classList.add('d_none');
+    }, 2800);
+}
+
 /**
  * Speichert Login-Informationen im localStorage.
  * @param {string} key - Der Schlüssel.
@@ -22,7 +45,7 @@ let usersArr = [];
 
 const BASE_URL = "https://join-460-default-rtdb.europe-west1.firebasedatabase.app/";
 
-async function init() {
+async function initSecond() {
   console.log("init gestartet");
   await getUsersFromDatabase();
   console.log("Users geladen:", usersArr);
@@ -134,7 +157,7 @@ function goToSummary() {
 }
 
 window.addEventListener("load", async () => {
-  await init();
+  await initSecond();
   const greeting = document.querySelector(".greeting");
   const logo = document.querySelector(".greeting-logo");
   const targetLogo = document.querySelector(".join-header-logo");

@@ -1,14 +1,16 @@
-function init(){
+// function init(){
 
-    // animationJoinSign()
-}
+// }
 
-function redirectToGuestView() {
-    location.replace("summary/summary.html");
-}
+// function redirectToGuestView() {
+//     location.replace("summary/summary.html");
+// }
 
-function animationJoinSign(){
-    let animationJoinSign = document.getElementById('overlay-animation');
 
-    animationJoinSign.classList.toggle('d_none');
-}
+// setTimeout(animationJoinSign, 3000);
+
+// function animationJoinSign(){
+//     let animationJoinSign = document.getElementById('overlay-animation');
+
+//     animationJoinSign.classList.toggle('d_none');
+// }

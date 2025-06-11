@@ -1,72 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="icon" type="image/x-icon" href="/assets/icons/Capa 1.svg" />
-    <!-- CSS -->
-    <link rel="stylesheet" href="../contacts/contacts.css" />
-    <link rel="stylesheet" href="../contacts/add-contact-overlay.css" />
-    <link rel="stylesheet" href="../contacts/contact-responsive.css" />
-    <link rel="stylesheet" href="../styles/standard_all.css" />
-    <link rel="stylesheet" href="../../styles/navbar-header.css" />
-    
-    <script src="../js/nav_header.js"></script>
-    
 
-    <title>Contacts</title>
-  </head>
-  <body onload="init(); w3.includeHTML();">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="/assets/icons/Capa 1.svg">
+  <link rel="stylesheet" href="../contacts/contacts.css">
+  <link rel="stylesheet" href="../contacts/add-contact-overlay.css">
+  <link rel="stylesheet" href="../contacts/contact-responsive.css">
+  <link rel="stylesheet" href="../styles/standard_all.css">
+  <link rel="stylesheet" href="../board/navbar-board.css">
+  <script src="../js/nav_header.js"></script>
+  <title>Contacts</title>
+</head>
+
+<body onload="init(); w3.includeHTML();">
   <div w3-include-html="../assets/templates/nav-header_template.html"></div>
-    
-      
+  <div id="overlayArea">
     </div>
-    
-    <div id="contact-page-area">
-      <div id="contact-div">
-        <div class="contacts-page-div">
-          <div id="left-contacts-page-column">
-            <button
-              id="add-contact-btn"
-              class="add-contact-btn"
-              onclick="displayAddContactOverlay()"
-            >
-              Add new contact
-              <img class="button-icon" src="../assets/icons/add-contact.svg" />
-            </button>
-            <div id="left-contact-list"></div>
-          </div>
-          <div id="right-contacts-page-column">
-            <div id="contacts-header">
-              <div #contact-header-without-arrow>
-                <h1>Contacts</h1>
-                <seperator></seperator>
-                <h2>Better with a team</h2>
-                <seperator-bottom></seperator-bottom>
-              </div>
-              <div id="user-contact-header" class="user-contact-header"></div>
+  <div id="contact-page-area">
+    <div id="contact-div">
+      <div class="contacts-page-div">
+        <div id="left-contacts-page-column">
+          <button id="add-contact-btn" class="add-contact-btn" onclick="displayAddContactOverlay()">
+            Add new contact
+            <img class="button-icon" src="../assets/icons/add-contact.svg" />
+          </button>
+          <div id="left-contact-list"></div>
+        </div>
+        <div id="right-contacts-page-column">
+          <div id="contacts-header">
+            <div #contact-header-without-arrow>
+              <h1>Contacts</h1>
+              <seperator></seperator>
+              <h2>Better with a team</h2>
+              <seperator-bottom></seperator-bottom>
             </div>
-            <div id="contact-details-area"></div>
+            <div id="user-contact-header" class="user-contact-header"></div>
           </div>
+          <div id="contact-details-area"></div>
         </div>
       </div>
-      <div id="overlayArea">
-        
-      </div>
     </div>
-  </body>
-  <!-- Scripts -->
- 
-  <script src="/contacts/contacts.js"></script>
-  <script src="/contacts/js/contact-templates.js"></script>
-  <script src="/contacts/js/contact-overlays.js"></script>
- 
- 
+    <div id="overlayArea">
+    </div>
+  </div>
+</body>
+<script src="/contacts/contacts.js"></script>
+<script src="/contacts/js/contact-templates.js"></script>
+<script src="/contacts/js/contact-overlays.js"></script>
+
 </html>

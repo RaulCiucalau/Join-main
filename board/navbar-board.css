@@ -42,6 +42,7 @@
 .menu-btns:hover {
   cursor: pointer;
   background-color: #131820;
+  border-radius: 10px;
 }
 
 .menu-icon {
@@ -56,6 +57,7 @@
   align-items: center;
   gap: 8px;
 }
+
 .frame-22-btns {
   width: 121px;
   height: 35px;
@@ -89,6 +91,7 @@
   padding: 10px;
   color: #cdcdcd;
 }
+
 .subMenu-btns:hover {
   cursor: pointer;
   background-color: #2a3d59;
@@ -168,9 +171,41 @@
   display: none;
 }
 
-@media (max-width: 800px) {
-  header {
-    padding-left: 40px !important;
+@media (max-width: 1035px) {
+  .frame-3-icon {
+    display: none;
+  }
+
+  .frame-22 {
+    display: none;
+  }
+
+  .frame-3-menu {
+    flex-direction: row;
+    justify-content: space-around;
+    padding-inline: 16px;
+    width: 100%;
+  }
+
+  .frame-3 {
+    flex-direction: column;
+    height: 86px;
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    padding: 0;
+  }
+
+  .menu-btns {
+    flex-direction: column;
+    height: 86px;
+    padding: 0;
+    justify-content: center;
+    width: 80px;
+  }
+
+  .header-general {
+    padding: 20px 40px 20px 40px;
   }
 
   .header-p {
@@ -181,6 +216,32 @@
     display: block;
     height: 64px;
   }
+}
 
-  
+@media (max-width: 811px) {
+  .header-general {
+    padding: 20px 16px 20px 16px;
+  }
+}
+
+@media (max-width: 412px) {
+  .menu-icon {
+    height: 24px;
+    width: 24px;
+  }
+
+  .frame-3-menu {
+    gap: 0;
+    padding-inline: 0;
+
+  }
+
+  .frame-3 {
+    justify-content: center;
+  }
+
+  .menu-btns {
+        width: 70px;
+        height: 70px;
+    }
 }
