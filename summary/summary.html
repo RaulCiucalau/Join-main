@@ -3,55 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!-- <link rel="stylesheet" href="../styles/add-task.css" /> -->
-  <!-- <link rel="stylesheet" href="../styles/navbar-header.css" /> -->
-  <!-- <link rel="stylesheet" href="../styles/standard_all.css"> -->
+  <link rel="stylesheet" href="../styles/add-task.css" />
+  <link rel="stylesheet" href="../styles/standard_all.css">
   <link rel="stylesheet" href="summary.css">
   <link rel="shortcut icon" href="../assets/img/favicon/fav_blue.png" type="image/x-icon">
+  <link rel="stylesheet" href="../board/navbar-board.css">
   <script src="../js/load_tasks_data.js"></script>
    <script src="./summary.js"></script>
- 
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <script src="../js/nav_header.js"></script>
+  <script src="../global.js"></script>
   <title>Summary Guest</title>
 </head>
-<body onload="init()">
-  <aside class="sidebar">
- 
-    <img src="../assets/img/favicon/fav_white.png" alt="Join Logo" class="logo" />
-
-  <nav class="nav-menu">
-    <a href="../add_task.html" class=" nav-link active">
-      <img src="../assets/icons/icon-summary.png" alt="Summary Icon" />
-      <span>Summary</span>
-    </a>
-    <a href="../add_task.html" class="nav-link">
-      <img src="../assets/icons/icon-add-task.png" alt="Add Task Icon" />
-      <span>Add Task</span>
-    </a>
-    <a href="../board/board.html" class="nav-link">
-      <img src="../assets/icons/icon-board.png" alt="Board Icon" />
-      <span>Board</span>
-    </a>
-    <a href="/contacts/contacts.html" class="nav-link">
-      <img src="../assets/icons/icon-contacts.png" alt="Contacts Icon" />
-      <span>Contacts</span>
-    </a>
-  </nav>
-  <div class="sidebar-footer">
-    <a href="../privacy_policy.html">Privacy Policy</a>
-    <a href="../legal_notice.html">Legal Notice</a>
-  </div>
-</aside>
-
-  <header class="app-header">
-    <h1 class="app-title">Kanban Project Management Tool</h1>
-    <div class="header-actions">
-      <a href="../help.html" class="help-link">
-        <img src="../assets/icons/help.svg" alt="Help" />
-      </a>
-      <div onclick="openCloseSideMenu()" class="user-circle" id="initialLetter"><button class="guest-button" onclick="openCloseSideMenu()">G</button></div>
-    </div>
-  </header>
-
+<body onload="init(); w3.includeHTML();">
+  <div w3-include-html="../assets/templates/nav-header_template.html"></div>
   <div class="right-down-place">
    <div class="main-place">
     <h1 class="join-360">Join 360</h1><h1 class="stroked">|</h1><p class="key-metrics">Key Metrics at a Glance</p>
@@ -140,5 +105,4 @@
    </div>
 
 </body>
- <script src="./summary.js"></script>
 </html>
