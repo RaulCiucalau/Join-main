@@ -90,10 +90,15 @@ async function processLogin() {
   if (filteredUser.length > 0) {
     putLoginInfoLocally("whoIsLoggedIn", {
       isGuestLoggedIn: false,
-      userLoggedIn: { name: filteredUser[0].user.name, avatar: filteredUser[0].user.avatar },
+      userLoggedIn: {
+        name: filteredUser[0].user.name,
+        avatar: filteredUser[0].user.avatar,
+        email: filteredUser[0].user.email // 👈 WICHTIG!
+      }
     });
   }
 }
+
 
 function loginGuest() {
   putLoginInfoLocally("whoIsLoggedIn", { isGuestLoggedIn: true, userLoggedIn: { name: "", avatar: "" } });

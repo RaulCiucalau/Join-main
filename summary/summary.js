@@ -77,28 +77,50 @@ function getGreetings() {
   return "Good Morning";
 }
 
+function loadLoginInfo(key) {
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : null;
+}
+
 async function loadUserNameAndGreeting() {
   console.log("🔎 Starte: Nutzer aus DB holen und Gruß setzen...");
+
+  const loginInfo = loadLoginInfo("whoIsLoggedIn");
+  console.log("📦 loginInfo:", loginInfo);
+
+  if (!loginInfo || !loginInfo.userLoggedIn || !loginInfo.userLoggedIn.email) {
+    console.warn("⚠️ Kein eingeloggter Nutzer gefunden.");
+    document.getElementById("dashboard-name").innerText = "Nicht eingeloggt";
+    return;
+  }
+
+  const email = loginInfo.userLoggedIn.email;
+  console.log("📧 Suche Nutzer mit Email:", email);
 
   try {
     const response = await fetch(`${BASE_URL}user.json`);
     const data = await response.json();
     console.log("🌐 Daten aus DB:", data);
 
-    // Beispiel: erster Nutzer
-    const firstUser = Object.values(data)[0];
-    console.log("👤 Gefundener Nutzer:", firstUser);
+    // Finde den Nutzer mit der gespeicherten Email
+    const user = Object.values(data).find(
+      (userObj) => userObj.email.toLowerCase() === email.toLowerCase()
+    );
+    console.log("👤 Gefundener Nutzer:", user);
 
-    const name = firstUser.name;
-    console.log("✅ Name:", name);
+    if (user) {
+      const name = user.name;
+      console.log("✅ Name:", name);
 
-    // Begrüßung ermitteln
-    const greeting = getGreetings();
-    console.log("👋 Gruß:", greeting);
+      const greeting = getGreetings();
+      console.log("👋 Gruß:", greeting);
 
-    // Ins HTML schreiben
-    document.getElementById("dashboard-name").innerText = name;
-    document.getElementById("dashboard-time").innerText = greeting;
+      document.getElementById("dashboard-name").innerText = name;
+      document.getElementById("dashboard-time").innerText = greeting;
+    } else {
+      console.warn("❌ Nutzer nicht gefunden.");
+      document.getElementById("dashboard-name").innerText = "Nutzer nicht gefunden";
+    }
 
   } catch (error) {
     console.error("❌ Fehler beim Laden:", error);
