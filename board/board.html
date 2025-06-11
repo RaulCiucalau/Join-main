@@ -15,7 +15,12 @@
     <link rel="stylesheet" href="navbar-board.css">
     <link rel="stylesheet" href="board_edit_dialog.css">
     <link rel="stylesheet" href="board-responsive.css">
-    <script src="dialog-add-task.js"></script>
+    <script src="../add-task/category-add-task.js"></script>
+    <script src="../add-task/contacts-add-task.js"></script>
+    <script src="../add-task/add-task-template.js"></script>
+    <script src="../add-task/subtask.js"></script>
+    <script src="../add-task/datevalidation.js"></script>
+    <script src="../js/add-task/prioBtn.js"></script>
     <script src="../js/load_tasks_data.js"></script>
     <script src="board-templates.js"></script>
     <script src="dialog-edit-task.js"></script>
@@ -171,7 +176,7 @@
                         <div class="add-title-content">
                             <div class="add-title frame-219">
                                 <label for="add-task-title">Title<span class="red">*</span></label>
-                                <input class="title-input" type="text" id="add-task-title" class="add-task-title"
+                                <input type="text" id="add-task-title" class="add-task-title"
                                     placeholder="Enter a title" required />
                             </div>
                             <div class="requiredText dp-none" id="required-title">
@@ -181,23 +186,24 @@
                                 <p class="red">Task already exists</p>
                             </div>
                         </div>
+
                         <div class="add-description frame-219">
                             <label for="add-task-description">Description</label>
-                            <textarea name="" id="add-task-description" class="add-task-description"
+                            <textarea id="add-task-description" class="add-task-description"
                                 placeholder="Enter a Description"></textarea>
                         </div>
+
                         <div class="add-date-content">
                             <div class="add-date frame-219">
                                 <label for="add-task-due-date">Due date<span class="red">*</span></label>
-                                <input style="height: 53px;" type="date" id="add-task-due-date"
-                                    class="add-task-due-date" placeholder="ide" />
+                                <input type="date" id="add-task-due-date" class="add-task-due-date" />
                             </div>
                             <div class="requiredText dp-none" id="required-date">
                                 <p class="red dp-none">This field is required</p>
                                 <p class="red dp-none">The date must be in the future!</p>
-
                             </div>
                         </div>
+
                         <div class="select-priority frame-39">
                             <label for="priority">Priority</label>
                             <div class="priority-btns">
@@ -219,46 +225,52 @@
                             </div>
                         </div>
                     </section>
-                    <div class="separator"></div>
-                    <section class="add-task-2">
 
+                    <div class="separator"></div>
+
+                    <section class="add-task-2">
                         <div class="assigned-to-section frame-39">
                             <label for="assigned-to">Assigned to</label>
                             <input type="text" id="assigned-to" class="selection"
-                                placeholder="Select contacts to assign" />
+                                placeholder="Select contacts to assign" onclick="showContactList(event)" />
                             <img id="assigned-to-img-down" class="assigned-to-img dropdown-img"
-                                src="../assets/icons/arrow_drop_down.svg" alt="Select contact dropdown arrow" />
+                                src="../assets/icons/arrow_drop_down.svg" alt="Select contact dropdown arrow"
+                                onclick="showContactList(event)" />
                             <img id="assigned-to-img-up" class="assigned-to-img dropdown-img dp-none"
-                                src="../assets/icons/arrow_drop_down_up.svg" alt="Select contact dropdown arrow" />
+                                src="../assets/icons/arrow_drop_down_up.svg" alt="Select contact dropdown arrow"
+                                onclick="showContactList(event)" />
                             <div class="drop-down-contact-list dp-none" id="drop-down-contact-list"></div>
                             <div id="selected-avatars"></div>
                         </div>
+
                         <div class="add-category-content">
                             <div class="add-category frame-39">
                                 <label for="category">Category<span class="red">*</span></label>
-                                <input type="text" id="category" class="selection" placeholder="Select task category" />
+                                <input type="text" id="category" class="selection" placeholder="Select task category"
+                                    onclick="showCategoryList(event)" readonly />
                                 <img id="add-category-img-down" class="add-category-img dropdown-img"
-                                    src="../assets/icons/arrow_drop_down.svg" alt="Add category dropdown arrow" />
+                                    src="../assets/icons/arrow_drop_down.svg" alt="Add category dropdown arrow"
+                                    onclick="showCategoryList(event)" />
                                 <img id="add-category-img-up" class="add-category-img dropdown-img dp-none"
-                                    src="../assets/icons/arrow_drop_down_up.svg" alt="Add category dropdown arrow" />
+                                    src="../assets/icons/arrow_drop_down_up.svg" alt="Add category dropdown arrow"
+                                    onclick="showCategoryList(event)" />
                                 <div class="drop-down-category-list dp-none" id="drop-down-category-list"></div>
                             </div>
                             <div class="requiredText dp-none" id="required-category">
                                 <p class="red">This field is required</p>
                             </div>
                         </div>
+
                         <div class="add-subtask frame-39">
                             <label for="subtask">Subtasks</label>
                             <input type="text" id="subtask" class="subtask" placeholder="Add new subtask" />
-                            <img onclick="addNewSubtask()" id="add-subtask-img" class="add-subtask-img"
-                                style="top: 48px;" src="../assets/icons/add.svg" alt="Add subtask" />
-                            <!-- <div class="cancel-or-accept"> -->
+                            <img id="add-subtask-img" class="add-subtask-img" src="../assets/icons/add.svg"
+                                alt="Add subtask" />
                             <img id="cancel-task-img" class="cancel-task-img subtask-img dp-none"
                                 src="../assets/icons/cancel.svg" alt="Cancel Subtask" />
                             <div id="small-separator" class="small-separator dp-none"></div>
                             <img id="accept-task-img" class="accept-task-img subtask-img dp-none"
                                 src="../assets/icons/check.svg" alt="Accept Subtask" />
-                            <!-- </div> -->
                             <div class="subtask-list" id="subtask-list"></div>
                         </div>
                     </section>
@@ -268,14 +280,15 @@
                         <span class="red">*</span>This field is required
                     </div>
                     <div class="form-btns">
-                        <div class="clear-btn form-btn">
+                        <div class="clear-btn form-btn" onclick="clearTaskForm()" onmouseover="changeToBlueIcon()"
+                            onmouseout="changeToBlackIcon()">
                             <p>Clear</p>
                             <img id="clear" class="clear form-btn-img" src="../assets/icons/cancel.svg"
                                 alt="Clear Task Image" />
                             <img id="clear-hover" class="clear-hover form-btn-img dp-none"
                                 src="../assets/icons/clear-hover.svg" alt="Create Task Image Hover" />
                         </div>
-                        <div class="create-btn form-btn">
+                        <div class="create-btn form-btn" onclick="createTask()">
                             <p>Create Task</p>
                             <img class="create form-btn-img" src="../assets/icons/check-white.svg"
                                 alt="Create Task Image" />
@@ -289,11 +302,13 @@
         <div class="board-header-container">
             <div class="board-title-container">
                 <h1>Board</h1>
-                <img class="plus-add-mobile-board d-none" onclick="redirectToAddTask()" id="addTaskBtn" src="../assets/img/board_icons/plus_add_task_mobile.svg" alt="">
+                <img class="plus-add-mobile-board d-none" onclick="redirectToAddTask()" id="addTaskBtn"
+                    src="../assets/img/board_icons/plus_add_task_mobile.svg" alt="">
             </div>
             <div class="board-header-btn-input">
                 <div class="board_header_input">
-                    <input id="findTaskInput" onkeyup="searchTasks()" class="find-task-input" type="text" placeholder="Find Task">
+                    <input id="findTaskInput" onkeyup="searchTasks()" class="find-task-input" type="text"
+                        placeholder="Find Task">
                     <div class="board_separator_header_input"></div>
                     <div class="search_container">
                         <button class="search_icon_btn">

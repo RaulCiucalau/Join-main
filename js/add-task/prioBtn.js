@@ -11,7 +11,7 @@
 function selectPrio(prio) {
   const prios = ["urgent", "medium", "low"];
   prios.forEach((p) => unselectPrio(p));
-  document.getElementById(`prio-img-${prio}`).src = `./assets/icons/priority-${prio}-white.svg`;
+  document.getElementById(`prio-img-${prio}`).src = `../assets/icons/priority-${prio}-white.svg`;
   document.getElementById(`prio-btn-${prio}`).style.backgroundColor = getPrioColor(prio);
   document.getElementById(`prio-btn-${prio}`).style.color = "white";
   selectedPrio = `${prio}`;
@@ -22,7 +22,7 @@ function selectPrio(prio) {
  * @param {string} prio - The priority to unselect ("urgent", "medium", or "low").
  */
 function unselectPrio(prio) {
-  document.getElementById(`prio-img-${prio}`).src = `./assets/icons/priority-${prio}.svg`;
+  document.getElementById(`prio-img-${prio}`).src = `../assets/icons/priority-${prio}.svg`;
   document.getElementById(`prio-btn-${prio}`).style.backgroundColor = "white";
   document.getElementById(`prio-btn-${prio}`).style.color = "black";
   selectedPrio = "";

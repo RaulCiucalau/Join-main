@@ -423,6 +423,7 @@ h1 {
 
 .find-task-input {
     border-radius: 0;
+    padding: 0 !important;
 }
 
 .contacts-container {
@@ -468,4 +469,8 @@ h1 {
     display: flex;
     flex-direction: column;
     height: 746px;
+}
+
+.display-none {
+    display: none;
 }
