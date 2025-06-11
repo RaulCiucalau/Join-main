@@ -1,8 +1,8 @@
 async function init() {
-    await onloadFunc();
-    showTasksCounts(tasks);
-    showUrgentDate();
-    insertUserName();
+  await onloadFunc(); // Tasks laden
+  showTasksCounts(tasks); // Tasks anzeigen
+  showUrgentDate(tasks); // Dringend-Datum anzeigen
+  await loadUserNameAndGreeting(); // Name + Gruß anzeigen
 }
 
 function showTasksCounts(tasks) {
@@ -68,20 +68,68 @@ function showUrgentDate(tasks){
 //    document.getElementById("Date-today").innerHTML = time;
 // }
 
-//Great Guest or User
-function guestOurUserGreating(){
-    let nameUser = document.getElementById('user-name');
 
-    if (isGuestLoggedIn){
-       nameUser = `<h3> Gude Morning!</h3>`;
+function getGreetings() {
+  const hour = new Date().getHours();
+  if (hour >= 22 || hour < 6) return "Good Night";
+  if (hour >= 17) return "Good Evening";
+  if (hour >= 12) return "Good Afternoon";
+  return "Good Morning";
+}
+
+function loadLoginInfo(key) {
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : null;
+}
+
+async function loadUserNameAndGreeting() {
+  console.log("🔎 Starte: Nutzer aus DB holen und Gruß setzen...");
+
+  const loginInfo = loadLoginInfo("whoIsLoggedIn");
+  console.log("📦 loginInfo:", loginInfo);
+
+  if (!loginInfo || !loginInfo.userLoggedIn || !loginInfo.userLoggedIn.email) {
+    console.warn("⚠️ Kein eingeloggter Nutzer gefunden.");
+    document.getElementById("dashboard-name").innerText = "Nicht eingeloggt";
+    return;
+  }
+
+  const email = loginInfo.userLoggedIn.email;
+  console.log("📧 Suche Nutzer mit Email:", email);
+
+  try {
+    const response = await fetch(`${BASE_URL}user.json`);
+    const data = await response.json();
+    console.log("🌐 Daten aus DB:", data);
+
+    // Finde den Nutzer mit der gespeicherten Email
+    const user = Object.values(data).find(
+      (userObj) => userObj.email.toLowerCase() === email.toLowerCase()
+    );
+    console.log("👤 Gefundener Nutzer:", user);
+
+    if (user) {
+      const name = user.name;
+      console.log("✅ Name:", name);
+
+      const greeting = getGreetings();
+      console.log("👋 Gruß:", greeting);
+
+      document.getElementById("dashboard-name").innerText = name;
+      document.getElementById("dashboard-time").innerText = greeting;
+    } else {
+      console.warn("❌ Nutzer nicht gefunden.");
+      document.getElementById("dashboard-name").innerText = "Nutzer nicht gefunden";
     }
-    else(userLoggedIn)
-       nameUser.innerHTML = insertUserName();
+
+  } catch (error) {
+    console.error("❌ Fehler beim Laden:", error);
+    document.getElementById("dashboard-name").innerText = "Fehler beim Laden";
+  }
 }
 
-// Great with name
-function insertUserName(){
-    let nameUser = document.getElementById('user-name');
-    let name = ("Anja");
-    nameUser.innerHTML = `<h3> Gude Morning, ${name}!</h3>`;
-}
+window.onload = () => {
+  init();
+};
+
+
