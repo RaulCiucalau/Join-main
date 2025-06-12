@@ -44,5 +44,78 @@
 }
 
 @media (max-width: 600px) {
-    
+    .up-part {
+        justify-content: flex-start;
+    }
+
+    .up-part-box {
+        width: 224px;
+        height: 148px;
+    }
+
+    .middle-part-box {
+        width: 458px;
+        height: 148px;
+    }
+
+    .down-part-box {
+        width: 144px;
+    }
 }
+
+@media (max-width: 510px) {
+    .up-part-box {
+        width: 184px;
+        height: 118px;
+    }
+
+    .middle-part-box {
+        width: 378px;
+        height: 148px;
+    }
+
+    .down-part-box {
+        width: 119px;
+    }
+}
+
+@media (max-width: 510px) {
+    .up-part-box {
+        width: 144px;
+        height: 128px;
+    }
+
+    .middle-part-box {
+        width: 300px;
+        height: 128px;
+    }
+
+    .down-part-box {
+        width: 90px;
+    }
+}
+
+@media (max-width: 345px) {
+    .up-part-box {
+        width: 131px;
+        height: 128px;
+    }
+
+    .middle-part-box {
+        width: 274px;
+        height: 128px;
+    }
+
+    .down-part-box {
+        width: 83px;
+    }
+
+    .p-big-number {
+        font-size: 40px;
+    }
+
+    .ToDo {
+        font-size: 14px;
+    }
+}
+
