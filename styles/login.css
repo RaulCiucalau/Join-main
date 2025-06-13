@@ -206,3 +206,17 @@ a:hover {
     display: flex;
     align-items: center;
 }
+.join-header-logo {
+  position: absolute;
+  left: 60px;
+  top: 40px;
+}
+
+@keyframes myanimation {
+  0% {
+    transform: translate(-50%, 100vh); /* Start from the bottom of the viewport */
+  }
+  100% {
+    transform: translate(-50%, -50%); /* Move to the middle of the viewport */
+  }
+}

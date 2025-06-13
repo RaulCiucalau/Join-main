@@ -128,8 +128,8 @@ async function loadUserNameAndGreeting() {
   }
 }
 
-window.onload = () => {
+document.addEventListener('DOMContentLoaded', () => {
   init();
-};
+});
 
 

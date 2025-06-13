@@ -102,7 +102,7 @@ async function processLogin() {
 
 function loginGuest() {
   putLoginInfoLocally("whoIsLoggedIn", { isGuestLoggedIn: true, userLoggedIn: { name: "", avatar: "" } });
-  window.location.href = "./dashboard.html";
+  window.location.href = "./summary.html";
 }
 
 function isEmailCorrect() {
@@ -158,7 +158,7 @@ function removeErrorMsgs(errorId, inputId) {
 }
 
 function goToSummary() {
-  window.location.href = "/board/board.html";
+  window.location.href = "/summary/summary.html";
 }
 
 window.addEventListener("load", async () => {

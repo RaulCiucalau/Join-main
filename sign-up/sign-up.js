@@ -7,6 +7,7 @@ async function init() {
   await getUsersFromDatabase();
   disableSignupBtn();
   createRandomColor();
+  
 }
 
 /**
@@ -218,7 +219,8 @@ function checkAndShowError(inputId, errorId) {
   const inputElement = document.getElementById(inputId);
   const errorElement = document.getElementById(errorId);
 
-  if (inputElement.value === "") {
+  if (inputElement.value.trim() === "") {
+
     inputElement.style.borderColor = "red";
     errorElement.classList.remove("dp-none");
   }
@@ -286,3 +288,5 @@ function removeErrorMsgs(errorId, inputId) {
     inputElement.style.borderColor = "rgba(209, 209, 209, 1)";
   }
 }
+
+

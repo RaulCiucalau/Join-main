@@ -14,7 +14,8 @@
   <script src="./js/login.js" defer></script>
 </head>
 
-<body>
+<body onload="initFirst()">
+  
   <div class="main_content">
     <header>
       <div class="animation">
@@ -40,7 +41,7 @@
               <img class="input_icon" src="./assets/img/login_icons/mail.svg" alt="" />
             </div>
             <div class="content_input_container">
-              <input type="text" name="" id="inputPassword" placeholder="Password" />
+              <input type="password" name="" id="inputPassword" placeholder="Password" />
               <img class="input_icon" src="./assets/img/login_icons/lock.svg" alt="" />
             </div>
           </div>
@@ -59,6 +60,8 @@
       </div>
     </footer>
   </div>
+ 
+
 
   <script src="index.js"></script>
 </body>

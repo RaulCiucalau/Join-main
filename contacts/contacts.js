@@ -261,3 +261,8 @@ async function addNewContactToDatabase(name, email, phone)
   }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+  init();
+});
+
+

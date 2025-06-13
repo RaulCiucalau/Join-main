@@ -74,4 +74,37 @@ function closeSubMenu() {
   }
 }
 
+async function logOut() {
+  await putLoginInfo("whoIsLoggedIn", { isGuestLoggedIn: false, userLoggedIn: { name: "", avatar: "" } });
+  window.location.href = "/index.html";
+}
+
+/**
+ * Updates login information in the database.
+ * @param {string} [path=""] - The path to update the login information in the database.
+ * @param {Object} data - The data to update.
+ * @returns {Object} - The updated login information.
+ */
+async function putLoginInfo(path = "", data = {}) {
+  let response = await fetch(BASE_URL + path + ".json", {
+    method: "PUT",
+    header: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  return (responseToJson = await response.json());
+}
+
+/**
+ * Prevents event bubbling.
+ * @param {Event} event - The event to stop propagation.
+ */
+function preventBubbling(event) {
+  event.stopPropagation();
+}
+
+
+
+
 
