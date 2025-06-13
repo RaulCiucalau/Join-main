@@ -1,5 +1,7 @@
-function initFirst(){
-   animationJoinSign();
+function init() {
+  getUsersFromDatabase();
+  loadLoginInfo("whoIsLoggedIn");
+  putLoginInfo("whoIsLoggedIn", { isGuestLoggedIn: false, userLoggedIn: { name: "", avatar: "" } });
 }
 
 function redirectToGuestView() {
@@ -147,7 +149,11 @@ function wrongEmail() {
   document.getElementById("wrong-email").classList.remove("dp-none");
   document.getElementById("inputEmail").style.border = "1px solid red";
 }
-
+/**
+ * Removes error messages and resets input field styles.
+ * @param {string} errorId - The ID of the error message element.
+ * @param {string} inputId - The ID of the input element.
+ */
 function removeErrorMsgs(errorId, inputId) {
   let errorElement = document.getElementById(errorId);
   let inputElement = document.getElementById(inputId);

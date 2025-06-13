@@ -1,69 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Log in</title>
-  <link rel="stylesheet" href="./styles/standard_all.css" />
-  <link rel="stylesheet" href="./styles/login.css" />
-  <link rel="stylesheet" href="./styles/assets.css" />
-  <link rel="shortcut icon" href="./assets/img/favicon/fav_blue.png" type="image/x-icon" />
-
- 
-  <script src="./js/login.js" defer></script>
-</head>
-
-<body onload="initFirst()">
-  
-  <div class="main_content">
-    <header>
-      <div class="animation">
-        <img class="header_logo" src="assets/img/login_icons/logo_blue.svg" alt="Join" />
-      </div>
-
-      <div class="header_text">
-        <p>Not a Join user?</p>
-        <button class="header_btn" onclick="window.location.href='sign_up.html'">Sign up</button>
-      </div>
-    </header>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="./styles/standard_all.css" />
+    <link rel="stylesheet" href="/index/index.css" />
+    <link rel="stylesheet" href="/index/index-resp.css" />
+    <link rel="shortcut icon" href="./assets/img/favicon/fav_blue.png" type="image/x-icon" />
+  </head>
+  <body onload="init()">
+    <div class="greeting">
+      <img src="/assets/icons/join-logo-big.svg" class="greeting-logo" />
+    </div>
     <div class="content">
-      <div class="login_container">
-        <div class="login_container_header">
-          <h1>Log in</h1>
-          <img src="./assets/img/login_icons/separator.svg" alt="" />
+      <div>
+        <img class="join-header-logo" src="/assets/icons/join-logo-blue.svg" alt="Join Logo Blue" />
+      </div>
+      <header class="header-login">
+        <!-- <img src="./assets/img/join-logo-blue.svg" alt="Join Logo Blue" /> -->
+        <div class="header-login-signup">
+          <p class="signup-1">Not a Join user?</p>
+          <a href="./sign_up.html"><span class="signup-2">Sign up</span></a>
         </div>
-        <div class="login_content">
-          <div class="input_login_container">
-            <div class="content_input_container">
-              <input type="text" name="" id="inputEmail" placeholder="Email" />
-              <img class="input_icon" src="./assets/img/login_icons/mail.svg" alt="" />
+      </header>
+      <main>
+        <div class="login-window">
+          <h1>Log in</h1>
+          <div class="login-separator"></div>
+          <div class="login-inputs">
+            <div class="login-input-email">
+              <input
+                oninput="removeErrorMsgs('error-email', 'email');removeErrorMsgs('wrong-email', 'password');"
+                id="inputEmail"
+                class="email"
+                type="email"
+                placeholder="Email"
+              />
+              <img class="login-input-imgs mail-img" src="/assets/icons/mail.svg" alt="" />
+              <p id="error-email" class="error-msg dp-none">Please enter your email</p>
+              <p id="wrong-email" class="error-msg dp-none">Wrong email</p>
             </div>
-            <div class="content_input_container">
-              <input type="password" name="" id="inputPassword" placeholder="Password" />
-              <img class="input_icon" src="./assets/img/login_icons/lock.svg" alt="" />
+            <div class="login-input-pw">
+              <input
+                oninput="removeErrorMsgs('error-password', 'password'); removeErrorMsgs('wrong-password', 'password');"
+                id="inputPassword"
+                class="password"
+                type="password"
+                placeholder="Password"
+              />
+              <img class="login-input-imgs pw-img" src="/assets/icons/lock.svg" alt="" />
+              <p id="error-password" class="error-msg dp-none">Please enter your password</p>
+              <p id="wrong-password" class="error-msg dp-none">Wrong password</p>
             </div>
           </div>
+          <div class="login-btns">
+            <div class="login-btn" onclick="loginUser()">Log in</div>
+            <div class="guest-login-btn" onclick="redirectToGuestView()">Guest Log in</div>
+          </div>
         </div>
-        <div class="login_btn_container">
-          <button id="btnLogin" class="btn_login" onclick="loginUser()">Log in</button>
-          <button id="btnGuest" class="btn_guest" onclick="redirectToGuestView()">Guest Log in</button>
+      </main>
+      <footer class="footer-login">
+        <div class="footer-login-signup">
+          <p class="signup-1">Not a Join user?</p>
+          <a href="./sign-up.html"><span class="signup-2">Sign up</span></a>
         </div>
-      </div>
+        <div class="footer-btns">
+          <a href="./privacy_policy.html"><div class="footer-btn">Privacy Policy</div></a>
+          <a href="./legal_notice.html"><div class="footer-btn">Legal notice</div></a>
+        </div>
+      </footer>
     </div>
-
-    <footer>
-      <div class="login_links">
-        <a href="./privacy_policy.html">Privacy Policy</a>
-        <a href="./legal_notice.html">Legal Notice</a>
-      </div>
-    </footer>
-  </div>
- 
-
-
+    
+   
+  </body>
   <script src="index.js"></script>
-</body>
-
 </html>
