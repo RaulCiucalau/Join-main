@@ -64,8 +64,8 @@ function addSubtaskToList(text) {
   item.innerHTML = `
     <span class="subtask-text">• ${text}</span>
     <div class="subtask-list-item-btns dp-none">
-      <img src="./assets/icons/edit.svg" class="subtask-edit-icons" title="Edit">
-      <img src="./assets/icons/delete.svg" class="subtask-edit-icons" title="Delete">
+      <img src="../assets/icons/edit.svg" class="subtask-edit-icons" title="Edit">
+      <img src="../assets/icons/delete.svg" class="subtask-edit-icons" title="Delete">
     </div>
   `;
 
@@ -91,8 +91,8 @@ function addSubtaskToList(text) {
     item.innerHTML = `
       <input type="text" class="subtask-edit-input" value="${currentText}">
       <div class="subtask-list-item-btns">
-        <img src="./assets/icons/check.svg" class="subtask-edit-icons" title="Save">
-        <img src="./assets/icons/cancel.svg" class="subtask-edit-icons" title="Cancel">
+        <img src="../assets/icons/check.svg" class="subtask-edit-icons" title="Save">
+        <img src="../assets/icons/cancel.svg" class="subtask-edit-icons" title="Cancel">
       </div>
     `;
 

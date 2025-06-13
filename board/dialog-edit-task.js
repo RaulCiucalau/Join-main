@@ -1,11 +1,11 @@
-let selectedContacts = [];
-let selectedContactsNames = [];
-let subtaskIdCounter = 0;
+let selectedContactsId = [];
+let selectedContactsName = [];
+let subtaskIdCount = 0;
 let selectedPriority = "";
-let currentTaskId = null;
+let currentTaskIds = null;
 let subtaskIcons = document.querySelector('dialogSubtaskEdit');
 
-function renderContactList(taskId) {
+function renderContactsList(taskId) {
   const assignedTo = tasks[taskId]?.assigned_to || [];
   const container = document.getElementById("drop-down-contact-list");
   container.innerHTML = "";
@@ -13,7 +13,7 @@ function renderContactList(taskId) {
   resetSelectedContacts();
   contacts.forEach((contact, i) => {
     const isAssigned = assignedTo.includes(contact.name);
-    container.innerHTML += contactListDropDownTemplate(contact, i, isAssigned);
+    container.innerHTML += contactListTemplate(contact, i, isAssigned);
     if (isAssigned) addToSelected(contact.name, i);
   });
   applySelectedStyles();
@@ -21,17 +21,17 @@ function renderContactList(taskId) {
 }
 
 function resetSelectedContacts() {
-  selectedContacts = [];
+  selectedContactsId = [];
   selectedContactsNames = [];
 }
 
 function addToSelected(name, index) {
-  selectedContacts.push(index);
-  selectedContactsNames.push(name);
+  selectedContactsId.push(index);
+  selectedContactsName.push(name);
 }
 
 function applySelectedStyles() {
-  selectedContacts.forEach(i => {
+  selectedContactsId.forEach(i => {
     const el = document.getElementById(i);
     const icon = document.getElementById(`btn-checkbox-${i}`);
     if (el && icon) {
@@ -53,7 +53,7 @@ function showDropDownContactList(event, taskId) {
     arrowUp.classList.remove("dp-none");
     arrowDown.classList.add("dp-none");
     dropDown.classList.remove("dp-none");
-    renderContactList(taskId);
+    renderContactsList(taskId);
   } else {
     closeContactList();
   }
@@ -74,11 +74,11 @@ function selectContact(i) {
   contactElement.style.backgroundColor = "#2a3647";
   contactElement.style.color = "white";
   checkboxIcon.src = "../assets/icons/btn-checked.svg";
-  if (!selectedContacts.includes(i)) {
-    selectedContacts.push(i);
+  if (!selectedContactsId.includes(i)) {
+    selectedContactsId.push(i);
   }
-  if (!selectedContactsNames.includes(contact.name)) {
-    selectedContactsNames.push(contact.name);
+  if (!selectedContactsName.includes(contact.name)) {
+    selectedContactsName.push(contact.name);
   }
   showSelectedAvatars();
 }
@@ -92,13 +92,13 @@ function unselectContact(i) {
   contactElement.style.color = "black";
   contactElement.style.borderRadius = "10px";
   checkboxIcon.src = "../assets/icons/btn-unchecked.svg";
-  const index = selectedContacts.indexOf(i);
+  const index = selectedContactsId.indexOf(i);
   if (index > -1) {
-    selectedContacts.splice(index, 1);
+    selectedContactsId.splice(index, 1);
   }
-  const nameIndex = selectedContactsNames.indexOf(contact.name);
+  const nameIndex = selectedContactsName.indexOf(contact.name);
   if (nameIndex > -1) {
-    selectedContactsNames.splice(nameIndex, 1);
+    selectedContactsName.splice(nameIndex, 1);
   }
   showSelectedAvatars();
 }
@@ -107,14 +107,14 @@ function toggleContactSelection(i) {
   const contactElement = document.getElementById(`${i}`);
   if (!contactElement) return;
 
-  const isSelected = selectedContacts.includes(i);
+  const isSelected = selectedContactsId.includes(i);
   isSelected ? unselectContact(i) : selectContact(i);
 }
 
 function showSelectedAvatars() {
   const container = document.getElementById("selected-avatars");
   container.innerHTML = "";
-  const visibleContacts = selectedContacts
+  const visibleContacts = selectedContactsId
     .map(index => contacts[index])
     .filter(Boolean);
   const avatarHtml = visibleContacts.slice(0, 4).map(contact => {
@@ -161,7 +161,7 @@ function togglePriority(prio) {
 }
 
 function updateTaskPriority(prio) {
-  const task = tasks.find(t => t.id === currentTaskId);
+  const task = tasks.find(t => t.id === currentTaskIds);
   if (task) {
     task.priority = prio;
   }
@@ -186,14 +186,14 @@ function toggleEditTaskDialog() {
 }
 
 function renderEditTaskDialog(tasks, taskId) {
-  currentTaskId = taskId;
+  currentTaskIds = taskId;
   let container = document.getElementById('editTaskDialog');
   container.innerHTML = tasks.map(getEditTaskDialog).join('');
-  renderContactList(taskId);
+  renderContactsList(taskId);
 }
 
 function openEditTaskDialogById(taskId) {
-  currentTaskId = taskId;
+  currentTaskIds = taskId;
   const task = tasks.find(task => task.id === taskId);
   const bigDialog = document.getElementById('bigTaskDialog');
   const editDialog = document.getElementById('editTaskDialog');
@@ -307,13 +307,13 @@ function addNewSubtaskToList(taskId) {
   const container = document.getElementById('subtasksList');
   if (!text) return;
   const subtaskObject = {
-    id: subtaskIdCounter.toString(),
+    id: subtaskIdCount.toString(),
     taskId: taskId,
     title: text,
     completed: false
   };
   task.subtasks.push(subtaskObject);
-  subtaskIdCounter++;
+  subtaskIdCount++;
   document.getElementById('newSubtaskInput').value = '';
   container.innerHTML = renderSubtasksToEdit(task);
   inputContainer.classList.add('visibility-hidden');

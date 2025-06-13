@@ -14,6 +14,10 @@
     .content {
         padding-inline: 52px;
     }
+
+    .dialog-add-task {
+        margin-inline: 34px;
+    }
 }
 
 @media (max-width: 1238px) {
