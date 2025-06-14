@@ -5,19 +5,21 @@ let selectedPriority = "";
 let currentTaskIds = null;
 let subtaskIcons = document.querySelector('dialogSubtaskEdit');
 
-function renderContactsList(taskId) {
+function renderAssigneeList(taskId) {
   const assignedTo = tasks[taskId]?.assigned_to || [];
-  const container = document.getElementById("drop-down-contact-list");
+  const container = document.getElementById("assignee-dropdown-list");
   container.innerHTML = "";
   if (!contacts || contacts.length === 0) return;
   resetSelectedContacts();
+
   contacts.forEach((contact, i) => {
     const isAssigned = assignedTo.includes(contact.name);
     container.innerHTML += contactListTemplate(contact, i, isAssigned);
     if (isAssigned) addToSelected(contact.name, i);
   });
+
   applySelectedStyles();
-  showSelectedAvatars();
+  showAssigneeAvatars();
 }
 
 function resetSelectedContacts() {
@@ -42,18 +44,19 @@ function applySelectedStyles() {
   });
 }
 
-function showDropDownContactList(event, taskId) {
+function toggleAssigneeDropdown(event, taskId) {
   event.stopPropagation();
   const task = tasks[taskId];
-  const arrowUp = document.getElementById("assigned-to-img-up");
-  const arrowDown = document.getElementById("assigned-to-img-down");
-  const dropDown = document.getElementById("drop-down-contact-list");
+  const arrowUp = document.getElementById("assignee-img-up");
+  const arrowDown = document.getElementById("assignee-img-down");
+  const dropDown = document.getElementById("assignee-dropdown-list");
   const isHidden = arrowUp.classList.contains("dp-none");
+
   if (isHidden) {
     arrowUp.classList.remove("dp-none");
     arrowDown.classList.add("dp-none");
     dropDown.classList.remove("dp-none");
-    renderContactsList(taskId);
+    renderAssigneeList(taskId);
   } else {
     closeContactList();
   }
@@ -142,22 +145,22 @@ function removeUnSelectedAvatar(i) {
   if (el) el.remove();
 }
 
-function selectPrio(prio) {
+function selectTaskPriority(prio) {
   const prios = ["urgent", "medium", "low"];
   prios.forEach(p => {
-    document.getElementById(`prio-img-${p}`).src = `../assets/icons/priority-${p}.svg`;
-    document.getElementById(`prio-btn-${p}`).style.backgroundColor = "white";
-    document.getElementById(`prio-btn-${p}`).style.color = "black";
+    document.getElementById(`task-prio-img-${p}`).src = `../assets/icons/priority-${p}.svg`;
+    document.getElementById(`task-prio-btn-${p}`).style.backgroundColor = "white";
+    document.getElementById(`task-prio-btn-${p}`).style.color = "black";
   });
-  document.getElementById(`prio-img-${prio}`).src = `../assets/icons/priority-${prio}-white.svg`;
-  document.getElementById(`prio-btn-${prio}`).style.backgroundColor = getPrioColor(prio);
-  document.getElementById(`prio-btn-${prio}`).style.color = "white";
+  document.getElementById(`task-prio-img-${prio}`).src = `../assets/icons/priority-${prio}-white.svg`;
+  document.getElementById(`task-prio-btn-${prio}`).style.backgroundColor = getPrioColor(prio);
+  document.getElementById(`task-prio-btn-${prio}`).style.color = "white";
   selectedPriority = prio;
   updateTaskPriority(prio);
 }
 
-function togglePriority(prio) {
-    selectPrio(prio);
+function toggleTaskPriority(prio) {
+  selectTaskPriority(prio);
 }
 
 function updateTaskPriority(prio) {
@@ -189,7 +192,7 @@ function renderEditTaskDialog(tasks, taskId) {
   currentTaskIds = taskId;
   let container = document.getElementById('editTaskDialog');
   container.innerHTML = tasks.map(getEditTaskDialog).join('');
-  renderContactsList(taskId);
+  renderAssigneeList(taskId);
 }
 
 function openEditTaskDialogById(taskId) {

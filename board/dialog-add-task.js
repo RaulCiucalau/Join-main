@@ -1,3 +1,7 @@
+let tasksArr = [];
+let currentMaxId = 3;
+let selectedColumn = "to-do";
+
 async function loadContacts(path) {
   try {
     const response = await fetch("https://join-460-default-rtdb.europe-west1.firebasedatabase.app/contacts.json");
@@ -36,13 +40,14 @@ function createTask() {
   } else {
     saveTaskInputs();
     showLog();
-    goToBoards();
+    location.reload();
   }
 }
 
 function saveTaskInputs() {
   if (canSaveTask()) {
-    let id = generateUniqueId();
+    let lastId = tasks.length;
+    let id = (lastId -1) + 1;
     console.log("Vergebene ID:", id);
     const task = createTaskObject(id);
     tasksArr.push(task);
