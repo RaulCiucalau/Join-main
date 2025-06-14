@@ -8,7 +8,7 @@
  * Selects a priority button and updates its style.
  * @param {string} prio - The priority to select ("urgent", "medium", or "low").
  */
-function selectPrio(prio) {
+function selectPrios(prio) {
   const prios = ["urgent", "medium", "low"];
   prios.forEach((p) => unselectPrio(p));
   document.getElementById(`prio-img-${prio}`).src = `../assets/icons/priority-${prio}-white.svg`;
@@ -36,7 +36,7 @@ function togglePrio(prio) {
   if (document.getElementById(`prio-btn-${prio}`).style.color === "white") {
     unselectPrio(prio);
   } else {
-    selectPrio(prio);
+    selectPrios(prio);
   }
 }
 

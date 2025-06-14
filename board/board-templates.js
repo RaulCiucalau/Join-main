@@ -106,23 +106,24 @@ function getEditTaskDialog(task) {
                     <div class="select-priority frame-39">
                         <label class="dialog-card-typography-content font-blue" for="priority">Priority</label>
                         <div class="priority-btns">
-                            <div class="priority-btn" id="task-prio-btn-urgent" onclick="toggleTaskPriority('urgent')">
+                            <div class="priority-btn" id="prios-btn-urgent" onclick="togglePrioritys('urgent')">
                                 <p>Urgent</p>
-                                <img id="task-prio-img-urgent" class="priority-img" src="../assets/icons/priority-urgent.svg"
-                                alt="Priority Urgent" />
+                                <img id="prios-img-urgent" class="priority-img" src="../assets/icons/priority-urgent.svg"
+                                    alt="Priority Urgent" />
                             </div>
-                        <div class="priority-btn" id="task-prio-btn-medium" onclick="toggleTaskPriority('medium')">
-                            <p>Medium</p>
-                            <img id="task-prio-img-medium" class="priority-img" src="../assets/icons/priority-medium.svg"
-                            alt="Priority Medium" />
-                        </div>
-                        <div class="priority-btn" id="task-prio-btn-low" onclick="toggleTaskPriority('low')">
-                            <p>Low</p>
-                            <img id="task-prio-img-low" class="priority-img" src="../assets/icons/priority-low.svg"
-                            alt="Priority Low" />
+                            <div class="priority-btn" id="prios-btn-medium" onclick="togglePrioritys('medium')">
+                                <p>Medium</p>
+                                <img id="prios-img-medium" class="priority-img" src="../assets/icons/priority-medium.svg"
+                                    alt="Priority Medium" />
+                            </div>
+                            <div class="priority-btn" id="prios-btn-low" onclick="togglePrioritys('low')">
+                                <p>Low</p>
+                                <img id="prios-img-low" class="priority-img" src="../assets/icons/priority-low.svg"
+                                    alt="Priority Low" />
+                            </div>
                         </div>
                     </div>
-                </div>
+                </div>   
                 <div class="dialog-edit-assigned">
                     <div class="assigned-to-section frame-39">
                         <label class="dialog-card-typography-content font-blue">Assigned to</label>

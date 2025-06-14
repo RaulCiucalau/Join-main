@@ -251,12 +251,20 @@ h1 {
 }
 
 .profile-badge {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    border: 2px solid white;
 }
 
 .margin-left-contacts {
-    margin-left: -16px;
+    margin-left: -13px;
 }
 
 .priority-symbol {

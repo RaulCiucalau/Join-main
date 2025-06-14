@@ -98,16 +98,15 @@ function getLabelClass(category) {
 }
 
 function renderAssignedContacts(assignedList) {
-    if (!Array.isArray(assignedList)) return '';
-    return assignedList
-        .map(name => {
-            const validName = Object.keys(profileBadges).find(badgeName => badgeName === name);
-            if (!validName) return '';
-            return `
-            <img class="profile-badge margin-left-contacts" src="${profileBadges[validName]}" alt="Profile Badge">
-            `;
-        })
-        .join('');
+  if (!Array.isArray(assignedList) || contacts.length === 0) return '';
+  
+  return assignedList.map(name => {
+    const contact = contacts.find(c => c.name === name);
+    if (!contact) return '';
+    return `
+      <span class="profile-badge margin-left-contacts" style="background-color: ${contact.color}">${contact.avatar}</span>
+    `;
+  }).join('');
 }
 
 function renderAssignedContactsBigDialog(assignedList) {

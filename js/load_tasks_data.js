@@ -32,7 +32,7 @@ async function onloadFunc() {
             }
         )
     }
-    contactsFetch();
+    await contactsFetch();
 }
 
 async function fetchData(path) {

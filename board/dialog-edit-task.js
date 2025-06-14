@@ -1,7 +1,7 @@
 let selectedContactsId = [];
 let selectedContactsName = [];
 let subtaskIdCount = 0;
-let selectedPriority = "";
+let selectedPrioritys = "";
 let currentTaskIds = null;
 let subtaskIcons = document.querySelector('dialogSubtaskEdit');
 
@@ -11,7 +11,7 @@ function renderAssigneeList(taskId) {
   container.innerHTML = "";
   if (!contacts || contacts.length === 0) return;
   resetSelectedContacts();
-
+  
   contacts.forEach((contact, i) => {
     const isAssigned = assignedTo.includes(contact.name);
     container.innerHTML += contactListTemplate(contact, i, isAssigned);
@@ -145,32 +145,32 @@ function removeUnSelectedAvatar(i) {
   if (el) el.remove();
 }
 
-function selectTaskPriority(prio) {
+function selectPrio(prio) {
   const prios = ["urgent", "medium", "low"];
   prios.forEach(p => {
-    document.getElementById(`task-prio-img-${p}`).src = `../assets/icons/priority-${p}.svg`;
-    document.getElementById(`task-prio-btn-${p}`).style.backgroundColor = "white";
-    document.getElementById(`task-prio-btn-${p}`).style.color = "black";
+    document.getElementById(`prios-img-${p}`).src = `../assets/icons/priority-${p}.svg`;
+    document.getElementById(`prios-btn-${p}`).style.backgroundColor = "white";
+    document.getElementById(`prios-btn-${p}`).style.color = "black";
   });
-  document.getElementById(`task-prio-img-${prio}`).src = `../assets/icons/priority-${prio}-white.svg`;
-  document.getElementById(`task-prio-btn-${prio}`).style.backgroundColor = getPrioColor(prio);
-  document.getElementById(`task-prio-btn-${prio}`).style.color = "white";
-  selectedPriority = prio;
-  updateTaskPriority(prio);
+  document.getElementById(`prios-img-${prio}`).src = `../assets/icons/priority-${prio}-white.svg`;
+  document.getElementById(`prios-btn-${prio}`).style.backgroundColor = getPrioColor(prio);
+  document.getElementById(`prios-btn-${prio}`).style.color = "white";
+  selectedPrioritys = prio;
+  updateTaskPrioritys(prio);
 }
 
-function toggleTaskPriority(prio) {
-  selectTaskPriority(prio);
+function togglePrioritys(prio) {
+    selectPrio(prio);
 }
 
-function updateTaskPriority(prio) {
-  const task = tasks.find(t => t.id === currentTaskIds);
+function updateTaskPrioritys(prio) {
+  const task = tasks.find(t => t.id === currentTaskId);
   if (task) {
     task.priority = prio;
   }
 }
 
-function getPrioColor(prio) {
+function getPrioColors(prio) {
   switch (prio) {
     case "urgent":
       return "#FF3D00";
