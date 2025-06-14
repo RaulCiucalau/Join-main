@@ -7,6 +7,10 @@
   font-family: "Inter", "sans-serif";
 }
 
+a {
+  color: black;
+}
+
 body {
   font-family: "Inter", sans-serif;
   background: #F6F7F8;

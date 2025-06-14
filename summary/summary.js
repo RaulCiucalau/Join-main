@@ -1,8 +1,10 @@
 async function init() {
+  updateHoverScaleClass();
   await onloadFunc(); // Tasks laden
   showTasksCounts(tasks); // Tasks anzeigen
   showUrgentDate(tasks); // Dringend-Datum anzeigen
   await loadUserNameAndGreeting(); // Name + Gruß anzeigen
+  
 }
 
 function showTasksCounts(tasks) {
@@ -128,8 +130,18 @@ async function loadUserNameAndGreeting() {
   }
 }
 
+
+
+function updateHoverScaleClass() {
+  const container = document.getElementById('boxInfoTask');
+  if (!container) return;
+
+  if (window.innerWidth <= 1418) {
+    const hoverElements = container.querySelectorAll('.hover-scale');
+      hoverElements.forEach(el => el.classList.remove('hover-scale'));
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   init();
 });
-
-
