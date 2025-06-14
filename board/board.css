@@ -513,3 +513,9 @@ h1 {
 .display-none {
     display: none;
 }
+
+.dragging {
+    transform: rotate(5deg);
+    transition: transform 0.2s ease;
+    opacity: 0.8;
+}

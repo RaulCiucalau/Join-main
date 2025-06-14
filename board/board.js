@@ -193,12 +193,20 @@ function getProgressText(subtasks) {
 }
 
 function startDragging(taskId) {
+    let draggableElement = document.getElementById(`dragTask${taskId}`);
     currentDraggedTaskId = taskId;
+    draggableElement.classList.add("dragging");
+    draggableElement.addEventListener('dragend', () => {
+        draggableElement.classList.remove("dragging");
+        currentDraggedTaskId = null;
+    }, { once: true });
 }
 
-function allowDrop(event) {
+function allowDrop(event, taskId) {
     event.preventDefault();
     event.currentTarget.classList.add("drag-highlight");
+    let draggableElement = document.getElementById(`dragTask${taskId}`);
+    draggableElement.classList.remove("dragging");
 }
 
 function removeHighlight(event) {
@@ -208,12 +216,19 @@ function removeHighlight(event) {
 async function moveTo(event, newStatus) {
     event.preventDefault();
     event.currentTarget.classList.remove("drag-highlight");
+
     const task = tasks.find(t => t.id === currentDraggedTaskId);
+    const draggedElement = document.getElementById(`dragTask${currentDraggedTaskId}`);
+    if (draggedElement) {
+        draggedElement.classList.remove("dragging");
+    }
+
     if (task && task.status !== newStatus) {
         task.status = newStatus;
         await updateTaskInDatabase(task);
         renderCards(tasks);
     }
+
     currentDraggedTaskId = null;
 }
 

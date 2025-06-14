@@ -1,6 +1,6 @@
 function getCardsTemplate(task) {
     return `
-    <div draggable="true" ondragstart="startDragging('${task.id}')" class="task-card" onclick="openBigTaskDialogById('${task.id}')">
+    <div id="dragTask${task.id}" draggable="true" ondragstart="startDragging('${task.id}')" class="task-card" onclick="openBigTaskDialogById('${task.id}')">
         <div class="status-card">
             <div class="${getLabelClass(task.category)} typography-label">${task.category}</div>
             <div class="card-text">
