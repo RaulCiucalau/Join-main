@@ -57,7 +57,7 @@ function getBigTaskDialog(task) {
             </div>
         </div>
         <div class="dialog-card-btns-bottom">
-            <div class="dialog-card-btn" onclick="deleteTask('${task.id}')">
+            <div class="dialog-card-btn" onclick="deleteTaskById('${task.id}')">
                 <img class="blue-filter" src="../assets/img/board_icons/delete_button.svg" alt="Delete">
                 <p>Delete</p>
             </div>

@@ -279,3 +279,24 @@ function updateSubtasksText(task, subtasks) {
 function redirectToAddTask() {
     window.location.href = "../add_task.html";
 }
+
+async function deleteTask(task) {
+    try {
+        const response = await fetch(`${BASE_URL}tasks/${task.id}.json`, {
+            method: 'DELETE',
+        });
+    } catch (error) {
+        console.error('Fetch-Fehler:', error);
+    }
+}
+
+async function deleteTaskById(id) {
+    await deleteTask({ id });
+    closeBigTaskDialog();
+    await onloadFunc();
+    renderCards(tasks);
+}
+
+function closeBigTaskDialog() {
+    document.getElementById("bigTaskDialog").classList.add("d-none-big-dialog");
+}

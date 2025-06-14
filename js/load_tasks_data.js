@@ -3,11 +3,13 @@ let contacts = [];
 const BASE_URL = "https://join-460-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function onloadFunc() {
+    tasks = [];
     let tasksResponse = await fetchData("tasks");
     let tasksKeysArrays = Object.keys(tasksResponse);
     for (let index = 0; index < tasksKeysArrays.length; index++) {
         let taskId = tasksKeysArrays[index];
         let data = tasksResponse[taskId];
+        if (!data) continue;
         let subtasksArray = [];
         if (data.subtasks) {
             subtasksArray = Object.entries(data.subtasks).map(([subtaskId, subtask]) => ({
@@ -50,7 +52,8 @@ async function contactsFetch() {
             name: data.name,
             e_mail: data.e_mail,
             phone: data.phone,
-            color: data.color
+            color: data.color,
+            avatar: data.avatar
         });
     }
 }

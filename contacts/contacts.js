@@ -237,6 +237,11 @@ async function saveEditedContact(key) {
 async function addNewContactToDatabase(name, email, phone)
 {
   const randomColor = colours[Math.floor(Math.random() * colours.length)];
+  const initials = name
+    .trim()
+    .split(' ')
+    .map(word => word[0].toUpperCase())
+    .join('');
 
   const newContact = 
   {
@@ -244,6 +249,7 @@ async function addNewContactToDatabase(name, email, phone)
     e_mail: email.trim(),
     phone: phone.trim(),
     color: randomColor,
+    avatar: initials
   };
 
  try {
