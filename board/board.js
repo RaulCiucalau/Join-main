@@ -29,6 +29,18 @@ async function init() {
     renderEditTaskDialog(tasks);
 }
 
+function waitForInitialLetterElement(callback) {
+  const observer = new MutationObserver(() => {
+    const el = document.getElementById("initialLetter");
+    if (el) {
+      observer.disconnect();
+      callback();
+    }
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+}
+
 function openAddTaskDialog() {
     let dialog = document.getElementById('addTaskDialog');
     const isSmallScreen = window.matchMedia("(max-width: 1035px)").matches;
