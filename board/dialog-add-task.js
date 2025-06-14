@@ -40,7 +40,7 @@ function createTask() {
   } else {
     saveTaskInputs();
     showLog();
-    location.reload();
+    window.location.href = 'board.html';
   }
 }
 

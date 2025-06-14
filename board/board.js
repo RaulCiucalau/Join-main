@@ -1,3 +1,4 @@
+let isDialogOpen = false;
 let profileBadges = {
     "Anton Mayer": "../assets/img/board_icons/badge_anton.svg",
     "Anja Schulz": "../assets/img/board_icons/badge_anja.svg",
@@ -42,18 +43,47 @@ function waitForInitialLetterElement(callback) {
 }
 
 function openAddTaskDialog() {
-    let dialog = document.getElementById('addTaskDialog');
+    const dialogContainer = document.getElementById('addTaskDialog');
+    const dialog = dialogContainer.querySelector('.dialog-add-task');
     const isSmallScreen = window.matchMedia("(max-width: 1035px)").matches;
+
     if (isSmallScreen) {
         window.location.href = "../add_task.html";
-    } else {
-        dialog.classList.toggle('d-none');
+    } else if (!isDialogOpen) {
+        dialogContainer.classList.remove('d-none');
+        dialog.style.animation = 'slideInFromRight 0.4s forwards';
+        isDialogOpen = true;
     }
 }
 
 function toggleAddTaskDialog() {
-    let dialog = document.getElementById('addTaskDialog')
-    dialog.classList.toggle('d-none');
+  const dialogContainer = document.getElementById('addTaskDialog');
+  const dialog = dialogContainer.querySelector('.dialog-add-task');
+
+  if (!isDialogOpen) {
+    dialogContainer.classList.remove('d-none');
+    dialog.style.animation = 'slideInFromRight 0.4s forwards';
+    isDialogOpen = true;
+  } else {
+    dialog.style.animation = 'slideOutToRight 0.4s forwards';
+    setTimeout(() => {
+      dialogContainer.classList.add('d-none');
+      isDialogOpen = false;
+    }, 400);
+  }
+}
+
+function closeAddTaskDialog(event) {
+  const dialog = document.querySelector('.dialog-add-task');
+  dialog.style.animation = 'slideOutToRight 0.4s forwards';
+  setTimeout(() => {
+    document.getElementById('addTaskDialog').classList.add('d-none');
+    isDialogOpen = false;
+  }, 400);
+}
+
+function stopPropagation(event) {
+  event.stopPropagation();
 }
 
 function toggleBigTaskDialog() {
@@ -61,10 +91,29 @@ function toggleBigTaskDialog() {
     bigDialog.classList.toggle('d-none-big-dialog');
 }
 
+function closeBigDialog() {
+    const container = document.getElementById('bigTaskDialog');
+    container.classList.remove('open');
+    container.classList.add('closing');
+    setTimeout(() => {
+        container.classList.remove('closing');
+        container.classList.add('d-none-big-dialog')
+    }, 100);
+}
+
+function openDialog() {
+    const container = document.getElementById('bigTaskDialog');
+    container.classList.remove('closing');
+    container.classList.add('open');
+    container.classList.remove('d-none-big-dialog');
+}
+
 function openBigTaskDialogById(taskId) {
     const task = tasks.find(task => task.id === taskId);
     const bigDialog = document.getElementById('bigTaskDialog');
     bigDialog.innerHTML = getBigTaskDialog(task);
+    bigDialog.classList.remove('closing');
+    bigDialog.classList.add('open');
     bigDialog.classList.remove('d-none-big-dialog');
 }
 

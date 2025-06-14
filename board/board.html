@@ -33,7 +33,7 @@
     <div w3-include-html="../assets/templates/nav-header_template.html"></div>
     <div onclick="toggleEditTaskDialog()" id="editTaskDialog" class="dialog-container d-none-edit-dialog">
     </div>
-    <div onclick="toggleBigTaskDialog()" id="bigTaskDialog" class="dialog-container d-none-big-dialog">
+    <div onclick="closeBigDialog()" id="bigTaskDialog" class="dialog-container d-none-big-dialog">
         <div onclick="stopPropagation(event)" id="bigDialog" class="dialog-card">
             <div class="dialog-card-header">
                 <label class="user-story-label typography-label" for="">User Story</label>
@@ -42,10 +42,10 @@
             </div>
         </div>
     </div>
-    <div onclick="toggleAddTaskDialog()" id="addTaskDialog" class="dialog-add-task-container d-none">
+    <div onclick="closeAddTaskDialog(event)" id="addTaskDialog" class="dialog-add-task-container d-none">
         <div onclick="stopPropagation(event)" class="dialog-add-task">
             <div class="close-btn-container">
-                <img onclick="toggleAddTaskDialog()" class="close-btn" src="../assets/img/board_icons/close_button.svg"
+                <img onclick="closeAddTaskDialog(event)" class="close-btn" src="../assets/img/board_icons/close_button.svg"
                     alt="">
             </div>
             <div class="add-task-main-title">

@@ -286,6 +286,7 @@ h1 {
 }
 
 .dialog-card {
+    animation-fill-mode: forwards;
     width: 525px;
     border-radius: 30px;
     border: none;
@@ -296,6 +297,36 @@ h1 {
     flex-direction: column;
     gap: 10px;
     height: 848px;
+}
+
+#bigTaskDialog:not(.open) #bigDialog {
+    transform: translateX(100%);
+}
+
+#bigTaskDialog.open #bigDialog {
+    animation: slideInFromRight 0.3s ease forwards;
+}
+
+#bigTaskDialog.closing #bigDialog {
+    animation: slideOutToRight 0.3s ease forwards;
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutToRight {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
 }
 
 .dialog-card-header {
