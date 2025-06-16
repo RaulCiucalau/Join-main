@@ -37,6 +37,7 @@ body {
 
 .main-place {
   display: flex;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -106,7 +107,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  gap: 48px;
   border-radius: 16px;
   width: 100%;
   height: 168px;
@@ -435,4 +436,13 @@ svg {
   box-shadow: 0px 4px 4px 0px #00000040;
   transform: scale(1.1);
   transition: 100ms ease-in-out;
+}
+
+@media screen and (max-width: 830px) {
+  .middle-part-box {
+    gap: 24px;
+  }
+  .join-360{
+    font-size: 32px;
+  }
 }
