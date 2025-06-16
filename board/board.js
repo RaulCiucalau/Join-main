@@ -206,7 +206,9 @@ function allowDrop(event, taskId) {
     event.preventDefault();
     event.currentTarget.classList.add("drag-highlight");
     let draggableElement = document.getElementById(`dragTask${taskId}`);
+    if (draggableElement) {
     draggableElement.classList.remove("dragging");
+  }
 }
 
 function removeHighlight(event) {

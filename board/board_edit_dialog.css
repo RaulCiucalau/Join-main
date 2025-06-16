@@ -285,3 +285,14 @@ input.assign::placeholder {
 .extra-avatar {
   background-color: #2a3647;
 }
+
+.assigned-to-input-container {
+    display: flex;
+    align-items: center;
+}
+
+.assigned-to-img {
+    position: absolute;
+    cursor: pointer;
+    right: 15px;
+}

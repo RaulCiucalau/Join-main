@@ -11,15 +11,13 @@ function renderAssigneeList(taskId) {
   container.innerHTML = "";
   if (!contacts || contacts.length === 0) return;
   resetSelectedContacts();
-  
+
   contacts.forEach((contact, i) => {
     const isAssigned = assignedTo.includes(contact.name);
     container.innerHTML += contactListTemplate(contact, i, isAssigned);
     if (isAssigned) addToSelected(contact.name, i);
   });
-
   applySelectedStyles();
-  showAssigneeAvatars();
 }
 
 function resetSelectedContacts() {
@@ -47,102 +45,65 @@ function applySelectedStyles() {
 function toggleAssigneeDropdown(event, taskId) {
   event.stopPropagation();
   const task = tasks[taskId];
-  const arrowUp = document.getElementById("assignee-img-up");
-  const arrowDown = document.getElementById("assignee-img-down");
-  const dropDown = document.getElementById("assignee-dropdown-list");
-  const isHidden = arrowUp.classList.contains("dp-none");
-
-  if (isHidden) {
-    arrowUp.classList.remove("dp-none");
-    arrowDown.classList.add("dp-none");
-    dropDown.classList.remove("dp-none");
+  if (document.getElementById("assignee-img-up").classList.contains("dp-none")) {
+    document.getElementById("assignee-img-up").classList.remove("dp-none");
+    document.getElementById("assignee-img-down").classList.add("dp-none");
+    document.getElementById("assignee-dropdown-list").classList.remove("dp-none");
     renderAssigneeList(taskId);
   } else {
-    closeContactList();
+    closeDropDownList();
   }
 }
 
-function closeContactList() {
-  document.getElementById("drop-down-contact-list").classList.add("dp-none");
-  document.getElementById("assigned-to-img-up").classList.add("dp-none");
-  document.getElementById("assigned-to-img-down").classList.remove("dp-none");
-  document.getElementById("drop-down-contact-list").innerHTML = "";
+function closeDropDownList() {
+  document.getElementById("assignee-dropdown-list").classList.add("dp-none");
+  document.getElementById("assignee-img-up").classList.add("dp-none");
+  document.getElementById("assignee-img-down").classList.remove("dp-none");
+  document.getElementById("assignee-dropdown-list").innerHTML = "";
 }
 
-function selectContact(i) {
-  const contactElement = document.getElementById(`${i}`);
-  const checkboxIcon = document.getElementById(`btn-checkbox-${i}`);
-  const contact = contacts[i];
-  if (!contactElement || !checkboxIcon || !contact) return;
-  contactElement.style.backgroundColor = "#2a3647";
-  contactElement.style.color = "white";
-  checkboxIcon.src = "../assets/icons/btn-checked.svg";
-  if (!selectedContactsId.includes(i)) {
-    selectedContactsId.push(i);
+function toggleContactChosed(index) {
+  const contact = contacts[index];
+  if (!contact) return;
+  const contactText = document.getElementById(`contactName${index}`)
+  const contactElement = document.getElementById(`contactId${index}`);
+  const checkBoxIcon = document.getElementById(`checkBox${index}`);
+  if (!contactText || !contactElement || !checkBoxIcon) return;
+  const isSelected = selectedContactsId.includes(index);
+  if (isSelected) {
+    // Unselect
+    selectedContactsId.splice(selectedContactsId.indexOf(index), 1);
+    selectedContactsNames.splice(selectedContactsNames.indexOf(contact.name), 1);
+    contactText.style.color = "black";
+    contactElement.style.backgroundColor = "white";
+    checkBoxIcon.src = "../assets/icons/btn-unchecked.svg";
+    return;
+  } else {
+    // Select
+    selectedContactsId.push(index);
+    selectedContactsNames.push(contact.name);
+    contactText.style.color = "white";
+    contactElement.style.backgroundColor = "rgb(42, 54, 71)";
+    checkBoxIcon.src = "../assets/icons/btn-checked.svg";
   }
-  if (!selectedContactsName.includes(contact.name)) {
-    selectedContactsName.push(contact.name);
-  }
-  showSelectedAvatars();
+  renderChosenAvatars();
 }
 
-function unselectContact(i) {
-  const contactElement = document.getElementById(`${i}`);
-  const checkboxIcon = document.getElementById(`btn-checkbox-${i}`);
-  const contact = contacts[i];
-  if (!contactElement || !checkboxIcon || !contact) return;
-  contactElement.style.backgroundColor = "white";
-  contactElement.style.color = "black";
-  contactElement.style.borderRadius = "10px";
-  checkboxIcon.src = "../assets/icons/btn-unchecked.svg";
-  const index = selectedContactsId.indexOf(i);
-  if (index > -1) {
-    selectedContactsId.splice(index, 1);
-  }
-  const nameIndex = selectedContactsName.indexOf(contact.name);
-  if (nameIndex > -1) {
-    selectedContactsName.splice(nameIndex, 1);
-  }
-  showSelectedAvatars();
-}
-
-function toggleContactSelection(i) {
-  const contactElement = document.getElementById(`${i}`);
-  if (!contactElement) return;
-
-  const isSelected = selectedContactsId.includes(i);
-  isSelected ? unselectContact(i) : selectContact(i);
-}
-
-function showSelectedAvatars() {
-  const container = document.getElementById("selected-avatars");
+function renderChosenAvatars() {
+  const container = document.getElementById("assignee-selected-avatars");
   container.innerHTML = "";
   const visibleContacts = selectedContactsId
     .map(index => contacts[index])
-    .filter(Boolean);
-  const avatarHtml = visibleContacts.slice(0, 4).map(contact => {
-    const initials = getInitials(contact.name);
-    return `
-      <div class="selected-avatar" style="background-color: ${contact.color}">
-        ${initials}
-      </div>`;
-  }).join("");
+    .filter(contact => contact);
+  const avatarHtml = visibleContacts
+    .slice(0, 4)
+    .map(contact =>
+      `<div class="selected-avatars" style="background-color:${contact.color};">${contact.avatar}</div>`
+    )
+    .join("");
   const extraCount = visibleContacts.length - 4;
   container.innerHTML =
     avatarHtml + (extraCount > 0 ? `<div class="selected-avatar extra-avatar">+${extraCount}</div>` : "");
-}
-
-function getInitials(name) {
-  return name
-    .split(" ")
-    .map(part => part[0])
-    .join("")
-    .toUpperCase();
-}
-
-function removeUnSelectedAvatar(i) {
-  const el = document.getElementById(`avatar-${i}`);
-  if (el) el.remove();
 }
 
 function selectPrio(prio) {
@@ -160,7 +121,7 @@ function selectPrio(prio) {
 }
 
 function togglePrioritys(prio) {
-    selectPrio(prio);
+  selectPrio(prio);
 }
 
 function updateTaskPrioritys(prio) {
@@ -279,13 +240,15 @@ function saveEditInputFields(taskId) {
   const description = document.getElementById('editedDescription').value;
   const date = document.getElementById('editedDate').value;
   task.title = title;
+  task.priority = selectedPrioritys;
   task.description = description;
   task.due_date = date;
+  task.assigned_to = selectedContactsName;
 }
 
 async function updateTaskDatainAPI(taskId) {
-  const task = tasks[taskId];
   saveEditInputFields(taskId);
+  const task = tasks[taskId];
   try {
     await fetch(`https://join-460-default-rtdb.europe-west1.firebasedatabase.app/tasks/${task.id}.json`, {
       method: "PUT",

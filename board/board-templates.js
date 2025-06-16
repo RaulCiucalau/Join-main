@@ -72,11 +72,14 @@ function getBigTaskDialog(task) {
 }
 
 function contactListTemplate(contact, index, isAssigned) {
-  const checkboxIcon = isAssigned ? "btn-checked.svg" : "btn-unchecked.svg";
-  return `
-    <div id="${index}" class="contact-item" onclick="toggleContactSelection(${index})">
-        <span>${contact.name}</span>
-        <img id="btn-checkbox-${index}" src="../assets/icons/${checkboxIcon}" alt="checkbox">
+    const checkboxIcon = isAssigned ? "btn-checked.svg" : "btn-unchecked.svg";
+    return `
+    <div id="contactId${index}" class="contactListElement" onclick="toggleContactChosed(${index})">
+        <div class="contact">
+            <span class="avatar" style="background-color: ${contact.color}">${contact.avatar}</span>
+            <span id="contactName${index}">${contact.name}</span>
+        </div>
+        <img id="checkBox${index}" src="../assets/icons/${checkboxIcon}" alt="checkbox">
     </div>
   `;
 }
@@ -91,16 +94,16 @@ function getEditTaskDialog(task) {
             <div class="content-edit-task-dialog">
                 <div class="dialog-edit-title">
                     <p class="dialog-card-typography-content font-blue">Title</p>
-                    <input id="editedTitle" value="${task.title}" class="standard-input-edit-task hover-active-border" type="text">
+                    <input id="editedTitle${task.id}" value="${task.title}" class="standard-input-edit-task hover-active-border" type="text">
                 </div>
                 <div class="dialog-edit-description">
                     <p class="dialog-card-typography-content font-blue">Description</p>
-                    <textarea id="editedDescription" class="description-input-edit-task hover-active-border" cols="60" rows="20"
+                    <textarea id="editedDescription${task.id}" class="description-input-edit-task hover-active-border" cols="60" rows="20"
                         name="content">${task.description}</textarea>
                 </div>
                 <div class="dialog-edit-due-date">
                     <p class="dialog-card-typography-content font-blue">Due Date</p>
-                    <input id="editedDate" value="${task.due_date}" type="date" id="add-task-due-date"  class="standard-input-edit-task hover-active-border" type="text">
+                    <input id="editedDate${task.id}" value="${task.due_date}" type="date" id="add-task-due-date"  class="standard-input-edit-task hover-active-border" type="text">
                 </div>
                 <div class="dialog-edit-priority">
                     <div class="select-priority frame-39">
@@ -127,14 +130,16 @@ function getEditTaskDialog(task) {
                 <div class="dialog-edit-assigned">
                     <div class="assigned-to-section frame-39">
                         <label class="dialog-card-typography-content font-blue">Assigned to</label>
-                        <input type="text" id="assignee-input" class="selection" placeholder="Select contacts to assign"
-                        onclick="toggleAssigneeDropdown(event, ${task.id})" />
-                        <img id="assignee-img-down" class="assigned-to-img dropdown-img"
-                        src="../assets/icons/arrow_drop_down.svg" alt="Select contact dropdown arrow"
-                        onclick="toggleAssigneeDropdown(event, ${task.id})">
-                        <img id="assignee-img-up" class="assigned-to-img dropdown-img dp-none"
-                        src="../assets/icons/arrow_drop_down_up.svg" alt="Select contact dropdown arrow"
-                        onclick="toggleAssigneeDropdown(event, ${task.id})">
+                        <div class="assigned-to-input-container">
+                            <input type="text" id="assignee-input" class="selection hover-active-border" placeholder="Select contacts to assign"
+                                onclick="toggleAssigneeDropdown(event, ${task.id})" />
+                            <img id="assignee-img-down" class="assigned-to-img"
+                                src="../assets/icons/arrow_drop_down.svg" alt="Select contact dropdown arrow"
+                                onclick="toggleAssigneeDropdown(event, ${task.id})">
+                            <img id="assignee-img-up" class="assigned-to-img dp-none"
+                                src="../assets/icons/arrow_drop_down_up.svg" alt="Select contact dropdown arrow"
+                                onclick="toggleAssigneeDropdown(event, ${task.id})">
+                        </div>
                         <div class="drop-down-contact-list dp-none" id="assignee-dropdown-list">
                         </div>
                         <div id="assignee-selected-avatars">

@@ -2,9 +2,10 @@
     .right-down-place {
         padding-inline: 52px;
     }
+
     .hover-scale:hover {
-    transform: none;
-  }
+        transform: none;
+    }
 }
 
 @media (max-width: 1035px) {
@@ -71,6 +72,10 @@
 @media (max-width: 811px) {
     .right-down-place {
         padding-inline: 16px;
+    }
+
+    .join-360 {
+        font-size: 47px;
     }
 }
 
@@ -145,4 +150,3 @@
         font-size: 14px;
     }
 }
-
