@@ -191,7 +191,7 @@ function renderSubtasksToEdit(task) {
 }
 
 function editSelectedSubtask(taskId, subtaskIndex) {
-  const task = tasks[taskId];
+  const task = tasks.find(t => String(t.id) === String(taskId));
   const subtask = task.subtasks[subtaskIndex];
   const subtaskElements = document.querySelectorAll('.edit-dialog-subtask');
   const container = subtaskElements[subtaskIndex];
@@ -221,13 +221,13 @@ function mouseLeaveSubtaskEdit(element) {
 
 function deleteSelectedTask(taskId, subtaskIndex) {
   const container = document.getElementById('subtasksList');
-  const task = tasks[taskId];
+  const task = tasks.find(t => String(t.id) === String(taskId));
   task.subtasks.splice(subtaskIndex, 1);
   container.innerHTML = renderSubtasksToEdit(task);
 }
 
 function saveSelectedTask(taskId, subtaskIndex) {
-  const task = tasks[taskId];
+  const task = tasks.find(t => String(t.id) === String(taskId));
   const input = document.getElementById('inputSubtaskEdit').value;
   const container = document.getElementById('subtasksList');
   task.subtasks[subtaskIndex].title = input;
@@ -235,20 +235,19 @@ function saveSelectedTask(taskId, subtaskIndex) {
 }
 
 function saveEditInputFields(taskId) {
-  const task = tasks[taskId];
-  const title = document.getElementById('editedTitle').value;
-  const description = document.getElementById('editedDescription').value;
-  const date = document.getElementById('editedDate').value;
-  task.title = title;
+  const task = tasks.find(t => String(t.id) === String(taskId));
+  const titleInput = document.getElementById(`editedTitle-${taskId}`).value;
+  const descriptionInput = document.getElementById(`editedDescription-${taskId}`).value;
+  const dateInput = document.getElementById(`editedDate-${taskId}`).value;
+  task.title = titleInput;
+  task.description = descriptionInput;
+  task.due_date = dateInput;
   task.priority = selectedPrioritys;
-  task.description = description;
-  task.due_date = date;
-  task.assigned_to = selectedContactsName;
 }
 
 async function updateTaskDatainAPI(taskId) {
+  const task = tasks.find(t => String(t.id) === String(taskId));
   saveEditInputFields(taskId);
-  const task = tasks[taskId];
   try {
     await fetch(`https://join-460-default-rtdb.europe-west1.firebasedatabase.app/tasks/${task.id}.json`, {
       method: "PUT",
@@ -259,6 +258,7 @@ async function updateTaskDatainAPI(taskId) {
     console.error("Fehler beim Schreiben in die Datenbank:", error);
   }
   removeEditDialog();
+  renderCards(tasks);
 }
 
 function removeEditDialog() {
@@ -268,7 +268,7 @@ function removeEditDialog() {
 
 function addNewSubtaskToList(taskId) {
   const inputContainer = document.querySelector('.btns-new-subtask');
-  const task = tasks[taskId];
+  const task = tasks.find(t => String(t.id) === String(taskId));
   const text = document.getElementById('newSubtaskInput').value;
   const container = document.getElementById('subtasksList');
   if (!text) return;

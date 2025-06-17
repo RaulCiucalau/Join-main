@@ -9,7 +9,9 @@ async function onloadFunc() {
     for (let index = 0; index < tasksKeysArrays.length; index++) {
         let taskId = tasksKeysArrays[index];
         let data = tasksResponse[taskId];
-        if (!data) continue;
+         if (data === null) {
+            continue;
+        }
         let subtasksArray = [];
         if (data.subtasks) {
             subtasksArray = Object.entries(data.subtasks).map(([subtaskId, subtask]) => ({
