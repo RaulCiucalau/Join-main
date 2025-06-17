@@ -438,11 +438,9 @@ svg {
   transition: 100ms ease-in-out;
 }
 
-@media screen and (max-width: 830px) {
-  .middle-part-box {
-    gap: 24px;
-  }
-  .join-360{
-    font-size: 32px;
-  }
+.vector-horizontally {
+  display: block;
+}
+.vector-vertikal {
+  display: none;
 }

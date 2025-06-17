@@ -11,12 +11,25 @@
 @media (max-width: 1035px) {
     .right-down-place {
         margin-left: 0;
-        margin-bottom: 100px;
     }
 
     .down-part-box {
         height: 135px;
     }
+
+    .main-place {
+  flex-direction: column;
+  padding-top: 64px;
+  gap: 16px;
+  }
+
+  .vector-horizontally {
+    display: none;
+  }
+
+  .vector-vertikal{
+    display: block;
+  }
 }
 
 @media (max-width: 1150px) {
@@ -149,4 +162,13 @@
     .ToDo {
         font-size: 14px;
     }
+}
+
+@media screen and (max-width: 830px) {
+  .middle-part-box {
+    gap: 24px;
+  }
+  .join-360{
+    font-size: 32px;
+  }
 }
