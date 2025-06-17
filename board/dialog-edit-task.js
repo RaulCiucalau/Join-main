@@ -10,14 +10,13 @@ function renderAssigneeList(taskId) {
   const container = document.getElementById("assignee-dropdown-list");
   container.innerHTML = "";
   if (!contacts || contacts.length === 0) return;
-  resetSelectedContacts();
-
+  resetSelectedContacts(taskId);
   contacts.forEach((contact, i) => {
     const isAssigned = assignedTo.includes(contact.name);
-    container.innerHTML += contactListTemplate(contact, i, isAssigned);
+    container.innerHTML += contactListTemplate(contact, i, isAssigned, taskId);
     if (isAssigned) addToSelected(contact.name, i);
   });
-  applySelectedStyles();
+  applySelectedStyles(taskId);
 }
 
 function resetSelectedContacts() {
@@ -30,14 +29,19 @@ function addToSelected(name, index) {
   selectedContactsName.push(name);
 }
 
-function applySelectedStyles() {
-  selectedContactsId.forEach(i => {
-    const el = document.getElementById(i);
-    const icon = document.getElementById(`btn-checkbox-${i}`);
-    if (el && icon) {
-      el.style.backgroundColor = "#2a3647";
-      el.style.color = "white";
-      icon.src = "../assets/icons/btn-checked.svg";
+function applySelectedStyles(taskId) {
+  const task = tasks.find(t => String(t.id) === String(taskId));
+  if (!task || !task.assigned_to) return;
+  task.assigned_to.forEach(name => {
+    const contactIndex = contacts.findIndex(c => c.name === name);
+    if (contactIndex !== -1) {
+      const el = document.getElementById(`contactId${contactIndex}`);
+      const icon = document.getElementById(`checkBox${contactIndex}`);
+      if (el && icon) {
+        el.style.backgroundColor = "#2a3647";
+        el.style.color = "white";
+        icon.src = "../assets/icons/btn-checked.svg";
+      }
     }
   });
 }
@@ -62,28 +66,32 @@ function closeDropDownList() {
   document.getElementById("assignee-dropdown-list").innerHTML = "";
 }
 
-function toggleContactChosed(index) {
+function toggleContactChosed(index, taskId) {
   const contact = contacts[index];
   if (!contact) return;
-  const contactText = document.getElementById(`contactName${index}`)
+  const task = tasks.find(t => t.id == taskId);
+  if (!task) return;
+
+  if (!task.assigned_to) {
+    task.assigned_to = [];
+  }
+  const contactName = contact.name;
+  const isAlreadyAssigned = task.assigned_to.includes(contactName);
+  const contactText = document.getElementById(`contactName${index}`);
   const contactElement = document.getElementById(`contactId${index}`);
   const checkBoxIcon = document.getElementById(`checkBox${index}`);
-  if (!contactText || !contactElement || !checkBoxIcon) return;
-  const isSelected = selectedContactsId.includes(index);
-  if (isSelected) {
-    // Unselect
-    selectedContactsId.splice(selectedContactsId.indexOf(index), 1);
-    selectedContactsNames.splice(selectedContactsNames.indexOf(contact.name), 1);
+  if (isAlreadyAssigned) {
+    // Remove from assigned_to
+    const pos = task.assigned_to.indexOf(contactName);
+    task.assigned_to.splice(pos, 1);
     contactText.style.color = "black";
     contactElement.style.backgroundColor = "white";
     checkBoxIcon.src = "../assets/icons/btn-unchecked.svg";
-    return;
   } else {
-    // Select
-    selectedContactsId.push(index);
-    selectedContactsNames.push(contact.name);
+    // Add to assigned_to
+    task.assigned_to.push(contactName);
     contactText.style.color = "white";
-    contactElement.style.backgroundColor = "rgb(42, 54, 71)";
+    contactElement.style.backgroundColor = "#2a3647";
     checkBoxIcon.src = "../assets/icons/btn-checked.svg";
   }
   renderChosenAvatars();
@@ -243,6 +251,16 @@ function saveEditInputFields(taskId) {
   task.description = descriptionInput;
   task.due_date = dateInput;
   task.priority = selectedPrioritys;
+  if (selectedContactsNames && selectedContactsNames.length > 0) {
+    if (!task.assigned_to) {
+      task.assigned_to = [];
+    }
+    selectedContactsNames.forEach(name => {
+      if (!task.assigned_to.includes(name)) {
+        task.assigned_to.push(name);
+      }
+    });
+  }
 }
 
 async function updateTaskDatainAPI(taskId) {

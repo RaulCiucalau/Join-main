@@ -71,10 +71,10 @@ function getBigTaskDialog(task) {
     `;
 }
 
-function contactListTemplate(contact, index, isAssigned) {
+function contactListTemplate(contact, index, isAssigned, taskId) {
     const checkboxIcon = isAssigned ? "btn-checked.svg" : "btn-unchecked.svg";
     return `
-    <div id="contactId${index}" class="contactListElement" onclick="toggleContactChosed(${index})">
+    <div id="contactId${index}" class="contactListElement" onclick="toggleContactChosed(${index}, '${taskId}')">
         <div class="contact">
             <span class="avatar" style="background-color: ${contact.color}">${contact.avatar}</span>
             <span id="contactName${index}">${contact.name}</span>

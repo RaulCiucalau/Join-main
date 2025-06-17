@@ -57,7 +57,7 @@
                         <div class="add-title-content">
                             <div class="add-title frame-219">
                                 <label for="add-task-title">Title<span class="red">*</span></label>
-                                <input type="text" id="add-task-title" class="add-task-title"
+                                <input type="text" id="add-task-title" class="add-task-title width-input"
                                     placeholder="Enter a title" required />
                             </div>
                             <div class="requiredText dp-none" id="required-title">
@@ -70,14 +70,14 @@
 
                         <div class="add-description frame-219">
                             <label for="add-task-description">Description</label>
-                            <textarea id="add-task-description" class="add-task-description"
+                            <textarea id="add-task-description" class="add-task-description width-input"
                                 placeholder="Enter a Description"></textarea>
                         </div>
 
                         <div class="add-date-content">
                             <div class="add-date frame-219">
                                 <label for="add-task-due-date">Due date<span class="red">*</span></label>
-                                <input type="date" id="add-task-due-date" class="add-task-due-date" />
+                                <input type="date" id="add-task-due-date" class="add-task-due-date width-input" />
                             </div>
                             <div class="requiredText dp-none" id="required-date">
                                 <p class="red dp-none">This field is required</p>
@@ -87,7 +87,7 @@
 
                         <div class="select-priority frame-39">
                             <label for="priority">Priority</label>
-                            <div class="priority-btns">
+                            <div class="priority-btns width-input">
                                 <div class="priority-btn" id="prio-btn-urgent" onclick="togglePrio('urgent')">
                                     <p>Urgent</p>
                                     <img id="prio-img-urgent" class="priority-img"
@@ -112,12 +112,12 @@
                     <section class="add-task-2">
                         <div class="assigned-to-section frame-39">
                             <label for="assigned-to">Assigned to</label>
-                            <input type="text" id="assigned-to" class="selection"
+                            <input type="text" id="assigned-to" class="selection width-input"
                                 placeholder="Select contacts to assign" onclick="showContactList(event)" />
-                            <img id="assigned-to-img-down" class="assigned-to-img dropdown-img"
+                            <img id="assigned-to-img-down" class="assigned-to-img dropdown-img right-icon"
                                 src="../assets/icons/arrow_drop_down.svg" alt="Select contact dropdown arrow"
                                 onclick="showContactList(event)" />
-                            <img id="assigned-to-img-up" class="assigned-to-img dropdown-img dp-none"
+                            <img id="assigned-to-img-up" class="assigned-to-img dropdown-img dp-none right-icon"
                                 src="../assets/icons/arrow_drop_down_up.svg" alt="Select contact dropdown arrow"
                                 onclick="showContactList(event)" />
                             <div class="drop-down-contact-list dp-none" id="drop-down-contact-list"></div>
@@ -127,12 +127,12 @@
                         <div class="add-category-content">
                             <div class="add-category frame-39">
                                 <label for="category">Category<span class="red">*</span></label>
-                                <input type="text" id="category" class="selection" placeholder="Select task category"
+                                <input type="text" id="category" class="selection width-input" placeholder="Select task category"
                                     onclick="showCategoryList(event)" readonly />
-                                <img id="add-category-img-down" class="add-category-img dropdown-img"
+                                <img id="add-category-img-down" class="add-category-img dropdown-img right-icon"
                                     src="../assets/icons/arrow_drop_down.svg" alt="Add category dropdown arrow"
                                     onclick="showCategoryList(event)" />
-                                <img id="add-category-img-up" class="add-category-img dropdown-img dp-none"
+                                <img id="add-category-img-up" class="add-category-img dropdown-img dp-none right-icon"
                                     src="../assets/icons/arrow_drop_down_up.svg" alt="Add category dropdown arrow"
                                     onclick="showCategoryList(event)" />
                                 <div class="drop-down-category-list dp-none" id="drop-down-category-list"></div>
@@ -144,8 +144,8 @@
 
                         <div class="add-subtask frame-39">
                             <label for="subtask">Subtasks</label>
-                            <input type="text" id="subtask" class="subtask" placeholder="Add new subtask" />
-                            <img id="add-subtask-img" class="add-subtask-img" src="../assets/icons/add.svg"
+                            <input type="text" id="subtask" class="subtask width-input" placeholder="Add new subtask" />
+                            <img id="add-subtask-img" class="add-subtask-img right-icon" src="../assets/icons/add.svg"
                                 alt="Add subtask" />
                             <img id="cancel-task-img" class="cancel-task-img subtask-img dp-none"
                                 src="../assets/icons/cancel.svg" alt="Cancel Subtask" />

@@ -41,6 +41,18 @@
         align-items: flex-start;
         gap: 16px;
     }
+
+    .width-input {
+        width: 348px !important;
+    }
+
+    .right-icon {
+        right: 88px !important;
+    }
+
+    .form-footer {
+        width: 807px !important;
+    }
 }
 
 @media (max-width: 1035px) {
