@@ -40,18 +40,26 @@ function createTask() {
   } else {
     saveTaskInputs();
     showLog();
-    window.location.href = 'board.html';
+    document.getElementById('addTaskDialog').classList.add('d-none');
+    setTimeout(function () {
+      document.getElementById('log').classList.add('d-none');
+    }, 2000); renderCards(tasks);
   }
 }
 
 function saveTaskInputs() {
   if (canSaveTask()) {
-    let lastId = tasks.length;
-    let id = (lastId -1) + 1;
-    console.log("Vergebene ID:", id);
-    const task = createTaskObject(id);
-    tasksArr.push(task);
-    addTaskToDatabase(id, task);
+    let maxId = 0;
+    for (let i = 0; i < tasks.length; i++) {
+      const currentId = parseInt(tasks[i].id);
+      if (!isNaN(currentId) && currentId > maxId) {
+        maxId = currentId;
+      }
+    };
+    let newId = maxId + 1;
+    const task = createTaskObject(newId);
+    tasks.push(task);
+    addTaskToDatabase(newId, task);
   } else {
     console.log("Task already exists or the input fields are empty");
   }
@@ -103,11 +111,11 @@ function canSaveTask() {
 
 function areInputsEmpty() {
   const t = (id) => document.getElementById(id),
-        d = t("add-task-due-date"),
-        [e, p] = t("required-date").querySelectorAll("p");
+    d = t("add-task-due-date"),
+    [e, p] = t("required-date").querySelectorAll("p");
   let i = !t("add-task-title").value.trim() || !t("category").value.trim(),
-      v = d.value,
-      today = new Date();
+    v = d.value,
+    today = new Date();
   today.setHours(0, 0, 0, 0);
   [e, p, t("required-date")].forEach(el => el.classList.add("dp-none"));
   if (!v) {
@@ -145,7 +153,7 @@ function showFieldRequired() {
 function showLog() {
   document.getElementById("log").innerHTML = `<div class="added-to-board-msg">
     <p>Task added to board</p>
-    <img src="./assets/icons/added-to-board.svg" alt="Board image" />
+    <img src="../assets/icons/added-to-board.svg" alt="Board image" />
   </div>`;
 }
 
