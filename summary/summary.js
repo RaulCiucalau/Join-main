@@ -58,18 +58,13 @@ function showUrgentTasksCount(tasks) {
 function showUrgentDate(tasks){
     const Date_Urgent = document.getElementById('UrgentDate');
     const urgentTasks = tasks
-        .filter(task => task.priority === 'Urgent')
+        .filter(task => task.priority && task.priority.trim().toLowerCase() === 'urgent')
         .sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
 
     if (urgentTasks.length >= 0) {
         Date_Urgent.innerHTML = urgentTasks[0].due_date;
     }
 }
-// function dateToday(){
-//    let time = new Date().toLocaleDateString();
-//    document.getElementById("Date-today").innerHTML = time;
-// }
-
 
 function getGreetings() {
   const hour = new Date().getHours();
@@ -130,8 +125,6 @@ async function loadUserNameAndGreeting() {
   }
 }
 
-
-
 function updateHoverScaleClass() {
   const container = document.getElementById('boxInfoTask');
   if (!container) return;
@@ -141,7 +134,3 @@ function updateHoverScaleClass() {
       hoverElements.forEach(el => el.classList.remove('hover-scale'));
   }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  init();
-});

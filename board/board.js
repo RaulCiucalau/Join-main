@@ -350,15 +350,23 @@ async function deleteTask(task) {
         const response = await fetch(`${BASE_URL}tasks/${task.id}.json`, {
             method: 'DELETE',
         });
+        if (!response.ok) {
+            throw new Error(`Delete failed with status: ${response.status}`);
+        }
+        console.log(`Task with ID ${task.id} deleted successfully.`);
     } catch (error) {
-        console.error('Fetch-Fehler:', error);
+        console.error('Error while deleting task:', error);
     }
 }
 
 async function deleteTaskById(id) {
     await deleteTask({ id });
+    // remove task from local `tasks` array
+    const index = tasks.findIndex(t => String(t.id) === String(id));
+    if (index !== -1) {
+        tasks.splice(index, 1);
+    }
     closeBigTaskDialog();
-    await onloadFunc();
     renderCards(tasks);
 }
 
