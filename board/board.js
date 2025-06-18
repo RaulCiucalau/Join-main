@@ -159,19 +159,24 @@ function renderAssignedContacts(assignedList) {
 }
 
 function renderAssignedContactsBigDialog(assignedList) {
-    if (!Array.isArray(assignedList)) return '';
-    return assignedList
-        .map(name => {
-            const badgeSrc = profileBadges[name];
-            if (!badgeSrc) return '';
-            return `
-                <div class="contact-item">
-                    <img class="profile-badge" src="${badgeSrc}" alt="${name}'s Badge">
-                    <span class="contact-name">${name}</span>
-                </div>
-            `;
-        })
-        .join('');
+  if (!Array.isArray(assignedList)) return '';
+  return assignedList
+    .map(name => {
+      // Find the contact object from the global contacts array
+      const contact = contacts.find(c => c.name === name);
+      if (!contact) return '';
+
+      // Use the avatar (initials) and color from contact
+      return `
+        <div class="contact-item">
+          <div class="avatar profile-badge " style="background-color: ${contact.color}">
+            ${contact.avatar}
+          </div>
+          <span class="contact-name">${contact.name}</span>
+        </div>
+      `;
+    })
+    .join('');
 }
 
 function renderPriority(priority) {
