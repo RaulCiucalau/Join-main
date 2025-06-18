@@ -39,11 +39,8 @@ function createTask() {
     errorTaskAlreadyExists();
   } else {
     saveTaskInputs();
-    showLog();
     document.getElementById('addTaskDialog').classList.add('d-none');
-    setTimeout(function () {
-      document.getElementById('log').classList.add('d-none');
-    }, 2000); renderCards(tasks);
+    renderCards(tasks);
   }
 }
 
