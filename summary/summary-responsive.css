@@ -19,8 +19,10 @@
 
     .main-place {
   flex-direction: column;
-  padding-top: 64px;
+  padding-top: 30px;
   gap: 16px;
+  margin-top: 0;
+  align-items: baseline;
   }
 
   .vector-horizontally {

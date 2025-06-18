@@ -37,8 +37,9 @@ body {
 
 .main-place {
   display: flex;
-  justify-content: space-around;
+  gap: 30px;
   align-items: center;
+  margin-top: 94px;
 }
 
 .right-down-place {
