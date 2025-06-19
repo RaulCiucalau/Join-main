@@ -52,10 +52,14 @@ function toggleAssigneeDropdown(event, taskId) {
   if (document.getElementById("assignee-img-up").classList.contains("dp-none")) {
     document.getElementById("assignee-img-up").classList.remove("dp-none");
     document.getElementById("assignee-img-down").classList.add("dp-none");
+    document.getElementById("assignee-input").classList.add("border-show-menu");
+    document.getElementById("assignee-input").classList.add("hover-border");
     document.getElementById("assignee-dropdown-list").classList.remove("dp-none");
     renderAssigneeList(taskId);
   } else {
     closeDropDownList();
+    document.getElementById("assignee-input").classList.remove("hover-border");
+    document.getElementById("assignee-input").classList.remove("border-show-menu");
   }
 }
 
@@ -310,6 +314,8 @@ function showBtnToAddSubtask() {
 
 function cancelBtnAddSubtask() {
   const container = document.querySelector('.btns-new-subtask');
+  const input = document.getElementById('subtaskContainer');
   document.getElementById('newSubtaskInput').value = '';
   container.classList.add('visibility-hidden');
+  input.classList.remove('blue-border-input');
 }

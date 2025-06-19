@@ -111,6 +111,31 @@ input.assign::placeholder {
     outline: none;
 }
 
+.hover-blue-input:hover,
+.hover-blue-input:active,
+.hover-blue-input:focus-visible,
+.hover-blue-input:focus {
+    border: 1px solid #29ABE2;
+    outline: none;
+}
+
+.hover-border:hover {
+    border: 1px solid #29ABE2;
+    outline: none;
+}
+
+.hover-border:active,
+.hover-border:focus {
+    border: 1px solid #29ABE2;
+    border-bottom: none;
+    outline: none;
+}
+
+.blue-border-input {
+    border: 1px solid #29ABE2 !important;
+    outline: none;
+}
+
 .hover-blue:hover {
     background: #29ABE2;
     box-shadow: 0px 4px 4px 0px #00000040;
@@ -313,4 +338,9 @@ input.assign::placeholder {
     position: absolute;
     cursor: pointer;
     right: 15px;
+}
+
+.border-show-menu {
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
 }
