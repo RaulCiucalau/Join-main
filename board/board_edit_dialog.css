@@ -111,23 +111,9 @@ input.assign::placeholder {
     outline: none;
 }
 
-.hover-blue-input:hover,
-.hover-blue-input:active,
-.hover-blue-input:focus-visible,
-.hover-blue-input:focus {
-    border: 1px solid #29ABE2;
-    outline: none;
-}
 
 .hover-border:hover {
     border: 1px solid #29ABE2;
-    outline: none;
-}
-
-.hover-border:active,
-.hover-border:focus {
-    border: 1px solid #29ABE2;
-    border-bottom: none;
     outline: none;
 }
 
@@ -175,6 +161,14 @@ input.assign::placeholder {
     padding-left: 21px;
 }
 
+.selection:focus,
+.selection:active,
+.selection:focus-visible {
+    border: 1px solid #d1d1d1 !important;
+    outline: none;
+}
+
+
 .selection.placeholder {
     color: #d1d1d1;
 }
@@ -210,10 +204,12 @@ input.assign::placeholder {
     height: 250px;
     position: absolute;
     background-color: #ffffff;
-    top: 82px;
+    top: 69px;
     z-index: 2;
     border-radius: 10px;
     overflow-y: scroll;
+    border: 1px solid #d1d1d1;
+    border-top: none;
 }
 
 .drop-down-container {

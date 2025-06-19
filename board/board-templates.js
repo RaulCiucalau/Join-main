@@ -131,7 +131,7 @@ function getEditTaskDialog(task) {
                     <div class="assigned-to-section frame-39">
                         <label class="dialog-card-typography-content font-blue">Assigned to</label>
                         <div class="assigned-to-input-container">
-                            <input type="text" id="assignee-input" class="selection hover-border hover-blue-input" placeholder="Select contacts to assign"
+                            <input type="text" id="assignee-input" class="selection hover-border" placeholder="Select contacts to assign"
                                 onclick="toggleAssigneeDropdown(event, ${task.id})" />
                             <img id="assignee-img-down" class="assigned-to-img"
                                 src="../assets/icons/arrow_drop_down.svg" alt="Select contact dropdown arrow"

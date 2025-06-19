@@ -58,7 +58,7 @@ function toggleAssigneeDropdown(event, taskId) {
     renderAssigneeList(taskId);
   } else {
     closeDropDownList();
-    document.getElementById("assignee-input").classList.remove("hover-border");
+    document.getElementById("assignee-input").classList.add("hover-border");
     document.getElementById("assignee-input").classList.remove("border-show-menu");
   }
 }

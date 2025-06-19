@@ -51,7 +51,7 @@ function showAwaitFeedbackCount(tasks) {
 
 function showUrgentTasksCount(tasks) {
     const content = document.getElementById('urgentTasksCount');
-    const urgentTasks = tasks.filter(task => task.priority === 'Urgent');
+    const urgentTasks = tasks.filter(task => task.priority && task.priority.trim().toLowerCase() === 'urgent');
     content.innerHTML = `${urgentTasks.length}`;
 }
 
