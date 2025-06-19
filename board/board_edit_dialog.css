@@ -80,6 +80,19 @@
     cursor: pointer;
 }
 
+.edit-task-ok-btn:hover .hover-blue-svg {
+  fill: #29ABE2;
+}
+
+.edit-task-ok-btn:hover path:not(.hover-blue-svg) {
+  fill: white;
+}
+
+.edit-task-ok-btn path,
+.edit-task-ok-btn rect {
+  transition: fill 125ms ease-in-out;
+}
+
 textarea {
     color: #2a3647;
     font-size: 18px;
@@ -96,6 +109,11 @@ input.assign::placeholder {
 .hover-active-border:focus {
     border: 1px solid #29ABE2;
     outline: none;
+}
+
+.hover-blue:hover {
+    background: #29ABE2;
+    box-shadow: 0px 4px 4px 0px #00000040;
 }
 
 .add-task-2 {
@@ -164,7 +182,7 @@ input.assign::placeholder {
 
 .drop-down-contact-list {
     width: 420px;
-    height: 180px;
+    height: 250px;
     position: absolute;
     background-color: #ffffff;
     top: 82px;
