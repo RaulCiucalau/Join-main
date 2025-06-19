@@ -280,3 +280,6 @@ function capitalizeFirstLetter(string) {
 function getSubtasksArray() {
   return subtasks.map(title => ({ title: title, completed: false }));
 }
+document.addEventListener('DOMContentLoaded', () => {
+  init();
+});
