@@ -227,13 +227,16 @@ input.assign::placeholder {
     margin-bottom: 8px;
     border-radius: 10px;
     padding: 4px;
-    align-items: center;
     justify-content: space-between;
-    height: 32px;
+    max-height: 100%;
 }
 
 .hover:hover {
-    background-color: #D1D1D1;
+    background-color: #F1F1F1;
+}
+
+.subtasks-list-container {
+    height: 100%;
 }
 
 .subtask-list-item {
@@ -266,8 +269,11 @@ input.assign::placeholder {
 }
 
 .subtask-edit-page-icons {
-    width: 24px;
-    height: 24px;
+    padding: 2px;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    transition: all 125ms ease-in-out;
 }
 
 .subtask-edit-page-icons:hover {
@@ -276,11 +282,11 @@ input.assign::placeholder {
 }
 
 .subtask-icons-d-none {
-    display: none;
+    visibility: hidden;
 }
 
 .subtask-text {
-    word-break: break-all;
+    word-break: normal;
 }
 
 .input-container-add-subtask {

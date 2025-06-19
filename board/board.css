@@ -440,6 +440,11 @@ h1 {
     border: 1px solid #D1D1D1;
 }
 
+.checkbox-icon-task {
+    width: 25px;
+    height: 24px;
+}
+
 .d-none {
     display: none;
 }

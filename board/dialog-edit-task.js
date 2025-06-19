@@ -319,3 +319,10 @@ function cancelBtnAddSubtask() {
   container.classList.add('visibility-hidden');
   input.classList.remove('blue-border-input');
 }
+
+function createSubtaskOnEnter(taskId) {
+  if (event.key === "Enter") {
+    addNewSubtaskToList(taskId)
+    showBtnToAddSubtask();
+  }
+}

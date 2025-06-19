@@ -149,19 +149,19 @@ function getEditTaskDialog(task) {
                 <div class="dialog-edit-subtasks">
                     <p class="dialog-card-typography-content font-blue">Subtasks</p>
                     <div id="subtaskContainer" class="input-container-add-subtask hover-active-border">
-                        <input onclick="showBtnToAddSubtask()" id="newSubtaskInput" class="noborder-input standard-input-edit-task" type="text" placeholder="Add new Subtask">
+                        <input onkeydown="createSubtaskOnEnter(${task.id})" onclick="showBtnToAddSubtask()" id="newSubtaskInput" class="noborder-input standard-input-edit-task" type="text" placeholder="Add new Subtask">
                         <div class="btns-new-subtask visibility-hidden">
                             <img onclick="cancelBtnAddSubtask()" src="../assets/icons/cancel.svg" class="subtask-edit-page-icons pointer" title="Cancel">
                             <img onclick="addNewSubtaskToList(${task.id})" src="../assets/icons/check.svg" class="subtask-edit-page-icons pointer" title="Save">
                         </div>
                     </div>
-                    <div id="subtasksList">
+                    <div id="subtasksList" class="subtasks-list-container">
                         ${renderSubtasksToEdit(task)}
                     </div>
                 </div>
             </div>
             <div class="edit-task-btn-container">
-                <svg onclick="updateTaskDatainAPI(3)" class="edit-task-ok-btn" width="90" height="58" viewBox="0 0 90 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg onclick="updateTaskDatainAPI(${task.id})" class="edit-task-ok-btn" width="90" height="58" viewBox="0 0 90 58" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect class="hover-blue-svg" x="0.682129" y="0.396729" width="89" height="57" rx="10" fill="#2A3647"/>
                     <path d="M32.0443 28.7604C32.0443 30.4258 31.7286 31.8428 31.0973 33.0111C30.4708 34.1794 29.6157 35.0718 28.5319 35.6883C27.4531 36.2998 26.24 36.6055 24.8927 36.6055C23.5355 36.6055 22.3174 36.2973 21.2386 35.6808C20.1598 35.0643 19.3071 34.1719 18.6807 33.0036C18.0543 31.8353 17.7411 30.4209 17.7411 28.7604C17.7411 27.0949 18.0543 25.678 18.6807 24.5097C19.3071 23.3413 20.1598 22.4514 21.2386 21.8399C22.3174 21.2234 23.5355 20.9152 24.8927 20.9152C26.24 20.9152 27.4531 21.2234 28.5319 21.8399C29.6157 22.4514 30.4708 23.3413 31.0973 24.5097C31.7286 25.678 32.0443 27.0949 32.0443 28.7604ZM28.7706 28.7604C28.7706 27.6815 28.609 26.7717 28.2858 26.031C27.9676 25.2902 27.5177 24.7284 26.936 24.3456C26.3544 23.9628 25.6733 23.7714 24.8927 23.7714C24.1122 23.7714 23.4311 23.9628 22.8494 24.3456C22.2677 24.7284 21.8153 25.2902 21.4921 26.031C21.174 26.7717 21.0149 27.6815 21.0149 28.7604C21.0149 29.8392 21.174 30.749 21.4921 31.4898C21.8153 32.2305 22.2677 32.7923 22.8494 33.1751C23.4311 33.558 24.1122 33.7494 24.8927 33.7494C25.6733 33.7494 26.3544 33.558 26.936 33.1751C27.5177 32.7923 27.9676 32.2305 28.2858 31.4898C28.609 30.749 28.7706 29.8392 28.7706 28.7604ZM37.2552 33.1006L37.2627 29.2898H37.725L41.394 24.9422H45.0407L40.1114 30.6993H39.3582L37.2552 33.1006ZM34.3766 36.3967V21.124H37.5535V36.3967H34.3766ZM41.5357 36.3967L38.165 31.4077L40.2829 29.1631L45.257 36.3967H41.5357Z" fill="white"/>
                     <mask id="mask0_75609_16286" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="49" y="16" width="25" height="25">
@@ -172,6 +172,5 @@ function getEditTaskDialog(task) {
                     </g>
                 </svg>
             </div>
-        </div>
     `
 }
