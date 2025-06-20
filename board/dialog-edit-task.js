@@ -293,15 +293,18 @@ function addNewSubtaskToList(taskId) {
   const task = tasks.find(t => String(t.id) === String(taskId));
   const text = document.getElementById('newSubtaskInput').value;
   const container = document.getElementById('subtasksList');
+  const maxSubtaskId = task.subtasks.reduce((max, subtask) => {
+    return Math.max(max, parseInt(subtask.id) || 0);
+  }, 0);
+  const newSubtaskId = maxSubtaskId + 1
   if (!text) return;
   const subtaskObject = {
-    id: subtaskIdCount.toString(),
+    id: newSubtaskId.toString(),
     taskId: taskId,
     title: text,
     completed: false
   };
   task.subtasks.push(subtaskObject);
-  subtaskIdCount++;
   document.getElementById('newSubtaskInput').value = '';
   container.innerHTML = renderSubtasksToEdit(task);
   inputContainer.classList.add('visibility-hidden');
