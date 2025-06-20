@@ -219,7 +219,7 @@ h1 {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
-    line-clamp: 2; 
+    line-clamp: 2;
     overflow: hidden;
 }
 
@@ -316,6 +316,7 @@ h1 {
     from {
         transform: translateX(100%);
     }
+
     to {
         transform: translateX(0);
     }
@@ -325,6 +326,7 @@ h1 {
     from {
         transform: translateX(0);
     }
+
     to {
         transform: translateX(100%);
     }
@@ -496,7 +498,7 @@ h1 {
     overflow: hidden !important;
 }
 
-.dialog-card-contacts-list{
+.dialog-card-contacts-list {
     flex-direction: column;
     display: flex;
 }
@@ -543,4 +545,8 @@ h1 {
 #assignee-selected-avatars {
     display: flex;
     gap: 6px;
+}
+
+.extra-avatar-color {
+    background-color: #ccc;
 }

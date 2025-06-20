@@ -98,15 +98,18 @@ function toggleContactChosed(index, taskId) {
     contactElement.style.backgroundColor = "#2a3647";
     checkBoxIcon.src = "../assets/icons/btn-checked.svg";
   }
-  renderChosenAvatars();
+  renderChosenAvatars(taskId);
 }
 
-function renderChosenAvatars() {
+function renderChosenAvatars(taskId) {
   const container = document.getElementById("assignee-selected-avatars");
   container.innerHTML = "";
-  const visibleContacts = selectedContactsId
-    .map(index => contacts[index])
-    .filter(contact => contact);
+  const task = tasks.find(t => String(t.id) === String(taskId));
+   if (!task || !Array.isArray(task.assigned_to)) return;
+  if (!task) return;
+  const visibleContacts = contacts.filter(contact =>
+    task.assigned_to.includes(contact.name)
+  );
   const avatarHtml = visibleContacts
     .slice(0, 4)
     .map(contact =>
@@ -115,7 +118,10 @@ function renderChosenAvatars() {
     .join("");
   const extraCount = visibleContacts.length - 4;
   container.innerHTML =
-    avatarHtml + (extraCount > 0 ? `<div class="selected-avatar extra-avatar">+${extraCount}</div>` : "");
+    avatarHtml +
+    (extraCount > 0
+      ? `<div class="selected-avatar extra-avatar">+${extraCount}</div>`
+      : "");
 }
 
 function selectPrio(prio) {
@@ -166,6 +172,7 @@ function renderEditTaskDialog(tasks, taskId) {
   let container = document.getElementById('editTaskDialog');
   container.innerHTML = tasks.map(getEditTaskDialog).join('');
   renderAssigneeList(taskId);
+  renderChosenAvatars(taskId);
 }
 
 function openEditTaskDialogById(taskId) {
@@ -177,6 +184,7 @@ function openEditTaskDialogById(taskId) {
   editDialog.innerHTML = getEditTaskDialog(task);
   editDialog.classList.remove('d-none-edit-dialog');
   renderPriorityFromAPI(task);
+  renderChosenAvatars(taskId);
 }
 
 function renderPriorityFromAPI(task) {

@@ -31,15 +31,15 @@ async function init() {
 }
 
 function waitForInitialLetterElement(callback) {
-  const observer = new MutationObserver(() => {
-    const el = document.getElementById("initialLetter");
-    if (el) {
-      observer.disconnect();
-      callback();
-    }
-  });
+    const observer = new MutationObserver(() => {
+        const el = document.getElementById("initialLetter");
+        if (el) {
+            observer.disconnect();
+            callback();
+        }
+    });
 
-  observer.observe(document.body, { childList: true, subtree: true });
+    observer.observe(document.body, { childList: true, subtree: true });
 }
 
 function openAddTaskDialog() {
@@ -57,34 +57,34 @@ function openAddTaskDialog() {
 }
 
 function toggleAddTaskDialog() {
-  const dialogContainer = document.getElementById('addTaskDialog');
-  const dialog = dialogContainer.querySelector('.dialog-add-task');
+    const dialogContainer = document.getElementById('addTaskDialog');
+    const dialog = dialogContainer.querySelector('.dialog-add-task');
 
-  if (!isDialogOpen) {
-    dialogContainer.classList.remove('d-none');
-    dialog.style.animation = 'slideInFromRight 0.4s forwards';
-    isDialogOpen = true;
-  } else {
-    dialog.style.animation = 'slideOutToRight 0.4s forwards';
-    setTimeout(() => {
-      dialogContainer.classList.add('d-none');
-      isDialogOpen = false;
-    }, 400);
-  }
+    if (!isDialogOpen) {
+        dialogContainer.classList.remove('d-none');
+        dialog.style.animation = 'slideInFromRight 0.4s forwards';
+        isDialogOpen = true;
+    } else {
+        dialog.style.animation = 'slideOutToRight 0.4s forwards';
+        setTimeout(() => {
+            dialogContainer.classList.add('d-none');
+            isDialogOpen = false;
+        }, 400);
+    }
 }
 
 function closeAddTaskDialog(event) {
-  const dialog = document.querySelector('.dialog-add-task');
-  clearTaskForm();
-  dialog.style.animation = 'slideOutToRight 0.4s forwards';
-  setTimeout(() => {
-    document.getElementById('addTaskDialog').classList.add('d-none');
-    isDialogOpen = false;
-  }, 400);
+    const dialog = document.querySelector('.dialog-add-task');
+    clearTaskForm();
+    dialog.style.animation = 'slideOutToRight 0.4s forwards';
+    setTimeout(() => {
+        document.getElementById('addTaskDialog').classList.add('d-none');
+        isDialogOpen = false;
+    }, 400);
 }
 
 function stopPropagation(event) {
-  event.stopPropagation();
+    event.stopPropagation();
 }
 
 function toggleBigTaskDialog() {
@@ -148,27 +148,34 @@ function getLabelClass(category) {
 }
 
 function renderAssignedContacts(assignedList) {
-  if (!Array.isArray(assignedList) || contacts.length === 0) return '';
-  
-  return assignedList.map(name => {
-    const contact = contacts.find(c => c.name === name);
-    if (!contact) return '';
-    return `
-      <span class="profile-badge margin-left-contacts" style="background-color: ${contact.color}">${contact.avatar}</span>
-    `;
-  }).join('');
+    if (!Array.isArray(assignedList) || contacts.length === 0) return '';
+
+    const visibleContacts = contacts.filter(c => assignedList.includes(c.name));
+
+    const maxVisible = visibleContacts.slice(0, 4); // Show only 4
+    const extraCount = visibleContacts.length - 4;
+
+    const avatarsHtml = maxVisible.map(contact => `
+    <span class="profile-badge margin-left-contacts" style="background-color: ${contact.color}">${contact.avatar}</span>
+  `).join('');
+
+    const extraHtml = extraCount > 0
+        ? `<span class="profile-badge margin-left-contacts extra-avatar-color">+${extraCount}</span>`
+        : '';
+
+    return avatarsHtml + extraHtml;
 }
 
 function renderAssignedContactsBigDialog(assignedList) {
-  if (!Array.isArray(assignedList)) return '';
-  return assignedList
-    .map(name => {
-      // Find the contact object from the global contacts array
-      const contact = contacts.find(c => c.name === name);
-      if (!contact) return '';
+    if (!Array.isArray(assignedList)) return '';
+    return assignedList
+        .map(name => {
+            // Find the contact object from the global contacts array
+            const contact = contacts.find(c => c.name === name);
+            if (!contact) return '';
 
-      // Use the avatar (initials) and color from contact
-      return `
+            // Use the avatar (initials) and color from contact
+            return `
         <div class="contact-item">
           <div class="avatar profile-badge " style="background-color: ${contact.color}">
             ${contact.avatar}
@@ -176,8 +183,8 @@ function renderAssignedContactsBigDialog(assignedList) {
           <span class="contact-name">${contact.name}</span>
         </div>
       `;
-    })
-    .join('');
+        })
+        .join('');
 }
 
 function renderPriority(priority) {
@@ -213,8 +220,8 @@ function allowDrop(event, taskId) {
     event.currentTarget.classList.add("drag-highlight");
     let draggableElement = document.getElementById(`dragTask${taskId}`);
     if (draggableElement) {
-    draggableElement.classList.remove("dragging");
-  }
+        draggableElement.classList.remove("dragging");
+    }
 }
 
 function removeHighlight(event) {
@@ -298,74 +305,74 @@ function searchTasks() {
 }
 
 async function toggleSubtaskCompletion(event) {
-  const taskId = event.target.dataset.taskId;
-  const subtaskId = event.target.dataset.subtaskId;
+    const taskId = event.target.dataset.taskId;
+    const subtaskId = event.target.dataset.subtaskId;
 
-  const completedUrl = `${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}/completed.json`;
-  const subtaskUrl = `${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}.json`;
-  const subtasksUrl = `${BASE_URL}tasks/${taskId}/subtasks.json`;
+    const completedUrl = `${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}/completed.json`;
+    const subtaskUrl = `${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}.json`;
+    const subtasksUrl = `${BASE_URL}tasks/${taskId}/subtasks.json`;
 
-  try {
-    // Step 1: Get current "completed" status
-    const resGet = await fetch(completedUrl);
-    if (!resGet.ok) throw new Error('Fehler beim GET Subtask Status');
-    const completed = await resGet.json();
-    const newCompleted = !completed;
+    try {
+        // Step 1: Get current "completed" status
+        const resGet = await fetch(completedUrl);
+        if (!resGet.ok) throw new Error('Fehler beim GET Subtask Status');
+        const completed = await resGet.json();
+        const newCompleted = !completed;
 
-    // Step 2: Get full subtask (to get the title)
-    const resFullSubtask = await fetch(subtaskUrl);
-    if (!resFullSubtask.ok) throw new Error('Fehler beim GET Subtask Daten');
-    const fullSubtask = await resFullSubtask.json();
+        // Step 2: Get full subtask (to get the title)
+        const resFullSubtask = await fetch(subtaskUrl);
+        if (!resFullSubtask.ok) throw new Error('Fehler beim GET Subtask Daten');
+        const fullSubtask = await resFullSubtask.json();
 
-    // ❗ Check if subtask exists
-    if (!fullSubtask) {
-      console.error(`Subtask with ID ${subtaskId} not found.`);
-      return;
+        // ❗ Check if subtask exists
+        if (!fullSubtask) {
+            console.error(`Subtask with ID ${subtaskId} not found.`);
+            return;
+        }
+
+        // Step 3: Create updated subtask object
+        const updatedSubtask = {
+            ...fullSubtask,
+            completed: newCompleted,
+        };
+
+        // Step 4: Update checkbox icon
+        event.target.src = newCompleted
+            ? '../assets/img/board_icons/checked_button.svg'
+            : '../assets/img/board_icons/unchecked_button.svg';
+
+        // Step 5: PUT updated subtask back
+        const resPut = await fetch(subtaskUrl, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedSubtask),
+        });
+        if (!resPut.ok) throw new Error('Fehler beim PUT Subtask Status');
+
+        // Step 6: Get all updated subtasks
+        const resSubtasks = await fetch(subtasksUrl);
+        if (!resSubtasks.ok) throw new Error('Fehler beim Laden der Subtasks');
+        const subtasks = await resSubtasks.json();
+
+        // Step 7: Update progress bar
+        const completedCount = subtasks.filter(sub => sub.completed).length;
+        const totalCount = subtasks.length;
+        const progressPercent = totalCount === 0 ? 0 : Math.round((completedCount / totalCount) * 100);
+        const progressBarFill = document.getElementById(`progressBar-${taskId}`);
+        if (progressBarFill) {
+            progressBarFill.style.width = `${progressPercent}%`;
+        }
+
+        // Step 8: Update UI and tasks array
+        updateSubtasksText({ id: taskId }, subtasks);
+        const taskIndex = tasks.findIndex(task => task.id == taskId);
+        if (taskIndex !== -1) {
+            tasks[taskIndex].subtasks = subtasks;
+        }
+
+    } catch (error) {
+        console.error('Fehler beim Toggle:', error);
     }
-
-    // Step 3: Create updated subtask object
-    const updatedSubtask = {
-      ...fullSubtask,
-      completed: newCompleted,
-    };
-
-    // Step 4: Update checkbox icon
-    event.target.src = newCompleted
-      ? '../assets/img/board_icons/checked_button.svg'
-      : '../assets/img/board_icons/unchecked_button.svg';
-
-    // Step 5: PUT updated subtask back
-    const resPut = await fetch(subtaskUrl, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedSubtask),
-    });
-    if (!resPut.ok) throw new Error('Fehler beim PUT Subtask Status');
-
-    // Step 6: Get all updated subtasks
-    const resSubtasks = await fetch(subtasksUrl);
-    if (!resSubtasks.ok) throw new Error('Fehler beim Laden der Subtasks');
-    const subtasks = await resSubtasks.json();
-
-    // Step 7: Update progress bar
-    const completedCount = subtasks.filter(sub => sub.completed).length;
-    const totalCount = subtasks.length;
-    const progressPercent = totalCount === 0 ? 0 : Math.round((completedCount / totalCount) * 100);
-    const progressBarFill = document.getElementById(`progressBar-${taskId}`);
-    if (progressBarFill) {
-      progressBarFill.style.width = `${progressPercent}%`;
-    }
-
-    // Step 8: Update UI and tasks array
-    updateSubtasksText({ id: taskId }, subtasks);
-    const taskIndex = tasks.findIndex(task => task.id == taskId);
-    if (taskIndex !== -1) {
-      tasks[taskIndex].subtasks = subtasks;
-    }
-
-  } catch (error) {
-    console.error('Fehler beim Toggle:', error);
-  }
 }
 
 
