@@ -1,14 +1,4 @@
 let isDialogOpen = false;
-let profileBadges = {
-    "Anton Mayer": "../assets/img/board_icons/badge_anton.svg",
-    "Anja Schulz": "../assets/img/board_icons/badge_anja.svg",
-    "Benedikt Ziegler": "../assets/img/board_icons/badge_benedikt.svg",
-    "David Eisenberg": "../assets/img/board_icons/badge_david.svg",
-    "Eva Fischer": "../assets/img/board_icons/badge_eva.svg",
-    "Emmanuel Mauer": "../assets/img/board_icons/badge_emmanuel.svg",
-    "Marcel Bauer": "../assets/img/board_icons/badge_Marcel.svg",
-    "Tatjana Wolf": "../assets/img/board_icons/badge_Tatjana.svg",
-};
 let priorityImg = {
     "Low": "../assets/img/board_icons/priority_low.svg",
     "Medium": "../assets/img/board_icons/priority_medium.svg",
@@ -38,7 +28,6 @@ function waitForInitialLetterElement(callback) {
             callback();
         }
     });
-
     observer.observe(document.body, { childList: true, subtree: true });
 }
 
@@ -46,7 +35,6 @@ function openAddTaskDialog() {
     const dialogContainer = document.getElementById('addTaskDialog');
     const dialog = dialogContainer.querySelector('.dialog-add-task');
     const isSmallScreen = window.matchMedia("(max-width: 1035px)").matches;
-
     if (isSmallScreen) {
         window.location.href = "../add_task.html";
     } else if (!isDialogOpen) {
@@ -59,7 +47,6 @@ function openAddTaskDialog() {
 function toggleAddTaskDialog() {
     const dialogContainer = document.getElementById('addTaskDialog');
     const dialog = dialogContainer.querySelector('.dialog-add-task');
-
     if (!isDialogOpen) {
         dialogContainer.classList.remove('d-none');
         dialog.style.animation = 'slideInFromRight 0.4s forwards';
@@ -149,20 +136,15 @@ function getLabelClass(category) {
 
 function renderAssignedContacts(assignedList) {
     if (!Array.isArray(assignedList) || contacts.length === 0) return '';
-
     const visibleContacts = contacts.filter(c => assignedList.includes(c.name));
-
     const maxVisible = visibleContacts.slice(0, 4); // Show only 4
     const extraCount = visibleContacts.length - 4;
-
     const avatarsHtml = maxVisible.map(contact => `
     <span class="profile-badge margin-left-contacts" style="background-color: ${contact.color}">${contact.avatar}</span>
   `).join('');
-
     const extraHtml = extraCount > 0
         ? `<span class="profile-badge margin-left-contacts extra-avatar-color">+${extraCount}</span>`
         : '';
-
     return avatarsHtml + extraHtml;
 }
 
@@ -173,7 +155,6 @@ function renderAssignedContactsBigDialog(assignedList) {
             // Find the contact object from the global contacts array
             const contact = contacts.find(c => c.name === name);
             if (!contact) return '';
-
             // Use the avatar (initials) and color from contact
             return `
         <div class="contact-item">
@@ -231,19 +212,16 @@ function removeHighlight(event) {
 async function moveTo(event, newStatus) {
     event.preventDefault();
     event.currentTarget.classList.remove("drag-highlight");
-
     const task = tasks.find(t => t.id === currentDraggedTaskId);
     const draggedElement = document.getElementById(`dragTask${currentDraggedTaskId}`);
     if (draggedElement) {
         draggedElement.classList.remove("dragging");
     }
-
     if (task && task.status !== newStatus) {
         task.status = newStatus;
         await updateTaskInDatabase(task);
         renderCards(tasks);
     }
-
     currentDraggedTaskId = null;
 }
 
@@ -307,40 +285,33 @@ function searchTasks() {
 async function toggleSubtaskCompletion(event) {
     const taskId = event.target.dataset.taskId;
     const subtaskId = event.target.dataset.subtaskId;
-
     const completedUrl = `${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}/completed.json`;
     const subtaskUrl = `${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}.json`;
     const subtasksUrl = `${BASE_URL}tasks/${taskId}/subtasks.json`;
-
     try {
         // Step 1: Get current "completed" status
         const resGet = await fetch(completedUrl);
         if (!resGet.ok) throw new Error('Fehler beim GET Subtask Status');
         const completed = await resGet.json();
         const newCompleted = !completed;
-
         // Step 2: Get full subtask (to get the title)
         const resFullSubtask = await fetch(subtaskUrl);
         if (!resFullSubtask.ok) throw new Error('Fehler beim GET Subtask Daten');
         const fullSubtask = await resFullSubtask.json();
-
-        // ❗ Check if subtask exists
+        // Check if subtask exists
         if (!fullSubtask) {
             console.error(`Subtask with ID ${subtaskId} not found.`);
             return;
         }
-
         // Step 3: Create updated subtask object
         const updatedSubtask = {
             ...fullSubtask,
             completed: newCompleted,
         };
-
         // Step 4: Update checkbox icon
         event.target.src = newCompleted
             ? '../assets/img/board_icons/checked_button.svg'
             : '../assets/img/board_icons/unchecked_button.svg';
-
         // Step 5: PUT updated subtask back
         const resPut = await fetch(subtaskUrl, {
             method: 'PUT',
@@ -348,12 +319,10 @@ async function toggleSubtaskCompletion(event) {
             body: JSON.stringify(updatedSubtask),
         });
         if (!resPut.ok) throw new Error('Fehler beim PUT Subtask Status');
-
         // Step 6: Get all updated subtasks
         const resSubtasks = await fetch(subtasksUrl);
         if (!resSubtasks.ok) throw new Error('Fehler beim Laden der Subtasks');
         const subtasks = await resSubtasks.json();
-
         // Step 7: Update progress bar
         const completedCount = subtasks.filter(sub => sub.completed).length;
         const totalCount = subtasks.length;
@@ -362,14 +331,12 @@ async function toggleSubtaskCompletion(event) {
         if (progressBarFill) {
             progressBarFill.style.width = `${progressPercent}%`;
         }
-
         // Step 8: Update UI and tasks array
         updateSubtasksText({ id: taskId }, subtasks);
         const taskIndex = tasks.findIndex(task => task.id == taskId);
         if (taskIndex !== -1) {
             tasks[taskIndex].subtasks = subtasks;
         }
-
     } catch (error) {
         console.error('Fehler beim Toggle:', error);
     }
