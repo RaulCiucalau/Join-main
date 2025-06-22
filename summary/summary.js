@@ -5,6 +5,7 @@ async function init() {
   showUrgentDate(tasks); // Dringend-Datum anzeigen
   await loadUserNameAndGreeting(); // Name + Gruß anzeigen
   loadAvatarForHeader();
+  checkOrientation();
 }
 
 function showTasksCounts(tasks) {

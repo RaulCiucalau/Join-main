@@ -2,6 +2,7 @@ function init() {
   getUsersFromDatabase();
   loadLoginInfo("whoIsLoggedIn");
   putLoginInfo("whoIsLoggedIn", { isGuestLoggedIn: false, userLoggedIn: { name: "", avatar: "" } });
+  checkOrientation();
 }
 
 function redirectToGuestView() {

@@ -6,6 +6,7 @@
  */
 function init() {
     includeHTML();
+    checkOrientation();
 }
 
 /**

@@ -7,7 +7,7 @@ async function init() {
   await getUsersFromDatabase();
   disableSignupBtn();
   createRandomColor();
-  
+  checkOrientation();
 }
 
 /**

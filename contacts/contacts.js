@@ -39,6 +39,7 @@ function init() {
   console.log("Init läuft!");
   contactFirebase();
   rightContactDetailsHideOnLoad();
+  checkOrientation();
 }
 
 function renderLeftColumnContacts() {

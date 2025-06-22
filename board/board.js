@@ -26,7 +26,7 @@ const statusIds = [
 let currentDraggedTaskId;
 
 /**
- * Initializes the application: loads data, includes HTML, and renders components.
+ * Initializes the application: loads data, includes HTML, checks if landscape and renders components.
  */
 async function init() {
     await onloadFunc();
@@ -34,6 +34,7 @@ async function init() {
     renderCards(tasks);
     renderBigTaskDialog(tasks);
     renderEditTaskDialog(tasks);
+    checkOrientation();
 }
 
 /**

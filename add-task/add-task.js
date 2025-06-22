@@ -31,6 +31,7 @@ async function init() {
   await loadTasks("tasks"); // ✅ korrektes Datenbankverzeichnis
   await showLoggedInInfo();
   highlightMenuActual();
+  checkOrientation();
 }
 
 
