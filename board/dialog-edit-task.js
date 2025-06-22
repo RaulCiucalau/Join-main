@@ -1,10 +1,14 @@
-let selectedContactsId = [];
-let selectedContactsName = [];
-let subtaskIdCount = 0;
-let selectedPrioritys = "";
-let currentTaskIds = null;
-let subtaskIcons = document.querySelector('dialogSubtaskEdit');
+let selectedContactsId = [];         // Stores selected contact indexes
+let selectedContactsName = [];       // Stores selected contact names
+let subtaskIdCount = 0;              // Counter for subtask IDs
+let selectedPrioritys = "";          // Stores selected priority string
+let currentTaskIds = null;           // ID of the task currently being edited
+let subtaskIcons = document.querySelector('dialogSubtaskEdit'); // DOM reference (possible typo in selector)
 
+/**
+ * Renders the dropdown list of contacts for assignment to a specific task.
+ * @param {number|string} taskId - ID of the task to assign contacts to.
+ */
 function renderAssigneeList(taskId) {
   const assignedTo = tasks[taskId]?.assigned_to || [];
   const container = document.getElementById("assignee-dropdown-list");
@@ -19,16 +23,28 @@ function renderAssigneeList(taskId) {
   applySelectedStyles(taskId);
 }
 
+/**
+ * Clears selected contacts arrays.
+ */
 function resetSelectedContacts() {
   selectedContactsId = [];
   selectedContactsNames = [];
 }
 
+/**
+ * Adds a contact to the selected contacts arrays.
+ * @param {string} name - Name of the contact.
+ * @param {number} index - Index of the contact in the contacts array.
+ */
 function addToSelected(name, index) {
   selectedContactsId.push(index);
   selectedContactsName.push(name);
 }
 
+/**
+ * Applies selected visual styles to contacts assigned to a task.
+ * @param {number|string} taskId - Task ID.
+ */
 function applySelectedStyles(taskId) {
   const task = tasks.find(t => String(t.id) === String(taskId));
   if (!task || !task.assigned_to) return;
@@ -46,6 +62,11 @@ function applySelectedStyles(taskId) {
   });
 }
 
+/**
+ * Toggles the visibility of the assignee dropdown list.
+ * @param {Event} event - DOM event.
+ * @param {number|string} taskId - ID of the task.
+ */
 function toggleAssigneeDropdown(event, taskId) {
   event.stopPropagation();
   const task = tasks[taskId];
@@ -63,6 +84,9 @@ function toggleAssigneeDropdown(event, taskId) {
   }
 }
 
+/**
+ * Closes the assignee dropdown and clears its content.
+ */
 function closeDropDownList() {
   document.getElementById("assignee-dropdown-list").classList.add("dp-none");
   document.getElementById("assignee-img-up").classList.add("dp-none");
@@ -70,6 +94,11 @@ function closeDropDownList() {
   document.getElementById("assignee-dropdown-list").innerHTML = "";
 }
 
+/**
+ * Toggles a contact’s assigned state (assign/unassign).
+ * @param {number} index - Contact index.
+ * @param {number|string} taskId - Task ID.
+ */
 function toggleContactChosed(index, taskId) {
   const contact = contacts[index];
   if (!contact) return;
@@ -101,6 +130,10 @@ function toggleContactChosed(index, taskId) {
   renderChosenAvatars(taskId);
 }
 
+/**
+ * Displays avatars of selected contacts under the assignee field.
+ * @param {number|string} taskId - Task ID.
+ */
 function renderChosenAvatars(taskId) {
   const container = document.getElementById("assignee-selected-avatars");
   container.innerHTML = "";
@@ -124,6 +157,10 @@ function renderChosenAvatars(taskId) {
       : "");
 }
 
+/**
+ * Visually selects a task priority and stores it.
+ * @param {string} prio - One of 'urgent', 'medium', or 'low'.
+ */
 function selectPrio(prio) {
   const prios = ["urgent", "medium", "low"];
   prios.forEach(p => {
@@ -138,10 +175,18 @@ function selectPrio(prio) {
   updateTaskPrioritys(prio);
 }
 
+/**
+ * Wrapper for selecting priority from a toggle event.
+ * @param {string} prio - Selected priority level.
+ */
 function togglePrioritys(prio) {
   selectPrio(prio);
 }
 
+/**
+ * Updates the priority value in the current task object.
+ * @param {string} prio - Priority string.
+ */
 function updateTaskPrioritys(prio) {
   const task = tasks.find(t => t.id === currentTaskId);
   if (task) {
@@ -149,6 +194,11 @@ function updateTaskPrioritys(prio) {
   }
 }
 
+/**
+ * Returns the color associated with a priority.
+ * @param {string} prio - One of 'urgent', 'medium', or 'low'.
+ * @returns {string} - Hex color code.
+ */
 function getPrioColors(prio) {
   switch (prio) {
     case "urgent":
@@ -162,11 +212,19 @@ function getPrioColors(prio) {
   }
 }
 
+/**
+ * Toggles visibility of the edit task dialog.
+ */
 function toggleEditTaskDialog() {
   let editDialog = document.getElementById('editTaskDialog');
   editDialog.classList.toggle('d-none-edit-dialog');
 }
 
+/**
+ * Renders the edit task dialog for a specific task.
+ * @param {Array} tasks - Array of all task objects.
+ * @param {number|string} taskId - ID of the task to edit.
+ */
 function renderEditTaskDialog(tasks, taskId) {
   currentTaskIds = taskId;
   let container = document.getElementById('editTaskDialog');
@@ -175,6 +233,10 @@ function renderEditTaskDialog(tasks, taskId) {
   renderChosenAvatars(taskId);
 }
 
+/**
+ * Opens and populates the edit dialog for a specific task by its ID.
+ * @param {number|string} taskId - Task ID.
+ */
 function openEditTaskDialogById(taskId) {
   currentTaskIds = taskId;
   const task = tasks.find(task => task.id === taskId);
@@ -187,6 +249,10 @@ function openEditTaskDialogById(taskId) {
   renderChosenAvatars(taskId);
 }
 
+/**
+ * Applies the saved priority value to the UI for an existing task.
+ * @param {Object} task - Task object.
+ */
 function renderPriorityFromAPI(task) {
   if (!task || !task.priority) return;
   const prio = task.priority.toLowerCase();
@@ -196,20 +262,20 @@ function renderPriorityFromAPI(task) {
   }
 }
 
+/**
+ * Returns HTML for rendering all subtasks in edit mode.
+ * @param {Object} task - Task object.
+ * @returns {string} - HTML string.
+ */
 function renderSubtasksToEdit(task) {
-  return task.subtasks.map(subtask => {
-    return `
-            <div onmouseenter="mouseOverSubtaskEdit(this)" onmouseleave="mouseLeaveSubtaskEdit(this)" id="dialogSubtaskEdit" class="edit-dialog-subtask hover">
-                <span class="subtask-text">• ${subtask.title}</span>
-                <div id="subtaskEditBtns" class="subtask-list-item-btns subtask-icons-d-none">
-                  <img onclick="editSelectedSubtask(${task.id}, ${task.subtasks.indexOf(subtask)})" src="../assets/icons/edit.svg" class="subtask-edit-page-icons pointer" title="Edit">
-                  <img onclick="deleteSelectedTask(${task.id}, ${task.subtasks.indexOf(subtask)})" src="../assets/icons/delete.svg" class="subtask-edit-page-icons pointer" title="Delete">
-                </div>
-            </div>
-        `;
-  }).join('');
+  return buildSubtasksToEditHTML(task);
 }
 
+/**
+ * Enables editing mode for a specific subtask.
+ * @param {number|string} taskId - Task ID.
+ * @param {number} subtaskIndex - Index of subtask to edit.
+ */
 function editSelectedSubtask(taskId, subtaskIndex) {
   const task = tasks.find(t => String(t.id) === String(taskId));
   const subtask = task.subtasks[subtaskIndex];
@@ -218,27 +284,32 @@ function editSelectedSubtask(taskId, subtaskIndex) {
   container.removeAttribute('onmouseenter');
   container.removeAttribute('onmouseleave');
   container.classList.remove('hover');
-  container.innerHTML = `
-        <div class="input-container-subtask">
-          <input id="inputSubtaskEdit" type="text" class="subtask-edit-input" value="${subtask.title}">
-          <div class="subtask-list-item-btns">
-            <img onclick="deleteSelectedTask(${task.id}, ${task.subtasks.indexOf(subtask)})" src="../assets/icons/delete.svg" class="subtask-edit-page-icons pointer" title="Delete">
-            <img onclick="saveSelectedTask(${task.id}, ${task.subtasks.indexOf(subtask)})" src="../assets/icons/check.svg" class="subtask-edit-page-icons pointer" title="Save">
-           </div>
-         </div>    
-    `;
+  container.innerHTML = buildEditSubtaskHTML(task, subtaskIndex, subtask);
 }
 
+/**
+ * Shows subtask edit/delete buttons on hover.
+ * @param {HTMLElement} element - DOM element of the subtask.
+ */
 function mouseOverSubtaskEdit(element) {
   const btns = element.querySelector('.subtask-list-item-btns');
   btns.classList.remove('subtask-icons-d-none');
 }
 
+/**
+ * Hides subtask buttons on mouse leave.
+ * @param {HTMLElement} element - DOM element of the subtask.
+ */
 function mouseLeaveSubtaskEdit(element) {
   const btns = element.querySelector('.subtask-list-item-btns');
   btns.classList.add('subtask-icons-d-none');
 }
 
+/**
+ * Deletes a subtask from a task.
+ * @param {number|string} taskId - Task ID.
+ * @param {number} subtaskIndex - Index of the subtask to delete.
+ */
 function deleteSelectedTask(taskId, subtaskIndex) {
   const container = document.getElementById('subtasksList');
   const task = tasks.find(t => String(t.id) === String(taskId));
@@ -246,6 +317,11 @@ function deleteSelectedTask(taskId, subtaskIndex) {
   container.innerHTML = renderSubtasksToEdit(task);
 }
 
+/**
+ * Saves changes made to a subtask title.
+ * @param {number|string} taskId - Task ID.
+ * @param {number} subtaskIndex - Index of the subtask to save.
+ */
 function saveSelectedTask(taskId, subtaskIndex) {
   const task = tasks.find(t => String(t.id) === String(taskId));
   const input = document.getElementById('inputSubtaskEdit').value;
@@ -254,6 +330,10 @@ function saveSelectedTask(taskId, subtaskIndex) {
   container.innerHTML = renderSubtasksToEdit(task);
 }
 
+/**
+ * Saves all input values from the edit form to the task object.
+ * @param {number|string} taskId - Task ID.
+ */
 function saveEditInputFields(taskId) {
   const task = tasks.find(t => String(t.id) === String(taskId));
   const titleInput = document.getElementById(`editedTitle-${taskId}`).value;
@@ -275,6 +355,10 @@ function saveEditInputFields(taskId) {
   }
 }
 
+/**
+ * Updates task data in Firebase using PUT request.
+ * @param {number|string} taskId - Task ID.
+ */
 async function updateTaskDatainAPI(taskId) {
   const task = tasks.find(t => String(t.id) === String(taskId));
   saveEditInputFields(taskId);
@@ -291,11 +375,18 @@ async function updateTaskDatainAPI(taskId) {
   renderCards(tasks);
 }
 
+/**
+ * Hides the edit task dialog.
+ */
 function removeEditDialog() {
   let container = document.querySelector('.dialog-container');
   container.classList.add('d-none-edit-dialog');
 }
 
+/**
+ * Adds a new subtask to a task based on input field value.
+ * @param {number|string} taskId - Task ID.
+ */
 function addNewSubtaskToList(taskId) {
   const inputContainer = document.querySelector('.btns-new-subtask');
   const task = tasks.find(t => String(t.id) === String(taskId));
@@ -318,11 +409,17 @@ function addNewSubtaskToList(taskId) {
   inputContainer.classList.add('visibility-hidden');
 }
 
+/**
+ * Shows the buttons for confirming/canceling new subtask addition.
+ */
 function showBtnToAddSubtask() {
   const container = document.querySelector('.btns-new-subtask');
   container.classList.remove('visibility-hidden');
 }
 
+/**
+ * Cancels subtask creation and resets input field.
+ */
 function cancelBtnAddSubtask() {
   const container = document.querySelector('.btns-new-subtask');
   const input = document.getElementById('subtaskContainer');
@@ -331,6 +428,10 @@ function cancelBtnAddSubtask() {
   input.classList.remove('blue-border-input');
 }
 
+/**
+ * Adds a new subtask when Enter key is pressed.
+ * @param {number|string} taskId - Task ID.
+ */
 function createSubtaskOnEnter(taskId) {
   if (event.key === "Enter") {
     addNewSubtaskToList(taskId)

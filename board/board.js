@@ -1,17 +1,33 @@
+/** @type {boolean} Indicates whether the "Add Task" dialog is currently open. */
 let isDialogOpen = false;
+
+/** 
+ * @type {Object<string, string>}
+ * Maps priority levels to their corresponding icon image paths.
+ */
 let priorityImg = {
     "Low": "../assets/img/board_icons/priority_low.svg",
     "Medium": "../assets/img/board_icons/priority_medium.svg",
     "Urgent": "../assets/img/board_icons/priority_urgent.svg"
-}
+};
+
+/**
+ * @type {{id: string, label: string}[]} 
+ * Status identifiers used to categorize tasks.
+ */
 const statusIds = [
     { id: "ToDo", label: "to do" },
     { id: "InProgress", label: "in progress" },
     { id: "AwaitFeedback", label: "awaiting feedback" },
     { id: "Done", label: "done" }
 ];
+
+/** @type {string|null} ID of the task currently being dragged. */
 let currentDraggedTaskId;
 
+/**
+ * Initializes the application: loads data, includes HTML, and renders components.
+ */
 async function init() {
     await onloadFunc();
     includeHTML();
@@ -20,6 +36,11 @@ async function init() {
     renderEditTaskDialog(tasks);
 }
 
+/**
+ * Waits for an element with ID 'initialLetter' to be present in the DOM,
+ * then executes the callback.
+ * @param {Function} callback - Function to call when the element is found.
+ */
 function waitForInitialLetterElement(callback) {
     const observer = new MutationObserver(() => {
         const el = document.getElementById("initialLetter");
@@ -31,6 +52,9 @@ function waitForInitialLetterElement(callback) {
     observer.observe(document.body, { childList: true, subtree: true });
 }
 
+/**
+ * Opens the Add Task dialog or redirects to a separate page on small screens.
+ */
 function openAddTaskDialog() {
     const dialogContainer = document.getElementById('addTaskDialog');
     const dialog = dialogContainer.querySelector('.dialog-add-task');
@@ -44,6 +68,9 @@ function openAddTaskDialog() {
     }
 }
 
+/**
+ * Toggles the visibility of the Add Task dialog with animation.
+ */
 function toggleAddTaskDialog() {
     const dialogContainer = document.getElementById('addTaskDialog');
     const dialog = dialogContainer.querySelector('.dialog-add-task');
@@ -60,6 +87,10 @@ function toggleAddTaskDialog() {
     }
 }
 
+/**
+ * Closes the Add Task dialog with animation and clears the form.
+ * @param {Event} event - The event that triggered this action.
+ */
 function closeAddTaskDialog(event) {
     const dialog = document.querySelector('.dialog-add-task');
     clearTaskForm();
@@ -70,45 +101,18 @@ function closeAddTaskDialog(event) {
     }, 400);
 }
 
+/**
+ * Prevents event propagation.
+ * @param {Event} event - The event to stop.
+ */
 function stopPropagation(event) {
     event.stopPropagation();
 }
 
-function toggleBigTaskDialog() {
-    let bigDialog = document.getElementById('bigTaskDialog')
-    bigDialog.classList.toggle('d-none-big-dialog');
-}
-
-function closeBigDialog() {
-    const container = document.getElementById('bigTaskDialog');
-    container.classList.remove('open');
-    container.classList.add('closing');
-    setTimeout(() => {
-        container.classList.remove('closing');
-        container.classList.add('d-none-big-dialog')
-    }, 100);
-}
-
-function openDialog() {
-    const container = document.getElementById('bigTaskDialog');
-    container.classList.remove('closing');
-    container.classList.add('open');
-    container.classList.remove('d-none-big-dialog');
-}
-
-function openBigTaskDialogById(taskId) {
-    const task = tasks.find(task => task.id === taskId);
-    const bigDialog = document.getElementById('bigTaskDialog');
-    bigDialog.innerHTML = getBigTaskDialog(task);
-    bigDialog.classList.remove('closing');
-    bigDialog.classList.add('open');
-    bigDialog.classList.remove('d-none-big-dialog');
-}
-
-function stopPropagation(event) {
-    event.stopPropagation();
-}
-
+/**
+ * Renders all tasks grouped by status.
+ * @param {Array<Object>} tasks - Array of task objects.
+ */
 function renderCards(tasks) {
     statusIds.forEach(({ id, label }) => {
         const container = document.getElementById(`status${id}`);
@@ -129,63 +133,32 @@ function renderCards(tasks) {
     });
 }
 
-
-function getLabelClass(category) {
-    return category.toLowerCase().replace(/\s+/g, '-') + '-label';
-}
-
-function renderAssignedContacts(assignedList) {
-    if (!Array.isArray(assignedList) || contacts.length === 0) return '';
-    const visibleContacts = contacts.filter(c => assignedList.includes(c.name));
-    const maxVisible = visibleContacts.slice(0, 4); // Show only 4
-    const extraCount = visibleContacts.length - 4;
-    const avatarsHtml = maxVisible.map(contact => `
-    <span class="profile-badge margin-left-contacts" style="background-color: ${contact.color}">${contact.avatar}</span>
-  `).join('');
-    const extraHtml = extraCount > 0
-        ? `<span class="profile-badge margin-left-contacts extra-avatar-color">+${extraCount}</span>`
-        : '';
-    return avatarsHtml + extraHtml;
-}
-
-function renderAssignedContactsBigDialog(assignedList) {
-    if (!Array.isArray(assignedList)) return '';
-    return assignedList
-        .map(name => {
-            // Find the contact object from the global contacts array
-            const contact = contacts.find(c => c.name === name);
-            if (!contact) return '';
-            // Use the avatar (initials) and color from contact
-            return `
-        <div class="contact-item">
-          <div class="avatar profile-badge " style="background-color: ${contact.color}">
-            ${contact.avatar}
-          </div>
-          <span class="contact-name">${contact.name}</span>
-        </div>
-      `;
-        })
-        .join('');
-}
-
-function renderPriority(priority) {
-    const normalized = priority.toLowerCase();
-    const validPriority = Object.keys(priorityImg).find(p => p.toLowerCase() === normalized);
-    return `<img class="priority-symbol" src="${priorityImg[validPriority]}" alt="Priority symbol">`
-}
-
+/**
+ * Calculates the completion percentage of subtasks.
+ * @param {Array<Object>} subtasks - Array of subtask objects.
+ * @returns {number} Completion percentage.
+ */
 function getProgressPercentage(subtasks) {
     if (!subtasks || subtasks.length === 0) return 0;
     const completed = subtasks.filter(subtask => subtask.completed).length;
     return Math.round((completed / subtasks.length) * 100);
 }
 
+/**
+ * Returns formatted progress text.
+ * @param {Array<Object>} subtasks - Array of subtask objects.
+ * @returns {string} Progress text (e.g., '2/5 Subtasks').
+ */
 function getProgressText(subtasks) {
     if (!subtasks || subtasks.length === 0) return '0/0 Subtasks';
     const completed = subtasks.filter(subtask => subtask.completed).length;
     return `${completed}/${subtasks.length} Subtasks`;
 }
 
+/**
+ * Starts dragging a task card.
+ * @param {string} taskId - ID of the task being dragged.
+ */
 function startDragging(taskId) {
     let draggableElement = document.getElementById(`dragTask${taskId}`);
     currentDraggedTaskId = taskId;
@@ -196,6 +169,11 @@ function startDragging(taskId) {
     }, { once: true });
 }
 
+/**
+ * Allows a drop action and visually highlights the drop area.
+ * @param {DragEvent} event 
+ * @param {string} taskId 
+ */
 function allowDrop(event, taskId) {
     event.preventDefault();
     event.currentTarget.classList.add("drag-highlight");
@@ -205,10 +183,19 @@ function allowDrop(event, taskId) {
     }
 }
 
+/**
+ * Removes drop highlight.
+ * @param {Event} event 
+ */
 function removeHighlight(event) {
     event.currentTarget.classList.remove("drag-highlight");
 }
 
+/**
+ * Moves a task to a new status after drop.
+ * @param {Event} event 
+ * @param {string} newStatus - New status for the task.
+ */
 async function moveTo(event, newStatus) {
     event.preventDefault();
     event.currentTarget.classList.remove("drag-highlight");
@@ -225,9 +212,13 @@ async function moveTo(event, newStatus) {
     currentDraggedTaskId = null;
 }
 
+/**
+ * Updates a task's status in the backend.
+ * @param {Object} task - Task object to update.
+ */
 async function updateTaskInDatabase(task) {
     try {
-        const response = await fetch(`${BASE_URL}tasks/${task.id}.json`, {
+        await fetch(`${BASE_URL}tasks/${task.id}.json`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ status: task.status })
@@ -237,39 +228,9 @@ async function updateTaskInDatabase(task) {
     }
 }
 
-function renderBigTaskDialog(tasks) {
-    let container = document.getElementById('bigDialog');
-    container.innerHTML = '';
-    tasks.forEach(task => {
-        container.innerHTML += getBigTaskDialog(task);
-    });
-}
-
-function renderSubtasks(task) {
-    if (!task.subtasks || task.subtasks.length === 0) {
-        return '<p class="dialog-card-typography-content">No subtasks.</p>';
-    }
-    return task.subtasks.map(subtask => {
-        const isCompleted = subtask.completed === true;
-        const checkboxIcon = isCompleted
-            ? '../assets/img/board_icons/checked_button.svg'
-            : '../assets/img/board_icons/unchecked_button.svg';
-        return `
-            <div class="dialog-card-subtask-checkbox">
-                <img 
-                    class="checkbox-icon-task"
-                    data-task-id="${subtask.taskId}" 
-                    data-subtask-id="${subtask.id}" 
-                    onclick="toggleSubtaskCompletion(event)" 
-                    src="${checkboxIcon}" 
-                    alt="${isCompleted ? 'Checked' : 'Unchecked'} Button"
-                >
-                <p class="dialog-card-typography-content font-size-16">${subtask.title}</p>
-            </div>
-        `;
-    }).join('');
-}
-
+/**
+ * Filters tasks based on input text and re-renders the task cards.
+ */
 function searchTasks() {
     let inputText = document.getElementById('findTaskInput').value.toLowerCase().trim();
     const filteredTasks = tasks.filter(task => {
@@ -282,67 +243,41 @@ function searchTasks() {
     renderCards(filteredTasks);
 }
 
+/**
+ * Toggles the completion state of a subtask and updates the backend and UI.
+ * @param {Event} event - The event triggered by clicking the checkbox icon.
+ */
 async function toggleSubtaskCompletion(event) {
     const taskId = event.target.dataset.taskId;
     const subtaskId = event.target.dataset.subtaskId;
-    const completedUrl = `${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}/completed.json`;
-    const subtaskUrl = `${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}.json`;
-    const subtasksUrl = `${BASE_URL}tasks/${taskId}/subtasks.json`;
     try {
-        // Step 1: Get current "completed" status
-        const resGet = await fetch(completedUrl);
-        if (!resGet.ok) throw new Error('Fehler beim GET Subtask Status');
-        const completed = await resGet.json();
-        const newCompleted = !completed;
-        // Step 2: Get full subtask (to get the title)
-        const resFullSubtask = await fetch(subtaskUrl);
-        if (!resFullSubtask.ok) throw new Error('Fehler beim GET Subtask Daten');
-        const fullSubtask = await resFullSubtask.json();
-        // Check if subtask exists
-        if (!fullSubtask) {
-            console.error(`Subtask with ID ${subtaskId} not found.`);
-            return;
-        }
-        // Step 3: Create updated subtask object
-        const updatedSubtask = {
-            ...fullSubtask,
-            completed: newCompleted,
-        };
-        // Step 4: Update checkbox icon
-        event.target.src = newCompleted
-            ? '../assets/img/board_icons/checked_button.svg'
+        const completed = !(await (await fetch(`${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}/completed.json`)).json());
+        const subtask = await (await fetch(`${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}.json`)).json();
+        if (!subtask) return console.error(`Subtask ${subtaskId} not found`);
+        subtask.completed = completed;
+        event.target.src = completed 
+            ? '../assets/img/board_icons/checked_button.svg' 
             : '../assets/img/board_icons/unchecked_button.svg';
-        // Step 5: PUT updated subtask back
-        const resPut = await fetch(subtaskUrl, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedSubtask),
+        await fetch(`${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}.json`, {
+            method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(subtask)
         });
-        if (!resPut.ok) throw new Error('Fehler beim PUT Subtask Status');
-        // Step 6: Get all updated subtasks
-        const resSubtasks = await fetch(subtasksUrl);
-        if (!resSubtasks.ok) throw new Error('Fehler beim Laden der Subtasks');
-        const subtasks = await resSubtasks.json();
-        // Step 7: Update progress bar
-        const completedCount = subtasks.filter(sub => sub.completed).length;
-        const totalCount = subtasks.length;
-        const progressPercent = totalCount === 0 ? 0 : Math.round((completedCount / totalCount) * 100);
-        const progressBarFill = document.getElementById(`progressBar-${taskId}`);
-        if (progressBarFill) {
-            progressBarFill.style.width = `${progressPercent}%`;
-        }
-        // Step 8: Update UI and tasks array
+        const subtasks = await (await fetch(`${BASE_URL}tasks/${taskId}/subtasks.json`)).json();
+        const progress = subtasks.filter(s => s.completed).length / subtasks.length * 100;
+        document.getElementById(`progressBar-${taskId}`).style.width = `${Math.round(progress)}%`;
         updateSubtasksText({ id: taskId }, subtasks);
-        const taskIndex = tasks.findIndex(task => task.id == taskId);
-        if (taskIndex !== -1) {
-            tasks[taskIndex].subtasks = subtasks;
-        }
-    } catch (error) {
-        console.error('Fehler beim Toggle:', error);
+        const index = tasks.findIndex(t => t.id == taskId);
+        if (index !== -1) tasks[index].subtasks = subtasks;
+    } catch (e) {
+        console.error('Fehler beim Toggle:', e);
     }
 }
 
-
+/**
+ * Updates the textual representation of subtask progress.
+ * @param {{id: string}} task - The task object.
+ * @param {Array<Object>} subtasks - Array of subtasks.
+ * @returns {string} Progress text.
+ */
 function updateSubtasksText(task, subtasks) {
     const progressBarElement = document.getElementById(`progress-bar-text-${task.id}`);
     if (!subtasks || subtasks.length === 0) {
@@ -359,35 +294,9 @@ function updateSubtasksText(task, subtasks) {
     return text;
 }
 
+/**
+ * Redirects the user to the Add Task page.
+ */
 function redirectToAddTask() {
     window.location.href = "../add_task.html";
-}
-
-async function deleteTask(task) {
-    try {
-        const response = await fetch(`${BASE_URL}tasks/${task.id}.json`, {
-            method: 'DELETE',
-        });
-        if (!response.ok) {
-            throw new Error(`Delete failed with status: ${response.status}`);
-        }
-        console.log(`Task with ID ${task.id} deleted successfully.`);
-    } catch (error) {
-        console.error('Error while deleting task:', error);
-    }
-}
-
-async function deleteTaskById(id) {
-    await deleteTask({ id });
-    // remove task from local `tasks` array
-    const index = tasks.findIndex(t => String(t.id) === String(id));
-    if (index !== -1) {
-        tasks.splice(index, 1);
-    }
-    closeBigTaskDialog();
-    renderCards(tasks);
-}
-
-function closeBigTaskDialog() {
-    document.getElementById("bigTaskDialog").classList.add("d-none-big-dialog");
 }

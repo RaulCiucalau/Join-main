@@ -1,12 +1,30 @@
+/**
+ * Stores all task objects loaded from the database.
+ * @type {Array}
+ */
 let tasksArr = [];
+
+/**
+ * Keeps track of the highest used task ID to ensure unique IDs.
+ * @type {number}
+ */
 let currentMaxId = 3;
+
+/**
+ * Currently selected task column (e.g., "to-do").
+ * @type {string}
+ */
 let selectedColumn = "to-do";
 
+/**
+ * Loads contact data from Firebase at the given path.
+ * Adds initials as avatar letters for each contact.
+ * @param {string} path - Firebase path for contacts (e.g., "contacts", "contactList").
+ */
 async function loadContacts(path) {
   try {
     const response = await fetch("https://join-460-default-rtdb.europe-west1.firebasedatabase.app/contacts.json");
     const data = await response.json();
-
     if (data) {
       contacts = Object.values(data).filter(c => c !== null).map(user => {
         const firstLetter = user.name.charAt(0).toUpperCase();
@@ -24,6 +42,9 @@ async function loadContacts(path) {
   }
 }
 
+/**
+ * Initializes the app by loading contacts, tasks, and setting up UI.
+ */
 async function init() {
   await loadContacts("contactList");
   await loadTasks("tasks");
@@ -31,7 +52,9 @@ async function init() {
   highlightMenuActual();
 }
 
-
+/**
+ * Creates a new task if inputs are valid and task doesn't already exist.
+ */
 function createTask() {
   if (areInputsEmpty()) {
     showFieldRequired();
@@ -44,6 +67,9 @@ function createTask() {
   }
 }
 
+/**
+ * Saves a new task to the task array and sends it to Firebase.
+ */
 function saveTaskInputs() {
   if (canSaveTask()) {
     let maxId = 0;
@@ -62,6 +88,11 @@ function saveTaskInputs() {
   }
 }
 
+/**
+ * Builds a new task object using form inputs.
+ * @param {number} id - Unique task ID.
+ * @returns {Object} Task object.
+ */
 function createTaskObject(id) {
   return {
     id: id,
@@ -77,35 +108,65 @@ function createTaskObject(id) {
   };
 }
 
+/**
+ * Gets the task title from input.
+ * @returns {string}
+ */
 function getTitleInput() {
   return document.getElementById("add-task-title").value;
 }
 
+/**
+ * Gets the due date from input.
+ * @returns {string}
+ */
 function getDateInput() {
   return document.getElementById("add-task-due-date").value;
 }
 
+/**
+ * Gets the category from input.
+ * @returns {string}
+ */
 function getCategoryInput() {
   return document.getElementById("category").value;
 }
 
+
+/**
+ * Gets the description from input.
+ * @returns {string}
+ */
 function getDescriptionInput() {
   return document.getElementById("add-task-description").value;
 }
+
 
 function getAssignedTo() {
   return mapArrayToObject(selectedContactsNames);
 }
 
+/**
+ * Gets the current list of subtasks as an array of objects.
+ * @returns {Array<Object>}
+ */
 function getSubtasks() {
   return mapArrayToObject(subtasks);
 }
 
+/**
+ * Checks if task inputs are valid and the title is not a duplicate.
+ * @returns {boolean}
+ */
 function canSaveTask() {
   const titleInput = document.getElementById("add-task-title").value;
   return !taskAlreadyExists(tasksArr, titleInput);
 }
 
+/**
+ * Checks if any required input fields are empty or invalid.
+ * @returns {boolean}
+ */
 function areInputsEmpty() {
   const t = (id) => document.getElementById(id),
     d = t("add-task-due-date"),
@@ -128,10 +189,19 @@ function areInputsEmpty() {
   return i;
 }
 
+/**
+ * Checks if a task with the same title already exists.
+ * @param {Array} tasksArr - Array of tasks.
+ * @param {string} title - Task title to check.
+ * @returns {boolean}
+ */
 function taskAlreadyExists(tasksArr, title) {
   return tasksArr.some(task => task.title === title);
 }
 
+/**
+ * Shows red borders and warnings for empty required fields.
+ */
 function showFieldRequired() {
   if (document.getElementById("add-task-title").value.trim() === "") {
     document.getElementById("add-task-title").style.border = "1px solid red";
@@ -147,19 +217,20 @@ function showFieldRequired() {
   }
 }
 
-function showLog() {
-  document.getElementById("log").innerHTML = `<div class="added-to-board-msg">
-    <p>Task added to board</p>
-    <img src="../assets/icons/added-to-board.svg" alt="Board image" />
-  </div>`;
-}
-
+/**
+ * Navigates to the board page after a short delay.
+ */
 function goToBoards() {
   setTimeout(() => {
     window.location.href = "./board/board.html";
   }, 1000);
 }
 
+/**
+ * Sends the new task to Firebase using its ID as the key.
+ * @param {number|string} id - Task ID.
+ * @param {Object} task - Task object to store.
+ */
 async function addTaskToDatabase(id, task) {
   try {
     await fetch(`https://join-460-default-rtdb.europe-west1.firebasedatabase.app/tasks/${id}.json`, {
@@ -172,6 +243,9 @@ async function addTaskToDatabase(id, task) {
   }
 }
 
+/**
+ * Clears the form and resets UI to default state.
+ */
 function clearTaskForm() {
   subtasks = [];
   clearInputs();
@@ -183,6 +257,9 @@ function clearTaskForm() {
   removeFieldRequired();
 }
 
+/**
+ * Clears all input fields.
+ */
 function clearInputs() {
   document.getElementById("subtask-list").innerHTML = "";
   document.getElementById("subtask").value = "";
@@ -194,6 +271,9 @@ function clearInputs() {
   document.getElementById("assigned-to").value = "";
 }
 
+/**
+ * Removes warning styles and error messages from form fields.
+ */
 function removeFieldRequired() {
   document.getElementById("required-title").classList.add("dp-none");
   document.getElementById("add-task-title").style.border = "1px solid #d1d1d1";
@@ -203,16 +283,25 @@ function removeFieldRequired() {
   document.getElementById("category").style.border = "1px solid #d1d1d1";
 }
 
+/**
+ * Displays error when a duplicate task title is detected.
+ */
 function errorTaskAlreadyExists() {
   document.getElementById("task-already-exists").classList.remove("dp-none");
   document.getElementById("add-task-title").style.border = "1px solid red";
 }
 
+/**
+ * Changes icon to blue on hover.
+ */
 function changeToBlueIcon() {
   document.getElementById("clear").classList.add("dp-none");
   document.getElementById("clear-hover").classList.remove("dp-none");
 }
 
+/**
+ * Changes icon back to black on mouse out.
+ */
 function changeToBlackIcon() {
   document.getElementById("clear").classList.remove("dp-none");
   document.getElementById("clear-hover").classList.add("dp-none");
@@ -225,11 +314,19 @@ function mapArrayToObject(array) {
   }, {});
 }
 
+/**
+ * Generates a unique ID for a new task.
+ * @returns {string}
+ */
 function generateUniqueId() {
   currentMaxId += 1;
   return String(currentMaxId);
 }
 
+/**
+ * Loads all tasks from Firebase and updates `tasksArr`.
+ * @param {string} path - Firebase path for tasks.
+ */
 async function loadTasks(path = "tasks") {
   try {
     const response = await fetch(`https://join-460-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`);
@@ -248,6 +345,9 @@ async function loadTasks(path = "tasks") {
   }
 }
 
+/**
+ * Displays avatar or guest letter based on login info from Firebase.
+ */
 async function showLoggedInInfo() {
   try {
     const response = await fetch("https://join-460-default-rtdb.europe-west1.firebasedatabase.app/login.json");
@@ -264,6 +364,9 @@ async function showLoggedInInfo() {
   }
 }
 
+/**
+ * Highlights the active menu link based on the current page.
+ */
 function highlightMenuActual() {
   const path = window.location.pathname;
   const menuLinks = document.querySelectorAll(".nav-link");
@@ -276,6 +379,11 @@ function highlightMenuActual() {
   });
 }
 
+/**
+ * Capitalizes the first letter of a string.
+ * @param {string} string - The input string.
+ * @returns {string}
+ */
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
