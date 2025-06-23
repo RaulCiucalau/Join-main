@@ -35,6 +35,10 @@ body {
   padding-left: 64px;
 }
 
+.display-none-menu {
+  display: none;
+}
+
 .main-place {
   display: flex;
   gap: 30px;
