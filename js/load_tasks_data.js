@@ -75,12 +75,12 @@ async function fetchData(path) {
  */
 async function contactsFetch() {
     let contactsResponse = await fetchData("contacts");
+    if (!contactsResponse) return;
     let contactKeysArray = Object.keys(contactsResponse);
-
     for (let index = 0; index < contactKeysArray.length; index++) {
         let contactId = contactKeysArray[index];
         let data = contactsResponse[contactId];
-
+        if (data === null) continue;
         contacts.push({
             id: contactId,
             name: data.name,
