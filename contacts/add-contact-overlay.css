@@ -191,6 +191,10 @@ input {
   color: white;
 }
 
+.display-none-overlay {
+  display: none !important;
+}
+
 @media (max-width: 1250px) {
   .edit-contact-form {
     gap: 20px;

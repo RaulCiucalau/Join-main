@@ -131,7 +131,7 @@ function editContactOverlay(key, users)
   let user = users[key];
   let overlayBody = document.getElementById('overlayArea'); 
   overlayBody.innerHTML = `
-      <div onclick="closeEditOverlay()" id="outer-edit-contact-overlay">
+      <div onclick="closeEditOverlay()" class="" id="outer-edit-contact-overlay">
         <div onclick="stopPropagation(event)" id="edit-contact-overlay">
           <div id="left-edit-contact-column" onclick="stopPropagation(event)">
             <button id="closeEditOverlay" onclick="closeEditOverlay()">X</button>

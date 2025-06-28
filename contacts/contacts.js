@@ -272,4 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
   init();
 });
 
-
+function closeEditOverlay() {
+  let container = document.getElementById('outer-edit-contact-overlay');
+  container.classList.add('display-none-overlay')
+}
