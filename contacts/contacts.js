@@ -111,7 +111,6 @@ function hideContactDetails(users) {
   let leftColumn = document.getElementById("left-contacts-page-column");
   rightColumn.style.display = "none";
   leftColumn.style.display = "block";
-  document.getElementById("overlayButton").style.display = "none";
 }
 
 function makeLeftContactActive() {
@@ -140,7 +139,7 @@ function handleResponsiveView(paramKey, users) {
     let userContactHeader = document.getElementById("user-contact-header");
     rightColumn.style.display = "flex";
     userContactHeader.innerHTML = `<button class="go-back-arrow" onclick="hideContactDetails(users)">
-                                    <img src="/assets/img/back-arrow.svg">
+                                    <img src="/assets/icons/back-arrow.svg">
                                    </button>`;
     leftColumn.style.display = "none";
     rightColumn.style.display = "block";
