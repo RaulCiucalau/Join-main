@@ -21,14 +21,14 @@
       alt="Join Logo"
     />
       <div class="header-left">
-        <a href="./help.html" class="help-icon"
-          ><img src="./assets/icons/help.svg" alt="Go to Help Site"
+        <a href="../help.html" class="help-icon"
+          ><img src="../../assets/icons/help.svg" alt="Go to Help Site"
         /></a>
         <span
         id="initialLetter"
           class="header-icon light-blue"
-          onclick="showSubMenuLoggedIn();"
-          ></span
+          onclick="showSubMenuLoggedIn();preventBubbling(event)"
+          >L</span
         >
       </div>
       <div id="subMenu" class="subMenu dp-none"></div>
@@ -283,25 +283,25 @@
     </main>
 
     <footer class="footer-resp">
-      <a href="dashboard.html">
+      <a href="/summary/summary.html">
         <div class="menu-btns-resp">
           <img class="menu-btn-icon-resp" src="./assets/icons/icon-summary.png" alt="Summary button icon" />
           <p>Summary</p>
         </div>
       </a>
-      <a href="board.html">
+      <a href="/board/board.html">
         <div class="menu-btns-resp">
           <img class="menu-btn-icon-resp" src="./assets/icons/icon-board.png" alt="Board button icon" />
           <p>Board</p>
         </div>
       </a>
-      <a href="add-task.html">
+      <a href="/add_task.html">
         <div class="menu-btns-resp" id="menu-btn-resp-add-task">
           <img class="menu-btn-icon-resp" src="./assets/icons/icon-add-task.png" alt="Add task button icon" />
           <p>Add Tasks</p>
         </div>
       </a>
-      <a href="contacts.html">
+      <a href="/contacts/contacts.html">
         <div class="menu-btns-resp">
           <img class="menu-btn-icon-resp" src="./assets/icons/icon-contacts.png" alt="Contacts button icon" />
           <p>Contacts</p>
@@ -318,7 +318,8 @@
     <script src="/add-task/subtask.js"></script>
     <script src="/add-task/datevalidation.js"></script>
     <script src="js/add-task/prioBtn.js"></script>
-    <script src="global.js"></script>
+     <script src="global.js"></script>
     <script src="./js/orientation.js"></script>
+   
   </body>
 </html>

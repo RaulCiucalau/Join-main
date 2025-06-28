@@ -49,9 +49,22 @@ async function loadAvatarForHeader() {
   }
 }
 
-window.onload = () => {
-  loadAvatarForHeader();
-};
+document.addEventListener("DOMContentLoaded", () => {
+  waitForInitialLetterElement(loadAvatarForHeader);
+});
+
+function waitForInitialLetterElement(callback) {
+  const observer = new MutationObserver(() => {
+    const element = document.getElementById("initialLetter");
+    if (element) {
+      observer.disconnect();
+      callback();
+    }
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+}
+
 
 function showSubMenuLoggedIn() {
   if (document.getElementById("subMenu").classList.contains("dp-none")) {

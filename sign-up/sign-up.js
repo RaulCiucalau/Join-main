@@ -124,16 +124,22 @@ async function putData(path = "", data = {}) {
  */
 async function signUp(event) {
   event.preventDefault();
-  // Kein Blockieren mehr, falls keine User vorhanden sind
-  const email = document.getElementById("email");
-  const name = document.getElementById("name");
+
+  const emailEl = document.getElementById("email");
+  const nameEl = document.getElementById("name");
+
+  const email = emailEl.value;
+  const name = nameEl.value;
+
   if (handleEmptyInputs()) return;
-  if (handleInvalidEmail(email)) return;
-  if (handleExistingEmail(email.value, email)) return;
-  if (handleExistingUser(email.value, name.value, name)) return;
+  if (handleInvalidEmail(emailEl)) return;
+  if (handleExistingEmail(email, emailEl)) return;
+  if (handleExistingUser(email, name, nameEl)) return;
   if (handlePasswordMismatch()) return;
+
   completeSignUp();
 }
+
 
 /**
  * Adds a new user and saves it to the database.
@@ -288,5 +294,38 @@ function removeErrorMsgs(errorId, inputId) {
     inputElement.style.borderColor = "rgba(209, 209, 209, 1)";
   }
 }
+
+/**
+ * Creates a contact entry in the database for the given user.
+ * @param {{name: string, email: string, avatar: string, color: string}} userData
+ */
+async function createContactForUser(userData) {
+  const contact = {
+    name: userData.name,
+    e_mail: userData.email,
+    phone: "",
+    avatar: userData.avatar,
+    color: userData.color,
+  };
+
+  await fetch(`${BASE_URL}contacts.json`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(contact),
+  });
+}
+
+/**
+ * Saves a user to the database and creates a matching contact.
+ */
+function saveUserToDatabase(user) {
+  const { id, user: userData } = user;
+  addEditSingleUser(id, userData); // Benutzer speichern
+  createContactForUser(userData);  // ➕ Kontakt anlegen
+}
+
+
 
 
