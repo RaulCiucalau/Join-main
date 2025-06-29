@@ -227,11 +227,11 @@ async function saveEditedContact(key) {
       body: JSON.stringify({ name, e_mail: email, phone }),
     });
     closeEditOverlay();
-    contactsuccessfullyEditedNotification();
     contactFirebase();
   } catch (error) {
     console.error("Error updating contact:", error);
   }
+  renderRightContactArea(name, email, phone, key, users)
 }
 
 async function addNewContactToDatabase(name, email, phone)

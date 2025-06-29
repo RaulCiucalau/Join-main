@@ -33,7 +33,6 @@ function contactDetailsAreaTemplate(paramKey, users) {
   contactDetailsArea.innerHTML = `            
               <div class="user-name-header">
                 <div id="user-picture-big-index" class="user-picture-big">
-                  Userimage
                 </div>
                 <div class="user-name-area">
                   <div id="big-user-name" class="big-user-name">User Name</div>
@@ -163,7 +162,7 @@ function editContactOverlay(key, users)
                   <button type="button" onclick="deleteContactFromDatabase('${key}', users)" id="cancel-edit-contact" class="edit-contacts-overlay-btns">
                     Delete
                   </button>
-                  <button type="submit" class="edit-contacts-overlay-btns">
+                  <button type="button" onclick="saveEditedContact('${key}')", users)" class="edit-contacts-overlay-btns">
                     Save ✓
                   </button>
                 </div>
