@@ -177,6 +177,7 @@ async function deleteContactFromDatabase(key, users) {
   } catch (error) {
     console.error("Error deleting contact:", error);
   }
+renderLeftColumnContacts();
 }
 
 function editContact(paramKey, users) {
@@ -231,7 +232,7 @@ async function saveEditedContact(key) {
   } catch (error) {
     console.error("Error updating contact:", error);
   }
-  renderRightContactArea(name, email, phone, key, users)
+  renderRightContactArea(name, email, phone, key, users);
 }
 
 async function addNewContactToDatabase(name, email, phone)
