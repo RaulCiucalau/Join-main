@@ -1,78 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <link rel="stylesheet" href="./styles/standard_all.css" />
-    <link rel="stylesheet" href="/index/index.css" />
-    <link rel="stylesheet" href="/index/index-resp.css" />
-    <link rel="shortcut icon" href="./assets/img/favicon/fav_blue.png" type="image/x-icon" />
-  </head>
-  <body onload="init()">
-    <div class="greeting">
-      <img src="/assets/icons/join-logo-big.svg" class="greeting-logo" />
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="icon" href="../assets/img/favicon/fav_white.png" type="image/x-icon">
+  <link rel="icon" href="../assets/img/favicon/fav_blue.png" type="image/x-icon" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="../assets/img/favicon/fav_white.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="./styles/standard_all.css" />
+  <link rel="stylesheet" href="/index/index.css" />
+  <link rel="stylesheet" href="/index/index-resp.css" />
+</head>
+
+<body onload="init()">
+  <div class="greeting">
+    <img src="/assets/icons/join-logo-big.svg" class="greeting-logo" />
+  </div>
+  <div class="content">
+    <div>
+      <img class="join-header-logo" src="/assets/icons/join-logo-blue.svg" alt="Join Logo Blue" />
     </div>
-    <div class="content">
-      <div>
-        <img class="join-header-logo" src="/assets/icons/join-logo-blue.svg" alt="Join Logo Blue" />
+    <header class="header-login">
+      <!-- <img src="./assets/img/join-logo-blue.svg" alt="Join Logo Blue" /> -->
+      <div class="header-login-signup">
+        <p class="signup-1">Not a Join user?</p>
+        <a href="./sign_up.html"><span class="signup-2">Sign up</span></a>
       </div>
-      <header class="header-login">
-        <!-- <img src="./assets/img/join-logo-blue.svg" alt="Join Logo Blue" /> -->
-        <div class="header-login-signup">
-          <p class="signup-1">Not a Join user?</p>
-          <a href="./sign_up.html"><span class="signup-2">Sign up</span></a>
-        </div>
-      </header>
-      <main>
-        <div class="login-window">
-          <h1>Log in</h1>
-          <div class="login-separator"></div>
-          <div class="login-inputs">
-            <div class="login-input-email">
-              <input
-                oninput="removeErrorMsgs('error-email', 'email');removeErrorMsgs('wrong-email', 'password');"
-                id="inputEmail"
-                class="email"
-                type="email"
-                placeholder="Email"
-              />
-              <img class="login-input-imgs mail-img" src="/assets/icons/mail.svg" alt="" />
-              <p id="error-email" class="error-msg dp-none">Please enter your email</p>
-              <p id="wrong-email" class="error-msg dp-none">Wrong email</p>
-            </div>
-            <div class="login-input-pw">
-              <input
-                oninput="removeErrorMsgs('error-password', 'password'); removeErrorMsgs('wrong-password', 'password');"
-                id="inputPassword"
-                class="password"
-                type="password"
-                placeholder="Password"
-              />
-              <img class="login-input-imgs pw-img" src="/assets/icons/lock.svg" alt="" />
-              <p id="error-password" class="error-msg dp-none">Please enter your password</p>
-              <p id="wrong-password" class="error-msg dp-none">Wrong password</p>
-            </div>
+    </header>
+    <main>
+      <div class="login-window">
+        <h1>Log in</h1>
+        <div class="login-separator"></div>
+        <div class="login-inputs">
+          <div class="login-input-email">
+            <input oninput="removeErrorMsgs('error-email', 'email');removeErrorMsgs('wrong-email', 'password');"
+              id="inputEmail" class="email" type="email" placeholder="Email" />
+            <img class="login-input-imgs mail-img" src="/assets/icons/mail.svg" alt="" />
+            <p id="error-email" class="error-msg dp-none">Please enter your email</p>
+            <p id="wrong-email" class="error-msg dp-none">Wrong email</p>
           </div>
-          <div class="login-btns">
-            <div class="login-btn" onclick="loginUser()">Log in</div>
-            <div class="guest-login-btn" onclick="redirectToGuestView()">Guest Log in</div>
+          <div class="login-input-pw">
+            <input
+              oninput="removeErrorMsgs('error-password', 'password'); removeErrorMsgs('wrong-password', 'password');"
+              id="inputPassword" class="password" type="password" placeholder="Password" />
+            <img class="login-input-imgs pw-img" src="/assets/icons/lock.svg" alt="" />
+            <p id="error-password" class="error-msg dp-none">Please enter your password</p>
+            <p id="wrong-password" class="error-msg dp-none">Wrong password</p>
           </div>
         </div>
-      </main>
-      <footer class="footer-login">
-        <div class="footer-login-signup">
-          <p class="signup-1">Not a Join user?</p>
-          <a href="./sign-up.html"><span class="signup-2">Sign up</span></a>
+        <div class="login-btns">
+          <div class="login-btn" onclick="loginUser()">Log in</div>
+          <div class="guest-login-btn" onclick="redirectToGuestView()">Guest Log in</div>
         </div>
-        <div class="footer-btns">
-          <a href="./privacy_policy.html"><div class="footer-btn">Privacy Policy</div></a>
-          <a href="./legal_notice.html"><div class="footer-btn">Legal notice</div></a>
-        </div>
-      </footer>
-    </div> 
-    <div class="landscape-overlay" id="landscapeOverlay">Please rotate your device to portrait mode.</div>
-  </body>
-  <script src="index.js"></script>
-  <script src="./js/orientation.js"></script>
+      </div>
+    </main>
+    <footer class="footer-login">
+      <div class="footer-login-signup">
+        <p class="signup-1">Not a Join user?</p>
+        <a href="./sign-up.html"><span class="signup-2">Sign up</span></a>
+      </div>
+      <div class="footer-btns">
+        <a href="./privacy_policy.html">
+          <div class="footer-btn">Privacy Policy</div>
+        </a>
+        <a href="./legal_notice.html">
+          <div class="footer-btn">Legal notice</div>
+        </a>
+      </div>
+    </footer>
+  </div>
+  <div class="landscape-overlay" id="landscapeOverlay">Please rotate your device to portrait mode.</div>
+</body>
+<script src="index.js"></script>
+<script src="./js/orientation.js"></script>
+
 </html>

@@ -51,6 +51,6 @@ a {
   z-index: 9999;
 }
 
-.visible {
-  display: block;
+.dp-landscape-overlay {
+    display: block;
 }

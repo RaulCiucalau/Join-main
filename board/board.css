@@ -376,3 +376,7 @@ h1 {
 .extra-avatar-color {
     background-color: #ccc;
 }
+
+.dp-landscape-overlay {
+    display: block;
+}

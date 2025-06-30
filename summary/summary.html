@@ -4,10 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="../assets/img/favicon/fav_white.png" type="image/x-icon">
+  <link rel="icon" href="../assets/img/favicon/fav_blue.png" type="image/x-icon" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="../assets/img/favicon/fav_white.png" type="image/x-icon" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="../board/navbar-board.css">
   <link rel="stylesheet" href="../styles/standard_all.css">
   <link rel="stylesheet" href="summary.css">
-  <link rel="shortcut icon" href="../assets/img/favicon/fav_blue.png" type="image/x-icon">
   <link rel="stylesheet" href="../styles/add-task.css" />
   <script src="../js/orientation.js"></script>
   <script src="../js/load_tasks_data.js"></script>
@@ -15,7 +17,7 @@
   <link rel="stylesheet" href="summary-responsive.css">
   <script src="../js/nav_header.js"></script>
   <script src="../global.js"></script>
-  <title>Summary Guest</title>
+  <title>Summary</title>
 </head>
 
 <body onload="init()">
@@ -31,42 +33,6 @@
   </header>
   <div class="content">
     <div class="log" id="log"></div>
-    <nav class="frame-3">
-      <img class="frame-3-icon" src="/assets/icons/join-main-logo.png" alt="Join Logo" />
-      <div class="frame-3-menu">
-        <a href="../summary/summary.html">
-          <div class="menu-btns">
-            <img class="menu-icon" src="/assets/icons/icon-summary.png" alt="icon-summary" />
-            <p>Summary</p>
-          </div>
-        </a>
-        <a href="../add_task.html">
-          <div class="menu-btns" id="menu-btn-add-task">
-            <img class="menu-icon" src="/assets/icons/icon-add-task.png" alt="icon-add-task" />
-            <p>Add Task</p>
-          </div>
-        </a>
-        <a href="/board/board.html">
-          <div class="menu-btns">
-            <img class="menu-icon" src="/assets/icons/icon-board.png" alt="icon-board" />
-            <p>Board</p>
-          </div>
-        </a>
-        <a href="/contacts/contacts.html">
-          <div class="menu-btns">
-            <img class="menu-icon" src="/assets/icons/icon-contacts.png" alt="icon-contacts" />
-            <p>Contacts</p>
-          </div>
-      </div></a>
-      <div class="frame-22">
-        <a href="../privacy_policy.html">
-          <p class="frame-22-btns">Privacy Policy</p>
-        </a>
-        <a href="../legal_notice.html">
-          <p class="frame-22-btns">Legal Notice</p>
-        </a>
-      </div>
-    </nav>
     <div class="right-down-place">
       <div class="main-place">
         <h1 class="join-360">Join 360</h1>
@@ -162,6 +128,42 @@
       </div>
     </div>
   </div>
+  <nav class="frame-3">
+      <img class="frame-3-icon" src="/assets/icons/join-main-logo.png" alt="Join Logo" />
+      <div class="frame-3-menu">
+        <a href="../summary/summary.html">
+          <div class="menu-btns">
+            <img class="menu-icon" src="/assets/icons/icon-summary.png" alt="icon-summary" />
+            <p>Summary</p>
+          </div>
+        </a>
+        <a href="../add_task.html">
+          <div class="menu-btns" id="menu-btn-add-task">
+            <img class="menu-icon" src="/assets/icons/icon-add-task.png" alt="icon-add-task" />
+            <p>Add Task</p>
+          </div>
+        </a>
+        <a href="/board/board.html">
+          <div class="menu-btns">
+            <img class="menu-icon" src="/assets/icons/icon-board.png" alt="icon-board" />
+            <p>Board</p>
+          </div>
+        </a>
+        <a href="/contacts/contacts.html">
+          <div class="menu-btns">
+            <img class="menu-icon" src="/assets/icons/icon-contacts.png" alt="icon-contacts" />
+            <p>Contacts</p>
+          </div>
+      </div></a>
+      <div class="frame-22">
+        <a href="../privacy_policy.html">
+          <p class="frame-22-btns">Privacy Policy</p>
+        </a>
+        <a href="../legal_notice.html">
+          <p class="frame-22-btns">Legal Notice</p>
+        </a>
+      </div>
+    </nav>
   <div class="overflow display-none-menu">
           <div id="sideMenu" class="side-menu-open side-menu-close" onclick="openCloseSideMenu()">
             <div class="side-menu-box">
