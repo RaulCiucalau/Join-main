@@ -215,7 +215,7 @@ input {
 
   #add-contact-overlay {
     width: 90% !important;
-    height: auto;
+    height: 600px;
     margin-bottom: 100px !important;
   }
 

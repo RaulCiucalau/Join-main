@@ -147,6 +147,32 @@ function handleResponsiveView(paramKey, users) {
   }
 }
 
+function findUserByKey(paramKey, users) {
+  const stringKey = JSON.stringify(paramKey);
+  for (let i = 0; i < users.length; i++) {
+    if (JSON.stringify(users[i].id) === stringKey) {
+      return users[i];
+    }
+  }
+  return null;
+}
+
+function handleOverlayButton(paramKey, users) {
+  const matchedUser = findUserByKey(paramKey, users);
+  if (!matchedUser) return;
+  const userData = matchedUser.data || matchedUser;
+  const rightColumn = document.getElementById("right-contacts-page-column");
+  rightColumn.innerHTML = "";
+  const userDetails = document.createElement("div");
+  userDetails.className = "user-details";
+  userDetails.innerHTML = `
+    <h2>${userData.name}</h2>
+    <p>Email: ${userData.email}</p>
+    <p>Phone: ${userData.phone}</p>
+  `;
+  rightColumn.appendChild(userDetails);
+}
+
 function updateContactDetails(name, email, phone, paramKey, users) {
   contactDetailsAreaTemplate(paramKey, users);
   hideContactOptionsForMobile();
@@ -274,5 +300,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function closeEditOverlay() {
   let container = document.getElementById('outer-edit-contact-overlay');
-  container.classList.add('display-none-overlay')
+  container.classList.add('display-none-overlay');
+}
+
+function closeAddContactOverlay() {
+  let container = document.getElementById('outer-add-contact-overlay');
+  container.classList.add('display-none-overlay');
 }
