@@ -45,7 +45,7 @@ function contactDetailsAreaTemplate(paramKey, users) {
                         class="option-icon"
                         src="/assets/icons/edit-icon.svg"
                       />
-                      Edit</a
+                      <div class="text-option-icon">Edit</div></a
                     >
                     <a
                       id="contact-to-trash"
@@ -55,7 +55,7 @@ function contactDetailsAreaTemplate(paramKey, users) {
                         class="option-icon"
                         src="/assets/icons/trash-icon.svg"
                       />
-                      Delete</a
+                      <div class="text-option-icon">Delete</div></a
                     >
                   </div>
                 </div>

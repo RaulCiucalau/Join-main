@@ -1,10 +1,18 @@
+/** Base URL for Firebase database */
 const BASE_URL = "https://join-460-default-rtdb.europe-west1.firebasedatabase.app/";
+/** Firebase path for user contacts */
 const USERS_PATH = "contacts/";
 
+/**
+ * Constructs the full URL to access user data in Firebase.
+ * @param {string} [key=""] - Optional key for a specific user.
+ * @returns {string} The full Firebase URL.
+ */
 function getUserUrl(key = "") {
   return `${BASE_URL}${USERS_PATH}${key ? key + ".json" : ".json"}`;
 }
 
+// DOM elements and global variables
 let leftContactsList = document.getElementById("left-contact-list");
 let firebaseAnswer;
 let fireBase;
@@ -13,11 +21,15 @@ let user;
 let contactDetailsArea;
 let key;
 
+/** Array of predefined colors for user avatars */
 let colours = [
   "#FF7A00", "#9327FF", "#6E52FF", "#FC71FF", "#FFBB2B",
   "#1FD7C1", "#462F8A", "#FF4646", "#00BEE8", "#FF7A00",
 ];
 
+/**
+ * Fetches user contacts from Firebase and renders them.
+ */
 async function contactFirebase() {
   let firebaseUrl = await fetch(getUserUrl());
   firebaseAnswer = await firebaseUrl.json();
@@ -35,6 +47,9 @@ async function contactFirebase() {
   renderLeftColumnContacts();
 }
 
+/**
+ * Initializes the application.
+ */
 function init() {
   console.log("Init läuft!");
   contactFirebase();
@@ -42,6 +57,9 @@ function init() {
   checkOrientation();
 }
 
+/**
+ * Renders the left column of contact list grouped by initials.
+ */
 function renderLeftColumnContacts() {
   leftContactsList.innerHTML = "";
   users = fireBase.users;
@@ -65,7 +83,11 @@ function renderLeftColumnContacts() {
   });
 }
 
-
+/**
+ * Returns HTML template for a contact initial section.
+ * @param {string} initial - First letter of a contact group.
+ * @returns {string} HTML string.
+ */
 function renderLeftColumnContactsInitalsTemplate(initial) {
   return `
         <div class="contact-separator">
@@ -74,6 +96,12 @@ function renderLeftColumnContactsInitalsTemplate(initial) {
         </div>`;
 }
 
+/**
+ * Handles rendering and style setup for a single contact.
+ * @param {object} user - User data object.
+ * @param {number} indexOfUser - Index of the user.
+ * @param {string} keyObj - Firebase key of the user.
+ */
 function renderLeftColumnPartTwo(user, indexOfUser, keyObj) {
   renderLeftColumnContactsTemplate(user, indexOfUser, keyObj);
   createContactNameInitials(user, indexOfUser);
@@ -83,6 +111,11 @@ function renderLeftColumnPartTwo(user, indexOfUser, keyObj) {
   }
 }
 
+/**
+ * Creates user initials and sets them in the avatar.
+ * @param {object} user - User data object.
+ * @param {number} indexOfUser - Index of the user.
+ */
 function createContactNameInitials(user, indexOfUser) {
   let userName = user.name;
   let userImage = document.getElementById(`user-icon${indexOfUser}`);
@@ -93,11 +126,18 @@ function createContactNameInitials(user, indexOfUser) {
   userImage.classList.add("user-initials");
 }
 
+/**
+ * Hides the right contact details area on load.
+ */
 function rightContactDetailsHideOnLoad() {
   contactDetailsArea = document.getElementById("contact-details-area");
   contactDetailsArea.classList.add("hide");
 }
 
+/**
+ * Sets the large initials for the detailed contact view.
+ * @param {object} user - User data object.
+ */
 function createBigContactNameInitials(user) {
   let userName = user.name;
   let firstLetter = userName.charAt(0);
@@ -106,6 +146,9 @@ function createBigContactNameInitials(user) {
   bigCredentialsArea.innerHTML = secondLetter ? `${firstLetter}${secondLetter}` : `${firstLetter}`;
 }
 
+/**
+ * Shows only the left contact list and hides right column (responsive).
+ */
 function hideContactDetails(users) {
   let rightColumn = document.getElementById("right-contacts-page-column");
   let leftColumn = document.getElementById("left-contacts-page-column");
@@ -113,6 +156,9 @@ function hideContactDetails(users) {
   leftColumn.style.display = "block";
 }
 
+/**
+ * Adds event listeners to make selected contact active.
+ */
 function makeLeftContactActive() {
   const contactListItems = document.querySelectorAll(".contact-list");
   contactListItems.forEach((item) => {
@@ -123,6 +169,9 @@ function makeLeftContactActive() {
   });
 }
 
+/**
+ * Renders the right contact details pane.
+ */
 function renderRightContactArea(name, email, phone, paramKey, users) {
   let overlayButton = document.getElementById("overlayButton");
   if (overlayButton) overlayButton.style.display = "block";
@@ -132,6 +181,9 @@ function renderRightContactArea(name, email, phone, paramKey, users) {
   updateUserDetails(paramKey, users);
 }
 
+/**
+ * Handles responsive behavior when viewing contact details.
+ */
 function handleResponsiveView(paramKey, users) {
   if (window.innerWidth < 1250) {
     let rightColumn = document.getElementById("right-contacts-page-column");
@@ -147,6 +199,12 @@ function handleResponsiveView(paramKey, users) {
   }
 }
 
+/**
+ * Finds a user by their key.
+ * @param {string} paramKey - Firebase key.
+ * @param {object[]} users - Users object.
+ * @returns {object|null} The matching user or null.
+ */
 function findUserByKey(paramKey, users) {
   const stringKey = JSON.stringify(paramKey);
   for (let i = 0; i < users.length; i++) {
@@ -157,6 +215,9 @@ function findUserByKey(paramKey, users) {
   return null;
 }
 
+/**
+ * Renders overlay content for responsive user detail view.
+ */
 function handleOverlayButton(paramKey, users) {
   const matchedUser = findUserByKey(paramKey, users);
   if (!matchedUser) return;
@@ -173,9 +234,11 @@ function handleOverlayButton(paramKey, users) {
   rightColumn.appendChild(userDetails);
 }
 
+/**
+ * Updates the contact detail fields with new data.
+ */
 function updateContactDetails(name, email, phone, paramKey, users) {
   contactDetailsAreaTemplate(paramKey, users);
-  hideContactOptionsForMobile();
   document.getElementById("big-user-name").innerText = name;
   let rightEmailArea = document.getElementById("user-email");
   rightEmailArea.innerHTML = `${email}<br>`;
@@ -187,12 +250,18 @@ function updateContactDetails(name, email, phone, paramKey, users) {
     editContact(paramKey, users);
 }
 
+/**
+ * Updates user detail styles and initials for large view.
+ */
 function updateUserDetails(paramKey, users) {
   let user = users[paramKey];
   createBigContactNameInitials(user);
   bigRandomColour(user);
 }
 
+/**
+ * Deletes a contact from Firebase and re-renders the contact list.
+ */
 async function deleteContactFromDatabase(key, users) {
   let deleteUrl = getUserUrl(key);
   try {
@@ -203,21 +272,33 @@ async function deleteContactFromDatabase(key, users) {
   } catch (error) {
     console.error("Error deleting contact:", error);
   }
-renderLeftColumnContacts();
+  renderLeftColumnContacts();
 }
 
+/**
+ * Triggers the contact edit overlay.
+ */
 function editContact(paramKey, users) {
   editContactOverlay(paramKey, users);
 }
 
+/**
+ * Stops event propagation.
+ */
 function stopPropagation(event) {
   event.stopPropagation();
 }
 
+/**
+ * Displays the user's phone number in the UI.
+ */
 function displayPhoneNumber(user) {
   document.getElementById("user-phone-number").innerText = user.phone;
 }
 
+/**
+ * Applies saved colors to user avatar icons.
+ */
 function applyRandomColors() {
   let userPictures = document.getElementsByClassName("user-initials user-icon");
   Array.from(userPictures).forEach((element, index) => {
@@ -227,6 +308,9 @@ function applyRandomColors() {
   });
 }
 
+/**
+ * Applies background color to the large initials avatar.
+ */
 function bigRandomColour(user) {
   let bigInitialsArea = document.getElementById("user-picture-big-index");
   if (bigInitialsArea && user.color) {
@@ -234,15 +318,9 @@ function bigRandomColour(user) {
   }
 }
 
-function hideContactOptionsForMobile() {
-  let userNameOptions = document.getElementById("user-name-options");
-  if (window.innerWidth < 1250) {
-    userNameOptions.style.display = "none";
-  }
-}
-
-
-
+/**
+ * Saves changes to an edited contact in Firebase.
+ */
 async function saveEditedContact(key) {
   let name = document.getElementById("fullName").value;
   let email = document.getElementById("new-email").value;
@@ -261,8 +339,10 @@ async function saveEditedContact(key) {
   renderRightContactArea(name, email, phone, key, users);
 }
 
-async function addNewContactToDatabase(name, email, phone)
-{
+/**
+ * Adds a new contact to Firebase.
+ */
+async function addNewContactToDatabase(name, email, phone) {
   const randomColor = colours[Math.floor(Math.random() * colours.length)];
   const initials = name
     .trim()
@@ -270,8 +350,7 @@ async function addNewContactToDatabase(name, email, phone)
     .map(word => word[0].toUpperCase())
     .join('');
 
-  const newContact = 
-  {
+  const newContact = {
     name: name.trim(),
     e_mail: email.trim(),
     phone: phone.trim(),
@@ -279,30 +358,36 @@ async function addNewContactToDatabase(name, email, phone)
     avatar: initials
   };
 
- try {
+  try {
     await fetch(getUserUrl(), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newContact),
     });
 
-    
-    closeOverlay();               // Overlay schließen
-    contactFirebase();                      // Kontakte neu laden
+    closeOverlay();
+    contactFirebase();
   } catch (error) {
     console.error("Fehler beim Speichern in Firebase:", error);
   }
 }
 
+// Initial load event
 document.addEventListener('DOMContentLoaded', () => {
   init();
 });
 
+/**
+ * Closes the edit contact overlay.
+ */
 function closeEditOverlay() {
   let container = document.getElementById('outer-edit-contact-overlay');
   container.classList.add('display-none-overlay');
 }
 
+/**
+ * Closes the add contact overlay.
+ */
 function closeAddContactOverlay() {
   let container = document.getElementById('outer-add-contact-overlay');
   container.classList.add('display-none-overlay');
