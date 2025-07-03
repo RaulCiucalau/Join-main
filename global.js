@@ -10,7 +10,7 @@ window.BASE_URL = "https://join-460-default-rtdb.europe-west1.firebasedatabase.a
  * Holt den Avatar des eingeloggten Users aus der DB und zeigt ihn im Header.
  */
 async function loadAvatarForHeader() {
-  const loginInfo = loadLoginInfo("whoIsLoggedIn");
+  const loginInfo = loadLoginInfo("whoIsLoggedIn")
   if (!loginInfo || !loginInfo.userLoggedIn || !loginInfo.userLoggedIn.email) {
     document.getElementById("initialLetter").innerText = "?";
     return;
