@@ -130,6 +130,10 @@
 }
 
 @media (max-width: 800px) {
+  .header-content-wrapper {
+    padding-inline: 0;
+  }
+
   .add-task-content {
     margin: 0px;
     padding-left: 60px;

@@ -32,6 +32,10 @@
     .vector-vertikal {
         display: block;
     }
+
+    .header-content-wrapper {
+        padding: 0 !important;
+    }
 }
 
 @media (max-width: 1150px) {

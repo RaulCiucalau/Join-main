@@ -11,7 +11,7 @@
         width: 226px;
     }
 
-    .content {
+    .content-board {
         padding-inline: 52px;
     }
 
@@ -56,9 +56,13 @@
 }
 
 @media (max-width: 1035px) {
-    .content {
+    .header-content-wrapper {
+        padding-inline: 0;
+    }
+    .content-board {
         margin-left: 0;
         margin-bottom: 100px;
+        padding-inline: 40px;
     }
 
     .menu-btns {
@@ -71,7 +75,7 @@
 }
 
 @media (max-width: 811px) {
-    .content {
+    .content-board {
         padding-inline: 16px;
     }
 

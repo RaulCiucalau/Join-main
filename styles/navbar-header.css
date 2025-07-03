@@ -56,6 +56,7 @@
   align-items: center;
   gap: 8px;
 }
+
 .frame-22-btns {
   width: 121px;
   height: 35px;
@@ -89,6 +90,7 @@
   padding: 10px;
   color: #cdcdcd;
 }
+
 .subMenu-btns:hover {
   cursor: pointer;
   background-color: #2a3d59;
@@ -118,13 +120,18 @@
 /* Header  */
 
 .header-general {
+  height: 96px;
+  background-color: white;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.header-content-wrapper {
+  max-width: 1920px;
   display: flex;
   justify-content: space-between;
-  height: 96px;
-  width: 100%;
-  padding: 20px 40px 20px 348px;
   align-items: center;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  padding: 20px 10px 20px 300px;
 }
 
 .header-icon {
@@ -169,10 +176,6 @@
 }
 
 @media (max-width: 800px) {
-  header {
-    padding-left: 40px !important;
-  }
-
   .header-p {
     display: none;
   }

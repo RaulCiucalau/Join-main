@@ -62,7 +62,7 @@ function showSubMenuLoggedIn() {
                       <a href="/legal_notice.html"><div class="subMenu-btns">Legal Notice</div></a>
                       <div onclick="logOut()" class="subMenu-btns">Log Out</div>`;
   } else {
-    document.getElementById("subMenu").classList.add("dp-none");
+    closeSubMenu();
   }
 }
 
@@ -70,9 +70,14 @@ function showSubMenuLoggedIn() {
  * Closes the logged-in submenu if it is visible.
  */
 function closeSubMenu() {
-  if (!document.getElementById("subMenu").classList.contains("dp-none")) {
-    document.getElementById("subMenu").classList.add("dp-none");
-  }
+  const subMenu = document.getElementById("subMenu");
+  if (subMenu.classList.contains("dp-none")) return;
+  subMenu.classList.add("slide-out");
+  subMenu.addEventListener("animationend", function handleAnimationEnd() {
+    subMenu.classList.remove("slide-out");
+    subMenu.classList.add("dp-none");
+    subMenu.removeEventListener("animationend", handleAnimationEnd);
+  });
 }
 
 async function logOut() {

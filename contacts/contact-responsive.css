@@ -1,4 +1,8 @@
 @media (max-width: 1035px) {
+  .header-content-wrapper {
+    padding: 0 !important;
+  }
+
   .success-notifications {
     margin-left: 10px;
     margin-right: 10px;

@@ -85,7 +85,42 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  transform: translateX(150px);
+  animation: slide-in 0.25s forwards;
+  z-index: 1000;
+  opacity: 0;
 }
+
+@keyframes slide-in {
+  from {
+    transform: translateX(150px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+body {
+  overflow-x: hidden;
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(150px);
+    opacity: 0;
+  }
+}
+
+.subMenu.slide-out {
+  animation: slide-out 0.25s;
+}
+
 
 .subMenu-btns {
   padding: 10px;
@@ -101,33 +136,21 @@
   display: none;
 }
 
-.subMenu {
-  animation-duration: 0.25s;
-  animation-name: slide-in;
-}
-
-@keyframes slide-in {
-  from {
-    top: 110px;
-    right: -280px;
-  }
-
-  to {
-    top: 110px;
-    right: 40px;
-  }
-}
-
 /* Header  */
 
 .header-general {
+  height: 96px;
+  background-color: white;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.header-content-wrapper {
+  max-width: 1920px;
   display: flex;
   justify-content: space-between;
-  height: 96px;
-  width: 100%;
-  padding: 20px 40px 20px 348px;
   align-items: center;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  padding: 20px 10px 20px 300px;
 }
 
 .header-icon {
@@ -160,7 +183,8 @@
 .help-icon {
   width: 20px;
   height: 20px;
-  transition: all 125ms ease-in-out;;
+  transition: all 125ms ease-in-out;
+  ;
 }
 
 .help-icon:hover {
@@ -242,7 +266,7 @@
   }
 
   .menu-btns {
-        width: 70px;
-        height: 70px;
-    }
+    width: 70px;
+    height: 70px;
+  }
 }
