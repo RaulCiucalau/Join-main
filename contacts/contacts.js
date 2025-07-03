@@ -33,7 +33,7 @@ let colours = [
 async function contactFirebase() {
   let firebaseUrl = await fetch(getUserUrl());
   firebaseAnswer = await firebaseUrl.json();
-  console.log("Firebase Antwort:", firebaseAnswer);
+
 
   if (!firebaseAnswer) {
     fireBase = { users: {} };
@@ -51,7 +51,7 @@ async function contactFirebase() {
  * Initializes the application.
  */
 function init() {
-  console.log("Init läuft!");
+  
   contactFirebase();
   rightContactDetailsHideOnLoad();
   checkOrientation();
@@ -322,9 +322,45 @@ function bigRandomColour(user) {
  * Saves changes to an edited contact in Firebase.
  */
 async function saveEditedContact(key) {
-  let name = document.getElementById("fullName").value;
-  let email = document.getElementById("new-email").value;
-  let phone = document.getElementById("new-phone").value;
+  const nameInput = document.getElementById("fullName");
+  const emailInput = document.getElementById("new-email");
+  const phoneInput = document.getElementById("new-phone");
+
+  const nameError = nameInput.nextElementSibling.nextElementSibling;
+  const emailError = emailInput.nextElementSibling.nextElementSibling;
+  const phoneError = phoneInput.nextElementSibling.nextElementSibling;
+
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim();
+  const phone = phoneInput.value.trim();
+
+  let valid = true;
+
+  // Fehler zurücksetzen
+  nameError.innerText = "";
+  emailError.innerText = "";
+  phoneError.innerText = "";
+
+  // Name darf keine Zahlen enthalten
+  if (/\d/.test(name)) {
+    nameError.innerText = "Name darf keine Zahlen enthalten.";
+    valid = false;
+  }
+
+  // E-Mail muss gültig sein
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    emailError.innerText = "Ungültige E-Mail-Adresse.";
+    valid = false;
+  }
+
+  // Telefonnummer darf nur Ziffern enthalten
+  if (!/^\d+$/.test(phone)) {
+    phoneError.innerText = "Telefonnummer darf nur Zahlen enthalten.";
+    valid = false;
+  }
+
+  if (!valid) return;
+
   try {
     await fetch(getUserUrl(key), {
       method: "PATCH",
@@ -333,11 +369,13 @@ async function saveEditedContact(key) {
     });
     closeEditOverlay();
     contactFirebase();
+    renderRightContactArea(name, email, phone, key, users);
   } catch (error) {
     console.error("Error updating contact:", error);
   }
-  renderRightContactArea(name, email, phone, key, users);
 }
+
+
 
 /**
  * Adds a new contact to Firebase.
@@ -371,6 +409,13 @@ async function addNewContactToDatabase(name, email, phone) {
     console.error("Fehler beim Speichern in Firebase:", error);
   }
 }
+function closeContactList() {
+  const detailContainer = document.getElementById("contact-details");
+  if (detailContainer) {
+    detailContainer.classList.add("dp-none");
+  }
+}
+
 
 // Initial load event
 document.addEventListener('DOMContentLoaded', () => {
