@@ -3,172 +3,124 @@
 @media (max-width: 1000px) {
   .signup-window {
     gap: 20px;
-    width: 90%;
   }
+
   .signup-inputs {
     gap: 10px;
   }
+
   .signup-inputs input {
     width: 380px;
     font-size: 16px;
   }
+
   .name-img {
     top: 15px;
     right: 15px;
   }
+
   .pw-img {
     right: 15px;
     top: 155px;
   }
+
   .confirm-pw-img {
     right: 15px;
     top: 225px;
   }
+
   .mail-img {
     right: 15px;
     top: 84px;
   }
+
   .join-header-logo {
     width: 90px;
     height: 90px;
   }
+
   .signup-separator {
     width: 127px;
   }
+
   .sign-up-title {
     font-size: 50px;
   }
+
   .go-back-arrow {
     top: 15px;
     left: -120px;
   }
 }
 
+
 @media (max-width: 900px) {
   .signup-window {
-    width: 500px;
     gap: 10px;
-    width: 85%;
   }
-  .signup-inputs input {
-    width: 330px;
-    font-size: 16px;
-  }
-  .join-header-logo {
-    width: 75px;
-    height: 75px;
-  }
-  h1 {
-    font-size: 45px;
-  }
-  .go-back-arrow {
-    top: 10px;
-    left: -100px;
-    width: 34px;
-    height: 34px;
-  }
-  .signup-inputs input {
-    width: 320px;
-    height: 40px;
-    font-size: 16px;
-  }
-  .signup-separator {
-    width: 107px;
-  }
-  .name-img {
-    top: 10px;
-    right: 15px;
-  }
-  .mail-img {
-    right: 15px;
-    top: 80px;
-  }
-  .pw-img {
-    right: 15px;
-    top: 150px;
-  }
-  .confirm-pw-img {
-    right: 15px;
-    top: 220px;
-  }
-  .disable {
-    width: 120px;
-    height: 40px;
-    font-size: 16px;
-  }
-  .checkbox {
-    width: 20px;
-    height: 20px;
-  }
-  .accept-pp p,
-  .footer-btn {
-    font-size: 16px;
-  }
-  .accept-pp {
-    align-items: flex-end;
-  }
-  .signup-input-imgs {
-    width: 20px;
-    height: 20px;
-  }
-}
 
-@media (max-width: 700px) {
-  .signup-window {
-    gap: 10px;
-    width: 80%;
-  }
   .content {
     justify-content: center;
     gap: 10px;
   }
+
   .main {
     margin-top: 140px;
+    padding-inline: 10px;
   }
+
   .join-header-logo {
     width: 70px;
     height: 70px;
     top: 30px;
     left: 40px;
   }
+
   .sign-up-title {
     font-size: 40px;
   }
+
   .signup-separator {
     width: 87px;
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 544px) {
   .signup-window {
     gap: 10px;
-    width: 75%;
+    width: 100%;
   }
+
   .signup-inputs input {
     width: 270px;
     height: 37px;
     font-size: 16px;
   }
+
   .disable {
     padding: 18px;
     width: 100px;
     height: 30px;
     font-size: 16px;
   }
+
   .checkbox {
     width: 18px;
     height: 18px;
   }
+
   .accept-pp p,
   .footer-btn {
     font-size: 16px;
   }
+
   .go-back-arrow {
     top: 6px;
     left: -80px;
     width: 30px;
     height: 30px;
   }
+
   .signup-separator {
     width: 77px;
   }
@@ -176,42 +128,50 @@
 
 @media (max-width: 400px) {
   .signup-window {
-    width: 80%;
     padding: 30px 60px 30px 60px;
   }
+
   .signup-inputs input {
     width: 240px;
     height: 37px;
     font-size: 16px;
   }
+
   .inputfield {
     height: 60px;
   }
+
   .sign-up-title {
     font-size: 27px;
   }
+
   .disable {
     padding: 16px;
     height: 25px;
     font-size: 16px;
   }
+
   .checkbox {
     width: 16px;
     height: 16px;
   }
+
   .accept-pp p,
   .footer-btn {
     font-size: 16px;
   }
+
   .go-back-arrow {
     top: 4px;
     left: -70px;
     width: 30px;
     height: 30px;
   }
+
   .signup-separator {
     width: 62px;
   }
+
   .accept-pp {
     align-items: normal;
   }

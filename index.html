@@ -18,47 +18,46 @@
     <img src="/assets/icons/join-logo-big.svg" class="greeting-logo" />
   </div>
   <div class="content">
-    <div>
-      <img class="join-header-logo" src="/assets/icons/join-logo-blue.svg" alt="Join Logo Blue" />
-    </div>
     <header class="header-login">
-      <!-- <img src="./assets/img/join-logo-blue.svg" alt="Join Logo Blue" /> -->
+      <img class="join-header-logo" src="/assets/icons/join-logo-blue.svg" alt="Join Logo Blue" />
       <div class="header-login-signup">
         <p class="signup-1">Not a Join user?</p>
         <a href="./sign_up.html"><span class="signup-2">Sign up</span></a>
       </div>
     </header>
-    <main>
-      <div class="login-window">
-        <h1>Log in</h1>
-        <div class="login-separator"></div>
-        <div class="login-inputs">
-          <div class="login-input-email">
-            <input oninput="removeErrorMsgs('error-email', 'email');removeErrorMsgs('wrong-email', 'password');"
-              id="inputEmail" class="email" type="email" placeholder="Email" />
-            <img class="login-input-imgs mail-img" src="/assets/icons/mail.svg" alt="" />
-            <p id="error-email" class="error-msg dp-none">Please enter your email</p>
-            <p id="wrong-email" class="error-msg dp-none">Wrong email</p>
+    <div class="content-login">
+      <main>
+        <div class="login-window">
+          <h1>Log in</h1>
+          <div class="login-separator"></div>
+          <div class="login-inputs">
+            <div class="login-input-email">
+              <input oninput="removeErrorMsgs('error-email', 'email');removeErrorMsgs('wrong-email', 'password');"
+                id="inputEmail" class="email" type="email" placeholder="Email" />
+              <img class="login-input-imgs mail-img" src="/assets/icons/mail.svg" alt="" />
+              <p id="error-email" class="error-msg dp-none">Please enter your email</p>
+              <p id="wrong-email" class="error-msg dp-none">Wrong email</p>
+            </div>
+            <div class="login-input-pw">
+              <input
+                oninput="removeErrorMsgs('error-password', 'password'); removeErrorMsgs('wrong-password', 'password');"
+                id="inputPassword" class="password" type="password" placeholder="Password" />
+              <img class="login-input-imgs pw-img" src="/assets/icons/lock.svg" alt="" />
+              <p id="error-password" class="error-msg dp-none">Please enter your password</p>
+              <p id="wrong-password" class="error-msg dp-none">Wrong password</p>
+            </div>
           </div>
-          <div class="login-input-pw">
-            <input
-              oninput="removeErrorMsgs('error-password', 'password'); removeErrorMsgs('wrong-password', 'password');"
-              id="inputPassword" class="password" type="password" placeholder="Password" />
-            <img class="login-input-imgs pw-img" src="/assets/icons/lock.svg" alt="" />
-            <p id="error-password" class="error-msg dp-none">Please enter your password</p>
-            <p id="wrong-password" class="error-msg dp-none">Wrong password</p>
+          <div class="login-btns">
+            <div class="login-btn" onclick="loginUser()">Log in</div>
+            <div class="guest-login-btn" onclick="redirectToGuestView()">Guest Log in</div>
           </div>
         </div>
-        <div class="login-btns">
-          <div class="login-btn" onclick="loginUser()">Log in</div>
-          <div class="guest-login-btn" onclick="redirectToGuestView()">Guest Log in</div>
-        </div>
-      </div>
-    </main>
+      </main>
+    </div>
     <footer class="footer-login">
       <div class="footer-login-signup">
         <p class="signup-1">Not a Join user?</p>
-        <a href="./sign-up.html"><span class="signup-2">Sign up</span></a>
+        <a href="./sign_up.html"><span class="signup-2">Sign up</span></a>
       </div>
       <div class="footer-btns">
         <a href="./privacy_policy.html">
