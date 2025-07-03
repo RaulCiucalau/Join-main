@@ -381,6 +381,45 @@ async function saveEditedContact(key) {
  * Adds a new contact to Firebase.
  */
 async function addNewContactToDatabase(name, email, phone) {
+  const nameInput = document.getElementById("fullName");
+  const emailInput = document.getElementById("new-email");
+  const phoneInput = document.getElementById("new-phone");
+
+  const nameError = nameInput.nextElementSibling.nextElementSibling;
+  const emailError = emailInput.nextElementSibling.nextElementSibling;
+  const phoneError = phoneInput.nextElementSibling.nextElementSibling;
+
+  name = name.trim();
+  email = email.trim();
+  phone = phone.trim();
+
+  let valid = true;
+
+ 
+  nameError.innerText = "";
+  emailError.innerText = "";
+  phoneError.innerText = "";
+
+ 
+  if (/\d/.test(name)) {
+    nameError.innerText = "Name darf keine Zahlen enthalten.";
+    valid = false;
+  }
+
+  
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    emailError.innerText = "Ungültige E-Mail-Adresse.";
+    valid = false;
+  }
+
+  
+  if (!/^\d+$/.test(phone)) {
+    phoneError.innerText = "Telefonnummer darf nur Zahlen enthalten.";
+    valid = false;
+  }
+
+  if (!valid) return;
+
   const randomColor = colours[Math.floor(Math.random() * colours.length)];
   const initials = name
     .trim()
@@ -389,9 +428,9 @@ async function addNewContactToDatabase(name, email, phone) {
     .join('');
 
   const newContact = {
-    name: name.trim(),
-    e_mail: email.trim(),
-    phone: phone.trim(),
+    name: name,
+    e_mail: email,
+    phone: phone,
     color: randomColor,
     avatar: initials
   };
@@ -403,12 +442,13 @@ async function addNewContactToDatabase(name, email, phone) {
       body: JSON.stringify(newContact),
     });
 
-    closeOverlay();
+    closeAddContactOverlay();
     contactFirebase();
   } catch (error) {
     console.error("Fehler beim Speichern in Firebase:", error);
   }
 }
+
 function closeContactList() {
   const detailContainer = document.getElementById("contact-details");
   if (detailContainer) {
