@@ -49,16 +49,13 @@ let usersArr = [];
 const BASE_URL = "https://join-460-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function initSecond() {
-  console.log("init gestartet");
   await getUsersFromDatabase();
-  console.log("Users geladen:", usersArr);
   loadLoginInfo("whoIsLoggedIn");
   putLoginInfoLocally("whoIsLoggedIn", { isGuestLoggedIn: false, userLoggedIn: { name: "", avatar: "" } });
 }
 
 async function getUsersFromDatabase() {
   let userResponse = await getAllUsers("user");
-  console.log("userResponse:", userResponse);
   let UserKeysArray = Object.keys(userResponse || {});
   for (let index = 0; index < UserKeysArray.length; index++) {
     usersArr.push({
@@ -66,7 +63,6 @@ async function getUsersFromDatabase() {
       user: userResponse[UserKeysArray[index]],
     });
   }
-  console.log("usersArr:", usersArr);
 }
 
 async function getAllUsers(path) {

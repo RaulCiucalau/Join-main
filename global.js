@@ -10,36 +10,24 @@ window.BASE_URL = "https://join-460-default-rtdb.europe-west1.firebasedatabase.a
  * Holt den Avatar des eingeloggten Users aus der DB und zeigt ihn im Header.
  */
 async function loadAvatarForHeader() {
-  console.log("🔎 Starte Avatar-Ladefunktion...");
-
   const loginInfo = loadLoginInfo("whoIsLoggedIn");
-  console.log("📦 loginInfo:", loginInfo);
-
   if (!loginInfo || !loginInfo.userLoggedIn || !loginInfo.userLoggedIn.email) {
-    console.warn("⚠️ Kein eingeloggter Nutzer gefunden.");
     document.getElementById("initialLetter").innerText = "?";
     return;
   }
-
   const email = loginInfo.userLoggedIn.email;
-
   try {
     const response = await fetch(`${BASE_URL}user.json`);
     const data = await response.json();
-    console.log("🌐 Daten aus DB:", data);
-
     const user = Object.values(data).find(
       (userObj) => userObj.email.toLowerCase() === email.toLowerCase()
     );
 
     if (user && user.avatar) {
-      console.log("✅ Avatar gefunden:", user.avatar);
       document.getElementById("initialLetter").innerText = user.avatar;
     } else if (user && user.name) {
-      console.log("🟨 Kein Avatar in DB, nutze 1. Buchstaben:", user.name[0].toUpperCase());
       document.getElementById("initialLetter").innerText = user.name[0].toUpperCase();
     } else {
-      console.warn("❌ Nutzer nicht gefunden oder ohne Avatar/Name.");
       document.getElementById("initialLetter").innerText = "?";
     }
 
