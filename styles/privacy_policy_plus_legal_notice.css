@@ -60,13 +60,31 @@ ul {
     font-size: 20px;
 }
 
+
+
 @media (max-width: 1418px) {
+    .header-content-wrapper {
+        padding: 20px 10px 20px 248px !important;
+    }
+
     .content {
         padding-inline: 52px;
     }
 }
 
 @media (max-width: 1035px) {
+    .header-general {
+        padding: 20px 40px 20px 52px !important;
+    }
+
+    .header-p {
+        display: block !important;
+    }
+
+    .header-content-wrapper {
+        padding: 0 !important;
+    }
+
     .content {
         margin-left: 0;
         margin-bottom: 100px;
@@ -75,6 +93,14 @@ ul {
 }
 
 @media (max-width: 811px) {
+    .header-general {
+        padding: 20px 16px 20px 16px !important;
+    }
+
+    .header-p {
+        font-size: 14px;
+    }
+
     .content {
         padding-inline: 16px;
     }
