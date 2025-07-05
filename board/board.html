@@ -99,15 +99,16 @@
                         <div class="select-priority frame-39">
                             <label for="priority">Priority</label>
                             <div class="priority-btns width-input">
-                                <div style="background-color: rgb(255, 168, 0); color: white;" class="priority-btn" id="prio-btn-urgent" onclick="togglePrio('urgent')">
+                                <div class="priority-btn" id="prio-btn-urgent" onclick="togglePrio('urgent')">
                                     <p>Urgent</p>
                                     <img id="prio-img-urgent" class="priority-img"
                                         src="../assets/icons/priority-urgent.svg" alt="Priority Urgent" />
                                 </div>
-                                <div class="priority-btn" id="prio-btn-medium" onclick="togglePrio('medium')">
+                                <div style="background-color: rgb(255, 168, 0); color: white;" class="priority-btn"
+                                    id="prio-btn-medium" onclick="togglePrio('medium')">
                                     <p>Medium</p>
                                     <img id="prio-img-medium" class="priority-img"
-                                        src="../assets/icons/priority-medium.svg" alt="Priority Medium" />
+                                        src="../assets/icons/priority-medium-white.svg" alt="Priority Medium" />
                                 </div>
                                 <div class="priority-btn" id="prio-btn-low" onclick="togglePrio('low')">
                                     <p>Low</p>
@@ -191,77 +192,79 @@
         </div>
     </div>
     <div class="content-board">
-        <div class="board-header-container">
-            <div class="board-title-container">
-                <h1>Board</h1>
-                <img class="plus-add-mobile-board d-none" onclick="redirectToAddTask()" id="addTaskBtn"
-                    src="../assets/img/board_icons/plus_add_task_mobile.svg" alt="">
+        <div class="content-board-wrapper">
+            <div class="board-header-container">
+                <div class="board-title-container">
+                    <h1>Board</h1>
+                    <img class="plus-add-mobile-board d-none" onclick="redirectToAddTask()" id="addTaskBtn"
+                        src="../assets/img/board_icons/plus_add_task_mobile.svg" alt="">
+                </div>
+                <div class="board-header-btn-input">
+                    <div class="board_header_input">
+                        <input id="findTaskInput" onkeyup="searchTasks()" class="find-task-input" type="text"
+                            placeholder="Find Task">
+                        <div class="board_separator_header_input"></div>
+                        <div class="search_container">
+                            <button class="search_icon_btn">
+                                <img class="search_icon" src="../assets/img/board_icons/search.svg" alt="Search">
+                            </button>
+                        </div>
+                    </div>
+                    <button onclick="openAddTaskDialog()" id="addTaskBtn" class="add_task_header_btn">
+                        <p>Add Task</p>
+                        <img src="../assets/img/board_icons/add.svg" alt="Add">
+                    </button>
+                </div>
             </div>
-            <div class="board-header-btn-input">
-                <div class="board_header_input">
-                    <input id="findTaskInput" onkeyup="searchTasks()" class="find-task-input" type="text"
-                        placeholder="Find Task">
-                    <div class="board_separator_header_input"></div>
-                    <div class="search_container">
-                        <button class="search_icon_btn">
-                            <img class="search_icon" src="../assets/img/board_icons/search.svg" alt="Search">
-                        </button>
+            <div class="columns-items">
+                <div class="status_container">
+                    <div class="status_title">
+                        <h2>To do</h2>
+                        <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg"
+                            alt="Plus Button">
+                    </div>
+                    <div id="statusToDo" ondrop="moveTo(event, 'ToDo')" ondragover="allowDrop(event)"
+                        ondragleave="removeHighlight(event)" class="status-content">
+                        <div class="task-card">
+                            <div class="empty-task dashed-border">No tasks to do</div>
+                        </div>
                     </div>
                 </div>
-                <button onclick="openAddTaskDialog()" id="addTaskBtn" class="add_task_header_btn">
-                    <p>Add Task</p>
-                    <img src="../assets/img/board_icons/add.svg" alt="Add">
-                </button>
-            </div>
-        </div>
-        <div class="columns-items">
-            <div class="status_container">
-                <div class="status_title">
-                    <h2>To do</h2>
-                    <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg"
-                        alt="Plus Button">
-                </div>
-                <div id="statusToDo" ondrop="moveTo(event, 'ToDo')" ondragover="allowDrop(event)"
-                    ondragleave="removeHighlight(event)" class="status-content">
-                    <div class="task-card">
-                        <div class="empty-task dashed-border">No tasks to do</div>
+                <div class="status_container">
+                    <div class="status_title">
+                        <h2>In progress</h2>
+                        <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg"
+                            alt="Plus Button">
+                    </div>
+                    <div id="statusInProgress" ondrop="moveTo(event, 'InProgress')" ondragover="allowDrop(event)"
+                        ondragleave="removeHighlight(event)" class="status-content">
+                        <div class="task-card">
+                            <div class="empty-task dashed-border">No tasks in progress</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="status_container">
-                <div class="status_title">
-                    <h2>In progress</h2>
-                    <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg"
-                        alt="Plus Button">
-                </div>
-                <div id="statusInProgress" ondrop="moveTo(event, 'InProgress')" ondragover="allowDrop(event)"
-                    ondragleave="removeHighlight(event)" class="status-content">
-                    <div class="task-card">
-                        <div class="empty-task dashed-border">No tasks in progress</div>
+                <div class="status_container">
+                    <div class="status_title">
+                        <h2>Await feedback</h2>
+                        <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg"
+                            alt="Plus Button">
+                    </div>
+                    <div id="statusAwaitFeedback" ondrop="moveTo(event, 'AwaitFeedback')" ondragover="allowDrop(event)"
+                        ondragleave="removeHighlight(event)" class="status-content">
+                        <div class="task-card">
+                            <div class="empty-task dashed-border">No tasks awaiting feedback</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="status_container">
-                <div class="status_title">
-                    <h2>Await feedback</h2>
-                    <img onclick="openAddTaskDialog()" src="../assets/img/board_icons/plus_button.svg"
-                        alt="Plus Button">
-                </div>
-                <div id="statusAwaitFeedback" ondrop="moveTo(event, 'AwaitFeedback')" ondragover="allowDrop(event)"
-                    ondragleave="removeHighlight(event)" class="status-content">
-                    <div class="task-card">
-                        <div class="empty-task dashed-border">No tasks awaiting feedback</div>
+                <div class="status_container">
+                    <div class="status_title">
+                        <h2>Done</h2>
                     </div>
-                </div>
-            </div>
-            <div class="status_container">
-                <div class="status_title">
-                    <h2>Done</h2>
-                </div>
-                <div id="statusDone" ondrop="moveTo(event, 'Done')" ondragover="allowDrop(event)"
-                    ondragleave="removeHighlight(event)" class="status-content">
-                    <div class="task-card">
-                        <div class="empty-task dashed-border">No tasks done</div>
+                    <div id="statusDone" ondrop="moveTo(event, 'Done')" ondragover="allowDrop(event)"
+                        ondragleave="removeHighlight(event)" class="status-content">
+                        <div class="task-card">
+                            <div class="empty-task dashed-border">No tasks done</div>
+                        </div>
                     </div>
                 </div>
             </div>
