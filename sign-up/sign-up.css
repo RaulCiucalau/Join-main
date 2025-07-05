@@ -81,6 +81,8 @@ button {
 
 .inputfield {
   height: 60px;
+  display: flex;
+  align-items: center;
 }
 
 .inputfield input::placeholder {
@@ -167,27 +169,22 @@ button {
 }
 
 .name-img {
-  top: 15px;
   right: 10px;
 }
 
 .pw-img {
   right: 10px;
-  top: 173px;
 }
 
 .confirm-pw-img {
   right: 10px;
-  top: 253px;
 }
 
 .mail-img {
   right: 10px;
-  top: 93px;
 }
 
 .error-msg {
-
   font-size: 16px;
   color: red;
 }

@@ -47,17 +47,14 @@
           <div class="inputfield">
             <input oninput="removeErrorMsgs('error-pw', 'password')" id="password" class="password" type="password"
               placeholder="Password" />
-
             <img class="signup-input-imgs pw-img" src="./assets/icons/lock.svg" alt="" />
             <p id="error-pw" class="error-msg dp-none">Please enter a password</p>
           </div>
           <div class="inputfield">
             <input oninput="removeErrorMsgs('error-confirm-pw', 'confirm-password')" id="confirm-password"
               class="password" type="password" placeholder="Confirm Password" />
-            <div>
-              <img class="signup-input-imgs confirm-pw-img" src="./assets/icons/lock.svg" alt="" />
-              <p id="error-confirm-pw" class="error-msg dp-none">Your passwords don`t match. Please try again</p>
-            </div>
+            <img class="signup-input-imgs confirm-pw-img" src="./assets/icons/lock.svg" alt="" />
+            <p id="error-confirm-pw" class="error-msg dp-none">Your passwords don`t match. Please try again</p>
           </div>
           <div class="accept-pp">
             <img id="checkbox" class="checkbox" src="./assets/icons/btn-unchecked.svg" alt="Checkbox image"
