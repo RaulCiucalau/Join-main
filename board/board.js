@@ -32,9 +32,21 @@ async function init() {
     await onloadFunc();
     includeHTML();
     renderCards(tasks);
+    hideProgressBarsForTasksWithoutSubtasks(tasks)
     renderBigTaskDialog(tasks);
     renderEditTaskDialog(tasks);
     checkOrientation();
+}
+
+function hideProgressBarsForTasksWithoutSubtasks(tasks) {
+  tasks.forEach(task => {
+    const progressBar = document.getElementById(`progressBarContainer-${task.id}`);
+    if (!task.subtasks || Object.keys(task.subtasks).length === 0) {
+      if (progressBar) {
+        progressBar.style.display = 'none';
+      }
+    }
+  });
 }
 
 /**

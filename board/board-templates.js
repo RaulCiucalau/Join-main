@@ -7,7 +7,7 @@ function getCardsTemplate(task) {
                 <p class="typography-card-title">${task.title}</p>
                 <p class="typography-card-subtitle">${task.description}</p>
             </div>
-            <div class="progress-container">
+            <div id="progressBarContainer-${task.id}" class="progress-container">
                 <div class="progress-bar-container">
                     <div id="progressBar-${task.id}" class="progress-bar" style="width: ${getProgressPercentage(task.subtasks)}%;"></div>
                 </div>
