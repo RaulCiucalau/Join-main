@@ -172,10 +172,8 @@ async function addTaskToDatabase(id, task) {
 function clearTaskForm() {
   subtasks = [];
   clearInputs();
-  changeSubtaskButtons();
   unselectPrio("urgent");
   unselectPrio("low");
-  selectPrio("medium");
   selectedContacts = [];
   selectedContactsNames = [];
   removeFieldRequired();

@@ -1,3 +1,9 @@
+@media (max-width: 1328px) {
+  .form-footer {
+    width: 100%;
+  }
+}
+
 @media (max-width: 1250px) {
   .add-task-description,
   .priority-btns {
