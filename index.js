@@ -6,22 +6,22 @@ function init() {
 }
 
 function redirectToGuestView() {
-    location.replace("summary/summary.html");
+  location.replace("summary/summary.html");
 }
 
-function animationJoinSign(){
-    let animationJoinSign = document.getElementById('overlay-animation');
-    animationJoinSign.classList.toggle('d_none');
-   initSecond();
-   removeOverlayAfterAnimation();
+function animationJoinSign() {
+  let animationJoinSign = document.getElementById('overlay-animation');
+  animationJoinSign.classList.toggle('d_none');
+  initSecond();
+  removeOverlayAfterAnimation();
 }
 
 function removeOverlayAfterAnimation() {
-    let animationJoinSign = document.getElementById('overlay-animation');
-    // Wait 1 second (1000 milliseconds) before adding the class
-    setTimeout(() => {
-        animationJoinSign.classList.add('d_none');
-    }, 2800);
+  let animationJoinSign = document.getElementById('overlay-animation');
+  // Wait 1 second (1000 milliseconds) before adding the class
+  setTimeout(() => {
+    animationJoinSign.classList.add('d_none');
+  }, 2800);
 }
 
 /**
@@ -166,26 +166,48 @@ function goToSummary() {
 
 window.addEventListener("load", async () => {
   await initSecond();
+  const isMobile = window.matchMedia("(max-width: 770px)").matches;
   const greeting = document.querySelector(".greeting");
   const logo = document.querySelector(".greeting-logo");
+  const logoWhite = document.querySelector(".greeting-logo-white");
   const targetLogo = document.querySelector(".join-header-logo");
 
-  if (greeting && logo && targetLogo) {
-    const targetRect = targetLogo.getBoundingClientRect();
-    const logoRect = logo.getBoundingClientRect();
-    const deltaX = targetRect.left + targetRect.width / 2 - (logoRect.left + logoRect.width / 2);
-    const deltaY = targetRect.top + targetRect.height / 2 - (logoRect.top + logoRect.height / 2);
-    const scale = targetRect.width / logoRect.width;
+  if (greeting && logo && logoWhite && targetLogo) {
+    requestAnimationFrame(() => {
+      // Target position
+      const targetRect = targetLogo.getBoundingClientRect();
 
-    setTimeout(() => {
-      logo.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${scale})`;
-    }, 300);
+      // Get each logo’s bounding box separately
+      const logoRect = logo.getBoundingClientRect();
+      const logoWhiteRect = logoWhite.getBoundingClientRect();
 
-    setTimeout(() => {
-      greeting.classList.add("hide");
-    }, 1300);
+      // Calculate individual transforms
+      const deltaXLogo = targetRect.left + targetRect.width / 2 - (logoRect.left + logoRect.width / 2);
+      const deltaYLogo = targetRect.top + targetRect.height / 2 - (logoRect.top + logoRect.height / 2);
+      const scaleLogo = targetRect.width / logoRect.width;
+
+      const deltaXWhite = targetRect.left + targetRect.width / 2 - (logoWhiteRect.left + logoWhiteRect.width / 2);
+      const deltaYWhite = targetRect.top + targetRect.height / 2 - (logoWhiteRect.top + logoWhiteRect.height / 2);
+      const scaleWhite = targetRect.width / logoWhiteRect.width;
+
+      // Create separate transforms
+      const transformLogo = `translate(${deltaXLogo}px, ${deltaYLogo}px) scale(${scaleLogo})`;
+      const transformWhite = `translate(${deltaXWhite}px, ${deltaYWhite}px) scale(${scaleWhite})`;
+
+      // Apply transforms
+      setTimeout(() => {
+        logo.style.transform = transformLogo;
+        logoWhite.style.transform = transformWhite;
+      }, 300);
+
+      // Hide greeting after animation
+      setTimeout(() => {
+        greeting.classList.add("hide");
+      }, isMobile ? 700 : 1200);
+    });
   }
 });
+
 
 /**
  * Optional: Wenn du die Login-Infos auch auf dem Server (Firebase) speichern willst.

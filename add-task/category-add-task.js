@@ -47,6 +47,7 @@ function categoryDropDownTemplate(indexCategory) {
  */
 function selectCategory(i) {
   document.getElementById("category").value = category[i];
+  closeCategoryList();
 }
 
 /**

@@ -5,6 +5,7 @@
     gap: 20px;
     padding: 0px;
   }
+
   .join-header-logo {
     width: 90px;
     height: 90px;
@@ -22,6 +23,7 @@
     width: 380px;
     font-size: 16px;
   }
+
   input::placeholder {
     font-size: 16px;
   }
@@ -34,11 +36,31 @@
   }
 }
 
+@media (max-width: 770px) {
+  .greeting {
+    background-color: #2A3647;
+  }
+
+  .dp-none-trigger {
+    display: none;
+  }
+
+  .dp-none-logo {
+  display: block;
+}
+
+.greeting-logo,
+.greeting-logo-white {
+  transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+}
+}
+
 @media (max-width: 700px) {
   .join-header-logo {
     width: 70px;
     height: 70px;
   }
+
   .login-window {
     width: 550px;
     height: 430px;
@@ -47,22 +69,28 @@
   .signup-1 {
     font-size: 18px;
   }
+
   h1 {
     font-size: 40px;
   }
+
   .login-separator {
     width: 87px;
   }
+
   .login-btn,
   .guest-login-btn {
     height: 40px;
   }
+
   .login-btn {
     width: 100px;
   }
+
   .guest-login-btn {
     width: 130px;
   }
+
   .login-inputs input {
     width: 370px;
     height: 40px;
@@ -73,9 +101,11 @@
     height: 20px;
     width: 20px;
   }
+
   .pw-img {
     top: 95px;
   }
+
   .mail-img {
     top: 12px;
   }
@@ -97,46 +127,57 @@
     width: 360px;
     height: 460px;
   }
+
   .login-inputs input {
     width: 270px;
     height: 37px;
   }
+
   .pw-img {
     top: 75px;
   }
+
   .mail-img {
     top: 10px;
   }
+
   .login-btns {
     flex-direction: column;
     align-items: center;
     gap: 10px;
   }
+
   .login-btn,
   .guest-login-btn {
     width: 150px;
   }
+
   .footer-login {
     flex-direction: column;
     gap: 20px;
   }
+
   .footer-login-signup {
     gap: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
+
   .signup-1 {
     font-size: 16px;
   }
+
   .signup-2 {
     width: 100px;
     height: 45px;
   }
+
   .footer-btns {
     font-size: 16px;
     gap: 10px;
   }
+
   .login-inputs {
     gap: 0px;
   }
@@ -147,9 +188,11 @@
     width: 280px;
     height: 400px;
   }
+
   h1 {
     font-size: 27px;
   }
+
   .login-separator {
     width: 62px;
   }
@@ -158,24 +201,30 @@
     width: 240px;
     font-size: 16px;
   }
+
   .login-inputs input::placeholder {
     font-size: 16px;
   }
+
   .login-btn,
   .guest-login-btn {
     width: 120px;
     height: 30px;
   }
+
   .login-btns {
     font-size: 16px;
   }
+
   .signup-1,
   .signup-2 {
     font-size: 16px;
   }
+
   .signup-2 {
     height: 35px;
   }
+
   .footer-btns {
     font-size: 16px;
   }

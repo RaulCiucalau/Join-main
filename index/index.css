@@ -265,13 +265,17 @@ main {
   transition: opacity 0.5s ease;
 }
 
-.greeting-logo {
+.greeting-logo,
+.greeting-logo-white {
   width: 150px;
   position: absolute;
   transition: transform 1s ease-in-out, width 1s ease-in-out;
+  z-index: 10;
 }
 
-
+.dp-none-logo {
+  display: none;
+}
 
 .greeting.hide {
   opacity: 0;
