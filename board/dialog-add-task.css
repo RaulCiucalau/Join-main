@@ -32,6 +32,7 @@
   from {
     transform: translateX(100%);
   }
+
   to {
     transform: translateX(0);
   }
@@ -41,6 +42,7 @@
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(100%);
   }
@@ -49,9 +51,11 @@
 .main-add-task {
   flex: 1;
 }
+
 main {
   width: 100%;
 }
+
 .content {
   display: flex;
   flex-direction: column;
@@ -79,15 +83,18 @@ main {
 h1 {
   font-size: 61px;
 }
+
 .header-general {
   width: 100%;
 }
+
 .add-task-1 {
   width: 420px;
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
+
 .add-task-2 {
   width: 420px;
   display: flex;
@@ -95,6 +102,7 @@ h1 {
   justify-content: space-evenly;
   gap: 30px;
 }
+
 .add-task-2 input {
   width: 420px;
   position: relative;
@@ -115,15 +123,19 @@ h1 {
   top: 50%;
   transform: translate(-50%, -50%);
   animation: slidesFromBottomToMiddle 0.15s forwards;
-  z-index: 9999; /* Animation duration and forwards to keep the end position */
+  z-index: 9999;
+  /* Animation duration and forwards to keep the end position */
 }
 
 @keyframes slidesFromBottomToMiddle {
   0% {
-    transform: translate(-50%, 100vh); /* Start from the bottom of the viewport */
+    transform: translate(-50%, 100vh);
+    /* Start from the bottom of the viewport */
   }
+
   100% {
-    transform: translate(-50%, -50%); /* Move to the middle of the viewport */
+    transform: translate(-50%, -50%);
+    /* Move to the middle of the viewport */
   }
 }
 
@@ -136,6 +148,31 @@ h1 {
   z-index: 2;
   border-radius: 10px;
   overflow-y: scroll;
+}
+
+.down-up {
+  position: absolute;
+  right: 15px;
+}
+
+.drop-down-contact-list-add-task {
+  width: 420px;
+  height: 180px;
+  position: absolute;
+  background-color: #ffffff;
+  top: 82px;
+  z-index: 2;
+  border-radius: 10px;
+  overflow-y: scroll;
+}
+
+.icons-subtask {
+  right: 72px;
+  position: absolute;
+}
+
+.padding-right {
+  padding-right: 69px !important;
 }
 
 .contact,
@@ -163,6 +200,7 @@ h1 {
   border-radius: 8px;
   transition: all 125ms ease-in-out;
 }
+
 .categoryListElement {
   height: 44px;
 }
@@ -187,6 +225,7 @@ h1 {
   display: flex;
   gap: 6px;
 }
+
 .selected-avatar {
   display: flex;
   justify-content: center;
@@ -243,6 +282,7 @@ h1 {
   max-height: 135px;
   overflow-y: auto;
 }
+
 .subtask-list-item:hover {
   cursor: pointer;
   background-color: rgba(168, 168, 168, 0.2);
@@ -254,6 +294,7 @@ h1 {
   position: absolute;
   top: -20px;
 }
+
 .edit {
   right: 40px;
 }
@@ -261,6 +302,7 @@ h1 {
 .delete {
   right: 6px;
 }
+
 .subtask-list-item-separator {
   right: 33px;
 }
@@ -270,6 +312,7 @@ h1 {
   height: 24px;
   margin-top: 8px;
 }
+
 .subtask-list-item-separator {
   width: 2px;
   height: 24px;
@@ -282,10 +325,12 @@ h1 {
   gap: 20px;
   position: relative;
 }
+
 .change-input input {
   height: 30px;
   width: 80%;
 }
+
 .subtask-list-item-separator-2 {
   width: 2px;
   height: 24px;
@@ -299,15 +344,18 @@ h1 {
   top: 5px;
   margin-top: 0;
 }
+
 .subtask {
   position: relative;
 }
+
 .accept:hover,
 .delete-2:hover {
   cursor: pointer;
   background-color: rgba(168, 168, 168, 0.2);
   border-radius: 50%;
 }
+
 .accept {
   right: 12px;
 }
@@ -315,6 +363,7 @@ h1 {
 .delete-2 {
   right: 45px;
 }
+
 .subtask-list-item-separator-2 {
   right: 39px;
 }

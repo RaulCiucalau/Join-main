@@ -132,7 +132,7 @@
                             <img id="assigned-to-img-up" class="assigned-to-img dropdown-img dp-none right-icon"
                                 src="../assets/icons/arrow_drop_down_up.svg" alt="Select contact dropdown arrow"
                                 onclick="showContactList(event)" />
-                            <div class="drop-down-contact-list dp-none" id="drop-down-contact-list"></div>
+                            <div class="drop-down-contact-list-add-task dp-none" id="drop-down-contact-list"></div>
                             <div id="selected-avatars"></div>
                         </div>
 
@@ -144,7 +144,7 @@
                                 <img id="add-category-img-down" class="add-category-img dropdown-img right-icon"
                                     src="../assets/icons/arrow_drop_down.svg" alt="Add category dropdown arrow"
                                     onclick="showCategoryList(event)" />
-                                <img id="add-category-img-up" class="add-category-img dropdown-img dp-none right-icon"
+                                <img id="add-category-img-up" class="add-category-img dropdown-img dp-none right-icon down-up"
                                     src="../assets/icons/arrow_drop_down_up.svg" alt="Add category dropdown arrow"
                                     onclick="showCategoryList(event)" />
                                 <div class="drop-down-category-list dp-none" id="drop-down-category-list"></div>
@@ -156,14 +156,16 @@
 
                         <div class="add-subtask frame-39">
                             <label for="subtask">Subtasks</label>
-                            <input type="text" id="subtask" class="subtask width-input" placeholder="Add new subtask" />
+                            <input type="text" id="subtask" class="subtask width-input padding-right" placeholder="Add new subtask" />
                             <img id="add-subtask-img" class="add-subtask-img right-icon" src="../assets/icons/add.svg"
                                 alt="Add subtask" />
-                            <img id="cancel-task-img" class="cancel-task-img subtask-img dp-none"
-                                src="../assets/icons/cancel.svg" alt="Cancel Subtask" />
-                            <div id="small-separator" class="small-separator dp-none"></div>
-                            <img id="accept-task-img" class="accept-task-img subtask-img dp-none"
-                                src="../assets/icons/check.svg" alt="Accept Subtask" />
+                            <div class="icons-subtask">
+                                <img id="cancel-task-img" class="cancel-task-img subtask-img dp-none"
+                                    src="../assets/icons/cancel.svg" alt="Cancel Subtask" />
+                                <div id="small-separator" class="small-separator dp-none"></div>
+                                <img id="accept-task-img" class="accept-task-img subtask-img dp-none"
+                                    src="../assets/icons/check.svg" alt="Accept Subtask" />
+                            </div>
                             <div class="subtask-list" id="subtask-list"></div>
                         </div>
                     </section>
