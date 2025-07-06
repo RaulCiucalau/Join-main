@@ -69,8 +69,8 @@
     </header>
     <div class="log" id="log"></div>
     <main class="main-add-task">
-      <main class="main-add-task" onclick="closeShowContactList()">
-        <div class="add-task-content">
+      <main class="main-add-task">
+        <div id="dialogAddTask" class="add-task-content">
           <div class="add-task-main-title">
             <h1>Add Task</h1>
           </div>
@@ -165,7 +165,7 @@
 
               <div class="add-subtask frame-39">
                 <label for="subtask">Subtasks</label>
-                <input type="text" id="subtask" class="subtask" placeholder="Add new subtask" />
+                <input onkeydown="createNewSubtaskOnEnter(event)" type="text" id="subtask" class="subtask" placeholder="Add new subtask" />
                 <img id="add-subtask-img" class="add-subtask-img" src="./assets/icons/add.svg" alt="Add subtask" />
                 <img id="cancel-task-img" class="cancel-task-img subtask-img dp-none" src="./assets/icons/cancel.svg"
                   alt="Cancel Subtask" />

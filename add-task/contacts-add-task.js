@@ -6,6 +6,7 @@ let selectedContactsNames = [];
  */
 function renderContactList() {
   document.getElementById("drop-down-contact-list").innerHTML += "";
+  document.getElementById("drop-down-contact-list").innerHTML = "";
   for (let indexContact = 0; indexContact < contacts.length; indexContact++) {
     document.getElementById("drop-down-contact-list").innerHTML += contactListDropDownTemplate(indexContact);
     if (selectedContacts.includes(indexContact)) {
@@ -31,20 +32,33 @@ function showContactList(event) {
   closeCategoryList();
 }
 
-function closeShowContactList(){
-  document.getElementById("drop-down-contact-list").classList.add("dp-none");
-  document.getElementById("drop-down-category-list").classList.add("dp-none");
-}
-
 /**
  * Closes the contact dropdown list and resets its visibility state.
  */
 function closeContactList() {
-  document.getElementById("drop-down-contact-list").classList.add("dp-none");
   document.getElementById("assigned-to-img-up").classList.add("dp-none");
   document.getElementById("assigned-to-img-down").classList.remove("dp-none");
-  document.getElementById("drop-down-contact-list").innerHTML = "";
+  document.getElementById("drop-down-contact-list").classList.add("dp-none");
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const dialog = document.getElementById("dialogAddTask");
+  const assignedSection = document.querySelector(".assigned-to-section");
+
+  if (dialog && assignedSection) {
+    dialog.addEventListener("click", function (event) {
+      // Close dropdown if the click is INSIDE the dialog but OUTSIDE assigned-to section
+      if (!assignedSection.contains(event.target)) {
+        closeContactList();
+      }
+    });
+
+    // Prevent clicks inside the assigned-to section from closing the dropdown
+    assignedSection.addEventListener("click", function (event) {
+      event.stopPropagation();
+    });
+  }
+});
 
 /**
  * Selects a contact from the dropdown list.
@@ -121,4 +135,31 @@ function showSelectedAvatars() {
 function removeUnSelectedAvatar(i) {
   const el = document.getElementById(`avatar-${i}`);
   if (el) el.remove(); // ✅ nur entfernen, wenn vorhanden
+}
+
+function createNewSubtaskOnEnter(event) {
+  if (event.key === "Enter") {
+    event.preventDefault(); // Prevent form submit if inside form
+
+    const input = event.target;
+    const value = input.value.trim();
+
+    if (value !== "") {
+      addSubtaskToList(value);
+      input.value = ""; // Clear input
+    }
+  }
+}
+
+function addSubtaskToList(subtaskText) {
+  const subtaskList = document.getElementById("subtask-list");
+
+  const subtaskItem = document.createElement("div");
+  subtaskItem.classList.add("subtask-item");
+  subtaskItem.innerHTML = `
+    <input type="checkbox" />
+    <span>${subtaskText}</span>
+  `;
+
+  subtaskList.appendChild(subtaskItem);
 }
