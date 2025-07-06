@@ -31,6 +31,11 @@ function showContactList(event) {
   closeCategoryList();
 }
 
+function closeShowContactList(){
+  document.getElementById("drop-down-contact-list").classList.add("dp-none");
+  document.getElementById("drop-down-category-list").classList.add("dp-none");
+}
+
 /**
  * Closes the contact dropdown list and resets its visibility state.
  */

@@ -69,7 +69,7 @@
     </header>
     <div class="log" id="log"></div>
     <main class="main-add-task">
-      <main class="main-add-task">
+      <main class="main-add-task" onclick="closeShowContactList()">
         <div class="add-task-content">
           <div class="add-task-main-title">
             <h1>Add Task</h1>
@@ -131,7 +131,7 @@
             <div class="separator"></div>
 
             <section class="add-task-2">
-              <div class="assigned-to-section frame-39">
+              <div class="assigned-to-section frame-39" >
                 <label for="assigned-to">Assigned to</label>
                 <input type="text" id="assigned-to" class="selection" placeholder="Select contacts to assign"
                   onclick="showContactList(event)" />
