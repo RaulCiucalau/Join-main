@@ -1,13 +1,13 @@
 .content {
+  width: 100%;
   display: flex;
-  justify-content: center;
-  height: 100vh;
-  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   background-color: #f6f7f8;
+  height: 100vh;
   max-width: 1920px;
   margin: 0 auto;
-  flex-direction: column;
-  align-items: center;
 }
 
 .main {
@@ -37,18 +37,15 @@
   transform: scale(1.1);
 }
 
-.join-header-logo {
-  position: relative;
-  left: 60px;
-  top: 40px;
-}
-
 button {
   border: unset;
 }
 
 .logo-join {
   width: 100%;
+  padding: 30px;
+  top: 4px;
+  position: relative;
 }
 
 .signup-window {

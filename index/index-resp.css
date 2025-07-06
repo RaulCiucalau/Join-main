@@ -89,14 +89,13 @@
 }
 
 @media (max-width: 500px) {
-  .header-login {
+  .header-login-signup {
     display: none;
   }
+
   .login-window {
-    margin-top: 130px;
     width: 360px;
     height: 460px;
-    margin-bottom: 15px;
   }
   .login-inputs input {
     width: 270px;

@@ -54,12 +54,11 @@
   }
 
   .content {
-    justify-content: center;
     gap: 10px;
   }
 
   .main {
-    margin-top: 140px;
+    margin-top: 100px;
     padding-inline: 10px;
   }
 
