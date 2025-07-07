@@ -48,7 +48,8 @@ function buildEditSubtaskHTML(task, subtaskIndex, subtask) {
           class="subtask-edit-page-icons pointer" 
           title="Delete"
         >
-        <img 
+        <img
+          id="saveBtn" 
           onclick="saveSelectedTask(${task.id}, ${subtaskIndex})" 
           src="../assets/icons/check.svg" 
           class="subtask-edit-page-icons pointer" 
