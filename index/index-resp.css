@@ -184,6 +184,11 @@
 }
 
 @media (max-width: 400px) {
+
+  body{
+    overflow-x: hidden;
+  }
+  
   .login-window {
     width: 280px;
     height: 400px;
