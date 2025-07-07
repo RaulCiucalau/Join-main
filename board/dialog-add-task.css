@@ -16,7 +16,7 @@
 .dialog-add-task {
   border-radius: 30px;
   border: none;
-  padding: 64px 66px 64px 95px;
+  padding: 36px 66px 56px 36px;
   background: #FFFFFF;
   box-shadow: 0px 0px 4px 0px #00000029;
   display: flex;
@@ -279,7 +279,7 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  max-height: 135px;
+  max-height: 69px;
   overflow-y: auto;
 }
 

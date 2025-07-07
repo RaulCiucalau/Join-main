@@ -59,3 +59,15 @@ function closeCategoryList() {
   document.getElementById("add-category-img-down").classList.remove("dp-none");
   document.getElementById("drop-down-category-list").innerHTML = "";
 }
+
+document.addEventListener("click", function (event) {
+  const categoryWrapper = document.querySelector(".add-category");
+  const dropdown = document.getElementById("drop-down-category-list");
+  if (
+    !categoryWrapper.contains(event.target) &&
+    !dropdown.classList.contains("dp-none")
+  ) {
+    closeCategoryList();
+  }
+});
+
