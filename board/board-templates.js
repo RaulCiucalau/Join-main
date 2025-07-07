@@ -94,7 +94,7 @@ function getEditTaskDialog(task) {
             <div class="content-edit-task-dialog">
                 <div class="dialog-edit-title">
                     <p class="dialog-card-typography-content font-blue">Title</p>
-                    <input id="editedTitle-${task.id}" value="${task.title}" class="standard-input-edit-task hover-active-border" type="text">
+                    <input id="editedTitle-${task.id}" value="${task.title}" class="standard-input-edit-task hover-active-border" type="text" required>
                 </div>
                 <div class="dialog-edit-description">
                     <p class="dialog-card-typography-content font-blue">Description</p>
@@ -103,7 +103,7 @@ function getEditTaskDialog(task) {
                 </div>
                 <div class="dialog-edit-due-date">
                     <p class="dialog-card-typography-content font-blue">Due Date</p>
-                    <input id="editedDate-${task.id}" value="${task.due_date}" type="date" id="add-task-due-date"  class="standard-input-edit-task hover-active-border" type="text">
+                    <input id="editedDate-${task.id}" value="${task.due_date}" type="date" class="standard-input-edit-task hover-active-border" type="date" min="${new Date().toISOString().split('T')[0]}" max="2130-12-31" required>
                 </div>
                 <div class="dialog-edit-priority">
                     <div class="select-priority frame-39">

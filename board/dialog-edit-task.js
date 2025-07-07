@@ -323,12 +323,19 @@ function deleteSelectedTask(taskId, subtaskIndex) {
  * @param {number} subtaskIndex - Index of the subtask to save.
  */
 function saveSelectedTask(taskId, subtaskIndex) {
+  const inputElement = document.getElementById('inputSubtaskEdit');
+  const input = inputElement.value.trim();
+  const saveBtn = document.getElementById('saveBtn');
+  if (!input) {
+    saveBtn.disabled = true;
+    return;
+  }
   const task = tasks.find(t => String(t.id) === String(taskId));
-  const input = document.getElementById('inputSubtaskEdit').value;
   const container = document.getElementById('subtasksList');
   task.subtasks[subtaskIndex].title = input;
   container.innerHTML = renderSubtasksToEdit(task);
 }
+
 
 /**
  * Saves all input values from the edit form to the task object.
@@ -361,6 +368,11 @@ function saveEditInputFields(taskId) {
  */
 async function updateTaskDatainAPI(taskId) {
   const task = tasks.find(t => String(t.id) === String(taskId));
+  const dateInputId = `editedDate-${taskId}`;
+  const titleInputId = `editedTitle-${taskId}`;
+  const isValidTitle = isTitleValid(titleInputId);
+  const isValidDate = isDueDateValid(dateInputId);
+  if (!isValidDate || !isValidTitle) return;
   saveEditInputFields(taskId);
   try {
     await fetch(`https://join-460-default-rtdb.europe-west1.firebasedatabase.app/tasks/${task.id}.json`, {
@@ -373,6 +385,7 @@ async function updateTaskDatainAPI(taskId) {
   }
   removeEditDialog();
   renderCards(tasks);
+  hideProgressBarsForTasksWithoutSubtasks(tasks)
 }
 
 /**
@@ -437,4 +450,54 @@ function createSubtaskOnEnter(taskId) {
     addNewSubtaskToList(taskId)
     showBtnToAddSubtask();
   }
+}
+
+function isDueDateValid(inputId) {
+  const input = document.getElementById(inputId);
+  const errorMessageId = `${inputId}-error`;
+  const today = new Date().toISOString().split("T")[0];
+  let existingError = document.getElementById(errorMessageId);
+  if (existingError) existingError.remove();
+  const inputDate = new Date(input.value);
+  const inputYear = inputDate.getFullYear();
+  if (input.value < today) {
+    showDateError(input, errorMessageId, "Date cannot be in the past");
+    return false;
+  }
+  if (inputYear > 2130) {
+    showDateError(input, errorMessageId, "The selected date exceeds the maximum allowed year (2130)");
+    return false;
+  }
+  return true;
+}
+
+function showDateError(input, errorMessageId, message) {
+  const errorText = document.createElement("p");
+  errorText.id = errorMessageId;
+  errorText.textContent = `${message}`;
+  errorText.style.color = "red";
+  errorText.style.fontSize = "0.85rem";
+  errorText.style.marginTop = "4px";
+  input.insertAdjacentElement("afterend", errorText);
+}
+
+
+function isTitleValid(inputId) {
+  const input = document.getElementById(inputId);
+  const errorMessageId = `${inputId}-error`;
+  let existingError = document.getElementById(errorMessageId);
+  if (existingError) existingError.remove();
+  if (!input.value.trim()) {
+    const errorText = document.createElement("p");
+    errorText.id = errorMessageId;
+    errorText.textContent = "This field is required";
+    errorText.style.color = "red";
+    errorText.style.fontSize = "0.85rem";
+    errorText.style.marginTop = "4px";
+
+    input.insertAdjacentElement("afterend", errorText);
+    return false;
+  }
+
+  return true;
 }
