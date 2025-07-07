@@ -179,6 +179,7 @@ textarea::-ms-input-placeholder {
 }
 
 .add-subtask {
+  margin-top: 76px;
   position: relative;
 }
 

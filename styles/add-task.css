@@ -233,6 +233,7 @@ textarea::-ms-input-placeholder {
 
 .add-subtask {
   position: relative;
+  margin-top: 60px;
 }
 
 .add-date-img {
@@ -284,7 +285,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .form-footer {
-  width: 1020px;          /* entspricht .add-task-form Breite */
+  width: 920px;          /* entspricht .add-task-form Breite */
   /* entspricht .add-task-content */
   display: flex;
   justify-content: space-between;
@@ -293,6 +294,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   z-index: 999;
 }
 
+.subtask-edit-input {
+  height: 32px;
+}
 
 .footer-resp {
   z-index: 3;
@@ -301,6 +305,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   display: flex;
   gap: 16px;
   
+}
+
+.img-up {
+  position: absolute;
 }
 
 .form-btn {
