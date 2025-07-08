@@ -292,6 +292,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   align-items: flex-end;
   padding-bottom: 20px;
   z-index: 999;
+  margin-top: auto;
 }
 
 .subtask-edit-input {
@@ -567,7 +568,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   right: 45px;
 }
 .subtask-list-item-separator-2 {
-  right: 39px;
+  right: 28px;
 }
 
 .selected-avatar.extra-avatar {
@@ -578,3 +579,4 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   justify-content: center;
   font-weight: bold;
 }
+

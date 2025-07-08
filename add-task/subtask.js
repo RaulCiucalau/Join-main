@@ -91,13 +91,14 @@ function addSubtaskToList(text) {
     item.innerHTML = `
       <input type="text" class="subtask-edit-input" value="${currentText}">
       <div class="subtask-list-item-btns">
-        <img src="../assets/icons/check.svg" class="subtask-edit-icons" title="Save">
-        <img src="../assets/icons/cancel.svg" class="subtask-edit-icons" title="Cancel">
+        <img src="../assets/icons/delete.svg" class="subtask-edit-icons" title="Save">
+        <div class="subtask-list-item-separator-2"></div>
+        <img src="../assets/icons/check.svg" class="subtask-edit-icons" title="Cancel">
       </div>
     `;
 
-    const saveBtn = item.querySelector('img[title="Save"]');
-    const cancelBtn = item.querySelector('img[title="Cancel"]');
+    const saveBtn = item.querySelector('img[title="Cancel"]');
+    const cancelBtn = item.querySelector('img[title="Save"]');
     const input = item.querySelector('input');
 
     saveBtn.addEventListener('click', () => {
