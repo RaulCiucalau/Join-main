@@ -13,17 +13,26 @@ document.body.addEventListener("click", function (e) {
 
 
 function getOverlayData() {
-  const name = document.getElementById("fullName").value;
-  const email = document.getElementById("new-email").value;
-  const phone = document.getElementById("new-phone").value;
+  const name = document.getElementById("fullName").value.trim();
+  const email = document.getElementById("new-email").value.trim();
+  const phone = document.getElementById("new-phone").value.trim();
+  const errorBox = document.getElementById("form-error-msg"); // 👉 fehlt bei dir aktuell!
+
+  if (!errorBox) {
+    console.warn("form-error-msg Element wurde nicht gefunden!");
+    return;
+  }
 
   if (!name || !email || !phone) {
-    alert("Bitte alle Felder ausfüllen.");
+    errorBox.classList.remove('hide');
     return;
+  } else {
+    errorBox.classList.add('hide');
   }
 
   addNewContactToDatabase(name, email, phone);
 }
+
 
 function contactsuccessfullyDeletedNotification() {
   let displayArea = document.getElementById("contact-details-area");

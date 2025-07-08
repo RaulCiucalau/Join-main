@@ -77,7 +77,7 @@ function displayAddContactOverlay()
 {
   let overlayBody = document.getElementById('overlayArea'); 
   let realBody = document.getElementById('body');
-  
+   overlayBody.innerHTML = '';
   overlayBody.innerHTML += `
       <div onclick="closeAddContactOverlay()" id="outer-add-contact-overlay">
         <div onclick="stopPropagation(event)" id="add-contact-overlay">
@@ -118,6 +118,7 @@ function displayAddContactOverlay()
                     Create contact ✓
                   </button>
                 </div>
+                 <div id="form-error-msg" class="form-error-msg hide">Bitte alle Felder ausfüllen.</div>
               </form>
             </div>
           </div>
