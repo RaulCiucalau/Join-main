@@ -96,18 +96,24 @@ function displayAddContactOverlay()
             <div id="add-contact-options">
               <form id="addContactForm" class="add-contact-form" onsubmit="return validateAndSubmitForm(event)">
                 <div class="input-group">
-                  <input type="text" id="fullName" placeholder="Name" />
-                  <img class="icon" src="/assets/icons/person.svg">
+                  <div class="input-and-icon">
+                    <input class="width" type="text" id="fullName" placeholder="Name" />
+                    <img class="icon" src="/assets/icons/person.svg">
+                  </div>
                   <small class="error-message"></small>
                 </div>
                 <div class="input-group">
-                  <input id="new-email" placeholder="E-Mail" />
-                  <img class="icon" src="/assets/icons/mail.svg">
+                  <div class="input-and-icon">
+                    <input class="width" id="new-email" placeholder="E-Mail" />
+                    <img class="icon" src="/assets/icons/mail.svg">
+                  </div>
                   <small class="error-message"></small>
                 </div>
                 <div class="input-group">
-                  <input type="tel" id="new-phone" placeholder="Phone" />
-                  <img class="icon" src="/assets/icons/call.svg">
+                  <div class="input-and-icon">
+                    <input class="width" type="tel" id="new-phone" placeholder="Phone" />
+                    <img class="icon" src="/assets/icons/call.svg">
+                  </div>
                   <small class="error-message"></small>
                 </div>
                 <div class="create-contact-btn" id="button-area">
@@ -145,18 +151,24 @@ function editContactOverlay(key, users)
             <div id="edit-contact-options">
               <form id="editContactForm" data-key="${key}" class="edit-contact-form" onsubmit="return validateAndSubmitForm(event)">
                 <div class="input-group">
-                  <input type="text" id="fullName" value="${user.name}" placeholder="Name" />
-                  <img class="icon" src="/assets/icons/person.svg">
+                  <div class="input-and-icon">
+                    <input type="text" id="fullName" value="${user.name}" placeholder="Name" />
+                    <img class="icon" src="/assets/icons/person.svg">
+                  </div>
                   <small class="error-message"></small>
                 </div>
                 <div class="input-group">
-                  <input id="new-email" value="${user.e_mail}" placeholder="E-Mail" />
-                  <img class="icon" src="/assets/icons/mail.svg">
+                  <div class="input-and-icon">
+                    <input id="new-email" value="${user.e_mail}" placeholder="E-Mail" />
+                    <img class="icon" src="/assets/icons/mail.svg">
+                  </div>
                   <small class="error-message"></small>
                 </div>
                 <div class="input-group">
-                  <input type="tel" id="new-phone" value="${user.phone}" placeholder="Phone" />
-                  <img class="icon" src="/assets/icons/call.svg">
+                  <div class="input-and-icon">
+                    <input type="tel" id="new-phone" value="${user.phone}" placeholder="Phone" />
+                    <img class="icon" src="/assets/icons/call.svg">
+                  </div>
                   <small class="error-message"></small>
                 </div>
                 <div id="button-area">

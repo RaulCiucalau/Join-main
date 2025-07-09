@@ -520,13 +520,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .subtask-edit-icons {
   width: 24px;
   height: 24px;
-  margin-top: 8px;
 }
 .subtask-list-item-separator {
   width: 2px;
   height: 24px;
   background-color: rgba(168, 168, 168, 0.4);
-  margin-top: 8px;
 }
 
 .change-input {

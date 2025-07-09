@@ -326,9 +326,15 @@ async function saveEditedContact(key) {
   const emailInput = document.getElementById("new-email");
   const phoneInput = document.getElementById("new-phone");
 
-  const nameError = nameInput.nextElementSibling.nextElementSibling;
-  const emailError = emailInput.nextElementSibling.nextElementSibling;
-  const phoneError = phoneInput.nextElementSibling.nextElementSibling;
+  // If any of the inputs are missing, skip validation and close overlay
+  if (!nameInput || !emailInput || !phoneInput) {
+    closeEditOverlay();
+    return;
+  }
+
+  const nameError = nameInput.nextElementSibling?.nextElementSibling;
+  const emailError = emailInput.nextElementSibling?.nextElementSibling;
+  const phoneError = phoneInput.nextElementSibling?.nextElementSibling;
 
   const name = nameInput.value.trim();
   const email = emailInput.value.trim();
@@ -336,26 +342,26 @@ async function saveEditedContact(key) {
 
   let valid = true;
 
-  // Fehler zurücksetzen
-  nameError.innerText = "";
-  emailError.innerText = "";
-  phoneError.innerText = "";
+  // Fehler zurücksetzen (safety with optional chaining)
+  if (nameError) nameError.innerText = "";
+  if (emailError) emailError.innerText = "";
+  if (phoneError) phoneError.innerText = "";
 
   // Name darf keine Zahlen enthalten
   if (/\d/.test(name)) {
-    nameError.innerText = "Name darf keine Zahlen enthalten.";
+    if (nameError) nameError.innerText = "Name darf keine Zahlen enthalten.";
     valid = false;
   }
 
   // E-Mail muss gültig sein
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    emailError.innerText = "Ungültige E-Mail-Adresse.";
+    if (emailError) emailError.innerText = "Ungültige E-Mail-Adresse.";
     valid = false;
   }
 
   // Telefonnummer darf nur Ziffern enthalten
   if (!/^\d+$/.test(phone)) {
-    phoneError.innerText = "Telefonnummer darf nur Zahlen enthalten.";
+    if (phoneError) phoneError.innerText = "Telefonnummer darf nur Zahlen enthalten.";
     valid = false;
   }
 
@@ -374,6 +380,7 @@ async function saveEditedContact(key) {
     console.error("Error updating contact:", error);
   }
 }
+
 
 
 

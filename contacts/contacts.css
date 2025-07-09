@@ -364,10 +364,12 @@ seperator {
 .icon {
   height: 16px;
   width: 16px;
-  margin-top: -60px;
-  margin-left: 75%;
+  margin-left: -24px;
+}
+
+.input-and-icon {
   display: flex;
-  justify-content: end;
+  align-items: center;
 }
 
 h1 {
