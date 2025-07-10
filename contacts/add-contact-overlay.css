@@ -15,6 +15,34 @@
   z-index: 999;
 }
 
+
+@media (min-width: 1036px) {
+  #closeOverlayButton {
+    display: none; 
+  }
+
+  #contact-Overlay-Close-Button {
+    color: black;
+    display: flex;
+    justify-content: end;
+    padding-right: 40px;
+    background-color: white;
+  }
+}
+
+/* Mobile-Ansicht: bis 1035px */
+@media (max-width: 1035px) {
+  #contact-Overlay-Close-Button {
+    display: none !important;
+  }
+
+  #closeOverlayButton {
+    display: block; /* mobiler Button wird eingeblendet */
+  }
+}
+
+
+
 #add-contact-overlay {
   background-color: #2a3647;
   height: 80%;

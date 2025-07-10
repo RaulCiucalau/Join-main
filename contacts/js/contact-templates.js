@@ -92,8 +92,16 @@ function displayAddContactOverlay()
           <div id="right-add-contact-column">
             <div class="new-contact-icon">
               <img src="/assets/icons/new-contact-icon.svg" alt="" />
-            </div>
+            </div>        
             <div id="add-contact-options">
+
+
+
+
+            <div class="contact-Overlay-Close"><Button onclick="closeOverlay()" class="contact-Overlay-Close-Button">X</Button></div><br><br><br>
+
+            
+
               <form id="addContactForm" class="add-contact-form" onsubmit="return validateAndSubmitForm(event)">
                 <div class="input-group">
                   <div class="input-and-icon">
