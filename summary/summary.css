@@ -355,7 +355,7 @@ body {
 }
 
 .p-big-number {
-  
+
   display: flex;
   justify-content: center;
   font-weight: bold;
@@ -445,6 +445,7 @@ svg {
 .vector-horizontally {
   display: block;
 }
+
 .vector-vertikal {
   display: none;
 }

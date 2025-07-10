@@ -1,8 +1,4 @@
 @media (max-width: 1418px) {
-    .right-down-place {
-        padding-inline: 52px;
-    }
-
     .hover-scale:hover {
         transform: none;
     }
@@ -11,6 +7,7 @@
 @media (max-width: 1035px) {
     .right-down-place {
         margin-left: 0;
+        padding-inline: 40px;
     }
 
     .down-part-box {
@@ -20,7 +17,7 @@
     .main-place {
         flex-direction: column;
         padding-top: 30px;
-        gap: 16px;
+        gap: 0;
         margin-top: 0;
         align-items: baseline;
     }
@@ -131,7 +128,6 @@
 
     .center-summary {
         width: 100%;
-        margin-top: 48px;
     }
 
     .up-part-box {
@@ -147,17 +143,21 @@
     }
 }
 
-@media (max-width: 345px) {
+@media (max-width: 375px) {
+    .main-place {
+        padding-top: 15px;
+    }
+
     .up-part-box {
-        height: 128px;
+        height: 100px;
     }
 
     .middle-part-box {
-        height: 128px;
+        height: 100px;
     }
 
     .down-part-box {
-        width: 83px;
+        height: 100px;
     }
 
     .p-big-number {
