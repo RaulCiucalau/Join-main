@@ -32,7 +32,7 @@ async function init() {
     await onloadFunc();
     includeHTML();
     renderCards(tasks);
-    hideProgressBarsForTasksWithoutSubtasks(tasks)
+    hideProgressBarsForTasksWithoutSubtasks(tasks);
     renderBigTaskDialog(tasks);
     renderEditTaskDialog(tasks);
     checkOrientation();
@@ -220,7 +220,8 @@ async function moveTo(event, newStatus) {
     if (task && task.status !== newStatus) {
         task.status = newStatus;
         await updateTaskInDatabase(task);
-        renderCards(tasks);
+        renderCards(tasks)
+        hideProgressBarsForTasksWithoutSubtasks(tasks);
     }
     currentDraggedTaskId = null;
 }
