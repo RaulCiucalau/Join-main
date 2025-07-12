@@ -87,21 +87,14 @@ function displayAddContactOverlay()
               <h1 id="add-contact-heading">Add contact</h1>
               <h2>Tasks are better with a team!</h2>
             </div>
-            <div><button id="closeOverlayButton" onclick="closeOverlay()">X</button></div>
+            <div><button class="btn-close" id="closeOverlayButton" onclick="closeOverlay()">X</button></div>
           </div>
           <div id="right-add-contact-column">
+            <img id="closeOverlayButton" onclick="closeOverlay()" class="close-icon-overlay" src="../assets/icons/close.svg" alt="Close Button">
             <div class="new-contact-icon">
-              <img src="/assets/icons/new-contact-icon.svg" alt="" />
+              <img class="contact-icon" src="../assets/icons/new-contact-icon.svg" alt="" />
             </div>        
             <div id="add-contact-options">
-
-
-
-
-            <div class="contact-Overlay-Close"><Button onclick="closeOverlay()" class="contact-Overlay-Close-Button">X</Button></div><br><br><br>
-
-            
-
               <form id="addContactForm" class="add-contact-form" onsubmit="return validateAndSubmitForm(event)">
                 <div class="input-group">
                   <div class="input-and-icon">
@@ -148,36 +141,41 @@ function editContactOverlay(key, users)
       <div onclick="closeEditOverlay()" class="" id="outer-edit-contact-overlay">
         <div onclick="stopPropagation(event)" id="edit-contact-overlay">
           <div id="left-edit-contact-column" onclick="stopPropagation(event)">
-            <button id="closeEditOverlay" onclick="closeEditOverlay()">X</button>
-            <h1 id="edit-contact-heading">Edit contact</h1>
+            <div class="btn-container">
+              <button class="close-button-edit" style="background-color:transparent;" id="closeEditOverlay" onclick="closeEditOverlay()">X</button>
+            </div>
+            <div class="heading-container">
+              <h1 id="edit-contact-heading">Edit contact</h1>
+            </div>
             <img id="overlay-join-logo" src="/assets/icons/Capa 2.svg" alt="" />
           </div>
           <div id="right-edit-contact-column">
+            <img id="closeOverlayButton" onclick="closeOverlay()" class="close-icon-overlay" src="../assets/icons/close.svg" alt="Close Button">
             <div class="new-contact-icon">
-              <img src="/assets/icons/new-contact-icon.svg"/>
+              <img class="contact-icon contact-edit"src="/assets/icons/new-contact-icon.svg"/>
             </div>
             <div id="edit-contact-options">
               <form id="editContactForm" data-key="${key}" class="edit-contact-form" onsubmit="return validateAndSubmitForm(event)">
                 <div class="input-group">
                   <div class="input-and-icon">
-                    <input type="text" id="fullName" value="${user.name}" placeholder="Name" />
+                    <input required type="text" id="fullName" value="${user.name}" placeholder="Name" />
                     <img class="icon" src="/assets/icons/person.svg">
                   </div>
-                  <small class="error-message"></small>
+                  <p id="fullName-error" class="error-text hidden">Name must not contain numbers</p>
                 </div>
                 <div class="input-group">
                   <div class="input-and-icon">
-                    <input id="new-email" value="${user.e_mail}" placeholder="E-Mail" />
+                    <input required type="email" id="new-email" value="${user.e_mail}" placeholder="E-Mail" />
                     <img class="icon" src="/assets/icons/mail.svg">
                   </div>
-                  <small class="error-message"></small>
+                  <p id="new-email-error" class="error-text hidden">Invalid email address</p>
                 </div>
                 <div class="input-group">
                   <div class="input-and-icon">
-                    <input type="tel" id="new-phone" value="${user.phone}" placeholder="Phone" />
+                    <input required type="tel" id="new-phone" value="${user.phone}" placeholder="Phone" />
                     <img class="icon" src="/assets/icons/call.svg">
                   </div>
-                  <small class="error-message"></small>
+                  <p id="new-phone-error" class="error-text hidden">Phone number must contain only digits</p>
                 </div>
                 <div id="button-area">
                   <button type="button" onclick="deleteContactFromDatabase('${key}', users)" id="cancel-edit-contact" class="edit-contacts-overlay-btns">

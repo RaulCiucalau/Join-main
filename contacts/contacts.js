@@ -322,51 +322,13 @@ function bigRandomColour(user) {
  * Saves changes to an edited contact in Firebase.
  */
 async function saveEditedContact(key) {
-  const nameInput = document.getElementById("fullName");
-  const emailInput = document.getElementById("new-email");
-  const phoneInput = document.getElementById("new-phone");
-
-  // If any of the inputs are missing, skip validation and close overlay
-  if (!nameInput || !emailInput || !phoneInput) {
-    closeEditOverlay();
-    return;
-  }
-
-  const nameError = nameInput.nextElementSibling?.nextElementSibling;
-  const emailError = emailInput.nextElementSibling?.nextElementSibling;
-  const phoneError = phoneInput.nextElementSibling?.nextElementSibling;
-
-  const name = nameInput.value.trim();
-  const email = emailInput.value.trim();
-  const phone = phoneInput.value.trim();
-
-  let valid = true;
-
-  // Fehler zurücksetzen (safety with optional chaining)
-  if (nameError) nameError.innerText = "";
-  if (emailError) emailError.innerText = "";
-  if (phoneError) phoneError.innerText = "";
-
-  // Name darf keine Zahlen enthalten
-  if (/\d/.test(name)) {
-    if (nameError) nameError.innerText = "Name darf keine Zahlen enthalten.";
-    valid = false;
-  }
-
-  // E-Mail muss gültig sein
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    if (emailError) emailError.innerText = "Ungültige E-Mail-Adresse.";
-    valid = false;
-  }
-
-  // Telefonnummer darf nur Ziffern enthalten
-  if (!/^\d+$/.test(phone)) {
-    if (phoneError) phoneError.innerText = "Telefonnummer darf nur Zahlen enthalten.";
-    valid = false;
-  }
-
-  if (!valid) return;
-
+  const nameValid = isNameValid("fullName");
+  const emailValid = isEmailValid("new-email");
+  const phoneValid = isPhoneValid("new-phone");
+  if (!nameValid || !emailValid || !phoneValid) return;
+  const name = document.getElementById("fullName").value.trim();
+  const email = document.getElementById("new-email").value.trim();
+  const phone = document.getElementById("new-phone").value.trim();
   try {
     await fetch(getUserUrl(key), {
       method: "PATCH",
@@ -381,9 +343,6 @@ async function saveEditedContact(key) {
   }
 }
 
-
-
-
 /**
  * Adds a new contact to Firebase.
  */
@@ -392,9 +351,9 @@ async function addNewContactToDatabase(name, email, phone) {
   const emailInput = document.getElementById("new-email");
   const phoneInput = document.getElementById("new-phone");
 
-  const nameError = nameInput.nextElementSibling.nextElementSibling;
-  const emailError = emailInput.nextElementSibling.nextElementSibling;
-  const phoneError = phoneInput.nextElementSibling.nextElementSibling;
+  const nameError = nameInput.closest(".input-group")?.querySelector(".error-message");
+  const emailError = emailInput.closest(".input-group")?.querySelector(".error-message");
+  const phoneError = phoneInput.closest(".input-group")?.querySelector(".error-message");
 
   name = name.trim();
   email = email.trim();

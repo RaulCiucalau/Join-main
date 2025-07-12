@@ -7,7 +7,7 @@ a {
 }
 
 button {
-  background-color: #2a3647;
+  background-color: #324155;
   color: white;
   display: flex;
   align-items: center;
@@ -51,16 +51,41 @@ h2 {
   display: none;
 }
 
+.btn-close {
+  width: 46px !important;
+}
+
+.hide2 {
+  visibility: hidden;
+}
+
+.hidden {
+  display: none;
+}
+
+.error-text {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+.frame-3 {
+  z-index: 999 !important;
+}
+
 .show {
   display: flex;
   flex-direction: column;
 }
 
 .input-group {
-  gap: 25px;
   display: flex;
   align-items: start;
   flex-direction: column;
+  position: relative;
 }
 
 .error-message {
@@ -113,11 +138,21 @@ h2 {
   width: 90%;
 }
 
-seperator {
+.seperator {
   width: 3px;
   height: 59px;
   background-color: #29abe2;
   border-radius: 5px;
+}
+
+.close-button-edit {
+  padding: 0 !important;
+  width: 20px !important;
+}
+
+.contact-icon {
+  top: -55px;
+  position: relative;
 }
 
 #user {
@@ -300,7 +335,7 @@ seperator {
 }
 
 #contact-div {
-  overflow: hidden;
+  overflow: auto;
   height: 93vh;
 }
 
@@ -325,6 +360,7 @@ seperator {
   from {
     transform: translateX(100%);
   }
+
   to {
     transform: translateX(0);
   }
@@ -347,6 +383,7 @@ seperator {
   from {
     transform: translateX(100%);
   }
+
   to {
     transform: translateX(0);
   }
@@ -387,4 +424,3 @@ h1 {
   height: auto;
   top: 0;
 }
-

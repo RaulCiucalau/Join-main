@@ -2,6 +2,13 @@
   overflow-y: auto;
 }
 
+.close-icon-overlay {
+  position: absolute;
+  top: 15px;
+  right: 27px;
+  cursor: pointer;
+}
+
 #outer-add-contact-overlay {
   display: flex;
   position: fixed !important;
@@ -17,10 +24,6 @@
 
 
 @media (min-width: 1036px) {
-  #closeOverlayButton {
-    display: none; 
-  }
-
   #contact-Overlay-Close-Button {
     color: black;
     display: flex;
@@ -45,7 +48,7 @@
 
 #add-contact-overlay {
   background-color: #2a3647;
-  height: 80%;
+  height: 600px;
   width: 70%;
   max-width: 1200px !important;
   border-radius: 30px;
@@ -156,7 +159,6 @@ input {
 #edit-contact-overlay {
   background-color: #2a3647;
   height: 600px;
-  max-height: 600px;
   border-radius: 30px;
   display: flex;
   position: fixed;
@@ -231,6 +233,7 @@ input {
   color: white;
 }
 
+
 .display-none-overlay {
   display: none !important;
 }
@@ -255,7 +258,6 @@ input {
   #add-contact-overlay {
     width: 90% !important;
     height: 600px;
-    margin-bottom: 100px !important;
   }
 
   h2 {
@@ -274,7 +276,6 @@ input {
 
 @media (max-width: 600px) {
   #add-contact-overlay {
-    margin-bottom: 100px !important;
     padding-bottom: 0 !important;
   }
 }
