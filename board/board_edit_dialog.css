@@ -1,3 +1,7 @@
+input::placeholder {
+  font-size: 1rem;
+}
+
 .flex-end {
     justify-content: flex-end !important;
 }
@@ -11,6 +15,67 @@
     padding-left: 21px;
     width: 420px;
 }
+
+
+@media (max-width: 520px){
+    .standard-input-edit-task{
+     width: 320px !important;
+    }
+    .description-input-edit-task {
+       width: 320px !important;
+    }
+    .input-container-subtask {
+    width: 320px !important;
+    }
+    .selection {
+    font-size: 16px;
+    width: 320px !important;
+  }
+  .input-container-add-subtask {
+    width: 320px !important;
+}
+.subtasks-list-container {
+    width: 320px !important;
+    font-size: 12px;
+}
+.priority-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: space-evenly;
+  width: 320px !important;
+}
+}
+
+
+@media (max-width: 400px){
+    .standard-input-edit-task{
+     width: 240px !important;
+    }
+    .description-input-edit-task {
+       width: 240px !important; 
+    }
+    .input-container-subtask {
+    width: 240px !important;
+    }
+    .selection {
+    font-size: 16px;
+    width: 240px !important;
+  }
+    .input-container-add-subtask {
+    width: 240px !important;
+}
+.subtasks-list-container {
+    width: 240px !important;
+    font-size: 12px;
+}
+.priority-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: space-evenly;
+  width: 240px !important;
+}
+}
+
 
 .description-input-edit-task {
     height: 120px;
