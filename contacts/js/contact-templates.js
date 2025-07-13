@@ -87,7 +87,7 @@ function displayAddContactOverlay()
               <h1 id="add-contact-heading">Add contact</h1>
               <h2>Tasks are better with a team!</h2>
             </div>
-            <div><button class="btn-close" id="closeOverlayButton" onclick="closeOverlay()">X</button></div>
+            <div><img src="../assets/icons/close-white.svg" class="btn-close-white btn-close-white-hide" id="closeOverlayButton" onclick="closeOverlay()"></div>
           </div>
           <div id="right-add-contact-column">
             <img id="closeOverlayButton" onclick="closeOverlay()" class="close-icon-overlay" src="../assets/icons/close.svg" alt="Close Button">
