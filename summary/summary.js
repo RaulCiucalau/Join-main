@@ -133,7 +133,8 @@ function loadLoginInfo(key) {
 async function loadUserNameAndGreeting() {
   const loginInfo = loadLoginInfo("whoIsLoggedIn");
   if (!loginInfo || !loginInfo.userLoggedIn || !loginInfo.userLoggedIn.email) {
-    document.getElementById("dashboard-name").innerText = "Good Morning";
+    const greeting = getGreetings();
+    document.getElementById("dashboard-time").innerText = greeting;
     return;
   }
   const email = loginInfo.userLoggedIn.email;
