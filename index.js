@@ -18,7 +18,6 @@ function animationJoinSign() {
 
 function removeOverlayAfterAnimation() {
   let animationJoinSign = document.getElementById('overlay-animation');
-  // Wait 1 second (1000 milliseconds) before adding the class
   setTimeout(() => {
     animationJoinSign.classList.add('d_none');
   }, 2800);
@@ -26,17 +25,17 @@ function removeOverlayAfterAnimation() {
 
 /**
  * Speichert Login-Informationen im localStorage.
- * @param {string} key - Der Schlüssel.
- * @param {any} data - Die Daten.
+ * @param {string} key - The Key.
+ * @param {any} data - The Data.
  */
 function putLoginInfoLocally(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
 
 /**
- * Lädt Login-Informationen aus dem localStorage.
- * @param {string} key - Der Schlüssel.
- * @returns {any} Die gespeicherten Daten.
+ * Load Login-Information at the localStorage.
+ * @param {string} key - The Key.
+ * @returns {any} The save Data.
  */
 function loadLoginInfo(key) {
   const data = localStorage.getItem(key);
@@ -92,12 +91,11 @@ async function processLogin() {
       userLoggedIn: {
         name: filteredUser[0].user.name,
         avatar: filteredUser[0].user.avatar,
-        email: filteredUser[0].user.email // 👈 WICHTIG!
+        email: filteredUser[0].user.email // 👈 Important!
       }
     });
   }
 }
-
 
 function loginGuest() {
   putLoginInfoLocally("whoIsLoggedIn", { isGuestLoggedIn: true, userLoggedIn: { name: "", avatar: "" } });
@@ -146,11 +144,13 @@ function wrongEmail() {
   document.getElementById("wrong-email").classList.remove("dp-none");
   document.getElementById("inputEmail").style.border = "1px solid red";
 }
+
 /**
  * Removes error messages and resets input field styles.
  * @param {string} errorId - The ID of the error message element.
  * @param {string} inputId - The ID of the input element.
  */
+
 function removeErrorMsgs(errorId, inputId) {
   let errorElement = document.getElementById(errorId);
   let inputElement = document.getElementById(inputId);
@@ -163,55 +163,54 @@ function removeErrorMsgs(errorId, inputId) {
 function goToSummary() {
   window.location.href = "/summary/summary.html";
 }
-
 window.addEventListener("load", async () => {
   await initSecond();
-  const isMobile = window.matchMedia("(max-width: 770px)").matches;
-  const greeting = document.querySelector(".greeting");
-  const logo = document.querySelector(".greeting-logo");
-  const logoWhite = document.querySelector(".greeting-logo-white");
-  const targetLogo = document.querySelector(".join-header-logo");
+  const { greeting, logo, logoWhite, targetLogo, isMobile } = pullElementsForAnimation();
 
   if (greeting && logo && logoWhite && targetLogo) {
     requestAnimationFrame(() => {
-      // Target position
-      const targetRect = targetLogo.getBoundingClientRect();
+      const { transformLogo, transformWhite } = calculateAnimation();
 
-      // Get each logo’s bounding box separately
-      const logoRect = logo.getBoundingClientRect();
-      const logoWhiteRect = logoWhite.getBoundingClientRect();
-
-      // Calculate individual transforms
-      const deltaXLogo = targetRect.left + targetRect.width / 2 - (logoRect.left + logoRect.width / 2);
-      const deltaYLogo = targetRect.top + targetRect.height / 2 - (logoRect.top + logoRect.height / 2);
-      const scaleLogo = targetRect.width / logoRect.width;
-
-      const deltaXWhite = targetRect.left + targetRect.width / 2 - (logoWhiteRect.left + logoWhiteRect.width / 2);
-      const deltaYWhite = targetRect.top + targetRect.height / 2 - (logoWhiteRect.top + logoWhiteRect.height / 2);
-      const scaleWhite = targetRect.width / logoWhiteRect.width;
-
-      // Create separate transforms
-      const transformLogo = `translate(${deltaXLogo}px, ${deltaYLogo}px) scale(${scaleLogo})`;
-      const transformWhite = `translate(${deltaXWhite}px, ${deltaYWhite}px) scale(${scaleWhite})`;
-
-      // Apply transforms
-      setTimeout(() => {
-        logo.style.transform = transformLogo;
-        logoWhite.style.transform = transformWhite;
-      }, 300);
-
-      // Hide greeting after animation
-      setTimeout(() => {
-        greeting.classList.add("hide");
-      }, isMobile ? 700 : 1200);
+      setTimeoutAnimation(transformLogo, transformWhite);
     });
+  }
+
+  function setTimeoutAnimation(transformLogo, transformWhite) {
+        setTimeout(() => {
+          logo.style.transform = transformLogo;
+          logoWhite.style.transform = transformWhite;
+        }, 300);
+
+        setTimeout(() => {
+          greeting.classList.add("hide");
+        }, isMobile ? 700 : 1200);
+      }
+
+ function calculateAnimation() {
+        const targetRect = targetLogo.getBoundingClientRect();
+        const logoRect = logo.getBoundingClientRect();
+        const logoWhiteRect = logoWhite.getBoundingClientRect();
+        const deltaXLogo = targetRect.left + targetRect.width / 2 - (logoRect.left + logoRect.width / 2);
+        const deltaYLogo = targetRect.top + targetRect.height / 2 - (logoRect.top + logoRect.height / 2);
+        const scaleLogo = targetRect.width / logoRect.width;
+        const deltaXWhite = targetRect.left + targetRect.width / 2 - (logoWhiteRect.left + logoWhiteRect.width / 2);
+        const deltaYWhite = targetRect.top + targetRect.height / 2 - (logoWhiteRect.top + logoWhiteRect.height / 2);
+        const scaleWhite = targetRect.width / logoWhiteRect.width;
+        const transformLogo = `translate(${deltaXLogo}px, ${deltaYLogo}px) scale(${scaleLogo})`;
+        const transformWhite = `translate(${deltaXWhite}px, ${deltaYWhite}px) scale(${scaleWhite})`;
+        return { transformLogo, transformWhite };
+      }
+
+  function pullElementsForAnimation() {
+    const isMobile = window.matchMedia("(max-width: 770px)").matches;
+    const greeting = document.querySelector(".greeting");
+    const logo = document.querySelector(".greeting-logo");
+    const logoWhite = document.querySelector(".greeting-logo-white");
+    const targetLogo = document.querySelector(".join-header-logo");
+    return { greeting, logo, logoWhite, targetLogo, isMobile };
   }
 });
 
-
-/**
- * Optional: Wenn du die Login-Infos auch auf dem Server (Firebase) speichern willst.
- */
 async function putLoginInfo(path = "", data = {}) {
   let response = await fetch(BASE_URL + path + ".json", {
     method: "PUT",
@@ -221,4 +220,4 @@ async function putLoginInfo(path = "", data = {}) {
     body: JSON.stringify(data),
   });
   return await response.json();
-}
+};

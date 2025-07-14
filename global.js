@@ -1,4 +1,3 @@
-// Holt Daten aus dem localStorage
 function loadLoginInfo(key) {
   const data = localStorage.getItem(key);
   return data ? JSON.parse(data) : null;
@@ -6,9 +5,6 @@ function loadLoginInfo(key) {
 
 window.BASE_URL = "https://join-460-default-rtdb.europe-west1.firebasedatabase.app/";
 
-/**
- * Holt den Avatar des eingeloggten Users aus der DB und zeigt ihn im Header.
- */
 async function loadAvatarForHeader() {
   const loginInfo = loadLoginInfo("whoIsLoggedIn")
   if (!loginInfo || !loginInfo.userLoggedIn || !loginInfo.userLoggedIn.email) {
@@ -17,12 +13,20 @@ async function loadAvatarForHeader() {
   }
   const email = loginInfo.userLoggedIn.email;
   try {
+    await foundUser(email);
+  } catch (error) {
+    showError(error);
+  }
+  document.addEventListener("DOMContentLoaded", () => {
+  waitForInitialLetterElement(loadAvatarForHeader);
+});
+
+  async function foundUser(email) {
     const response = await fetch(`${BASE_URL}user.json`);
     const data = await response.json();
     const user = Object.values(data).find(
       (userObj) => userObj.email.toLowerCase() === email.toLowerCase()
     );
-
     if (user && user.avatar) {
       document.getElementById("initialLetter").innerText = user.avatar;
     } else if (user && user.name) {
@@ -30,16 +34,13 @@ async function loadAvatarForHeader() {
     } else {
       document.getElementById("initialLetter").innerText = "?";
     }
-
-  } catch (error) {
-    console.error("❌ Fehler beim Avatar-Laden:", error);
-    document.getElementById("initialLetter").innerText = "?";
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  waitForInitialLetterElement(loadAvatarForHeader);
-});
+  function showError(error) {
+    console.error("❌ Fehler beim Avatar-Laden:", error);
+    document.getElementById("initialLetter").innerText = "?";
+  }
 
 function waitForInitialLetterElement(callback) {
   const observer = new MutationObserver(() => {
@@ -49,10 +50,8 @@ function waitForInitialLetterElement(callback) {
       callback();
     }
   });
-
   observer.observe(document.body, { childList: true, subtree: true });
 }
-
 
 function showSubMenuLoggedIn() {
   if (document.getElementById("subMenu").classList.contains("dp-none")) {
@@ -66,9 +65,6 @@ function showSubMenuLoggedIn() {
   }
 }
 
-/**
- * Closes the logged-in submenu if it is visible.
- */
 function closeSubMenu() {
   const subMenu = document.getElementById("subMenu");
   if (subMenu.classList.contains("dp-none")) return;
@@ -91,6 +87,7 @@ async function logOut() {
  * @param {Object} data - The data to update.
  * @returns {Object} - The updated login information.
  */
+
 async function putLoginInfo(path = "", data = {}) {
   let response = await fetch(BASE_URL + path + ".json", {
     method: "PUT",
@@ -106,11 +103,7 @@ async function putLoginInfo(path = "", data = {}) {
  * Prevents event bubbling.
  * @param {Event} event - The event to stop propagation.
  */
+
 function preventBubbling(event) {
   event.stopPropagation();
 }
-
-
-
-
-
