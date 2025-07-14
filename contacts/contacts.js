@@ -368,19 +368,19 @@ async function addNewContactToDatabase(name, email, phone) {
 
  
   if (/\d/.test(name)) {
-    nameError.innerText = "Name darf keine Zahlen enthalten.";
+    nameError.innerText = "Name must not contain numbers";
     valid = false;
   }
 
   
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    emailError.innerText = "Ungültige E-Mail-Adresse.";
+    emailError.innerText = "Invalid email address";
     valid = false;
   }
 
   
   if (!/^\d+$/.test(phone)) {
-    phoneError.innerText = "Telefonnummer darf nur Zahlen enthalten.";
+    phoneError.innerText = "Phone number must contain digits only";
     valid = false;
   }
 
