@@ -1,5 +1,5 @@
 input::placeholder {
-  font-size: 1rem;
+    font-size: 1rem;
 }
 
 .flex-end {
@@ -17,63 +17,41 @@ input::placeholder {
 }
 
 
-@media (max-width: 520px){
-    .standard-input-edit-task{
-     width: 320px !important;
-    }
-    .description-input-edit-task {
-       width: 320px !important;
-    }
-    .input-container-subtask {
-    width: 320px !important;
-    }
-    .selection {
-    font-size: 16px;
-    width: 320px !important;
-  }
-  .input-container-add-subtask {
-    width: 320px !important;
-}
-.subtasks-list-container {
-    width: 320px !important;
-    font-size: 12px;
-}
-.priority-btns {
-  display: flex;
-  gap: 12px;
-  justify-content: space-evenly;
-  width: 320px !important;
-}
-}
 
 
-@media (max-width: 400px){
-    .standard-input-edit-task{
-     width: 240px !important;
+
+@media (max-width: 400px) {
+    .standard-input-edit-task {
+        width: 240px;
     }
+
     .description-input-edit-task {
-       width: 240px !important; 
+        width: 240px;
     }
+
     .input-container-subtask {
-    width: 240px !important;
+        width: 240px;
     }
+
     .selection {
-    font-size: 16px;
-    width: 240px !important;
-  }
-    .input-container-add-subtask {
-    width: 240px !important;
-}
-.subtasks-list-container {
-    width: 240px !important;
-    font-size: 12px;
-}
-.priority-btns {
-  display: flex;
-  gap: 12px;
-  justify-content: space-evenly;
-  width: 240px !important;
-}
+        font-size: 16px;
+        width: 240px;
+    }
+
+    .subtasks-list-container {
+        font-size: 12px;
+    }
+
+    .priority-btns {
+        display: flex;
+        gap: 12px;
+        justify-content: space-evenly;
+        width: 240px;
+    }
+
+    .selection {
+        padding-right: 28px;
+    }
 }
 
 
@@ -146,16 +124,16 @@ input::placeholder {
 }
 
 .edit-task-ok-btn:hover .hover-blue-svg {
-  fill: #29ABE2;
+    fill: #29ABE2;
 }
 
 .edit-task-ok-btn:hover path:not(.hover-blue-svg) {
-  fill: white;
+    fill: white;
 }
 
 .edit-task-ok-btn path,
 .edit-task-ok-btn rect {
-  transition: fill 125ms ease-in-out;
+    transition: fill 125ms ease-in-out;
 }
 
 textarea {
@@ -380,20 +358,20 @@ input.assign::placeholder {
 }
 
 .selected-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  color: white;
-  font-size: 14px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 4px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 4px;
 }
 
 .extra-avatar {
-  background-color: #2a3647;
+    background-color: #2a3647;
 }
 
 .assigned-to-input-container {

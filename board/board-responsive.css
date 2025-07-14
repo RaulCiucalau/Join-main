@@ -164,6 +164,36 @@
 }
 
 @media (max-width: 577px) {
+
+
+    .drop-down-contact-list {
+        width: 100%;
+    }
+
+    .dialog-edit-subtasks {
+        width: 100%;
+    }
+
+    .assigned-to-section {
+        width: 100%;
+    }
+
+    .priority-btns {
+        width: 100%;
+    }
+
+    .selection {
+        width: 100% !important;
+    }
+
+    .content-edit-task-dialog {
+        width: 100%;
+    }
+
+    .dialog-edit-priority {
+        width: 100%;
+    }
+
     .dialog-card {
         width: 90% !important;
         height: 85% !important;
@@ -174,13 +204,43 @@
         font-size: 40px;
     }
 
+    .priority-btn p {
+        font-size: 12px;
+    }
+
+    .description-input-edit-task {
+        width: 100%;
+    }
+
+    .dialog-edit-title {
+        width: 100%;
+    }
+
+    .standard-input-edit-task {
+        width: 100%;
+    }
+
     .dialog-card-typography-content {
         font-size: 16px;
+    }
+}
+
+@media (max-width: 432px) {
+    .priority-btns {
+        gap: 6px;
     }
 }
 
 @media (max-width: 412px) {
     .find-task-input {
         width: 100%;
+    }
+}
+
+@media (max-width: 373px) {
+    .priority-btn {
+        width: 54px;
+        height: 55px;
+        flex-direction: column;
     }
 }
