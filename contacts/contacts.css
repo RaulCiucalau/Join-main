@@ -148,6 +148,7 @@ h2 {
 .close-button-edit {
   padding: 0 !important;
   width: 20px !important;
+  display: none;
 }
 
 .contact-icon {

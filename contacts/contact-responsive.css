@@ -34,6 +34,7 @@
 
   .close-button-edit {
     margin-top: 20px;
+    display: block;
   }
 
   .btn-container {
@@ -168,13 +169,10 @@
 
   #closeEditOverlay {
     display: flex;
-    flex-direction: column;
     align-items: flex-end;
-    height: 100%;
-    min-height: 50px;
     border-radius: 30px !important;
-    width: 100%;
     padding-left: 0 !important;
+    margin-top: 37px;
   }
 
   #closeEditOverlay:hover {
@@ -221,12 +219,11 @@
   }
 
   #left-add-contact-column {
-    height: 40vh;
-    max-height: 250px;
-    justify-content: space-between;
-    align-items: start;
+    height: 100%;
     width: 90% !important;
     flex-direction: row;
+    align-content: center;
+    flex-wrap: wrap;
   }
 
   #add-contact-options {
@@ -458,6 +455,24 @@
 }
 
 @media (max-width: 570px) {
+  .contact-icon {
+    height: 125px;
+    margin-top: -20px;
+  }
+
+  .add-contact-form {
+    gap: 15px;
+  }
+
+  .input-group input {
+    width: 364px;
+    height: 41px;
+  }
+
+  .blue-vector-horizontal {
+    display: block;
+  }
+
   #right-edit-contact-column {
     padding: 0;
     border-radius: 0 0 0px 0px !important;
@@ -477,7 +492,11 @@
   }
 
   #left-edit-contact-column {
-    height: 400px;
+    height: 100%;
+    width: 90% !important;
+    flex-direction: row;
+    align-content: center;
+    flex-wrap: wrap;
   }
 
   .new-contact-icon {
@@ -504,7 +523,7 @@
   }
 
   #edit-contact-heading {
-    font-size: 47px;
+    font-size: 47px !important;
   }
 
   #add-contact-overlay {
@@ -513,11 +532,11 @@
     border-radius: 0;
   }
 
-.error-message {
-  color: red;
-  font-size: 10px;
-  margin-top: 0;
-  margin-bottom: 0;
-  height: 0;
-}
+  .error-message {
+    color: red;
+    font-size: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 0;
+  }
 }

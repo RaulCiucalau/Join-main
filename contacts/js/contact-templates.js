@@ -84,8 +84,11 @@ function displayAddContactOverlay()
           <div id="left-add-contact-column">
             <div id="add-contact-header-area">
               <img id="overlay-join-logo" src="/assets/icons/Capa 2.svg" alt="" />
-              <h1 id="add-contact-heading">Add contact</h1>
-              <h2>Tasks are better with a team!</h2>
+              <div class="header-container">
+                <h1 id="add-contact-heading">Add contact</h1>
+                <h2>Tasks are better with a team!</h2>
+                <img src="../assets/icons/vector_blue_horizontal.svg" class="blue-vector-horizontal">
+              </div>
             </div>
             <div><img src="../assets/icons/close-white.svg" class="btn-close-white btn-close-white-hide" id="closeOverlayButton" onclick="closeOverlay()"></div>
           </div>
@@ -145,14 +148,17 @@ function editContactOverlay(key, users)
               <button class="close-button-edit" style="background-color:transparent;" id="closeEditOverlay" onclick="closeEditOverlay()">X</button>
             </div>
             <div class="heading-container">
+            <div class="container-header">
               <h1 id="edit-contact-heading">Edit contact</h1>
+              <img src="../assets/icons/vector_blue_horizontal.svg" class="blue-vector-horizontal">
+            </div>
             </div>
             <img id="overlay-join-logo" src="/assets/icons/Capa 2.svg" alt="" />
           </div>
           <div id="right-edit-contact-column">
             <img id="closeOverlayButton" onclick="closeOverlay()" class="close-icon-overlay" src="../assets/icons/close.svg" alt="Close Button">
             <div class="new-contact-icon">
-              <img class="contact-icon contact-edit"src="/assets/icons/new-contact-icon.svg"/>
+              <img class="contact-icon"src="/assets/icons/new-contact-icon.svg"/>
             </div>
             <div id="edit-contact-options">
               <form id="editContactForm" data-key="${key}" class="edit-contact-form" onsubmit="return validateAndSubmitForm(event)">
