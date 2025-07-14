@@ -251,7 +251,7 @@ async function showLoggedInInfo() {
     if (loginInfo?.[0]?.isGuestLoggedIn) {
       document.getElementById("initialLetter").innerText = "G";
     } else {
-      const avatar = loginInfo?.[0]?.userLoggedIn?.avatar || "?";
+      const avatar = loginInfo?.[0]?.userLoggedIn?.avatar || "G";
       document.getElementById("initialLetter").innerText = avatar;
     }
   } catch (error) {
