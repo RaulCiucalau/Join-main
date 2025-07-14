@@ -102,14 +102,22 @@
 }
 
 @media (max-width: 510px) {
+    .up-part {
+        gap: 24px;
+    }
+
+    .p-big-number {
+        margin: 0;
+    }
+
     .up-part-box {
-        width: 184px;
-        height: 118px;
+        width: 180px;
+        height: 110px;
     }
 
     .middle-part-box {
         width: 378px;
-        height: 148px;
+        height: 124px;
     }
 
     .down-part-box {
@@ -118,6 +126,10 @@
 }
 
 @media (max-width: 510px) {
+    .ToDo {
+        font-size: 14px;
+    }
+
     .down-part-box {
         width: 90px;
     }
@@ -140,6 +152,17 @@
 
     .down-part-box {
         width: 100%;
+        height: 121px;
+    }
+
+    .edit-icon {
+        width: 16px;
+        height: 20px;
+    }
+
+    .done-icon {
+        width: 23px;
+        height: 19px;
     }
 }
 

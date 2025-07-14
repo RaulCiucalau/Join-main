@@ -88,7 +88,7 @@
           <div class="up-part">
             <a href="../board/board.html">
               <div id="boxInfoTask" class="up-part-box p hover-scale">
-                <div class="user-circle check-white"><img src="../assets/icons/edit.png">
+                <div class="user-circle check-white"><img class="edit-icon" src="../assets/icons/edit.png">
                 </div>
                 <div>
                   <p id="totalToDos" class="p-big-number"></p>
@@ -98,7 +98,7 @@
             </a>
             <a href="../board/board.html">
               <div id="boxInfoTask" class="up-part-box p hovertext:hover hover-scale">
-                <div class="user-circle check-white"><img src="../assets/icons/Vector.png"></div>
+                <div class="user-circle check-white"><img class="done-icon" src="../assets/icons/Vector.png"></div>
                 <div>
                   <p id="doneCount" class="p-big-number "></p>
                   <p class="ToDo">Done</p>
@@ -110,13 +110,15 @@
           <div class="up-part">
             <a href="../board/board.html">
               <div id="boxInfoTask" class="middle-part-box p hover-scale">
-                <div class="user-circle priority-urgent-white"><img src="../assets/icons/priority-urgent-white.svg">
+                <div class="container-urgent">
+                  <div class="user-circle priority-urgent-white"><img class="urgent-icon"
+                      src="../assets/icons/priority-urgent-white.svg">
+                  </div>
+                  <div>
+                    <p id="urgentTasksCount" class="p-big-number"></p>
+                    <p class="ToDo">Urgent</p>
+                  </div>
                 </div>
-                <div>
-                  <p id="urgentTasksCount" class="p-big-number"></p>
-                  <p class="ToDo">Urgent</p>
-                </div>
-
                 <div>
                   <img src="../assets/icons/Vector 5.png">
                 </div>
@@ -135,7 +137,7 @@
               <div id="boxInfoTask" class="down-part-box p hover-scale">
                 <p id="totalTasks" class="p-big-number"></p>
                 <div class="a">
-                  <p class="ToDo">Tasks in Board</p>
+                  <p class="ToDo">Tasks in<br>Board</p>
                 </div>
               </div>
             </a>
