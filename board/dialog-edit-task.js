@@ -6,158 +6,6 @@ let currentTaskIds = null;           // ID of the task currently being edited
 let subtaskIcons = document.querySelector('dialogSubtaskEdit'); // DOM reference (possible typo in selector)
 
 /**
- * Renders the dropdown list of contacts for assignment to a specific task.
- * @param {number|string} taskId - ID of the task to assign contacts to.
- */
-function renderAssigneeList(taskId) {
-  const assignedTo = tasks[taskId]?.assigned_to || [];
-  const container = document.getElementById("assignee-dropdown-list");
-  container.innerHTML = "";
-  if (!contacts || contacts.length === 0) return;
-  resetSelectedContacts(taskId);
-  contacts.forEach((contact, i) => {
-    const isAssigned = assignedTo.includes(contact.name);
-    container.innerHTML += contactListTemplate(contact, i, isAssigned, taskId);
-    if (isAssigned) addToSelected(contact.name, i);
-  });
-  applySelectedStyles(taskId);
-}
-
-/**
- * Clears selected contacts arrays.
- */
-function resetSelectedContacts() {
-  selectedContactsId = [];
-  selectedContactsNames = [];
-}
-
-/**
- * Adds a contact to the selected contacts arrays.
- * @param {string} name - Name of the contact.
- * @param {number} index - Index of the contact in the contacts array.
- */
-function addToSelected(name, index) {
-  selectedContactsId.push(index);
-  selectedContactsName.push(name);
-}
-
-/**
- * Applies selected visual styles to contacts assigned to a task.
- * @param {number|string} taskId - Task ID.
- */
-function applySelectedStyles(taskId) {
-  const task = tasks.find(t => String(t.id) === String(taskId));
-  if (!task || !task.assigned_to) return;
-  task.assigned_to.forEach(name => {
-    const contactIndex = contacts.findIndex(c => c.name === name);
-    if (contactIndex !== -1) {
-      const el = document.getElementById(`contactId${contactIndex}`);
-      const icon = document.getElementById(`checkBox${contactIndex}`);
-      if (el && icon) {
-        el.style.backgroundColor = "#2a3647";
-        el.style.color = "white";
-        icon.src = "../assets/icons/btn-checked.svg";
-      }
-    }
-  });
-}
-
-/**
- * Toggles the visibility of the assignee dropdown list.
- * @param {Event} event - DOM event.
- * @param {number|string} taskId - ID of the task.
- */
-function toggleAssigneeDropdown(event, taskId) {
-  event.stopPropagation();
-  const task = tasks[taskId];
-  if (document.getElementById("assignee-img-up").classList.contains("dp-none")) {
-    document.getElementById("assignee-img-up").classList.remove("dp-none");
-    document.getElementById("assignee-img-down").classList.add("dp-none");
-    document.getElementById("assignee-input").classList.add("border-show-menu");
-    document.getElementById("assignee-input").classList.add("hover-border");
-    document.getElementById("assignee-dropdown-list").classList.remove("dp-none");
-    renderAssigneeList(taskId);
-  } else {
-    closeDropDownList();
-    document.getElementById("assignee-input").classList.add("hover-border");
-    document.getElementById("assignee-input").classList.remove("border-show-menu");
-  }
-}
-
-/**
- * Closes the assignee dropdown and clears its content.
- */
-function closeDropDownList() {
-  document.getElementById("assignee-dropdown-list").classList.add("dp-none");
-  document.getElementById("assignee-img-up").classList.add("dp-none");
-  document.getElementById("assignee-img-down").classList.remove("dp-none");
-  document.getElementById("assignee-dropdown-list").innerHTML = "";
-}
-
-/**
- * Toggles a contact’s assigned state (assign/unassign).
- * @param {number} index - Contact index.
- * @param {number|string} taskId - Task ID.
- */
-function toggleContactChosed(index, taskId) {
-  const contact = contacts[index];
-  if (!contact) return;
-  const task = tasks.find(t => t.id == taskId);
-  if (!task) return;
-
-  if (!task.assigned_to) {
-    task.assigned_to = [];
-  }
-  const contactName = contact.name;
-  const isAlreadyAssigned = task.assigned_to.includes(contactName);
-  const contactText = document.getElementById(`contactName${index}`);
-  const contactElement = document.getElementById(`contactId${index}`);
-  const checkBoxIcon = document.getElementById(`checkBox${index}`);
-  if (isAlreadyAssigned) {
-    // Remove from assigned_to
-    const pos = task.assigned_to.indexOf(contactName);
-    task.assigned_to.splice(pos, 1);
-    contactText.style.color = "black";
-    contactElement.style.backgroundColor = "white";
-    checkBoxIcon.src = "../assets/icons/btn-unchecked.svg";
-  } else {
-    // Add to assigned_to
-    task.assigned_to.push(contactName);
-    contactText.style.color = "white";
-    contactElement.style.backgroundColor = "#2a3647";
-    checkBoxIcon.src = "../assets/icons/btn-checked.svg";
-  }
-  renderChosenAvatars(taskId);
-}
-
-/**
- * Displays avatars of selected contacts under the assignee field.
- * @param {number|string} taskId - Task ID.
- */
-function renderChosenAvatars(taskId) {
-  const container = document.getElementById("assignee-selected-avatars");
-  container.innerHTML = "";
-  const task = tasks.find(t => String(t.id) === String(taskId));
-   if (!task || !Array.isArray(task.assigned_to)) return;
-  if (!task) return;
-  const visibleContacts = contacts.filter(contact =>
-    task.assigned_to.includes(contact.name)
-  );
-  const avatarHtml = visibleContacts
-    .slice(0, 4)
-    .map(contact =>
-      `<div class="selected-avatars" style="background-color:${contact.color};">${contact.avatar}</div>`
-    )
-    .join("");
-  const extraCount = visibleContacts.length - 4;
-  container.innerHTML =
-    avatarHtml +
-    (extraCount > 0
-      ? `<div class="selected-avatar extra-avatar">+${extraCount}</div>`
-      : "");
-}
-
-/**
  * Visually selects a task priority and stores it.
  * @param {string} prio - One of 'urgent', 'medium', or 'low'.
  */
@@ -452,6 +300,13 @@ function createSubtaskOnEnter(taskId) {
   }
 }
 
+/**
+ * Validates if the due date in the input field is within acceptable range.
+ * Shows an error if the date is in the past or exceeds the year 2130.
+ *
+ * @param {string} inputId - The ID of the input element containing the date.
+ * @returns {boolean} True if the date is valid, false otherwise.
+ */
 function isDueDateValid(inputId) {
   const input = document.getElementById(inputId);
   const errorMessageId = `${inputId}-error`;
@@ -471,6 +326,13 @@ function isDueDateValid(inputId) {
   return true;
 }
 
+/**
+ * Displays a styled error message below an input element.
+ *
+ * @param {HTMLInputElement} input - The input element where the error occurred.
+ * @param {string} errorMessageId - The ID to assign to the error message element.
+ * @param {string} message - The error message text to display.
+ */
 function showDateError(input, errorMessageId, message) {
   const errorText = document.createElement("p");
   errorText.id = errorMessageId;
@@ -481,7 +343,13 @@ function showDateError(input, errorMessageId, message) {
   input.insertAdjacentElement("afterend", errorText);
 }
 
-
+/**
+ * Validates if the input field contains a non-empty title.
+ * Shows an error message if the field is empty or contains only whitespace.
+ *
+ * @param {string} inputId - The ID of the input element to validate.
+ * @returns {boolean} True if the title is valid, false otherwise.
+ */
 function isTitleValid(inputId) {
   const input = document.getElementById(inputId);
   const errorMessageId = `${inputId}-error`;
@@ -494,7 +362,6 @@ function isTitleValid(inputId) {
     errorText.style.color = "red";
     errorText.style.fontSize = "0.85rem";
     errorText.style.marginTop = "4px";
-
     input.insertAdjacentElement("afterend", errorText);
     return false;
   }
