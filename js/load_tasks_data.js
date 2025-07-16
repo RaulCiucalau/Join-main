@@ -24,24 +24,28 @@ const BASE_URL = "https://join-460-default-rtdb.europe-west1.firebasedatabase.ap
  */
 async function onloadFunc() {
     tasks = [];
-    let tasksResponse = await fetchData("tasks");
-    let tasksKeysArrays = Object.keys(tasksResponse);
-
+    let { tasksKeysArrays, tasksResponse } = await letTasks();
     for (let index = 0; index < tasksKeysArrays.length; index++) {
-        let taskId = tasksKeysArrays[index];
-        let data = tasksResponse[taskId];
+        let { data, taskId } = letTaskIdData(index);
         if (data === null) continue;
-
         let subtasksArray = [];
         if (data.subtasks) {
-            subtasksArray = Object.entries(data.subtasks).map(([subtaskId, subtask]) => ({
-                ...subtask,
-                id: subtaskId,
-                taskId: taskId
-            }));
+            subtasksArray = Object.entries(data.subtasks).map(([subtaskId, subtask]) => pullSubtask(subtask, subtaskId, taskId));
         }
+        tasks.push(lookForUserData(taskId, data, subtasksArray));
+    }
+    await contactsFetch();
 
-        tasks.push({
+    function pullSubtask(subtask, subtaskId, taskId) {
+        return {
+            ...subtask,
+            id: subtaskId,
+            taskId: taskId
+        };
+    }
+
+    function lookForUserData(taskId, data, subtasksArray) {
+        return {
             id: taskId,
             title: data.title,
             description: data.description,
@@ -51,10 +55,20 @@ async function onloadFunc() {
             assigned_to: data.assigned_to,
             status: data.status,
             subtasks: subtasksArray
-        });
+        };
     }
 
-    await contactsFetch();
+    async function letTasks() {
+        let tasksResponse = await fetchData("tasks");
+        let tasksKeysArrays = Object.keys(tasksResponse);
+        return { tasksKeysArrays, tasksResponse };
+    }
+
+    function letTaskIdData(index) {
+        let taskId = tasksKeysArrays[index];
+        let data = tasksResponse[taskId];
+        return { data, taskId };
+    }
 }
 
 /**
