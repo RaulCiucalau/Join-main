@@ -10,21 +10,14 @@ async function init() {
   checkOrientation();
 }
 
-/**
- * Fetches all users from the specified database path.
- */
 async function getAllUsers(path) {
   let response = await fetch(`${BASE_URL}${path}.json`);
   return await response.json();
 }
 
-/**
- * Fetches all users and populates the `usersArr` array.
- */
 async function getUsersFromDatabase() {
   let userResponse = await getAllUsers("user");
 
-  // Falls leer oder null, leeres Objekt
   if (!userResponse) {
     userResponse = {};
   }
@@ -38,9 +31,6 @@ async function getUsersFromDatabase() {
   }
 }
 
-/**
- * Creates a new user object.
- */
 function createNewUser(email, password, name) {
   return {
     id: generateUniqueId(),
@@ -98,16 +88,10 @@ function acceptPolicy() {
   }
 }
 
-/**
- * Adds or edits a single user in the database.
- */
 async function addEditSingleUser(id, user) {
   await putData(`user/${id}`, user);
 }
 
-/**
- * Sends a PUT request to update data in the database.
- */
 async function putData(path = "", data = {}) {
   let response = await fetch(`${BASE_URL}${path}.json`, {
     method: "PUT",
@@ -119,15 +103,10 @@ async function putData(path = "", data = {}) {
   return await response.json();
 }
 
-/**
- * Signs up a new user.
- */
 async function signUp(event) {
   event.preventDefault();
-
   const emailEl = document.getElementById("email");
   const nameEl = document.getElementById("name");
-
   const email = emailEl.value;
   const name = nameEl.value;
 
@@ -140,10 +119,6 @@ async function signUp(event) {
   completeSignUp();
 }
 
-
-/**
- * Adds a new user and saves it to the database.
- */
 function addUser() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -153,46 +128,30 @@ function addUser() {
   saveUserToDatabase(newUser);
 }
 
-/**
- * Saves a user to the database.
- */
 function saveUserToDatabase(user) {
   const { id, user: userData } = user;
   addEditSingleUser(id, userData);
 }
 
-/**
- * Completes the sign-up process.
- */
 function completeSignUp() {
   addUser();
   showLog();
   goToLogin();
 }
 
-/**
- * Displays a success message.
- */
 function showLog() {
   document.getElementById("log").innerHTML = `<div class="signup-successful-msg">
     <p>You Signed Up Successfully</p> 
   </div>`;
 }
 
-/**
- * Redirects to login after a delay.
- */
 function goToLogin() {
   setTimeout(() => {
     window.location.href = "./index.html";
   }, 1000);
 }
 
-/**
- * Validation / Helper functions
- */
 function isUsersArrEmpty() {
-  // Blockiert nicht mehr, nur Hinweis
   if (usersArr.length === 0) {
     console.warn("No users found yet. Proceeding anyway...");
   }
@@ -307,7 +266,6 @@ async function createContactForUser(userData) {
     avatar: userData.avatar,
     color: userData.color,
   };
-
   await fetch(`${BASE_URL}contacts.json`, {
     method: "POST",
     headers: {
@@ -317,15 +275,8 @@ async function createContactForUser(userData) {
   });
 }
 
-/**
- * Saves a user to the database and creates a matching contact.
- */
 function saveUserToDatabase(user) {
   const { id, user: userData } = user;
-  addEditSingleUser(id, userData); // Benutzer speichern
-  createContactForUser(userData);  // ➕ Kontakt anlegen
+  addEditSingleUser(id, userData); 
+  createContactForUser(userData);  
 }
-
-
-
-
