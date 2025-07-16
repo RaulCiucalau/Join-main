@@ -109,7 +109,6 @@ function showUrgentDate(tasks) {
   }
 }
 
-
 /**
  * Returns a greeting string based on the current time.
  * @returns {string} Greeting message.
@@ -132,43 +131,56 @@ function loadLoginInfo(key) {
   return data ? JSON.parse(data) : null;
 }
 
-/**
- * Loads the logged-in user's name and greeting, and displays them on the dashboard.
- */
 async function loadUserNameAndGreeting() {
   const loginInfo = loadLoginInfo("whoIsLoggedIn");
   if (!loginInfo || !loginInfo.userLoggedIn || !loginInfo.userLoggedIn.email) {
+    return guestUser();
+  }
+  const email = loginInfo.userLoggedIn.email;
+  try {
+    const user = await fetchUser();
+    if (user) {
+      greetingUser(user);
+    } else {
+      userNotFoundInfo();
+    }
+  } catch (error) {
+    errorLoading(error);
+  }
+
+  async function fetchUser() {
+    const response = await fetch(`${BASE_URL}user.json`);
+    const data = await response.json();
+    const user = Object.values(data).find(
+      (userObj) => userObj.email.toLowerCase() === email.toLowerCase()
+    );
+    return user;
+  }
+
+  function guestUser() {
     const greeting = getGreetings();
     document.getElementById("dashboard-time").innerText = greeting;
     return;
   }
-  const email = loginInfo.userLoggedIn.email;
-  try {
-    const response = await fetch(`${BASE_URL}user.json`);
-    const data = await response.json();
-    // Finde den Nutzer mit der gespeicherten Email
-    const user = Object.values(data).find(
-      (userObj) => userObj.email.toLowerCase() === email.toLowerCase()
-    );
-    if (user) {
-      const name = user.name;
-      const greeting = getGreetings();
-      document.getElementById("dashboard-name").innerText = name;
-      document.getElementById("dashboard-time").innerText = greeting;
-    } else {
-      console.warn("❌ Nutzer nicht gefunden.");
-      document.getElementById("dashboard-name").innerText = "Nutzer nicht gefunden";
-    }
 
-  } catch (error) {
+  function errorLoading(error) {
     console.error("❌ Fehler beim Laden:", error);
     document.getElementById("dashboard-name").innerText = "Fehler beim Laden";
   }
+
+  function userNotFoundInfo() {
+    console.warn("❌ Nutzer nicht gefunden.");
+    document.getElementById("dashboard-name").innerText = "Nutzer nicht gefunden";
+  }
+
+  function greetingUser(user) {
+    const name = user.name;
+    const greeting = getGreetings();
+    document.getElementById("dashboard-name").innerText = name;
+    document.getElementById("dashboard-time").innerText = greeting;
+  }
 }
 
-/**
- * Removes the 'hover-scale' class from elements if screen width is below or equal to 1418px.
- */
 function updateHoverScaleClass() {
   const container = document.getElementById('boxInfoTask');
   if (!container) return;
