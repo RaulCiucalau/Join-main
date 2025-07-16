@@ -241,7 +241,7 @@ function updateContactDetails(name, email, phone, paramKey, users) {
   contactDetailsAreaTemplate(paramKey, users);
   document.getElementById("big-user-name").innerText = name;
   let rightEmailArea = document.getElementById("user-email");
-  rightEmailArea.innerHTML = `${email}<br>`;
+  rightEmailArea.innerHTML = `${email}`;
   rightEmailArea.href = `mailto:${email}`;
   document.getElementById("user-phone-number").innerText = phone;
   document.getElementById("contact-to-trash").onclick = () =>

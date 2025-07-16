@@ -45,7 +45,7 @@
 
   .contact-information {
     margin-top: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 27px;
   }
 
   body {
@@ -420,6 +420,10 @@
       transform: translateX(0);
     }
   }
+
+  .user-name-header {
+    margin-bottom: 29px;
+  }
 }
 
 @media (max-width: 811px) {
@@ -455,6 +459,16 @@
 }
 
 @media (max-width: 570px) {
+  h3 {
+    padding-left: 7px !important;
+  }
+
+  #contacts-header {
+    padding: 0;
+    padding-inline: 10px;
+    margin-bottom: 20px;
+  }
+
   .contact-icon {
     height: 125px;
     margin-top: -20px;

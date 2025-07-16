@@ -63,10 +63,8 @@ function contactDetailsAreaTemplate(paramKey, users) {
               <h3 class="contact-information">Contact Information</h3>
               <div class="contact-details">
                 <h4>E-Mail</h4>
-                <br />
                 <a id="user-email" class="user-email">user@name.com</a>
                 <h4 class="phone-number">Phone</h4>
-                <br />
                 <p id="user-phone-number" class="user-phone-number"></p>
                 <br />
               </div>
