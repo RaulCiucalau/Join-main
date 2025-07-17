@@ -23,16 +23,11 @@ let selectedColumn = "to-do";
  */
 async function loadContacts(path) {
   try {
-    const response = await fetch("https://join-460-default-rtdb.europe-west1.firebasedatabase.app/contacts.json");
-    const data = await response.json();
+    const data = await fetchResponse();
     if (data) {
       contacts = Object.values(data).filter(c => c !== null).map(user => {
-        const firstLetter = user.name.charAt(0).toUpperCase();
-        const secondLetter = user.name.split(" ")[1]?.[0]?.toUpperCase();
-        return {
-          ...user,
-          avatar: secondLetter ? `${firstLetter}${secondLetter}` : firstLetter
-        };
+        const { secondLetter, firstLetter } = constFirstLetter(user);
+        return returnUser(user, secondLetter, firstLetter);
       });
     } else {
       contacts = [];
@@ -40,11 +35,27 @@ async function loadContacts(path) {
   } catch (error) {
     console.error("Fehler beim Laden der Kontakte aus Firebase:", error);
   }
+
+  function constFirstLetter(user) {
+    const firstLetter = user.name.charAt(0).toUpperCase();
+    const secondLetter = user.name.split(" ")[1]?.[0]?.toUpperCase();
+    return { secondLetter, firstLetter };
+  }
+
+  function returnUser(user, secondLetter, firstLetter) {
+    return {
+      ...user,
+      avatar: secondLetter ? `${firstLetter}${secondLetter}` : firstLetter
+    };
+  }
+
+  async function fetchResponse() {
+    const response = await fetch("https://join-460-default-rtdb.europe-west1.firebasedatabase.app/contacts.json");
+    const data = await response.json();
+    return data;
+  }
 }
 
-/**
- * Initializes the app by loading contacts, tasks, and setting up UI.
- */
 async function init() {
   await loadContacts("contactList");
   await loadTasks("tasks");
@@ -52,9 +63,6 @@ async function init() {
   highlightMenuActual();
 }
 
-/**
- * Creates a new task if inputs are valid and task doesn't already exist.
- */
 function createTask() {
   if (areInputsEmpty()) {
     showFieldRequired();
@@ -67,9 +75,6 @@ function createTask() {
   }
 }
 
-/**
- * Saves a new task to the task array and sends it to Firebase.
- */
 function saveTaskInputs() {
   if (canSaveTask()) {
     let maxId = 0;
@@ -79,12 +84,16 @@ function saveTaskInputs() {
         maxId = currentId;
       }
     };
+    newId(maxId);
+  } else {
+    console.log("Task already exists or the input fields are empty");
+  }
+
+  function newId(maxId) {
     let newId = maxId + 1;
     const task = createTaskObject(newId);
     tasks.push(task);
     addTaskToDatabase(newId, task);
-  } else {
-    console.log("Task already exists or the input fields are empty");
   }
 }
 
@@ -177,16 +186,24 @@ function areInputsEmpty() {
   today.setHours(0, 0, 0, 0);
   [e, p, t("required-date")].forEach(el => el.classList.add("dp-none"));
   if (!v) {
+    requiredDateFalse();
+  } else if (new Date(v) < today) {
+    requiredDate();
+  }
+  return i;
+
+  function requiredDateFalse() {
     e.classList.remove("dp-none");
     t("required-date").classList.remove("dp-none");
     i = true;
-  } else if (new Date(v) < today) {
+  }
+
+  function requiredDate() {
     p.classList.remove("dp-none");
     t("required-date").classList.remove("dp-none");
     d.style.border = "1px solid red";
     i = true;
   }
-  return i;
 }
 
 /**
@@ -199,9 +216,6 @@ function taskAlreadyExists(tasksArr, title) {
   return tasksArr.some(task => task.title === title);
 }
 
-/**
- * Shows red borders and warnings for empty required fields.
- */
 function showFieldRequired() {
   if (document.getElementById("add-task-title").value.trim() === "") {
     document.getElementById("add-task-title").style.border = "1px solid red";
@@ -217,9 +231,6 @@ function showFieldRequired() {
   }
 }
 
-/**
- * Navigates to the board page after a short delay.
- */
 function goToBoards() {
   setTimeout(() => {
     window.location.href = "./board/board.html";
@@ -243,9 +254,6 @@ async function addTaskToDatabase(id, task) {
   }
 }
 
-/**
- * Clears the form and resets UI to default state.
- */
 function clearTaskForm() {
   subtasks = [];
   clearInputs();
@@ -257,9 +265,6 @@ function clearTaskForm() {
   removeFieldRequired();
 }
 
-/**
- * Clears all input fields.
- */
 function clearInputs() {
   document.getElementById("subtask-list").innerHTML = "";
   document.getElementById("subtask").value = "";
@@ -271,9 +276,6 @@ function clearInputs() {
   document.getElementById("assigned-to").value = "";
 }
 
-/**
- * Removes warning styles and error messages from form fields.
- */
 function removeFieldRequired() {
   document.getElementById("required-title").classList.add("dp-none");
   document.getElementById("add-task-title").style.border = "1px solid #d1d1d1";
@@ -283,25 +285,16 @@ function removeFieldRequired() {
   document.getElementById("category").style.border = "1px solid #d1d1d1";
 }
 
-/**
- * Displays error when a duplicate task title is detected.
- */
 function errorTaskAlreadyExists() {
   document.getElementById("task-already-exists").classList.remove("dp-none");
   document.getElementById("add-task-title").style.border = "1px solid red";
 }
 
-/**
- * Changes icon to blue on hover.
- */
 function changeToBlueIcon() {
   document.getElementById("clear").classList.add("dp-none");
   document.getElementById("clear-hover").classList.remove("dp-none");
 }
 
-/**
- * Changes icon back to black on mouse out.
- */
 function changeToBlackIcon() {
   document.getElementById("clear").classList.remove("dp-none");
   document.getElementById("clear-hover").classList.add("dp-none");
@@ -331,11 +324,8 @@ async function loadTasks(path = "tasks") {
   try {
     const response = await fetch(`https://join-460-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`);
     const data = await response.json();
-
     if (data) {
-      tasksArr = Object.values(data);
-      const ids = Object.keys(data).map(id => Number(id)).filter(id => !isNaN(id));
-      currentMaxId = ids.length ? Math.max(...ids) : 3;
+      taskArrObject(data);
     } else {
       tasksArr = [];
       currentMaxId = 3;
@@ -343,11 +333,14 @@ async function loadTasks(path = "tasks") {
   } catch (error) {
     console.error("Fehler beim Laden der Tasks aus Firebase:", error);
   }
+
+  function taskArrObject(data) {
+    tasksArr = Object.values(data);
+    const ids = Object.keys(data).map(id => Number(id)).filter(id => !isNaN(id));
+    currentMaxId = ids.length ? Math.max(...ids) : 3;
+  }
 }
 
-/**
- * Displays avatar or guest letter based on login info from Firebase.
- */
 async function showLoggedInInfo() {
   try {
     const response = await fetch("https://join-460-default-rtdb.europe-west1.firebasedatabase.app/login.json");
@@ -364,9 +357,6 @@ async function showLoggedInInfo() {
   }
 }
 
-/**
- * Highlights the active menu link based on the current page.
- */
 function highlightMenuActual() {
   const path = window.location.pathname;
   const menuLinks = document.querySelectorAll(".nav-link");

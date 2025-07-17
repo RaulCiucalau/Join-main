@@ -60,9 +60,6 @@ function getPrioColors(prio) {
   }
 }
 
-/**
- * Toggles visibility of the edit task dialog.
- */
 function toggleEditTaskDialog() {
   let editDialog = document.getElementById('editTaskDialog');
   editDialog.classList.toggle('d-none-edit-dialog');
@@ -190,14 +187,8 @@ function saveSelectedTask(taskId, subtaskIndex) {
  * @param {number|string} taskId - Task ID.
  */
 function saveEditInputFields(taskId) {
-  const task = tasks.find(t => String(t.id) === String(taskId));
-  const titleInput = document.getElementById(`editedTitle-${taskId}`).value;
-  const descriptionInput = document.getElementById(`editedDescription-${taskId}`).value;
-  const dateInput = document.getElementById(`editedDate-${taskId}`).value;
-  task.title = titleInput;
-  task.description = descriptionInput;
-  task.due_date = dateInput;
-  task.priority = selectedPrioritys;
+  const { task, titleInput, descriptionInput, dateInput } = constTaskFindId();
+  taskTitleInput();
   if (selectedContactsNames && selectedContactsNames.length > 0) {
     if (!task.assigned_to) {
       task.assigned_to = [];
@@ -208,6 +199,21 @@ function saveEditInputFields(taskId) {
       }
     });
   }
+
+  function taskTitleInput() {
+    task.title = titleInput;
+    task.description = descriptionInput;
+    task.due_date = dateInput;
+    task.priority = selectedPrioritys;
+  }
+
+  function constTaskFindId() {
+    const task = tasks.find(t => String(t.id) === String(taskId));
+    const titleInput = document.getElementById(`editedTitle-${taskId}`).value;
+    const descriptionInput = document.getElementById(`editedDescription-${taskId}`).value;
+    const dateInput = document.getElementById(`editedDate-${taskId}`).value;
+    return { task, titleInput, descriptionInput, dateInput };
+  }
 }
 
 /**
@@ -215,11 +221,7 @@ function saveEditInputFields(taskId) {
  * @param {number|string} taskId - Task ID.
  */
 async function updateTaskDatainAPI(taskId) {
-  const task = tasks.find(t => String(t.id) === String(taskId));
-  const dateInputId = `editedDate-${taskId}`;
-  const titleInputId = `editedTitle-${taskId}`;
-  const isValidTitle = isTitleValid(titleInputId);
-  const isValidDate = isDueDateValid(dateInputId);
+  const { isValidDate, isValidTitle, task } = constTaskFind();
   if (!isValidDate || !isValidTitle) return;
   saveEditInputFields(taskId);
   try {
@@ -234,6 +236,15 @@ async function updateTaskDatainAPI(taskId) {
   removeEditDialog();
   renderCards(tasks);
   hideProgressBarsForTasksWithoutSubtasks(tasks)
+
+  function constTaskFind() {
+    const task = tasks.find(t => String(t.id) === String(taskId));
+    const dateInputId = `editedDate-${taskId}`;
+    const titleInputId = `editedTitle-${taskId}`;
+    const isValidTitle = isTitleValid(titleInputId);
+    const isValidDate = isDueDateValid(dateInputId);
+    return { isValidDate, isValidTitle, task };
+  }
 }
 
 /**
@@ -249,10 +260,7 @@ function removeEditDialog() {
  * @param {number|string} taskId - Task ID.
  */
 function addNewSubtaskToList(taskId) {
-  const inputContainer = document.querySelector('.btns-new-subtask');
-  const task = tasks.find(t => String(t.id) === String(taskId));
-  const text = document.getElementById('newSubtaskInput').value;
-  const container = document.getElementById('subtasksList');
+  const { task, text, container, inputContainer } = constInputcontainer();
   const maxSubtaskId = task.subtasks.reduce((max, subtask) => {
     return Math.max(max, parseInt(subtask.id) || 0);
   }, 0);
@@ -265,22 +273,28 @@ function addNewSubtaskToList(taskId) {
     completed: false
   };
   task.subtasks.push(subtaskObject);
-  document.getElementById('newSubtaskInput').value = '';
-  container.innerHTML = renderSubtasksToEdit(task);
-  inputContainer.classList.add('visibility-hidden');
+  pushSubTask();
+
+  function pushSubTask() {
+    document.getElementById('newSubtaskInput').value = '';
+    container.innerHTML = renderSubtasksToEdit(task);
+    inputContainer.classList.add('visibility-hidden');
+  }
+
+  function constInputcontainer() {
+    const inputContainer = document.querySelector('.btns-new-subtask');
+    const task = tasks.find(t => String(t.id) === String(taskId));
+    const text = document.getElementById('newSubtaskInput').value;
+    const container = document.getElementById('subtasksList');
+    return { task, text, container, inputContainer };
+  }
 }
 
-/**
- * Shows the buttons for confirming/canceling new subtask addition.
- */
 function showBtnToAddSubtask() {
   const container = document.querySelector('.btns-new-subtask');
   container.classList.remove('visibility-hidden');
 }
 
-/**
- * Cancels subtask creation and resets input field.
- */
 function cancelBtnAddSubtask() {
   const container = document.querySelector('.btns-new-subtask');
   const input = document.getElementById('subtaskContainer');
@@ -308,13 +322,10 @@ function createSubtaskOnEnter(taskId) {
  * @returns {boolean} True if the date is valid, false otherwise.
  */
 function isDueDateValid(inputId) {
-  const input = document.getElementById(inputId);
-  const errorMessageId = `${inputId}-error`;
-  const today = new Date().toISOString().split("T")[0];
+  const { errorMessageId, input, today } = constErrorMessage();
   let existingError = document.getElementById(errorMessageId);
   if (existingError) existingError.remove();
-  const inputDate = new Date(input.value);
-  const inputYear = inputDate.getFullYear();
+  const inputYear = constNewDate();
   if (input.value < today) {
     showDateError(input, errorMessageId, "Date cannot be in the past");
     return false;
@@ -324,6 +335,19 @@ function isDueDateValid(inputId) {
     return false;
   }
   return true;
+
+  function constNewDate() {
+    const inputDate = new Date(input.value);
+    const inputYear = inputDate.getFullYear();
+    return inputYear;
+  }
+
+  function constErrorMessage() {
+    const input = document.getElementById(inputId);
+    const errorMessageId = `${inputId}-error`;
+    const today = new Date().toISOString().split("T")[0];
+    return { errorMessageId, input, today };
+  }
 }
 
 /**
@@ -358,13 +382,16 @@ function isTitleValid(inputId) {
   if (!input.value.trim()) {
     const errorText = document.createElement("p");
     errorText.id = errorMessageId;
+    errorTextForm(errorText);
+    input.insertAdjacentElement("afterend", errorText);
+    return false;
+  }
+  return true;
+
+  function errorTextForm(errorText) {
     errorText.textContent = "This field is required";
     errorText.style.color = "red";
     errorText.style.fontSize = "0.85rem";
     errorText.style.marginTop = "4px";
-    input.insertAdjacentElement("afterend", errorText);
-    return false;
   }
-
-  return true;
 }
