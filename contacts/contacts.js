@@ -1,6 +1,4 @@
-/** Base URL for Firebase database */
 const BASE_URL = "https://join-460-default-rtdb.europe-west1.firebasedatabase.app/";
-/** Firebase path for user contacts */
 const USERS_PATH = "contacts/";
 
 /**
@@ -12,7 +10,6 @@ function getUserUrl(key = "") {
   return `${BASE_URL}${USERS_PATH}${key ? key + ".json" : ".json"}`;
 }
 
-// DOM elements and global variables
 let leftContactsList = document.getElementById("left-contact-list");
 let firebaseAnswer;
 let fireBase;
@@ -21,19 +18,14 @@ let user;
 let contactDetailsArea;
 let key;
 
-/** Array of predefined colors for user avatars */
 let colours = [
   "#FF7A00", "#9327FF", "#6E52FF", "#FC71FF", "#FFBB2B",
   "#1FD7C1", "#462F8A", "#FF4646", "#00BEE8", "#FF7A00",
 ];
 
-/**
- * Fetches user contacts from Firebase and renders them.
- */
 async function contactFirebase() {
   let firebaseUrl = await fetch(getUserUrl());
   firebaseAnswer = await firebaseUrl.json();
-
 
   if (!firebaseAnswer) {
     fireBase = { users: {} };
@@ -47,40 +39,43 @@ async function contactFirebase() {
   renderLeftColumnContacts();
 }
 
-/**
- * Initializes the application.
- */
 function init() {
-  
   contactFirebase();
   rightContactDetailsHideOnLoad();
   checkOrientation();
 }
 
-/**
- * Renders the left column of contact list grouped by initials.
- */
 function renderLeftColumnContacts() {
-  leftContactsList.innerHTML = "";
-  users = fireBase.users;
+  contactList();
 
   let validUserKeys = Object.keys(users).filter(key => users[key] !== null);
-
   let lastInitial = "";
-  let sortedUserKeys = validUserKeys.sort((a, b) =>
-    users[a].name.localeCompare(users[b].name)
+  let sortedUserKeys = validUserKeys.sort((a, b) => users[a].name.localeCompare(users[b].name)
   );
-
   sortedUserKeys.forEach((keyObj, indexOfUser) => {
-    let user = users[keyObj];
-    let initial = user.name.charAt(0).toUpperCase();
+    let { initial, user } = firstLettersBig(keyObj);
     if (initial !== lastInitial) {
-      leftContactsList.innerHTML += renderLeftColumnContactsInitalsTemplate(initial);
-      lastInitial = initial;
+      renderLeftColumn(initial);
     }
     renderLeftColumnPartTwo(user, indexOfUser, keyObj);
     makeLeftContactActive();
   });
+
+  function contactList() {
+    leftContactsList.innerHTML = "";
+    users = fireBase.users;
+  }
+
+  function firstLettersBig(keyObj) {
+    let user = users[keyObj];
+    let initial = user.name.charAt(0).toUpperCase();
+    return { initial, user };
+  }
+
+  function renderLeftColumn(initial) {
+    leftContactsList.innerHTML += renderLeftColumnContactsInitalsTemplate(initial);
+    lastInitial = initial;
+  }
 }
 
 /**
@@ -126,9 +121,6 @@ function createContactNameInitials(user, indexOfUser) {
   userImage.classList.add("user-initials");
 }
 
-/**
- * Hides the right contact details area on load.
- */
 function rightContactDetailsHideOnLoad() {
   contactDetailsArea = document.getElementById("contact-details-area");
   contactDetailsArea.classList.add("hide");
@@ -146,9 +138,6 @@ function createBigContactNameInitials(user) {
   bigCredentialsArea.innerHTML = secondLetter ? `${firstLetter}${secondLetter}` : `${firstLetter}`;
 }
 
-/**
- * Shows only the left contact list and hides right column (responsive).
- */
 function hideContactDetails(users) {
   let rightColumn = document.getElementById("right-contacts-page-column");
   let leftColumn = document.getElementById("left-contacts-page-column");
@@ -156,9 +145,6 @@ function hideContactDetails(users) {
   leftColumn.style.display = "block";
 }
 
-/**
- * Adds event listeners to make selected contact active.
- */
 function makeLeftContactActive() {
   const contactListItems = document.querySelectorAll(".contact-list");
   contactListItems.forEach((item) => {
@@ -169,9 +155,6 @@ function makeLeftContactActive() {
   });
 }
 
-/**
- * Renders the right contact details pane.
- */
 function renderRightContactArea(name, email, phone, paramKey, users) {
   let overlayButton = document.getElementById("overlayButton");
   if (overlayButton) overlayButton.style.display = "block";
@@ -181,9 +164,6 @@ function renderRightContactArea(name, email, phone, paramKey, users) {
   updateUserDetails(paramKey, users);
 }
 
-/**
- * Handles responsive behavior when viewing contact details.
- */
 function handleResponsiveView(paramKey, users) {
   if (window.innerWidth < 1250) {
     let rightColumn = document.getElementById("right-contacts-page-column");
@@ -215,9 +195,6 @@ function findUserByKey(paramKey, users) {
   return null;
 }
 
-/**
- * Renders overlay content for responsive user detail view.
- */
 function handleOverlayButton(paramKey, users) {
   const matchedUser = findUserByKey(paramKey, users);
   if (!matchedUser) return;
@@ -234,9 +211,6 @@ function handleOverlayButton(paramKey, users) {
   rightColumn.appendChild(userDetails);
 }
 
-/**
- * Updates the contact detail fields with new data.
- */
 function updateContactDetails(name, email, phone, paramKey, users) {
   contactDetailsAreaTemplate(paramKey, users);
   document.getElementById("big-user-name").innerText = name;
@@ -250,18 +224,12 @@ function updateContactDetails(name, email, phone, paramKey, users) {
     editContact(paramKey, users);
 }
 
-/**
- * Updates user detail styles and initials for large view.
- */
 function updateUserDetails(paramKey, users) {
   let user = users[paramKey];
   createBigContactNameInitials(user);
   bigRandomColour(user);
 }
 
-/**
- * Deletes a contact from Firebase and re-renders the contact list.
- */
 async function deleteContactFromDatabase(key, users) {
   let deleteUrl = getUserUrl(key);
   try {
@@ -275,30 +243,18 @@ async function deleteContactFromDatabase(key, users) {
   renderLeftColumnContacts();
 }
 
-/**
- * Triggers the contact edit overlay.
- */
 function editContact(paramKey, users) {
   editContactOverlay(paramKey, users);
 }
 
-/**
- * Stops event propagation.
- */
 function stopPropagation(event) {
   event.stopPropagation();
 }
 
-/**
- * Displays the user's phone number in the UI.
- */
 function displayPhoneNumber(user) {
   document.getElementById("user-phone-number").innerText = user.phone;
 }
 
-/**
- * Applies saved colors to user avatar icons.
- */
 function applyRandomColors() {
   let userPictures = document.getElementsByClassName("user-initials user-icon");
   Array.from(userPictures).forEach((element, index) => {
@@ -308,9 +264,6 @@ function applyRandomColors() {
   });
 }
 
-/**
- * Applies background color to the large initials avatar.
- */
 function bigRandomColour(user) {
   let bigInitialsArea = document.getElementById("user-picture-big-index");
   if (bigInitialsArea && user.color) {
@@ -318,17 +271,10 @@ function bigRandomColour(user) {
   }
 }
 
-/**
- * Saves changes to an edited contact in Firebase.
- */
 async function saveEditedContact(key) {
-  const nameValid = isNameValid("fullName");
-  const emailValid = isEmailValid("new-email");
-  const phoneValid = isPhoneValid("new-phone");
+  const { nameValid, emailValid, phoneValid } = constNameEmailPhone();
   if (!nameValid || !emailValid || !phoneValid) return;
-  const name = document.getElementById("fullName").value.trim();
-  const email = document.getElementById("new-email").value.trim();
-  const phone = document.getElementById("new-phone").value.trim();
+  const { name, email, phone } = constNameEmailPhoneTrim();
   try {
     await fetch(getUserUrl(key), {
       method: "PATCH",
@@ -341,77 +287,119 @@ async function saveEditedContact(key) {
   } catch (error) {
     console.error("Error updating contact:", error);
   }
+
+  function constNameEmailPhoneTrim() {
+    const name = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("new-email").value.trim();
+    const phone = document.getElementById("new-phone").value.trim();
+    return { name, email, phone };
+  }
+
+  function constNameEmailPhone() {
+    const nameValid = isNameValid("fullName");
+    const emailValid = isEmailValid("new-email");
+    const phoneValid = isPhoneValid("new-phone");
+    return { nameValid, emailValid, phoneValid };
+  }
 }
 
-/**
- * Adds a new contact to Firebase.
- */
 async function addNewContactToDatabase(name, email, phone) {
-  const nameInput = document.getElementById("fullName");
-  const emailInput = document.getElementById("new-email");
-  const phoneInput = document.getElementById("new-phone");
-
-  const nameError = nameInput.closest(".input-group")?.querySelector(".error-message");
-  const emailError = emailInput.closest(".input-group")?.querySelector(".error-message");
-  const phoneError = phoneInput.closest(".input-group")?.querySelector(".error-message");
-
-  name = name.trim();
-  email = email.trim();
-  phone = phone.trim();
-
+  const { nameInput, emailInput, phoneInput } = constNewName();
+  const { nameError, emailError, phoneError } = showWrongInput();
+  trimNameEmailPhone();
   let valid = true;
-
- 
-  nameError.innerText = "";
-  emailError.innerText = "";
-  phoneError.innerText = "";
-
- 
+  emptyNameEmailPhoneField();
   if (/\d/.test(name)) {
-    nameError.innerText = "Name must not contain numbers";
-    valid = false;
+    checkNumbersAtNameField();
   }
-
-  
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    emailError.innerText = "Invalid email address";
-    valid = false;
+    checkEmailField();
+  }
+  if (!/^\d+$/.test(phone)) {
+    checkNumbersatPhoneField();
+  }
+  if (!valid) return;
+  const { randomColor, initials } = constAvatarAndColor();
+  const newContact = newContactsWithAvatar();
+  await tryFetchAndCatch();
+
+  async function tryFetchAndCatch() {
+    try {
+      await fetch(getUserUrl(), returnContectType());
+      closeAddContactOverlay();
+      contactFirebase();
+    } catch (error) {
+      console.error("Fehler beim Speichern in Firebase:", error);
+    }
   }
 
-  
-  if (!/^\d+$/.test(phone)) {
+  function returnContectType() {
+    return {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newContact),
+    };
+  }
+
+  function constAvatarAndColor() {
+    const randomColor = colours[Math.floor(Math.random() * colours.length)];
+    const initials = name
+      .trim()
+      .split(' ')
+      .map(word => word[0].toUpperCase())
+      .join('');
+    return { randomColor, initials };
+  }
+
+  function newContactsWithAvatar() {
+    return {
+      name: name,
+      e_mail: email,
+      phone: phone,
+      color: randomColor,
+      avatar: initials
+    };
+  }
+
+  function checkNumbersatPhoneField() {
     phoneError.innerText = "Phone number must contain digits only";
     valid = false;
   }
 
-  if (!valid) return;
+  function checkEmailField() {
+    emailError.innerText = "Invalid email address";
+    valid = false;
+  }
 
-  const randomColor = colours[Math.floor(Math.random() * colours.length)];
-  const initials = name
-    .trim()
-    .split(' ')
-    .map(word => word[0].toUpperCase())
-    .join('');
+  function checkNumbersAtNameField() {
+    nameError.innerText = "Name must not contain numbers";
+    valid = false;
+  }
 
-  const newContact = {
-    name: name,
-    e_mail: email,
-    phone: phone,
-    color: randomColor,
-    avatar: initials
-  };
+  function emptyNameEmailPhoneField() {
+    nameError.innerText = "";
+    emailError.innerText = "";
+    phoneError.innerText = "";
+  }
 
-  try {
-    await fetch(getUserUrl(), {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newContact),
-    });
+  function trimNameEmailPhone() {
+    name = name.trim();
+    email = email.trim();
+    phone = phone.trim();
+  }
 
-    closeAddContactOverlay();
-    contactFirebase();
-  } catch (error) {
-    console.error("Fehler beim Speichern in Firebase:", error);
+  function showWrongInput() {
+    const nameError = nameInput.closest(".input-group")?.querySelector(".error-message");
+    const emailError = emailInput.closest(".input-group")?.querySelector(".error-message");
+    const phoneError = phoneInput.closest(".input-group")?.querySelector(".error-message");
+    return { nameError, emailError, phoneError };
+  }
+
+  function constNewName() {
+    const nameInput = document.getElementById("fullName");
+    const emailInput = document.getElementById("new-email");
+    const phoneInput = document.getElementById("new-phone");
+    return { nameInput, emailInput, phoneInput };
   }
 }
 
@@ -421,24 +409,15 @@ function closeContactList() {
     detailContainer.classList.add("dp-none");
   }
 }
-
-
-// Initial load event
 document.addEventListener('DOMContentLoaded', () => {
   init();
 });
 
-/**
- * Closes the edit contact overlay.
- */
 function closeEditOverlay() {
   let container = document.getElementById('outer-edit-contact-overlay');
   container.classList.add('display-none-overlay');
 }
 
-/**
- * Closes the add contact overlay.
- */
 function closeAddContactOverlay() {
   let container = document.getElementById('outer-add-contact-overlay');
   container.classList.add('display-none-overlay');
