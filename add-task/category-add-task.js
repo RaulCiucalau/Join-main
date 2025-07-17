@@ -20,9 +20,6 @@ function showCategoryList(event) {
   }
 }
 
-/**
- * Renders the category dropdown list by populating it with category items.
- */
 function renderCategoryList() {
   document.getElementById("drop-down-category-list").innerHTML = "";
   for (let i = 0; i < category.length; i++) {
@@ -50,9 +47,6 @@ function selectCategory(i) {
   closeCategoryList();
 }
 
-/**
- * Closes the category dropdown list and resets its visibility state.
- */
 function closeCategoryList() {
   document.getElementById("drop-down-category-list").classList.add("dp-none");
   document.getElementById("add-category-img-up").classList.add("dp-none");
@@ -70,4 +64,3 @@ document.addEventListener("click", function (event) {
     closeCategoryList();
   }
 });
-

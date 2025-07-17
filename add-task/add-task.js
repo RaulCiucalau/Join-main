@@ -6,17 +6,11 @@ let currentMaxId = 3; // startet bei 3, damit die nächste ID 4 ist
 
 async function loadContacts(path) {
   try {
-    const response = await fetch("https://join-460-default-rtdb.europe-west1.firebasedatabase.app/contacts.json");
-    const data = await response.json();
-
+    const data = await fetchResponseFirebase();
     if (data) {
       contacts = Object.values(data).filter(c => c !== null).map(user => {
-        const firstLetter = user.name.charAt(0).toUpperCase();
-        const secondLetter = user.name.split(" ")[1]?.[0]?.toUpperCase();
-        return {
-          ...user,
-          avatar: secondLetter ? `${firstLetter}${secondLetter}` : firstLetter
-        };
+        const { secondLetter, firstLetter } = constFirstLetter(user);
+        return returnUser(user, secondLetter, firstLetter);
       });
     } else {
       contacts = [];
@@ -24,16 +18,34 @@ async function loadContacts(path) {
   } catch (error) {
     console.error("Fehler beim Laden der Kontakte aus Firebase:", error);
   }
+
+  function returnUser(user, secondLetter, firstLetter) {
+    return {
+      ...user,
+      avatar: secondLetter ? `${firstLetter}${secondLetter}` : firstLetter
+    };
+  }
+
+  function constFirstLetter(user) {
+    const firstLetter = user.name.charAt(0).toUpperCase();
+    const secondLetter = user.name.split(" ")[1]?.[0]?.toUpperCase();
+    return { secondLetter, firstLetter };
+  }
+
+  async function fetchResponseFirebase() {
+    const response = await fetch("https://join-460-default-rtdb.europe-west1.firebasedatabase.app/contacts.json");
+    const data = await response.json();
+    return data;
+  }
 }
 
 async function init() {
   await loadContacts("contactList");
-  await loadTasks("tasks"); // ✅ korrektes Datenbankverzeichnis
+  await loadTasks("tasks"); 
   await showLoggedInInfo();
   highlightMenuActual();
   checkOrientation();
 }
-
 
 function createTask() {
   if (areInputsEmpty()) {
@@ -107,22 +119,33 @@ function areInputsEmpty() {
   const t = (id) => document.getElementById(id),
         d = t("add-task-due-date"),
         [e, p] = t("required-date").querySelectorAll("p");
-  let i = !t("add-task-title").value.trim() || !t("category").value.trim(),
-      v = d.value,
-      today = new Date();
-  today.setHours(0, 0, 0, 0);
+  let { v, i, today } = letAddTaskTitle();
   [e, p, t("required-date")].forEach(el => el.classList.add("dp-none"));
   if (!v) {
+    requiredDateTrue();
+  } else if (new Date(v) < today) {
+    requiredDate();
+  }
+  return i;
+
+  function requiredDateTrue() {
     e.classList.remove("dp-none");
     t("required-date").classList.remove("dp-none");
     i = true;
-  } else if (new Date(v) < today) {
+  }
+
+  function letAddTaskTitle() {
+    let i = !t("add-task-title").value.trim() || !t("category").value.trim(), v = d.value, today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return { v, i, today };
+  }
+
+  function requiredDate() {
     p.classList.remove("dp-none");
     t("required-date").classList.remove("dp-none");
     d.style.border = "1px solid red";
     i = true;
   }
-  return i;
 }
 
 function taskAlreadyExists(tasksArr, title) {
@@ -228,9 +251,7 @@ function generateUniqueId() {
 
 async function loadTasks(path = "tasks") {
   try {
-    const response = await fetch(`https://join-460-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`);
-    const data = await response.json();
-
+    const data = await fetchPathData();
     if (data) {
       tasksArr = Object.values(data);
       const ids = Object.keys(data).map(id => Number(id)).filter(id => !isNaN(id));
@@ -241,6 +262,12 @@ async function loadTasks(path = "tasks") {
     }
   } catch (error) {
     console.error("Fehler beim Laden der Tasks aus Firebase:", error);
+  }
+
+  async function fetchPathData() {
+    const response = await fetch(`https://join-460-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`);
+    const data = await response.json();
+    return data;
   }
 }
 

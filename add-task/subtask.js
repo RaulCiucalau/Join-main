@@ -1,25 +1,29 @@
 let subtask = []; 
 let subtaskIdCounter = 0; 
-let currentTaskId = 3; // ← oder dynamisch setzen
+let currentTaskId = 3;
 
 document.addEventListener('DOMContentLoaded', () => {
-  const subtaskInput = document.getElementById('subtask');
-  const cancelIcon = document.getElementById('cancel-task-img');
-  const acceptIcon = document.getElementById('accept-task-img');
-  const separator = document.getElementById('small-separator');
-  const addIcon = document.getElementById('add-subtask-img');
+  const { subtaskInput, cancelIcon, acceptIcon, separator, addIcon } = constSubtaskInput();
 
   subtaskInput.addEventListener('input', () => {
     if (subtaskInput.value.trim().length > 0) {
-      cancelIcon.classList.remove('dp-none');
-      acceptIcon.classList.remove('dp-none');
-      separator.classList.remove('dp-none');
-      addIcon.classList.add('dp-none');
+      canelIconRemove();
     } else {
+      cancelIconAdd();
+    }
+
+    function cancelIconAdd() {
       cancelIcon.classList.add('dp-none');
       acceptIcon.classList.add('dp-none');
       separator.classList.add('dp-none');
       addIcon.classList.remove('dp-none');
+    }
+
+    function canelIconRemove() {
+      cancelIcon.classList.remove('dp-none');
+      acceptIcon.classList.remove('dp-none');
+      separator.classList.remove('dp-none');
+      addIcon.classList.add('dp-none');
     }
   });
 
@@ -42,12 +46,20 @@ document.addEventListener('DOMContentLoaded', () => {
       addIcon.classList.remove('dp-none');
     }
   });
+
+  function constSubtaskInput() {
+    const subtaskInput = document.getElementById('subtask');
+    const cancelIcon = document.getElementById('cancel-task-img');
+    const acceptIcon = document.getElementById('accept-task-img');
+    const separator = document.getElementById('small-separator');
+    const addIcon = document.getElementById('add-subtask-img');
+    return { subtaskInput, cancelIcon, acceptIcon, separator, addIcon };
+  }
 });
 
 function addSubtaskToList(text) {
   const list = document.getElementById('subtask-list');
 
-  // Objekt erzeugen und speichern
   const subtaskObject = {
     id: subtaskIdCounter.toString(),
     taskId: currentTaskId.toString(),
@@ -57,7 +69,6 @@ function addSubtaskToList(text) {
   subtask.push(subtaskObject);
   subtaskIdCounter++;
 
-  // HTML generieren
   const item = document.createElement('div');
   item.className = 'subtask-list-item';
 
@@ -104,7 +115,7 @@ function addSubtaskToList(text) {
     saveBtn.addEventListener('click', () => {
       const newText = input.value.trim();
       if (newText.length > 0) {
-        // Update im Array
+
         const st = subtask.find(s => s.title === currentText);
         if (st) st.title = newText;
 

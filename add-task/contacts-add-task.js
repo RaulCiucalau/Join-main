@@ -1,9 +1,6 @@
 let selectedContacts = [];
 let selectedContactsNames = [];
 
-/**
- * Renders the contact list dropdown by populating it with contact items.
- */
 function renderContactList() {
   document.getElementById("drop-down-contact-list").innerHTML += "";
   document.getElementById("drop-down-contact-list").innerHTML = "";
@@ -32,9 +29,6 @@ function showContactList(event) {
   closeCategoryList();
 }
 
-/**
- * Closes the contact dropdown list and resets its visibility state.
- */
 function closeContactList() {
   document.getElementById("assigned-to-img-up").classList.add("dp-none");
   document.getElementById("assigned-to-img-down").classList.remove("dp-none");
@@ -44,16 +38,12 @@ function closeContactList() {
 document.addEventListener("DOMContentLoaded", function () {
   const dialog = document.getElementById("dialogAddTask");
   const assignedSection = document.querySelector(".assigned-to-section");
-
   if (dialog && assignedSection) {
     dialog.addEventListener("click", function (event) {
-      // Close dropdown if the click is INSIDE the dialog but OUTSIDE assigned-to section
       if (!assignedSection.contains(event.target)) {
         closeContactList();
       }
     });
-
-    // Prevent clicks inside the assigned-to section from closing the dropdown
     assignedSection.addEventListener("click", function (event) {
       event.stopPropagation();
     });
@@ -113,20 +103,21 @@ function showSelectedAvatars() {
 
   const visibleContacts = selectedContacts
     .map(index => contacts[index])
-    .filter(contact => contact); // filtert undefined raus
+    .filter(contact => contact);
 
-  const avatarHtml = visibleContacts
-    .slice(0, 4)
-    .map(contact =>
-      `<div class="selected-avatar" style="background-color:${contact.color};">${contact.avatar}</div>`
-    )
-    .join("");
-
+  const avatarHtml = sliceVisibleContacts();
   const extraCount = visibleContacts.length - 4;
   container.innerHTML =
-    avatarHtml + (extraCount > 0 ? `<div class="selected-avatar extra-avatar">+${extraCount}</div>` : "");
-}
+   avatarHtml + (extraCount > 0 ? `<div class="selected-avatar extra-avatar">+${extraCount}</div>` : "");
 
+ function sliceVisibleContacts() {
+    return visibleContacts
+      .slice(0, 4)
+      .map(contact => `<div class="selected-avatar" style="background-color:${contact.color};">${contact.avatar}</div>`
+      )
+      .join("");
+  }
+}
 
 /**
  * Removes the avatar of an unselected contact.
@@ -139,14 +130,14 @@ function removeUnSelectedAvatar(i) {
 
 function createNewSubtaskOnEnter(event) {
   if (event.key === "Enter") {
-    event.preventDefault(); // Prevent form submit if inside form
+    event.preventDefault(); 
 
     const input = event.target;
     const value = input.value.trim();
 
     if (value !== "") {
       addSubtaskToList(value);
-      input.value = ""; // Clear input
+      input.value = "";
     }
   }
 }

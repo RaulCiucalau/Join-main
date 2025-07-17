@@ -7,8 +7,7 @@
 function isDateInFuture(dateString) {
   const today = new Date();
   const selectedDate = new Date(dateString);
-  
-  
+    
   today.setHours(0, 0, 0, 0);
   selectedDate.setHours(0, 0, 0, 0);
   
@@ -16,35 +15,41 @@ function isDateInFuture(dateString) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Get relevant DOM elements
   /** @type {HTMLInputElement|null} */
-  const dateInput = document.getElementById('add-task-due-date');
-   /** @type {HTMLButtonElement|null} */
-  const submitBtn = document.getElementById('submit-btn');
-
+  const { dateInput, submitBtn } = constDateInput();
   if (!dateInput) {
-    console.warn('Kein Datum-Input (#add-task-due-date) gefunden.');
-    return;
+    return noDateInput();
   }
-  
-  
-  const today = new Date().toISOString().split('T')[0];
-  dateInput.setAttribute('min', today);
-
+  newDate();
   if (submitBtn) {
     submitBtn.addEventListener('click', () => {
       const dueDate = dateInput.value;
-
-      
       if (!isDateInFuture(dueDate)) {
-        alert("The due date must not be in the past.");
-        return; 
+        return alertDateNoPast(); 
       }
-
-      
       console.log("Datum ist gültig:", dueDate);
+
+   function alertDateNoPast() {
+        alert("The due date must not be in the past.");
+        return;
+      }
     });
-  } else {
-    
+  } 
+
+  function noDateInput() {
+    console.warn('Kein Datum-Input (#add-task-due-date) gefunden.');
+    return;
+  }
+
+  function constDateInput() {
+    const dateInput = document.getElementById('add-task-due-date');
+    /** @type {HTMLButtonElement|null} */
+    const submitBtn = document.getElementById('submit-btn');
+    return { dateInput, submitBtn };
+  }
+
+  function newDate() {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
   }
 });
