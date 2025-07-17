@@ -65,9 +65,6 @@ function waitForInitialLetterElement(callback) {
     observer.observe(document.body, { childList: true, subtree: true });
 }
 
-/**
- * Opens the Add Task dialog or redirects to a separate page on small screens.
- */
 function openAddTaskDialog() {
     const dialogContainer = document.getElementById('addTaskDialog');
     const dialog = dialogContainer.querySelector('.dialog-add-task');
@@ -81,9 +78,6 @@ function openAddTaskDialog() {
     }
 }
 
-/**
- * Toggles the visibility of the Add Task dialog with animation.
- */
 function toggleAddTaskDialog() {
     const dialogContainer = document.getElementById('addTaskDialog');
     const dialog = dialogContainer.querySelector('.dialog-add-task');
@@ -133,17 +127,21 @@ function renderCards(tasks) {
         const tasksArray = Object.values(tasks || {}).filter(task => task && task.status !== undefined);
         const filteredTasks = tasksArray.filter(task => task.status === id);
         if (filteredTasks.length === 0) {
-            container.innerHTML = `
-                <div class="task-card no-cursor-pointer">
-                    <div class="empty-task dashed-border">No tasks ${label}</div>
-                </div>
-            `;
+            container.innerHTML = returnNoTaskLabel(label);
         } else {
             filteredTasks.forEach(task => {
                 container.innerHTML += getCardsTemplate(task);
             });
         }
     });
+
+    function returnNoTaskLabel(label) {
+        return `
+                <div class="task-card no-cursor-pointer">
+                    <div class="empty-task dashed-border">No tasks ${label}</div>
+                </div>
+            `;
+    }
 }
 
 /**
@@ -212,8 +210,7 @@ function removeHighlight(event) {
 async function moveTo(event, newStatus) {
     event.preventDefault();
     event.currentTarget.classList.remove("drag-highlight");
-    const task = tasks.find(t => t.id === currentDraggedTaskId);
-    const draggedElement = document.getElementById(`dragTask${currentDraggedTaskId}`);
+    const { draggedElement, task } = constTaskFind();
     if (draggedElement) {
         draggedElement.classList.remove("dragging");
     }
@@ -224,6 +221,12 @@ async function moveTo(event, newStatus) {
         hideProgressBarsForTasksWithoutSubtasks(tasks);
     }
     currentDraggedTaskId = null;
+
+    function constTaskFind() {
+        const task = tasks.find(t => t.id === currentDraggedTaskId);
+        const draggedElement = document.getElementById(`dragTask${currentDraggedTaskId}`);
+        return { draggedElement, task };
+    }
 }
 
 /**
@@ -242,9 +245,6 @@ async function updateTaskInDatabase(task) {
     }
 }
 
-/**
- * Filters tasks based on input text and re-renders the task cards.
- */
 function searchTasks() {
     let inputText = document.getElementById('findTaskInput').value.toLowerCase().trim();
     const filteredTasks = tasks.filter(task => {
@@ -262,27 +262,46 @@ function searchTasks() {
  * @param {Event} event - The event triggered by clicking the checkbox icon.
  */
 async function toggleSubtaskCompletion(event) {
-    const taskId = event.target.dataset.taskId;
-    const subtaskId = event.target.dataset.subtaskId;
+    const { taskId, subtaskId } = constTaskId();
     try {
-        const completed = !(await (await fetch(`${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}/completed.json`)).json());
-        const subtask = await (await fetch(`${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}.json`)).json();
+        const { subtask, completed } = await constCompletedAndSubtask();
         if (!subtask) return console.error(`Subtask ${subtaskId} not found`);
-        subtask.completed = completed;
-        event.target.src = completed 
-            ? '../assets/img/board_icons/checked_button.svg' 
-            : '../assets/img/board_icons/unchecked_button.svg';
+        subTaskCompleted(subtask, completed);
         await fetch(`${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}.json`, {
             method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(subtask)
         });
+        const { index, subtasks } = await constSubTask();
+        if (index !== -1) tasks[index].subtasks = subtasks;
+    } catch (e) {
+        console.error('Fehler beim Toggle:', e);
+    }
+
+    async function constCompletedAndSubtask() {
+        const completed = !(await (await fetch(`${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}/completed.json`)).json());
+        const subtask = await (await fetch(`${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}.json`)).json();
+        return { subtask, completed };
+    }
+
+    function subTaskCompleted(subtask, completed) {
+        subtask.completed = completed;
+        event.target.src = completed
+            ? '../assets/img/board_icons/checked_button.svg'
+            : '../assets/img/board_icons/unchecked_button.svg';
+    }
+
+    async function constSubTask() {
         const subtasks = await (await fetch(`${BASE_URL}tasks/${taskId}/subtasks.json`)).json();
         const progress = subtasks.filter(s => s.completed).length / subtasks.length * 100;
         document.getElementById(`progressBar-${taskId}`).style.width = `${Math.round(progress)}%`;
         updateSubtasksText({ id: taskId }, subtasks);
         const index = tasks.findIndex(t => t.id == taskId);
-        if (index !== -1) tasks[index].subtasks = subtasks;
-    } catch (e) {
-        console.error('Fehler beim Toggle:', e);
+        return { index, subtasks };
+    }
+
+    function constTaskId() {
+        const taskId = event.target.dataset.taskId;
+        const subtaskId = event.target.dataset.subtaskId;
+        return { taskId, subtaskId };
     }
 }
 
@@ -308,9 +327,6 @@ function updateSubtasksText(task, subtasks) {
     return text;
 }
 
-/**
- * Redirects the user to the Add Task page.
- */
 function redirectToAddTask() {
     window.location.href = "../add_task.html";
 }

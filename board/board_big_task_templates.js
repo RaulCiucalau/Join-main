@@ -44,6 +44,10 @@ function buildSubtasksHTML(subtasks) {
       ? '../assets/img/board_icons/checked_button.svg'
       : '../assets/img/board_icons/unchecked_button.svg';
 
+    return subtaskCheckbox(subtask, checkboxIcon, isCompleted);
+  }).join('');
+
+  function subtaskCheckbox(subtask, checkboxIcon, isCompleted) {
     return `
       <div class="dialog-card-subtask-checkbox">
         <img 
@@ -57,5 +61,5 @@ function buildSubtasksHTML(subtasks) {
         <p class="dialog-card-typography-content font-size-16">${subtask.title}</p>
       </div>
     `;
-  }).join('');
+  }
 }
