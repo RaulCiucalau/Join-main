@@ -44,7 +44,8 @@ function applySelectedStyles(taskId) {
   task.assigned_to.forEach(name => {
     const contactIndex = contacts.findIndex(c => c.name === name);
     if (contactIndex !== -1) {
-      const { el, icon } = constElIcon(contactIndex);
+      const el = document.getElementById(`contactId${contactIndex}`);
+      const icon = document.getElementById(`checkBox${contactIndex}`);
       if (el && icon) {
         el.style.backgroundColor = "#2a3647";
         el.style.color = "white";
@@ -52,12 +53,6 @@ function applySelectedStyles(taskId) {
       }
     }
   });
-
-  function constElIcon(contactIndex) {
-    const el = document.getElementById(`contactId${contactIndex}`);
-    const icon = document.getElementById(`checkBox${contactIndex}`);
-    return { el, icon };
-  }
 }
 
 /**
@@ -69,23 +64,22 @@ function toggleAssigneeDropdown(event, taskId) {
   event.stopPropagation();
   const task = tasks[taskId];
   if (document.getElementById("assignee-img-up").classList.contains("dp-none")) {
-    assigneeImgUpDown();
+    document.getElementById("assignee-img-up").classList.remove("dp-none");
+    document.getElementById("assignee-img-down").classList.add("dp-none");
+    document.getElementById("assignee-input").classList.add("border-show-menu");
+    document.getElementById("assignee-input").classList.add("hover-border");
+    document.getElementById("assignee-dropdown-list").classList.remove("dp-none");
     renderAssigneeList(taskId);
   } else {
     closeDropDownList();
     document.getElementById("assignee-input").classList.add("hover-border");
     document.getElementById("assignee-input").classList.remove("border-show-menu");
   }
-
-  function assigneeImgUpDown() {
-    document.getElementById("assignee-img-up").classList.remove("dp-none");
-    document.getElementById("assignee-img-down").classList.add("dp-none");
-    document.getElementById("assignee-input").classList.add("border-show-menu");
-    document.getElementById("assignee-input").classList.add("hover-border");
-    document.getElementById("assignee-dropdown-list").classList.remove("dp-none");
-  }
 }
 
+/**
+ * Closes the assignee dropdown and clears its content.
+ */
 function closeDropDownList() {
   document.getElementById("assignee-dropdown-list").classList.add("dp-none");
   document.getElementById("assignee-img-up").classList.add("dp-none");
@@ -104,23 +98,21 @@ function toggleContactChosed(index, taskId) {
   if (!contact || !task) return;
   if (!task.assigned_to) task.assigned_to = [];
 
-  const { isAssigned, contactName, contactText, contactElement, checkBoxIcon } = contactName();
+  const contactName = contact.name;
+  const isAssigned = task.assigned_to.includes(contactName);
+  const contactText = document.getElementById(`contactName${index}`);
+  const contactElement = document.getElementById(`contactId${index}`);
+  const checkBoxIcon = document.getElementById(`checkBox${index}`);
 
   isAssigned ? unassignContact(task, contactName, contactText, contactElement, checkBoxIcon)
              : assignContact(task, contactName, contactText, contactElement, checkBoxIcon);
 
   renderChosenAvatars(taskId);
-
-  function contactName() {
-    const contactName = contact.name;
-    const isAssigned = task.assigned_to.includes(contactName);
-    const contactText = document.getElementById(`contactName${index}`);
-    const contactElement = document.getElementById(`contactId${index}`);
-    const checkBoxIcon = document.getElementById(`checkBox${index}`);
-    return { isAssigned, contactName, contactText, contactElement, checkBoxIcon };
-  }
 }
 
+/**
+ * Removes a contact from the task and updates the UI.
+ */
 function unassignContact(task, name, textEl, containerEl, iconEl) {
   const pos = task.assigned_to.indexOf(name);
   task.assigned_to.splice(pos, 1);
@@ -129,12 +121,16 @@ function unassignContact(task, name, textEl, containerEl, iconEl) {
   iconEl.src = "../assets/icons/btn-unchecked.svg";
 }
 
+/**
+ * Adds a contact to the task and updates the UI.
+ */
 function assignContact(task, name, textEl, containerEl, iconEl) {
   task.assigned_to.push(name);
   textEl.style.color = "white";
   containerEl.style.backgroundColor = "#2a3647";
   iconEl.src = "../assets/icons/btn-checked.svg";
 }
+
 
 /**
  * Renders the selected avatars for a given task.
@@ -151,6 +147,7 @@ function renderChosenAvatars(taskId) {
   container.innerHTML = avatarHtml + generateExtraAvatar(extraCount);
 }
 
+
 /**
  * Retrieves a task by its ID.
  * @param {string|number} taskId - The ID of the task to find.
@@ -159,6 +156,7 @@ function renderChosenAvatars(taskId) {
 function getTaskById(taskId) {
   return tasks.find(t => String(t.id) === String(taskId));
 }
+
 
 /**
  * Filters contacts that are assigned to the given task.

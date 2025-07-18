@@ -112,6 +112,7 @@ input::placeholder {
     flex-direction: column;
     gap: 8px;
     width: 420px;
+    margin-top: 52px;
 }
 
 .edit-task-btn-container {
