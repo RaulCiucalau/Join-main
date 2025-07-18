@@ -1,3 +1,8 @@
+/**
+ * Loads login information from localStorage.
+ * @param {string} key - The key to retrieve from localStorage.
+ * @returns {Object|null} The parsed login info or null if not found.
+ */
 function loadLoginInfo(key) {
   const data = localStorage.getItem(key);
   return data ? JSON.parse(data) : null;
@@ -5,6 +10,11 @@ function loadLoginInfo(key) {
 
 window.BASE_URL = "https://join-460-default-rtdb.europe-west1.firebasedatabase.app/";
 
+/**
+ * Loads the avatar for the header based on the logged-in user.
+ * Sets the initial letter or avatar in the header.
+ * @returns {Promise<void>}
+ */
 async function loadAvatarForHeader() {
   const loginInfo = loadLoginInfo("whoIsLoggedIn")
   if (!loginInfo || !loginInfo.userLoggedIn || !loginInfo.userLoggedIn.email) {
@@ -21,6 +31,11 @@ async function loadAvatarForHeader() {
   waitForInitialLetterElement(loadAvatarForHeader);
 });
 
+  /**
+   * Finds the user by email and sets the avatar or initial letter.
+   * @param {string} email - The user's email address.
+   * @returns {Promise<void>}
+   */
   async function foundUser(email) {
     const response = await fetch(`${BASE_URL}user.json`);
     const data = await response.json();
@@ -37,11 +52,19 @@ async function loadAvatarForHeader() {
   }
 }
 
+  /**
+   * Displays an error message when loading the avatar fails.
+   * @param {Error} error - The error object.
+   */
   function showError(error) {
     console.error("❌ Fehler beim Avatar-Laden:", error);
     document.getElementById("initialLetter").innerText = "?";
   }
 
+/**
+ * Waits for the 'initialLetter' element to appear in the DOM, then calls the callback.
+ * @param {Function} callback - The function to call when the element is found.
+ */
 function waitForInitialLetterElement(callback) {
   const observer = new MutationObserver(() => {
     const element = document.getElementById("initialLetter");
@@ -53,6 +76,9 @@ function waitForInitialLetterElement(callback) {
   observer.observe(document.body, { childList: true, subtree: true });
 }
 
+/**
+ * Shows or hides the submenu for a logged-in user.
+ */
 function showSubMenuLoggedIn() {
   if (document.getElementById("subMenu").classList.contains("dp-none")) {
     document.getElementById("subMenu").classList.remove("dp-none");
@@ -65,6 +91,9 @@ function showSubMenuLoggedIn() {
   }
 }
 
+/**
+ * Closes the submenu with an animation.
+ */
 function closeSubMenu() {
   const subMenu = document.getElementById("subMenu");
   if (subMenu.classList.contains("dp-none")) return;
@@ -76,6 +105,10 @@ function closeSubMenu() {
   });
 }
 
+/**
+ * Logs out the current user and redirects to the login page.
+ * @returns {Promise<void>}
+ */
 async function logOut() {
   await putLoginInfo("whoIsLoggedIn", { isGuestLoggedIn: false, userLoggedIn: { name: "", avatar: "" } });
   window.location.href = "/index.html";

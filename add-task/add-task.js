@@ -4,6 +4,9 @@ let selectedPrio = "medium";
 let contacts = [];
 let currentMaxId = 3; // startet bei 3, damit die nächste ID 4 ist
 
+/**
+ * Loads contacts from storage or API.
+ */
 async function loadContacts(path) {
   try {
     const data = await fetchResponseFirebase();
@@ -39,6 +42,10 @@ async function loadContacts(path) {
   }
 }
 
+
+/**
+ * Initializes the add task page.
+ */
 async function init() {
   await loadContacts("contactList");
   await loadTasks("tasks"); 
@@ -47,6 +54,9 @@ async function init() {
   checkOrientation();
 }
 
+/**
+ * Creates a new task and saves it.
+ */
 function createTask() {
   if (areInputsEmpty()) {
     showFieldRequired();
@@ -59,6 +69,9 @@ function createTask() {
   }
 }
 
+/**
+ * Saves the current task input values.
+ */
 function saveTaskInputs() {
   if (canSaveTask()) {
     let id = generateUniqueId();
@@ -71,6 +84,10 @@ function saveTaskInputs() {
   }
 }
 
+/**
+ * Creates a task object from input values.
+ * @returns {Object} The created task object.
+ */
 function createTaskObject(id) {
   return {
     id: id,
@@ -86,30 +103,58 @@ function createTaskObject(id) {
   };
 }
 
+/**
+ * Gets the value of the title input.
+ * @returns {string} The title input value.
+ */
 function getTitleInput() {
   return document.getElementById("add-task-title").value;
 }
 
+/**
+ * Gets the value of the date input.
+ * @returns {string} The date input value.
+ */
 function getDateInput() {
   return document.getElementById("add-task-due-date").value;
 }
 
+/**
+ * Gets the selected category input.
+ * @returns {string} The selected category.
+ */
 function getCategoryInput() {
   return document.getElementById("category").value;
 }
 
+/**
+ * Gets the value of the description input.
+ * @returns {string} The description input value.
+ */
 function getDescriptionInput() {
   return document.getElementById("add-task-description").value;
 }
 
+/**
+ * Gets the assigned contacts.
+ * @returns {Array} The assigned contacts.
+ */
 function getAssignedTo() {
   return mapArrayToObject(selectedContactsNames);
 }
 
+/**
+ * Gets the list of subtasks.
+ * @returns {Array} The subtasks.
+ */
 function getSubtasks() {
   return mapArrayToObject(subtasks);
 }
 
+/**
+ * Checks if the task can be saved.
+ * @returns {boolean} True if the task can be saved, false otherwise.
+ */
 function canSaveTask() {
   const titleInput = document.getElementById("add-task-title").value;
   return !taskAlreadyExists(tasksArr, titleInput);
@@ -192,6 +237,9 @@ async function addTaskToDatabase(id, task) {
   }
 }
 
+/**
+ * Clears the task form inputs.
+ */
 function clearTaskForm() {
   subtasks = [];
   clearInputs();
@@ -202,6 +250,9 @@ function clearTaskForm() {
   removeFieldRequired();
 }
 
+/**
+ * Clears all input fields.
+ */
 function clearInputs() {
   document.getElementById("subtask-list").innerHTML = "";
   document.getElementById("subtask").value = "";
@@ -213,6 +264,10 @@ function clearInputs() {
   document.getElementById("assigned-to").value = "";
 }
 
+/**
+ * Removes the required field indication.
+ * @param {HTMLElement} element - The element to update.
+ */
 function removeFieldRequired() {
   document.getElementById("required-title").classList.add("dp-none");
   document.getElementById("add-task-title").style.border = "1px solid #d1d1d1";
@@ -222,21 +277,37 @@ function removeFieldRequired() {
   document.getElementById("category").style.border = "1px solid #d1d1d1";
 }
 
+/**
+ * Shows an error if the task already exists.
+ */
 function errorTaskAlreadyExists() {
   document.getElementById("task-already-exists").classList.remove("dp-none");
   document.getElementById("add-task-title").style.border = "1px solid red";
 }
 
+/**
+ * Changes the icon to blue.
+ * @param {HTMLElement} element - The element to update.
+ */
 function changeToBlueIcon() {
   document.getElementById("clear").classList.add("dp-none");
   document.getElementById("clear-hover").classList.remove("dp-none");
 }
 
+/**
+ * Changes the icon to black.
+ * @param {HTMLElement} element - The element to update.
+ */
 function changeToBlackIcon() {
   document.getElementById("clear").classList.remove("dp-none");
   document.getElementById("clear-hover").classList.add("dp-none");
 }
 
+/**
+ * Converts an array into an object with array indices as keys.
+ * @param {Array} array - The array to convert.
+ * @returns {Object} - The resulting object.
+ */
 function mapArrayToObject(array) {
   return array.reduce((obj, item, index) => {
     obj[index] = item;
@@ -244,11 +315,19 @@ function mapArrayToObject(array) {
   }, {});
 }
 
+/**
+ * Generates a unique ID by incrementing a global counter.
+ * @returns {string} - The new unique ID.
+ */
 function generateUniqueId() {
   currentMaxId += 1;
   return String(currentMaxId);
 }
 
+/**
+ * Loads tasks from Firebase and sets the global task array and ID counter.
+ * @param {string} [path="tasks"] - The Firebase path to fetch tasks from.
+ */
 async function loadTasks(path = "tasks") {
   try {
     const data = await fetchPathData();
@@ -264,6 +343,10 @@ async function loadTasks(path = "tasks") {
     console.error("Fehler beim Laden der Tasks aus Firebase:", error);
   }
 
+    /**
+   * Fetches data from the given Firebase path.
+   * @returns {Promise<Object|null>} - Parsed JSON data or null.
+   */
   async function fetchPathData() {
     const response = await fetch(`https://join-460-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`);
     const data = await response.json();
@@ -271,6 +354,10 @@ async function loadTasks(path = "tasks") {
   }
 }
 
+
+/**
+ * Displays login information (guest or user avatar) in the UI.
+ */
 async function showLoggedInInfo() {
   try {
     const response = await fetch("https://join-460-default-rtdb.europe-west1.firebasedatabase.app/login.json");
@@ -287,6 +374,9 @@ async function showLoggedInInfo() {
   }
 }
 
+/**
+ * Highlights the currently active navigation menu item based on URL.
+ */
 function highlightMenuActual() {
   const path = window.location.pathname;
   const menuLinks = document.querySelectorAll(".nav-link");
@@ -299,13 +389,26 @@ function highlightMenuActual() {
   });
 }
 
+/**
+ * Capitalizes the first letter of a string.
+ * @param {string} string - The input string.
+ * @returns {string} - String with the first letter capitalized.
+ */
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+/**
+ * Converts global subtasks array into an array of subtask objects.
+ * @returns {Array<Object>} - Array of subtasks with title and completed status.
+ */
 function getSubtasksArray() {
   return subtasks.map(title => ({ title: title, completed: false }));
 }
+
+/**
+ * Initializes the application when the DOM is fully loaded.
+ */
 document.addEventListener('DOMContentLoaded', () => {
   init();
 });

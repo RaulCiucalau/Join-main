@@ -1,3 +1,6 @@
+/**
+ * Initializes the login page, loads users and login info, and checks orientation.
+ */
 function init() {
   getUsersFromDatabase();
   loadLoginInfo("whoIsLoggedIn");
@@ -5,10 +8,16 @@ function init() {
   checkOrientation();
 }
 
+/**
+ * Redirects the user to the guest summary view.
+ */
 function redirectToGuestView() {
   location.replace("summary/summary.html");
 }
 
+/**
+ * Handles the join sign animation and overlay removal.
+ */
 function animationJoinSign() {
   let animationJoinSign = document.getElementById('overlay-animation');
   animationJoinSign.classList.toggle('d_none');
@@ -16,6 +25,9 @@ function animationJoinSign() {
   removeOverlayAfterAnimation();
 }
 
+/**
+ * Removes the overlay after the join animation completes.
+ */
 function removeOverlayAfterAnimation() {
   let animationJoinSign = document.getElementById('overlay-animation');
   setTimeout(() => {
@@ -42,17 +54,24 @@ function loadLoginInfo(key) {
   return data ? JSON.parse(data) : null;
 }
 
+
 let userData = {};
 let usersArr = [];
 
 const BASE_URL = "https://join-460-default-rtdb.europe-west1.firebasedatabase.app/";
 
+/**
+ * Initializes the second phase of the login process, loads users and login info.
+ */
 async function initSecond() {
   await getUsersFromDatabase();
   loadLoginInfo("whoIsLoggedIn");
   putLoginInfoLocally("whoIsLoggedIn", { isGuestLoggedIn: false, userLoggedIn: { name: "", avatar: "" } });
 }
 
+/**
+ * Fetches all users from the database and populates usersArr.
+ */
 async function getUsersFromDatabase() {
   let userResponse = await getAllUsers("user");
   let UserKeysArray = Object.keys(userResponse || {});
@@ -64,11 +83,19 @@ async function getUsersFromDatabase() {
   }
 }
 
+/**
+ * Fetches all users from the given database path.
+ * @param {string} path - The database path to fetch users from.
+ * @returns {Promise<Object>} The users object from the database.
+ */
 async function getAllUsers(path) {
   let response = await fetch(BASE_URL + path + ".json");
   return await response.json();
 }
 
+/**
+ * Handles the login process, including validation and redirection.
+ */
 async function loginUser() {
   if (areInputsEmpty()) {
     showRequiredFields();
@@ -82,6 +109,9 @@ async function loginUser() {
   }
 }
 
+/**
+ * Processes the login by checking credentials and saving login info locally.
+ */
 async function processLogin() {
   let loginUserEmail = document.getElementById("inputEmail").value.trim().toLowerCase();
   let filteredUser = usersArr.filter((item) => item.user.email.toLowerCase() === loginUserEmail);
@@ -97,31 +127,55 @@ async function processLogin() {
   }
 }
 
+/**
+ * Logs in as a guest and redirects to the summary page.
+ */
 function loginGuest() {
   putLoginInfoLocally("whoIsLoggedIn", { isGuestLoggedIn: true, userLoggedIn: { name: "", avatar: "" } });
   window.location.href = "./summary.html";
 }
 
+/**
+ * Checks if the entered email exists in the users array.
+ * @returns {boolean} True if the email exists, false otherwise.
+ */
 function isEmailCorrect() {
   let email = document.getElementById("inputEmail").value.trim().toLowerCase();
   return usersArr.some((user) => user.user.email.toLowerCase() === email);
 }
 
+/**
+ * Checks if the entered password matches any user in the users array.
+ * @returns {boolean} True if the password is correct, false otherwise.
+ */
 function isPasswordCorrect() {
   let password = document.getElementById("inputPassword");
   return usersArr.some((user) => user.user.password === password.value);
 }
 
+/**
+ * Checks if the email or password input fields are empty.
+ * @returns {boolean} True if any input is empty, false otherwise.
+ */
 function areInputsEmpty() {
   let email = document.getElementById("inputEmail");
   let password = document.getElementById("inputPassword");
   return email.value === "" || password.value === "";
 }
 
+/**
+ * Checks if a task with the given title already exists in the array.
+ * @param {Array} tasksArr - The array of tasks.
+ * @param {string} title - The title to check for.
+ * @returns {boolean} True if the task exists, false otherwise.
+ */
 function taskAlreadyExists(tasksArr, title) {
   return tasksArr.some((task) => task.title === title);
 }
 
+/**
+ * Shows required field errors for empty email or password inputs.
+ */
 function showRequiredFields() {
   let email = document.getElementById("inputEmail");
   let password = document.getElementById("inputPassword");
@@ -135,11 +189,17 @@ function showRequiredFields() {
   }
 }
 
+/**
+ * Displays an error message for a wrong password.
+ */
 function wrongPassword() {
   document.getElementById("wrong-password").classList.remove("dp-none");
   document.getElementById("inputPassword").style.border = "1px solid red";
 }
 
+/**
+ * Displays an error message for a wrong email.
+ */
 function wrongEmail() {
   document.getElementById("wrong-email").classList.remove("dp-none");
   document.getElementById("inputEmail").style.border = "1px solid red";
@@ -160,6 +220,9 @@ function removeErrorMsgs(errorId, inputId) {
   }
 }
 
+/**
+ * Redirects the user to the summary page.
+ */
 function goToSummary() {
   window.location.href = "/summary/summary.html";
 }
@@ -211,6 +274,12 @@ window.addEventListener("load", async () => {
   }
 });
 
+/**
+ * Updates login information in the database.
+ * @param {string} [path=""] - The path to update the login information in the database.
+ * @param {Object} data - The data to update.
+ * @returns {Promise<Object>} The updated login information.
+ */
 async function putLoginInfo(path = "", data = {}) {
   let response = await fetch(BASE_URL + path + ".json", {
     method: "PUT",
