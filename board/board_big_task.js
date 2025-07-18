@@ -1,8 +1,14 @@
+/**
+ * Toggles the visibility of the big task dialog by adding/removing a CSS class.
+ */
 function toggleBigTaskDialog() {
     let bigDialog = document.getElementById('bigTaskDialog')
     bigDialog.classList.toggle('d-none-big-dialog');
 }
 
+/**
+ * Closes the big task dialog with a fade-out animation.
+ */
 function closeBigDialog() {
     const container = document.getElementById('bigTaskDialog');
     container.classList.remove('open');
@@ -13,6 +19,9 @@ function closeBigDialog() {
     }, 100);
 }
 
+/**
+ * Opens the big task dialog with fade-in animation.
+ */
 function openDialog() {
     const container = document.getElementById('bigTaskDialog');
     container.classList.remove('closing');
@@ -142,6 +151,9 @@ async function deleteTaskById(id) {
     renderCards(tasks);
 }
 
+/**
+ * Closes the big task dialog immediately (no animation).
+ */
 function closeBigTaskDialog() {
     document.getElementById("bigTaskDialog").classList.add("d-none-big-dialog");
 }
