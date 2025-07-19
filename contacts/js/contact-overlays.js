@@ -1,16 +1,19 @@
-function closeOverlay()
-{
-    let overlay = document.getElementById('outer-add-contact-overlay');
-    overlay.remove(); 
+function closeOverlay() {
+  const addOverlay = document.getElementById('outer-add-contact-overlay');
+  const editOverlay = document.getElementById('outer-edit-contact-overlay');
+  if (addOverlay) {
+    addOverlay.remove();
+  }
+  if (editOverlay) {
+    editOverlay.remove();
+  }
 }
-
 document.body.addEventListener("click", function (e) {
   if (e.target && e.target.id === "create-contact") {
     e.preventDefault();
     getOverlayData();
   }
 });
-
 
 function getOverlayData() {
   const { errorBox, nameError, emailError, phoneError, name, email, phone } = constNameEmailPhoneInputOverlay();
