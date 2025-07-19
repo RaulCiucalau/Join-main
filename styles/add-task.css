@@ -325,6 +325,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 24px;
 }
 
+.red-color {
+  color: red;
+}
+
 .clear-hover {
   width: 24px;
   height: 24px;
@@ -336,7 +340,22 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .clear-btn {
   display: flex;
   border: 1px solid #2a3647;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
+
+.clear-icon {
+  width: 24px;
+  height: 24px;
+  transition: 0.2s ease;
+}
+
+.clear-btn:hover .clear-icon {
+  content: url("../assets/icons/clear-hover.svg");
+}
+
 .clear-btn:hover {
   color: #29abe2;
   border: 1px solid #29abe2;

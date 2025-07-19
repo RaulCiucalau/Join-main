@@ -29,12 +29,20 @@ function showContactList(event) {
   closeCategoryList();
 }
 
+/**
+ * Closes the "Assigned To" contact dropdown list.
+ * Hides the up arrow, shows the down arrow, and hides the contact list.
+ */
 function closeContactList() {
   document.getElementById("assigned-to-img-up").classList.add("dp-none");
   document.getElementById("assigned-to-img-down").classList.remove("dp-none");
   document.getElementById("drop-down-contact-list").classList.add("dp-none");
 }
 
+/**
+ * Closes the contact list when clicking outside of the assigned section,
+ * and prevents it from closing when clicking inside the assigned section.
+ */
 document.addEventListener("DOMContentLoaded", function () {
   const dialog = document.getElementById("dialogAddTask");
   const assignedSection = document.querySelector(".assigned-to-section");
@@ -81,6 +89,7 @@ function unselectContact(i) {
     selectedContacts.splice(index, 1);
   }
   removeUnSelectedAvatar(i);
+  showSelectedAvatars();
 }
 
 /**
@@ -93,31 +102,40 @@ function toggleContactSelection(i) {
 }
 
 /**
- * Displays the avatar of a selected contact.
- * Shows only up to 4 avatars, and if there are more, displays a "+X" bubble.
- * @param {number} i - The index of the contact in the array.
+ * Displays selected contact avatars in the UI.
+ * Shows up to 4 avatars and a "+X" badge for extras.
  */
 function showSelectedAvatars() {
   const container = document.getElementById("selected-avatars");
+  const avatarHtml = sliceVisibleContacts(visibleContacts);
+  const extraCount = visibleContacts.length - 4;
   container.innerHTML = "";
-
   const visibleContacts = selectedContacts
     .map(index => contacts[index])
     .filter(contact => contact);
-
-  const avatarHtml = sliceVisibleContacts();
-  const extraCount = visibleContacts.length - 4;
   container.innerHTML =
-   avatarHtml + (extraCount > 0 ? `<div class="selected-avatar extra-avatar">+${extraCount}</div>` : "");
-
- function sliceVisibleContacts() {
-    return visibleContacts
-      .slice(0, 4)
-      .map(contact => `<div class="selected-avatar" style="background-color:${contact.color};">${contact.avatar}</div>`
-      )
-      .join("");
-  }
+    avatarHtml +
+    (extraCount > 0
+      ? `<div class="selected-avatar extra-avatar">+${extraCount}</div>`
+      : "");
 }
+
+/**
+ * Creates HTML for up to 4 contact avatars.
+ *
+ * @param {Array<{ avatar: string, color: string }>} contacts - Contact objects to display.
+ * @returns {string} HTML markup for the avatars.
+ */
+function sliceVisibleContacts(contacts) {
+  return contacts
+    .slice(0, 4)
+    .map(
+      contact =>
+        `<div class="selected-avatar" style="background-color:${contact.color};">${contact.avatar}</div>`
+    )
+    .join("");
+}
+
 
 /**
  * Removes the avatar of an unselected contact.
@@ -128,13 +146,17 @@ function removeUnSelectedAvatar(i) {
   if (el) el.remove(); // ✅ nur entfernen, wenn vorhanden
 }
 
+/**
+ * Handles the Enter key press in the subtask input field.
+ * If the input is not empty, adds the subtask and clears the input.
+ *
+ * @param {KeyboardEvent} event - The keyboard event triggered on input.
+ */
 function createNewSubtaskOnEnter(event) {
   if (event.key === "Enter") {
     event.preventDefault(); 
-
     const input = event.target;
     const value = input.value.trim();
-
     if (value !== "") {
       addSubtaskToList(value);
       input.value = "";
@@ -142,15 +164,18 @@ function createNewSubtaskOnEnter(event) {
   }
 }
 
+/**
+ * Adds a new subtask item to the subtask list.
+ *
+ * @param {string} subtaskText - The text content of the subtask to add.
+ */
 function addSubtaskToList(subtaskText) {
   const subtaskList = document.getElementById("subtask-list");
-
   const subtaskItem = document.createElement("div");
   subtaskItem.classList.add("subtask-item");
   subtaskItem.innerHTML = `
     <input type="checkbox" />
     <span>${subtaskText}</span>
   `;
-
   subtaskList.appendChild(subtaskItem);
 }

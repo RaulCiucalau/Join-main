@@ -21,34 +21,49 @@ async function loadContacts(path) {
   } catch (error) {
     console.error("Fehler beim Laden der Kontakte aus Firebase:", error);
   }
-
-  function returnUser(user, secondLetter, firstLetter) {
-    return {
-      ...user,
-      avatar: secondLetter ? `${firstLetter}${secondLetter}` : firstLetter
-    };
-  }
-
-  function constFirstLetter(user) {
-    const firstLetter = user.name.charAt(0).toUpperCase();
-    const secondLetter = user.name.split(" ")[1]?.[0]?.toUpperCase();
-    return { secondLetter, firstLetter };
-  }
-
-  async function fetchResponseFirebase() {
-    const response = await fetch("https://join-460-default-rtdb.europe-west1.firebasedatabase.app/contacts.json");
-    const data = await response.json();
-    return data;
-  }
 }
 
+/**
+ * Adds an avatar (initials) to the user object.
+ * @param {Object} user - User object.
+ * @param {string} [secondLetter] - Optional second initial.
+ * @param {string} firstLetter - First initial.
+ * @returns {Object} Updated user.
+ */
+function returnUser(user, secondLetter, firstLetter) {
+  return {
+    ...user,
+    avatar: secondLetter ? `${firstLetter}${secondLetter}` : firstLetter
+  };
+}
+
+/**
+ * Gets the first and second initials from a name.
+ * @param {{ name: string }} user - User with a name.
+ * @returns {{ secondLetter?: string, firstLetter: string }} Initials.
+ */
+function constFirstLetter(user) {
+  const firstLetter = user.name.charAt(0).toUpperCase();
+  const secondLetter = user.name.split(" ")[1]?.[0]?.toUpperCase();
+  return { secondLetter, firstLetter };
+}
+
+/**
+ * Fetches contacts from Firebase.
+ * @returns {Promise<Object>} Contact data.
+ */
+async function fetchResponseFirebase() {
+  const response = await fetch("https://join-460-default-rtdb.europe-west1.firebasedatabase.app/contacts.json");
+  const data = await response.json();
+  return data;
+}
 
 /**
  * Initializes the add task page.
  */
 async function init() {
   await loadContacts("contactList");
-  await loadTasks("tasks"); 
+  await loadTasks("tasks");
   await showLoggedInInfo();
   highlightMenuActual();
   checkOrientation();
@@ -160,56 +175,42 @@ function canSaveTask() {
   return !taskAlreadyExists(tasksArr, titleInput);
 }
 
-function areInputsEmpty() {
-  const t = (id) => document.getElementById(id),
-        d = t("add-task-due-date"),
-        [e, p] = t("required-date").querySelectorAll("p");
-  let { v, i, today } = letAddTaskTitle();
-  [e, p, t("required-date")].forEach(el => el.classList.add("dp-none"));
-  if (!v) {
-    requiredDateTrue();
-  } else if (new Date(v) < today) {
-    requiredDate();
-  }
-  return i;
-
-  function requiredDateTrue() {
-    e.classList.remove("dp-none");
-    t("required-date").classList.remove("dp-none");
-    i = true;
-  }
-
-  function letAddTaskTitle() {
-    let i = !t("add-task-title").value.trim() || !t("category").value.trim(), v = d.value, today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return { v, i, today };
-  }
-
-  function requiredDate() {
-    p.classList.remove("dp-none");
-    t("required-date").classList.remove("dp-none");
-    d.style.border = "1px solid red";
-    i = true;
-  }
-}
-
+/**
+* Checks whether a task with the given title already exists in the task list.
+*
+* @param {Array<{ title: string }>} tasksArr - Array of task objects.
+* @param {string} title - Title to check for duplicates.
+* @returns {boolean} `true` if a task with the same title exists, otherwise `false`.
+*/
 function taskAlreadyExists(tasksArr, title) {
   return tasksArr.some(task => task.title === title);
 }
 
+/**
+ * Validates a required field using if...else logic.
+ * @param {string} fieldId - ID of the input field.
+ * @param {string} warningId - ID of the warning element.
+ */
+function validateField(fieldId, warningId) {
+  const field = document.getElementById(fieldId);
+  const warning = document.getElementById(warningId);
+
+  if (field.value.trim() === "") {
+    field.style.border = "1px solid red";
+    warning.classList.remove("dp-none");
+  } else {
+    field.style.border = "";
+    warning.classList.add("dp-none");
+  }
+}
+
+/**
+ * Runs validation on required form fields.
+ */
 function showFieldRequired() {
-  if (document.getElementById("add-task-title").value.trim() === "") {
-    document.getElementById("add-task-title").style.border = "1px solid red";
-    document.getElementById("required-title").classList.remove("dp-none");
-  }
-  if (document.getElementById("add-task-due-date").value.trim() === "") {
-    document.getElementById("required-date").classList.remove("dp-none");
-    document.getElementById("add-task-due-date").style.border = "1px solid red";
-  }
-  if (document.getElementById("category").value.trim() === "") {
-    document.getElementById("category").style.border = "1px solid red";
-    document.getElementById("required-category").classList.remove("dp-none");
-  }
+  validateField("add-task-title", "required-title");
+  validateField("add-task-due-date", "required-date");
+  validateField("category", "required-category");
 }
 
 function showLog() {
@@ -219,12 +220,20 @@ function showLog() {
   </div>`;
 }
 
+/**
+ * Redirects the user to the boards page after a 1-second delay.
+ */
 function goToBoards() {
   setTimeout(() => {
     window.location.href = "./board/board.html";
   }, 1000);
 }
 
+/**
+ * Saves a task to the database by ID.
+ * @param {string} id - Task ID.
+ * @param {Object} task - Task data.
+ */
 async function addTaskToDatabase(id, task) {
   try {
     await fetch(`https://join-460-default-rtdb.europe-west1.firebasedatabase.app/tasks/${id}.json`, {
@@ -238,69 +247,11 @@ async function addTaskToDatabase(id, task) {
 }
 
 /**
- * Clears the task form inputs.
- */
-function clearTaskForm() {
-  subtasks = [];
-  clearInputs();
-  unselectPrio("urgent");
-  unselectPrio("low");
-  selectedContacts = [];
-  selectedContactsNames = [];
-  removeFieldRequired();
-}
-
-/**
- * Clears all input fields.
- */
-function clearInputs() {
-  document.getElementById("subtask-list").innerHTML = "";
-  document.getElementById("subtask").value = "";
-  document.getElementById("add-task-title").value = "";
-  document.getElementById("add-task-due-date").value = "";
-  document.getElementById("add-task-description").value = "";
-  document.getElementById("selected-avatars").innerHTML = "";
-  document.getElementById("category").value = "";
-  document.getElementById("assigned-to").value = "";
-}
-
-/**
- * Removes the required field indication.
- * @param {HTMLElement} element - The element to update.
- */
-function removeFieldRequired() {
-  document.getElementById("required-title").classList.add("dp-none");
-  document.getElementById("add-task-title").style.border = "1px solid #d1d1d1";
-  document.getElementById("required-date").classList.add("dp-none");
-  document.getElementById("add-task-due-date").style.border = "1px solid #d1d1d1";
-  document.getElementById("required-category").classList.add("dp-none");
-  document.getElementById("category").style.border = "1px solid #d1d1d1";
-}
-
-/**
  * Shows an error if the task already exists.
  */
 function errorTaskAlreadyExists() {
   document.getElementById("task-already-exists").classList.remove("dp-none");
   document.getElementById("add-task-title").style.border = "1px solid red";
-}
-
-/**
- * Changes the icon to blue.
- * @param {HTMLElement} element - The element to update.
- */
-function changeToBlueIcon() {
-  document.getElementById("clear").classList.add("dp-none");
-  document.getElementById("clear-hover").classList.remove("dp-none");
-}
-
-/**
- * Changes the icon to black.
- * @param {HTMLElement} element - The element to update.
- */
-function changeToBlackIcon() {
-  document.getElementById("clear").classList.remove("dp-none");
-  document.getElementById("clear-hover").classList.add("dp-none");
 }
 
 /**
@@ -343,17 +294,16 @@ async function loadTasks(path = "tasks") {
     console.error("Fehler beim Laden der Tasks aus Firebase:", error);
   }
 
-    /**
-   * Fetches data from the given Firebase path.
-   * @returns {Promise<Object|null>} - Parsed JSON data or null.
-   */
+  /**
+ * Fetches data from the given Firebase path.
+ * @returns {Promise<Object|null>} - Parsed JSON data or null.
+ */
   async function fetchPathData() {
     const response = await fetch(`https://join-460-default-rtdb.europe-west1.firebasedatabase.app/${path}.json`);
     const data = await response.json();
     return data;
   }
 }
-
 
 /**
  * Displays login information (guest or user avatar) in the UI.

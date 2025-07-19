@@ -1,3 +1,9 @@
+/**
+ * Generates a dropdown item HTML string for a contact selection list.
+ *
+ * @param {number} i - Index of the contact in the global `contacts` array.
+ * @returns {string} HTML string for a contact dropdown list item.
+ */
 function contactListDropDownTemplate(i) {
   return `<div class="contactListElement" id="${i}" onclick="toggleContactSelection(${i})">
               <div class="contact">

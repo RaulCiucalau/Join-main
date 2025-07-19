@@ -28,38 +28,38 @@ async function loadAvatarForHeader() {
     showError(error);
   }
   document.addEventListener("DOMContentLoaded", () => {
-  waitForInitialLetterElement(loadAvatarForHeader);
-});
+    waitForInitialLetterElement(loadAvatarForHeader);
+  });
+}
 
-  /**
-   * Finds the user by email and sets the avatar or initial letter.
-   * @param {string} email - The user's email address.
-   * @returns {Promise<void>}
-   */
-  async function foundUser(email) {
-    const response = await fetch(`${BASE_URL}user.json`);
-    const data = await response.json();
-    const user = Object.values(data).find(
-      (userObj) => userObj.email.toLowerCase() === email.toLowerCase()
-    );
-    if (user && user.avatar) {
-      document.getElementById("initialLetter").innerText = user.avatar;
-    } else if (user && user.name) {
-      document.getElementById("initialLetter").innerText = user.name[0].toUpperCase();
-    } else {
-      document.getElementById("initialLetter").innerText = "?";
-    }
+/**
+ * Finds the user by email and sets the avatar or initial letter.
+ * @param {string} email - The user's email address.
+ * @returns {Promise<void>}
+ */
+async function foundUser(email) {
+  const response = await fetch(`${BASE_URL}user.json`);
+  const data = await response.json();
+  const user = Object.values(data).find(
+    (userObj) => userObj.email.toLowerCase() === email.toLowerCase()
+  );
+  if (user && user.avatar) {
+    document.getElementById("initialLetter").innerText = user.avatar;
+  } else if (user && user.name) {
+    document.getElementById("initialLetter").innerText = user.name[0].toUpperCase();
+  } else {
+    document.getElementById("initialLetter").innerText = "?";
   }
 }
 
-  /**
-   * Displays an error message when loading the avatar fails.
-   * @param {Error} error - The error object.
-   */
-  function showError(error) {
-    console.error("❌ Fehler beim Avatar-Laden:", error);
-    document.getElementById("initialLetter").innerText = "?";
-  }
+/**
+ * Displays an error message when loading the avatar fails.
+ * @param {Error} error - The error object.
+ */
+function showError(error) {
+  console.error("❌ Fehler beim Avatar-Laden:", error);
+  document.getElementById("initialLetter").innerText = "?";
+}
 
 /**
  * Waits for the 'initialLetter' element to appear in the DOM, then calls the callback.

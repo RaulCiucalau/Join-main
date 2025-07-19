@@ -1,3 +1,16 @@
+/**
+ * Generates the HTML template for a task card displayed on the board.
+ *
+ * @param {Object} task - The task object containing details to render.
+ * @param {string} task.id - Unique task ID.
+ * @param {string} task.category - Task category (used for label).
+ * @param {string} task.title - Title of the task.
+ * @param {string} task.description - Description of the task.
+ * @param {Array} task.subtasks - Array of subtasks for the task.
+ * @param {Array} task.assigned_to - Array of assigned user objects.
+ * @param {string} task.priority - Priority level ('Urgent', 'Medium', etc.).
+ * @returns {string} HTML string representing the task card.
+ */
 function getCardsTemplate(task) {
     return `
     <div id="dragTask${task.id}" draggable="true" ondragstart="startDragging('${task.id}')" class="task-card" onclick="openBigTaskDialogById('${task.id}')">
@@ -24,6 +37,12 @@ function getCardsTemplate(task) {
     `;
 }
 
+/**
+ * Returns the HTML template for the full-screen dialog view of a task.
+ *
+ * @param {Object} task - The task object containing details to render.
+ * @returns {string} HTML string for the detailed task dialog view.
+ */
 function getBigTaskDialog(task) {
     return `
     <div onclick="stopPropagation(event)" id="bigDialog" class="dialog-card">
@@ -71,6 +90,15 @@ function getBigTaskDialog(task) {
     `;
 }
 
+/**
+ * Creates a contact selection item with a checkbox for assignment.
+ *
+ * @param {Object} contact - Contact object.
+ * @param {number} index - Index of the contact in the list.
+ * @param {boolean} isAssigned - Whether the contact is already assigned.
+ * @param {string|number} taskId - Task ID to link contact selection.
+ * @returns {string} HTML string representing the contact item.
+ */
 function contactListTemplate(contact, index, isAssigned, taskId) {
     const checkboxIcon = isAssigned ? "btn-checked.svg" : "btn-unchecked.svg";
     return `
@@ -84,7 +112,19 @@ function contactListTemplate(contact, index, isAssigned, taskId) {
   `;
 }
 
-
+/**
+ * Generates the HTML template for the editable task dialog window.
+ *
+ * @param {Object} task - The task object to populate the edit form.
+ * @param {string} task.id - Unique ID of the task.
+ * @param {string} task.title - Task title to prefill in the form.
+ * @param {string} task.description - Task description.
+ * @param {string} task.due_date - Due date of the task.
+ * @param {string} task.priority - Priority level ('Urgent', 'Medium', 'Low').
+ * @param {Array} task.assigned_to - Array of assigned user objects.
+ * @param {Array} task.subtasks - Array of subtask objects.
+ * @returns {string} HTML string for the editable task dialog.
+ */
 function getEditTaskDialog(task) {
     return `
     <div onclick="stopPropagation(event)" id="editDialog" class="dialog-card">
