@@ -214,6 +214,7 @@ textarea::-ms-input-placeholder {
 }
 .red {
   color: red;
+  position: absolute;
 }
 
 .add-subtask-img {
