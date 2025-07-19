@@ -43,15 +43,24 @@ function closeContactList() {
  * Closes the contact list when clicking outside of the assigned section,
  * and prevents it from closing when clicking inside the assigned section.
  */
+// Event listener for DOMContentLoaded to set up dialog and assigned section click handlers.
 document.addEventListener("DOMContentLoaded", function () {
   const dialog = document.getElementById("dialogAddTask");
   const assignedSection = document.querySelector(".assigned-to-section");
   if (dialog && assignedSection) {
+    /**
+     * Handles click events on the dialog to close the contact list if clicking outside the assigned section.
+     * @param {Event} event - The click event.
+     */
     dialog.addEventListener("click", function (event) {
       if (!assignedSection.contains(event.target)) {
         closeContactList();
       }
     });
+    /**
+     * Handles click events on the assigned section to prevent event propagation.
+     * @param {Event} event - The click event.
+     */
     assignedSection.addEventListener("click", function (event) {
       event.stopPropagation();
     });

@@ -36,6 +36,13 @@ async function onloadFunc() {
     }
     await contactsFetch();
 
+    /**
+     * Creates a subtask object with its ID and parent task ID.
+     * @param {Object} subtask - The subtask data.
+     * @param {string} subtaskId - The subtask ID.
+     * @param {string} taskId - The parent task ID.
+     * @returns {Object} The subtask object with IDs.
+     */
     function pullSubtask(subtask, subtaskId, taskId) {
         return {
             ...subtask,
@@ -44,6 +51,13 @@ async function onloadFunc() {
         };
     }
 
+    /**
+     * Creates a task object with all relevant data and subtasks.
+     * @param {string} taskId - The task ID.
+     * @param {Object} data - The task data.
+     * @param {Array} subtasksArray - Array of subtask objects.
+     * @returns {Object} The task object.
+     */
     function lookForUserData(taskId, data, subtasksArray) {
         return {
             id: taskId,
@@ -58,12 +72,21 @@ async function onloadFunc() {
         };
     }
 
+    /**
+     * Fetches all tasks from the database and returns keys and response.
+     * @returns {Promise<{tasksKeysArrays: Array<string>, tasksResponse: Object}>}
+     */
     async function letTasks() {
         let tasksResponse = await fetchData("tasks");
         let tasksKeysArrays = Object.keys(tasksResponse);
         return { tasksKeysArrays, tasksResponse };
     }
 
+    /**
+     * Returns the data and ID for a task at a given index.
+     * @param {number} index - The index in the tasksKeysArrays.
+     * @returns {{data: Object, taskId: string}}
+     */
     function letTaskIdData(index) {
         let taskId = tasksKeysArrays[index];
         let data = tasksResponse[taskId];

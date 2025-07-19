@@ -47,6 +47,13 @@ function selectCategory(i) {
   closeCategoryList();
 }
 
+/**
+ * Closes the category dropdown list by:
+ * - Hiding the dropdown container.
+ * - Hiding the "up" arrow icon.
+ * - Showing the "down" arrow icon.
+ * - Clearing the contents of the dropdown list.
+ */
 function closeCategoryList() {
   document.getElementById("drop-down-category-list").classList.add("dp-none");
   document.getElementById("add-category-img-up").classList.add("dp-none");
@@ -54,6 +61,10 @@ function closeCategoryList() {
   document.getElementById("drop-down-category-list").innerHTML = "";
 }
 
+/**
+ * Handles click events on the document to close the category dropdown if clicking outside.
+ * @param {Event} event - The click event.
+ */
 document.addEventListener("click", function (event) {
   const categoryWrapper = document.querySelector(".add-category");
   const dropdown = document.getElementById("drop-down-category-list");

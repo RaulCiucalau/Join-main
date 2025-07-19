@@ -131,6 +131,11 @@ function loadLoginInfo(key) {
   return data ? JSON.parse(data) : null;
 }
 
+/**
+ * Loads the user's name and greeting for the dashboard. Handles guest, user not found, and error cases.
+ * Fetches user data from the database and updates the greeting UI.
+ * @returns {Promise<void>}
+ */
 async function loadUserNameAndGreeting() {
   const loginInfo = loadLoginInfo("whoIsLoggedIn");
   if (!loginInfo || !loginInfo.userLoggedIn || !loginInfo.userLoggedIn.email) {
@@ -148,6 +153,10 @@ async function loadUserNameAndGreeting() {
     errorLoading(error);
   }
 
+  /**
+   * Fetches the user object from the database by email.
+   * @returns {Promise<Object|undefined>} The user object or undefined if not found.
+   */
   async function fetchUser() {
     const response = await fetch(`${BASE_URL}user.json`);
     const data = await response.json();
@@ -157,22 +166,36 @@ async function loadUserNameAndGreeting() {
     return user;
   }
 
+  /**
+   * Handles the guest user case and updates the greeting UI.
+   */
   function guestUser() {
     const greeting = getGreetings();
     document.getElementById("dashboard-time").innerText = greeting;
     return;
   }
 
+  /**
+   * Handles errors during user loading and updates the UI.
+   * @param {Error} error - The error object.
+   */
   function errorLoading(error) {
     console.error("❌ Fehler beim Laden:", error);
     document.getElementById("dashboard-name").innerText = "Fehler beim Laden";
   }
 
+  /**
+   * Handles the case when the user is not found and updates the UI.
+   */
   function userNotFoundInfo() {
     console.warn("❌ Nutzer nicht gefunden.");
     document.getElementById("dashboard-name").innerText = "Nutzer nicht gefunden";
   }
 
+  /**
+   * Updates the UI with the user's name and greeting.
+   * @param {Object} user - The user object.
+   */
   function greetingUser(user) {
     const name = user.name;
     const greeting = getGreetings();
@@ -181,6 +204,9 @@ async function loadUserNameAndGreeting() {
   }
 }
 
+/**
+ * Updates the hover-scale class on elements based on window width for responsive design.
+ */
 function updateHoverScaleClass() {
   const container = document.getElementById('boxInfoTask');
   if (!container) return;
