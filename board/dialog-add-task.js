@@ -95,6 +95,8 @@ function createTask() {
   } else {
     saveTaskInputs();
     document.getElementById('addTaskDialog').classList.add('d-none');
+    isDialogOpen = false;
+    clearTaskForm();
     renderCards(tasks);
   }
 }
@@ -130,6 +132,7 @@ function saveTaskInputs() {
  * @returns {Object} Task object.
  */
 function createTaskObject(id) {
+  let selectedPrio = "medium";
   return {
     id: id,
     column: selectedColumn,
