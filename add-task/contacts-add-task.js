@@ -116,12 +116,12 @@ function toggleContactSelection(i) {
  */
 function showSelectedAvatars() {
   const container = document.getElementById("selected-avatars");
-  const avatarHtml = sliceVisibleContacts(visibleContacts);
-  const extraCount = visibleContacts.length - 4;
-  container.innerHTML = "";
   const visibleContacts = selectedContacts
     .map(index => contacts[index])
     .filter(contact => contact);
+  const avatarHtml = sliceVisibleContacts(visibleContacts);
+  const extraCount = visibleContacts.length - 4;
+  container.innerHTML = "";
   container.innerHTML =
     avatarHtml +
     (extraCount > 0

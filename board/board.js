@@ -265,25 +265,66 @@ async function toggleSubtaskCompletion(event) {
     const taskId = event.target.dataset.taskId;
     const subtaskId = event.target.dataset.subtaskId;
     try {
-        const completed = !(await (await fetch(`${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}/completed.json`)).json());
-        const subtask = await (await fetch(`${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}.json`)).json();
+        const completed = await fetchSubtaskCompleted(taskId, subtaskId);
+        const subtask = await fetchSubtask(taskId, subtaskId);
         if (!subtask) return console.error(`Subtask ${subtaskId} not found`);
-        subtask.completed = completed;
-        event.target.src = completed 
-            ? '../assets/img/board_icons/checked_button.svg' 
-            : '../assets/img/board_icons/unchecked_button.svg';
-        await fetch(`${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}.json`, {
-            method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(subtask)
-        });
-        const subtasks = await (await fetch(`${BASE_URL}tasks/${taskId}/subtasks.json`)).json();
-        const progress = subtasks.filter(s => s.completed).length / subtasks.length * 100;
-        document.getElementById(`progressBar-${taskId}`).style.width = `${Math.round(progress)}%`;
-        updateSubtasksText({ id: taskId }, subtasks);
-        const index = tasks.findIndex(t => t.id == taskId);
-        if (index !== -1) tasks[index].subtasks = subtasks;
+        await updateSubtaskState(event, subtask, completed, taskId, subtaskId);
+        await updateProgressAndUI(taskId);
     } catch (e) {
         console.error('Fehler beim Toggle:', e);
     }
+}
+
+/**
+ * Fetches the current completion state of a subtask and returns the toggled value.
+ * @param {string} taskId - The ID of the task.
+ * @param {string} subtaskId - The ID of the subtask.
+ * @returns {Promise<boolean>} The toggled completion state.
+ */
+async function fetchSubtaskCompleted(taskId, subtaskId) {
+    const completed = await (await fetch(`${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}/completed.json`)).json();
+    return !completed;
+}
+
+/**
+ * Fetches the subtask object from the backend.
+ * @param {string} taskId - The ID of the task.
+ * @param {string} subtaskId - The ID of the subtask.
+ * @returns {Promise<Object>} The subtask object.
+ */
+async function fetchSubtask(taskId, subtaskId) {
+    return await (await fetch(`${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}.json`)).json();
+}
+
+/**
+ * Updates the subtask's completion state in the backend and updates the checkbox icon.
+ * @param {Event} event - The event triggered by clicking the checkbox icon.
+ * @param {Object} subtask - The subtask object.
+ * @param {boolean} completed - The new completion state.
+ * @param {string} taskId - The ID of the task.
+ * @param {string} subtaskId - The ID of the subtask.
+ */
+async function updateSubtaskState(event, subtask, completed, taskId, subtaskId) {
+    subtask.completed = completed;
+    event.target.src = completed 
+        ? '../assets/img/board_icons/checked_button.svg' 
+        : '../assets/img/board_icons/unchecked_button.svg';
+    await fetch(`${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}.json`, {
+        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(subtask)
+    });
+}
+
+/**
+ * Updates the progress bar and UI after a subtask's completion state changes.
+ * @param {string} taskId - The ID of the task.
+ */
+async function updateProgressAndUI(taskId) {
+    const subtasks = await (await fetch(`${BASE_URL}tasks/${taskId}/subtasks.json`)).json();
+    const progress = subtasks.filter(s => s.completed).length / subtasks.length * 100;
+    document.getElementById(`progressBar-${taskId}`).style.width = `${Math.round(progress)}%`;
+    updateSubtasksText({ id: taskId }, subtasks);
+    const index = tasks.findIndex(t => t.id == taskId);
+    if (index !== -1) tasks[index].subtasks = subtasks;
 }
 
 /**

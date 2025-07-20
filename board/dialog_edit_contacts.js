@@ -97,16 +97,13 @@ function toggleContactChosed(index, taskId) {
   const task = tasks.find(t => t.id == taskId);
   if (!contact || !task) return;
   if (!task.assigned_to) task.assigned_to = [];
-
   const contactName = contact.name;
   const isAssigned = task.assigned_to.includes(contactName);
   const contactText = document.getElementById(`contactName${index}`);
   const contactElement = document.getElementById(`contactId${index}`);
   const checkBoxIcon = document.getElementById(`checkBox${index}`);
-
   isAssigned ? unassignContact(task, contactName, contactText, contactElement, checkBoxIcon)
              : assignContact(task, contactName, contactText, contactElement, checkBoxIcon);
-
   renderChosenAvatars(taskId);
 }
 
