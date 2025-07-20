@@ -238,32 +238,45 @@ window.addEventListener("load", async () => {
     });
   }
 
+  /**
+   * Sets the transform and hide animations for the logos and greeting.
+   * @param {string} transformLogo - The CSS transform for the colored logo.
+   * @param {string} transformWhite - The CSS transform for the white logo.
+   */
   function setTimeoutAnimation(transformLogo, transformWhite) {
-        setTimeout(() => {
-          logo.style.transform = transformLogo;
-          logoWhite.style.transform = transformWhite;
-        }, 300);
+    setTimeout(() => {
+      logo.style.transform = transformLogo;
+      logoWhite.style.transform = transformWhite;
+    }, 300);
 
-        setTimeout(() => {
-          greeting.classList.add("hide");
-        }, isMobile ? 700 : 1200);
-      }
+    setTimeout(() => {
+      greeting.classList.add("hide");
+    }, isMobile ? 700 : 1200);
+  }
 
- function calculateAnimation() {
-        const targetRect = targetLogo.getBoundingClientRect();
-        const logoRect = logo.getBoundingClientRect();
-        const logoWhiteRect = logoWhite.getBoundingClientRect();
-        const deltaXLogo = targetRect.left + targetRect.width / 2 - (logoRect.left + logoRect.width / 2);
-        const deltaYLogo = targetRect.top + targetRect.height / 2 - (logoRect.top + logoRect.height / 2);
-        const scaleLogo = targetRect.width / logoRect.width;
-        const deltaXWhite = targetRect.left + targetRect.width / 2 - (logoWhiteRect.left + logoWhiteRect.width / 2);
-        const deltaYWhite = targetRect.top + targetRect.height / 2 - (logoWhiteRect.top + logoWhiteRect.height / 2);
-        const scaleWhite = targetRect.width / logoWhiteRect.width;
-        const transformLogo = `translate(${deltaXLogo}px, ${deltaYLogo}px) scale(${scaleLogo})`;
-        const transformWhite = `translate(${deltaXWhite}px, ${deltaYWhite}px) scale(${scaleWhite})`;
-        return { transformLogo, transformWhite };
-      }
+  /**
+   * Calculates the transform values for the logo and white logo animations.
+   * @returns {{transformLogo: string, transformWhite: string}} The transform CSS for both logos.
+   */
+  function calculateAnimation() {
+    const targetRect = targetLogo.getBoundingClientRect();
+    const logoRect = logo.getBoundingClientRect();
+    const logoWhiteRect = logoWhite.getBoundingClientRect();
+    const deltaXLogo = targetRect.left + targetRect.width / 2 - (logoRect.left + logoRect.width / 2);
+    const deltaYLogo = targetRect.top + targetRect.height / 2 - (logoRect.top + logoRect.height / 2);
+    const scaleLogo = targetRect.width / logoRect.width;
+    const deltaXWhite = targetRect.left + targetRect.width / 2 - (logoWhiteRect.left + logoWhiteRect.width / 2);
+    const deltaYWhite = targetRect.top + targetRect.height / 2 - (logoWhiteRect.top + logoWhiteRect.height / 2);
+    const scaleWhite = targetRect.width / logoWhiteRect.width;
+    const transformLogo = `translate(${deltaXLogo}px, ${deltaYLogo}px) scale(${scaleLogo})`;
+    const transformWhite = `translate(${deltaXWhite}px, ${deltaYWhite}px) scale(${scaleWhite})`;
+    return { transformLogo, transformWhite };
+  }
 
+  /**
+   * Pulls and returns DOM elements needed for the greeting/logo animation.
+   * @returns {{greeting: HTMLElement, logo: HTMLElement, logoWhite: HTMLElement, targetLogo: HTMLElement, isMobile: boolean}}
+   */
   function pullElementsForAnimation() {
     const isMobile = window.matchMedia("(max-width: 770px)").matches;
     const greeting = document.querySelector(".greeting");

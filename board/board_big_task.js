@@ -31,11 +31,21 @@ function openDialog() {
 
 /**
  * Opens a specific task dialog by task ID and fills it with task content.
+ * If the task is not found, retries after a short delay (max 5 attempts).
  * @param {number|string} taskId - The ID of the task to display.
+ * @param {number} [attempt=1] - Current attempt number.
  */
-function openBigTaskDialogById(taskId) {
-    const task = tasks.find(task => task.id === taskId);
+function openBigTaskDialogById(taskId, attempt = 1) {
+    const task = tasks.find(task => String(task.id) === String(taskId));
     const bigDialog = document.getElementById('bigTaskDialog');
+    if (!task) {
+        if (attempt < 5) {
+            setTimeout(() => openBigTaskDialogById(taskId, attempt + 1), 200);
+        } else {
+            bigDialog.innerHTML = "<div class='dialog-card'>Task not found. Please try again.</div>";
+        }
+        return;
+    }
     bigDialog.innerHTML = getBigTaskDialog(task);
     bigDialog.classList.remove('closing');
     bigDialog.classList.add('open');
