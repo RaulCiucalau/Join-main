@@ -60,6 +60,9 @@ function getPrioColors(prio) {
   }
 }
 
+/**
+ * Toggles the visibility of the edit task dialog.
+ */
 function toggleEditTaskDialog() {
   let editDialog = document.getElementById('editTaskDialog');
   editDialog.classList.toggle('d-none-edit-dialog');
@@ -186,9 +189,13 @@ function saveSelectedTask(taskId, subtaskIndex) {
  * Saves all input values from the edit form to the task object.
  * @param {number|string} taskId - Task ID.
  */
+/**
+ * Saves all input values from the edit form to the task object.
+ * @param {number|string} taskId - Task ID.
+ */
 function saveEditInputFields(taskId) {
-  const { task, titleInput, descriptionInput, dateInput } = constTaskFindId();
-  taskTitleInput();
+  const { task, titleInput, descriptionInput, dateInput } = constTaskFindId(taskId);
+  setTaskTitleInput(task, titleInput, descriptionInput, dateInput);
   if (selectedContactsNames && selectedContactsNames.length > 0) {
     if (!task.assigned_to) {
       task.assigned_to = [];
@@ -199,21 +206,33 @@ function saveEditInputFields(taskId) {
       }
     });
   }
+}
 
-  function taskTitleInput() {
-    task.title = titleInput;
-    task.description = descriptionInput;
-    task.due_date = dateInput;
-    task.priority = selectedPrioritys;
-  }
+/**
+ * Finds the task by ID and gets the current input values for title, description, and date.
+ * @param {number|string} taskId - Task ID.
+ * @returns {{task: Object, titleInput: string, descriptionInput: string, dateInput: string}}
+ */
+function constTaskFindId(taskId) {
+  const task = tasks.find(t => String(t.id) === String(taskId));
+  const titleInput = document.getElementById(`editedTitle-${taskId}`).value;
+  const descriptionInput = document.getElementById(`editedDescription-${taskId}`).value;
+  const dateInput = document.getElementById(`editedDate-${taskId}`).value;
+  return { task, titleInput, descriptionInput, dateInput };
+}
 
-  function constTaskFindId() {
-    const task = tasks.find(t => String(t.id) === String(taskId));
-    const titleInput = document.getElementById(`editedTitle-${taskId}`).value;
-    const descriptionInput = document.getElementById(`editedDescription-${taskId}`).value;
-    const dateInput = document.getElementById(`editedDate-${taskId}`).value;
-    return { task, titleInput, descriptionInput, dateInput };
-  }
+/**
+ * Sets the title, description, due date, and priority on the task object.
+ * @param {Object} task - The task object to update.
+ * @param {string} titleInput - The new title value.
+ * @param {string} descriptionInput - The new description value.
+ * @param {string} dateInput - The new due date value.
+ */
+function setTaskTitleInput(task, titleInput, descriptionInput, dateInput) {
+  task.title = titleInput;
+  task.description = descriptionInput;
+  task.due_date = dateInput;
+  task.priority = selectedPrioritys;
 }
 
 /**
@@ -221,7 +240,11 @@ function saveEditInputFields(taskId) {
  * @param {number|string} taskId - Task ID.
  */
 async function updateTaskDatainAPI(taskId) {
-  const { isValidDate, isValidTitle, task } = constTaskFind();
+  const task = tasks.find(t => String(t.id) === String(taskId));
+  const dateInputId = `editedDate-${taskId}`;
+  const titleInputId = `editedTitle-${taskId}`;
+  const isValidTitle = isTitleValid(titleInputId);
+  const isValidDate = isDueDateValid(dateInputId);
   if (!isValidDate || !isValidTitle) return;
   saveEditInputFields(taskId);
   try {
@@ -236,15 +259,6 @@ async function updateTaskDatainAPI(taskId) {
   removeEditDialog();
   renderCards(tasks);
   hideProgressBarsForTasksWithoutSubtasks(tasks)
-
-  function constTaskFind() {
-    const task = tasks.find(t => String(t.id) === String(taskId));
-    const dateInputId = `editedDate-${taskId}`;
-    const titleInputId = `editedTitle-${taskId}`;
-    const isValidTitle = isTitleValid(titleInputId);
-    const isValidDate = isDueDateValid(dateInputId);
-    return { isValidDate, isValidTitle, task };
-  }
 }
 
 /**
@@ -259,42 +273,100 @@ function removeEditDialog() {
  * Adds a new subtask to a task based on input field value.
  * @param {number|string} taskId - Task ID.
  */
+
+/**
+ * Adds a new subtask to a task based on input field value.
+ * @param {number|string} taskId - Task ID.
+ */
 function addNewSubtaskToList(taskId) {
-  const { task, text, container, inputContainer } = constInputcontainer();
-  const maxSubtaskId = task.subtasks.reduce((max, subtask) => {
-    return Math.max(max, parseInt(subtask.id) || 0);
-  }, 0);
-  const newSubtaskId = maxSubtaskId + 1
+  const inputContainer = document.querySelector('.btns-new-subtask');
+  const task = getTaskById(taskId);
+  const text = getNewSubtaskInputValue();
   if (!text) return;
-  const subtaskObject = {
+  const newSubtaskId = getNextSubtaskId(task);
+  const subtaskObject = buildSubtaskObject(newSubtaskId, taskId, text);
+  task.subtasks.push(subtaskObject);
+  clearNewSubtaskInput();
+  updateSubtasksListUI(task);
+  hideNewSubtaskInput(inputContainer);
+}
+
+/**
+ * Finds and returns a task object by its ID.
+ * @param {number|string} taskId - Task ID.
+ * @returns {Object|undefined} The found task object or undefined.
+ */
+function getTaskById(taskId) {
+  return tasks.find(t => String(t.id) === String(taskId));
+}
+
+/**
+ * Gets the value from the new subtask input field.
+ * @returns {string} The input value.
+ */
+function getNewSubtaskInputValue() {
+  return document.getElementById('newSubtaskInput').value;
+}
+
+/**
+ * Calculates the next subtask ID for a given task.
+ * @param {Object} task - The task object.
+ * @returns {number} The next subtask ID.
+ */
+function getNextSubtaskId(task) {
+  return task.subtasks.reduce((max, subtask) => Math.max(max, parseInt(subtask.id) || 0), 0) + 1;
+}
+
+/**
+ * Builds a new subtask object.
+ * @param {number} newSubtaskId - The new subtask ID.
+ * @param {number|string} taskId - The parent task ID.
+ * @param {string} text - The subtask title.
+ * @returns {Object} The subtask object.
+ */
+function buildSubtaskObject(newSubtaskId, taskId, text) {
+  return {
     id: newSubtaskId.toString(),
     taskId: taskId,
     title: text,
     completed: false
   };
-  task.subtasks.push(subtaskObject);
-  pushSubTask();
-
-  function pushSubTask() {
-    document.getElementById('newSubtaskInput').value = '';
-    container.innerHTML = renderSubtasksToEdit(task);
-    inputContainer.classList.add('visibility-hidden');
-  }
-
-  function constInputcontainer() {
-    const inputContainer = document.querySelector('.btns-new-subtask');
-    const task = tasks.find(t => String(t.id) === String(taskId));
-    const text = document.getElementById('newSubtaskInput').value;
-    const container = document.getElementById('subtasksList');
-    return { task, text, container, inputContainer };
-  }
 }
 
+/**
+ * Clears the new subtask input field.
+ */
+function clearNewSubtaskInput() {
+  document.getElementById('newSubtaskInput').value = '';
+}
+
+/**
+ * Updates the subtasks list UI for a given task.
+ * @param {Object} task - The task object.
+ */
+function updateSubtasksListUI(task) {
+  document.getElementById('subtasksList').innerHTML = renderSubtasksToEdit(task);
+}
+
+/**
+ * Hides the new subtask input container.
+ * @param {HTMLElement} inputContainer - The input container element.
+ */
+function hideNewSubtaskInput(inputContainer) {
+  inputContainer.classList.add('visibility-hidden');
+}
+
+/**
+ * Shows the button to add a new subtask.
+ */
 function showBtnToAddSubtask() {
   const container = document.querySelector('.btns-new-subtask');
   container.classList.remove('visibility-hidden');
 }
 
+/**
+ * Cancels adding a new subtask and resets the input field and UI.
+ */
 function cancelBtnAddSubtask() {
   const container = document.querySelector('.btns-new-subtask');
   const input = document.getElementById('subtaskContainer');
@@ -311,87 +383,5 @@ function createSubtaskOnEnter(taskId) {
   if (event.key === "Enter") {
     addNewSubtaskToList(taskId)
     showBtnToAddSubtask();
-  }
-}
-
-/**
- * Validates if the due date in the input field is within acceptable range.
- * Shows an error if the date is in the past or exceeds the year 2130.
- *
- * @param {string} inputId - The ID of the input element containing the date.
- * @returns {boolean} True if the date is valid, false otherwise.
- */
-function isDueDateValid(inputId) {
-  const { errorMessageId, input, today } = constErrorMessage();
-  let existingError = document.getElementById(errorMessageId);
-  if (existingError) existingError.remove();
-  const inputYear = constNewDate();
-  if (input.value < today) {
-    showDateError(input, errorMessageId, "Date cannot be in the past");
-    return false;
-  }
-  if (inputYear > 2130) {
-    showDateError(input, errorMessageId, "The selected date exceeds the maximum allowed year (2130)");
-    return false;
-  }
-  return true;
-
-  function constNewDate() {
-    const inputDate = new Date(input.value);
-    const inputYear = inputDate.getFullYear();
-    return inputYear;
-  }
-
-  function constErrorMessage() {
-    const input = document.getElementById(inputId);
-    const errorMessageId = `${inputId}-error`;
-    const today = new Date().toISOString().split("T")[0];
-    return { errorMessageId, input, today };
-  }
-}
-
-/**
- * Displays a styled error message below an input element.
- *
- * @param {HTMLInputElement} input - The input element where the error occurred.
- * @param {string} errorMessageId - The ID to assign to the error message element.
- * @param {string} message - The error message text to display.
- */
-function showDateError(input, errorMessageId, message) {
-  const errorText = document.createElement("p");
-  errorText.id = errorMessageId;
-  errorText.textContent = `${message}`;
-  errorText.style.color = "red";
-  errorText.style.fontSize = "0.85rem";
-  errorText.style.marginTop = "4px";
-  input.insertAdjacentElement("afterend", errorText);
-}
-
-/**
- * Validates if the input field contains a non-empty title.
- * Shows an error message if the field is empty or contains only whitespace.
- *
- * @param {string} inputId - The ID of the input element to validate.
- * @returns {boolean} True if the title is valid, false otherwise.
- */
-function isTitleValid(inputId) {
-  const input = document.getElementById(inputId);
-  const errorMessageId = `${inputId}-error`;
-  let existingError = document.getElementById(errorMessageId);
-  if (existingError) existingError.remove();
-  if (!input.value.trim()) {
-    const errorText = document.createElement("p");
-    errorText.id = errorMessageId;
-    errorTextForm(errorText);
-    input.insertAdjacentElement("afterend", errorText);
-    return false;
-  }
-  return true;
-
-  function errorTextForm(errorText) {
-    errorText.textContent = "This field is required";
-    errorText.style.color = "red";
-    errorText.style.fontSize = "0.85rem";
-    errorText.style.marginTop = "4px";
   }
 }
