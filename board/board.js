@@ -142,6 +142,7 @@ function renderCards(tasks) {
             filteredTasks.forEach(task => {
                 container.innerHTML += getCardsTemplate(task);
             });
+            hideProgressBarsForTasksWithoutSubtasks(tasks);
         }
     });
 }
