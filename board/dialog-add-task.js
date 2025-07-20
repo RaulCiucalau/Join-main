@@ -36,24 +36,42 @@ async function loadContacts(path) {
     console.error("Fehler beim Laden der Kontakte aus Firebase:", error);
   }
 
-  function constFirstLetter(user) {
-    const firstLetter = user.name.charAt(0).toUpperCase();
-    const secondLetter = user.name.split(" ")[1]?.[0]?.toUpperCase();
-    return { secondLetter, firstLetter };
-  }
+// ...existing code...
 
-  function returnUser(user, secondLetter, firstLetter) {
-    return {
-      ...user,
-      avatar: secondLetter ? `${firstLetter}${secondLetter}` : firstLetter
-    };
-  }
+/**
+ * Returns the first and (optionally) second initial of a user's name.
+ * @param {Object} user - The user object with a name property.
+ * @returns {{secondLetter: string|undefined, firstLetter: string}}
+ */
+function constFirstLetter(user) {
+  const firstLetter = user.name.charAt(0).toUpperCase();
+  const secondLetter = user.name.split(" ")[1]?.[0]?.toUpperCase();
+  return { secondLetter, firstLetter };
+}
 
-  async function fetchResponse() {
-    const response = await fetch("https://join-460-default-rtdb.europe-west1.firebasedatabase.app/contacts.json");
-    const data = await response.json();
-    return data;
-  }
+/**
+ * Returns a user object with an avatar property set to initials.
+ * @param {Object} user - The user object.
+ * @param {string|undefined} secondLetter - The second initial (if any).
+ * @param {string} firstLetter - The first initial.
+ * @returns {Object} The user object with avatar property.
+ */
+function returnUser(user, secondLetter, firstLetter) {
+  return {
+    ...user,
+    avatar: secondLetter ? `${firstLetter}${secondLetter}` : firstLetter
+  };
+}
+
+/**
+ * Fetches all contacts from Firebase and returns the data object.
+ * @returns {Promise<Object>} The contacts data from Firebase.
+ */
+async function fetchResponse() {
+  const response = await fetch("https://join-460-default-rtdb.europe-west1.firebasedatabase.app/contacts.json");
+  const data = await response.json();
+  return data;
+}
 }
 
 async function init() {
@@ -151,6 +169,11 @@ function getDescriptionInput() {
 }
 
 
+
+/**
+ * Converts the selected contact names array to an object with numeric keys.
+ * @returns {Object} Object mapping indices to contact names.
+ */
 function getAssignedTo() {
   return mapArrayToObject(selectedContactsNames);
 }
@@ -186,24 +209,37 @@ function areInputsEmpty() {
   today.setHours(0, 0, 0, 0);
   [e, p, t("required-date")].forEach(el => el.classList.add("dp-none"));
   if (!v) {
-    requiredDateFalse();
+    requiredDateFalse(e, t("required-date"), () => { i = true; });
   } else if (new Date(v) < today) {
-    requiredDate();
+    requiredDate(p, t("required-date"), d, () => { i = true; });
   }
   return i;
+}
 
-  function requiredDateFalse() {
-    e.classList.remove("dp-none");
-    t("required-date").classList.remove("dp-none");
-    i = true;
-  }
+/**
+ * Shows required date warning for missing due date input.
+ * @param {HTMLElement} e - The first warning paragraph element.
+ * @param {HTMLElement} requiredDateEl - The required date container element.
+ * @param {Function} setInvalid - Callback to set the invalid state.
+ */
+function requiredDateFalse(e, requiredDateEl, setInvalid) {
+  e.classList.remove("dp-none");
+  requiredDateEl.classList.remove("dp-none");
+  setInvalid();
+}
 
-  function requiredDate() {
-    p.classList.remove("dp-none");
-    t("required-date").classList.remove("dp-none");
-    d.style.border = "1px solid red";
-    i = true;
-  }
+/**
+ * Shows required date warning for past due date input and highlights the field.
+ * @param {HTMLElement} p - The second warning paragraph element.
+ * @param {HTMLElement} requiredDateEl - The required date container element.
+ * @param {HTMLElement} d - The due date input element.
+ * @param {Function} setInvalid - Callback to set the invalid state.
+ */
+function requiredDate(p, requiredDateEl, d, setInvalid) {
+  p.classList.remove("dp-none");
+  requiredDateEl.classList.remove("dp-none");
+  d.style.border = "1px solid red";
+  setInvalid();
 }
 
 /**
@@ -216,6 +252,9 @@ function taskAlreadyExists(tasksArr, title) {
   return tasksArr.some(task => task.title === title);
 }
 
+/**
+ * Shows required field warnings for empty or invalid task input fields.
+ */
 function showFieldRequired() {
   if (document.getElementById("add-task-title").value.trim() === "") {
     document.getElementById("add-task-title").style.border = "1px solid red";
@@ -231,6 +270,9 @@ function showFieldRequired() {
   }
 }
 
+/**
+ * Redirects the user to the board page after a short delay.
+ */
 function goToBoards() {
   setTimeout(() => {
     window.location.href = "./board/board.html";
@@ -254,6 +296,9 @@ async function addTaskToDatabase(id, task) {
   }
 }
 
+/**
+ * Clears the task form, resets subtasks, priorities, contacts, and removes required field warnings.
+ */
 function clearTaskForm() {
   subtasks = [];
   clearInputs();
@@ -265,6 +310,9 @@ function clearTaskForm() {
   removeFieldRequired();
 }
 
+/**
+ * Clears all input fields in the add task form.
+ */
 function clearInputs() {
   document.getElementById("subtask-list").innerHTML = "";
   document.getElementById("subtask").value = "";
@@ -276,6 +324,9 @@ function clearInputs() {
   document.getElementById("assigned-to").value = "";
 }
 
+/**
+ * Removes required field warnings and resets input borders to default.
+ */
 function removeFieldRequired() {
   document.getElementById("required-title").classList.add("dp-none");
   document.getElementById("add-task-title").style.border = "1px solid #d1d1d1";
@@ -285,21 +336,35 @@ function removeFieldRequired() {
   document.getElementById("category").style.border = "1px solid #d1d1d1";
 }
 
+/**
+ * Displays an error message if a task with the same title already exists.
+ */
 function errorTaskAlreadyExists() {
   document.getElementById("task-already-exists").classList.remove("dp-none");
   document.getElementById("add-task-title").style.border = "1px solid red";
 }
 
+/**
+ * Changes the clear icon to blue on hover.
+ */
 function changeToBlueIcon() {
   document.getElementById("clear").classList.add("dp-none");
   document.getElementById("clear-hover").classList.remove("dp-none");
 }
 
+/**
+ * Changes the clear icon back to black when not hovered.
+ */
 function changeToBlackIcon() {
   document.getElementById("clear").classList.remove("dp-none");
   document.getElementById("clear-hover").classList.add("dp-none");
 }
 
+/**
+ * Converts an array to an object with numeric keys.
+ * @param {Array} array - The array to convert.
+ * @returns {Object} The resulting object.
+ */
 function mapArrayToObject(array) {
   return array.reduce((obj, item, index) => {
     obj[index] = item;
@@ -334,6 +399,10 @@ async function loadTasks(path = "tasks") {
     console.error("Fehler beim Laden der Tasks aus Firebase:", error);
   }
 
+  /**
+   * Converts the tasks data object from Firebase into an array and updates the currentMaxId.
+   * @param {Object} data - The tasks data object from Firebase, with task IDs as keys.
+   */
   function taskArrObject(data) {
     tasksArr = Object.values(data);
     const ids = Object.keys(data).map(id => Number(id)).filter(id => !isNaN(id));
@@ -341,6 +410,10 @@ async function loadTasks(path = "tasks") {
   }
 }
 
+/**
+ * Fetches and displays the logged-in user's avatar or guest initial in the UI.
+ * Sets the initial letter to 'G' for guests or the user's avatar for logged-in users.
+ */
 async function showLoggedInInfo() {
   try {
     const response = await fetch("https://join-460-default-rtdb.europe-west1.firebasedatabase.app/login.json");
@@ -357,6 +430,9 @@ async function showLoggedInInfo() {
   }
 }
 
+/**
+ * Highlights the current menu item in the navigation bar based on the page URL.
+ */
 function highlightMenuActual() {
   const path = window.location.pathname;
   const menuLinks = document.querySelectorAll(".nav-link");
@@ -378,6 +454,10 @@ function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+/**
+ * Converts the subtasks array to an array of subtask objects with title and completed properties.
+ * @returns {Array<Object>} Array of subtask objects.
+ */
 function getSubtasksArray() {
   return subtasks.map(title => ({ title: title, completed: false }));
 }
