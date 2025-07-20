@@ -395,24 +395,24 @@ async function saveEditedContact(key) {
  * Retrieves and trims the values from name, email, and phone input fields.
  * @returns {object} - An object containing trimmed `name`, `email`, and `phone` strings.
  */
-  function constNameEmailPhoneTrim() {
-    const name = document.getElementById("fullName").value.trim();
-    const email = document.getElementById("new-email").value.trim();
-    const phone = document.getElementById("new-phone").value.trim();
-    return { name, email, phone };
-  }
+function constNameEmailPhoneTrim() {
+  const name = document.getElementById("fullName").value.trim();
+  const email = document.getElementById("new-email").value.trim();
+  const phone = document.getElementById("new-phone").value.trim();
+  return { name, email, phone };
+}
 
-  
+
 /**
  * Validates the name, email, and phone inputs using validation functions.
  * @returns {object} - An object containing boolean validation results: `nameValid`, `emailValid`, and `phoneValid`.
  */
-  function constNameEmailPhone() {
-    const nameValid = isNameValid("fullName");
-    const emailValid = isEmailValid("new-email");
-    const phoneValid = isPhoneValid("new-phone");
-    return { nameValid, emailValid, phoneValid };
-  }
+function constNameEmailPhone() {
+  const nameValid = isNameValid("fullName");
+  const emailValid = isEmailValid("new-email");
+  const phoneValid = isPhoneValid("new-phone");
+  return { nameValid, emailValid, phoneValid };
+}
 
 
 /**

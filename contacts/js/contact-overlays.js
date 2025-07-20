@@ -1,3 +1,8 @@
+/**
+ * Closes (removes) the contact overlay from the DOM.
+ *
+ * This function checks for both 'add' and 'edit' contact overlays and removes them if they exist.
+ */
 function closeOverlay() {
   const addOverlay = document.getElementById('outer-add-contact-overlay');
   const editOverlay = document.getElementById('outer-edit-contact-overlay');
@@ -15,88 +20,91 @@ document.body.addEventListener("click", function (e) {
   }
 });
 
+
+/**
+ * Handles overlay form data collection, validation, and submission.
+ */
 function getOverlayData() {
-  const { errorBox, nameError, emailError, phoneError, name, email, phone } = constNameEmailPhoneInputOverlay();
-  emptyNameError();
-  let valid = true;
-  if (!name) {
-    enterName();
-  } else if (/\d/.test(name)) {
-    nameWithoutContain();
-  }
-  if (!email) {
-    enterEmail();
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    validEmailAdress();
-  }
-  if (!phone) {
-    enterPhoneNumber();
-  } else if (!/^\d+$/.test(phone)) {
-    checkOnlyDigits();
-  }
+  const { nameInput, emailInput, phoneInput, errorBox, nameError, emailError, phoneError } = getOverlayElements();
+  resetOverlayErrors(errorBox, nameError, emailError, phoneError);
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim();
+  const phone = phoneInput.value.trim();
+  let valid = validateOverlayName(name, nameError);
+  valid = validateOverlayEmail(email, emailError) && valid;
+  valid = validateOverlayPhone(phone, phoneError) && valid;
   if (!valid) {
-    return errorBoxHide2();
-  }
-  addNewContactToDatabase(name, email, phone);
-
-  function enterName() {
-    nameError.innerText = "Please enter a name";
-    valid = false;
-  }
-
-  function nameWithoutContain() {
-    nameError.innerText = "Name must not contain numbers";
-    valid = false;
-  }
-
-  function enterEmail() {
-    emailError.innerText = "Please enter an email";
-    valid = false;
-  }
-
-  function validEmailAdress() {
-    emailError.innerText = "Invalid email address";
-    valid = false;
-  }
-
-  function enterPhoneNumber() {
-    phoneError.innerText = "Please enter a phone number";
-    valid = false;
-  }
-
-  function checkOnlyDigits() {
-    phoneError.innerText = "Phone number must contain only digits";
-    valid = false;
-  }
-
-  function errorBoxHide2() {
     errorBox.classList.remove("hide2");
     return;
   }
-
-  function emptyNameError() {
-    errorBox.classList.add("hide2");
-    nameError.innerText = "";
-    emailError.innerText = "";
-    phoneError.innerText = "";
-  }
-
-  function constNameEmailPhoneInputOverlay() {
-    const nameInput = document.getElementById("fullName");
-    const emailInput = document.getElementById("new-email");
-    const phoneInput = document.getElementById("new-phone");
-    const name = nameInput.value.trim();
-    const email = emailInput.value.trim();
-    const phone = phoneInput.value.trim();
-    const errorBox = document.getElementById("form-error-msg");
-    const nameError = nameInput.closest(".input-group").querySelector(".error-message");
-    const emailError = emailInput.closest(".input-group").querySelector(".error-message");
-    const phoneError = phoneInput.closest(".input-group").querySelector(".error-message");
-    return { errorBox, nameError, emailError, phoneError, name, email, phone };
-  }
+  addNewContactToDatabase(name, email, phone);
 }
 
+/**
+ * Gets all relevant DOM elements for the overlay form.
+ */
+function getOverlayElements() {
+  const nameInput = document.getElementById("fullName");
+  const emailInput = document.getElementById("new-email");
+  const phoneInput = document.getElementById("new-phone");
+  const errorBox = document.getElementById("form-error-msg");
+  const nameError = nameInput.closest(".input-group").querySelector(".error-message");
+  const emailError = emailInput.closest(".input-group").querySelector(".error-message");
+  const phoneError = phoneInput.closest(".input-group").querySelector(".error-message");
+  return { nameInput, emailInput, phoneInput, errorBox, nameError, emailError, phoneError };
+}
 
+/**
+ * Resets error messages and hides the error box for the overlay form.
+ */
+function resetOverlayErrors(errorBox, nameError, emailError, phoneError) {
+  errorBox.classList.add("hide2");
+  nameError.innerText = "";
+  emailError.innerText = "";
+  phoneError.innerText = "";
+}
+
+/**
+ * Validates the name field for the overlay form.
+ */
+function validateOverlayName(name, nameError) {
+  if (!name) {
+    nameError.innerText = "Please enter a name";
+    return false;
+  } else if (/\d/.test(name)) {
+    nameError.innerText = "Name must not contain numbers";
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Validates the email field for the overlay form.
+ */
+function validateOverlayEmail(email, emailError) {
+  if (!email) {
+    emailError.innerText = "Please enter an email address";
+    return false;
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    emailError.innerText = "Invalid email address";
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Validates the phone field for the overlay form.
+ */
+function validateOverlayPhone(phone, phoneError) {
+  if (!phone) {
+    phoneError.innerText = "Please enter a phone number";
+    return false;
+  } else if (!/^\d+$/.test(phone)) {
+    phoneError.innerText = "Phone number must contain digits only";
+    return false;
+  }
+  return true;
+}
 
 function contactsuccessfullyDeletedNotification() {
   let displayArea = document.getElementById("contact-details-area");

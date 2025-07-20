@@ -25,8 +25,6 @@ function renderLeftColumnContactsTemplate(user, indexOfUser, key) {
     </div>`;
 }
 
-
-
 function contactDetailsAreaTemplate(paramKey, users) {
   let contactDetailsArea = document.getElementById("contact-details-area");
   contactDetailsArea.classList.add("show");
@@ -71,11 +69,10 @@ function contactDetailsAreaTemplate(paramKey, users) {
             </div>`;
 }
 
-function displayAddContactOverlay()
-{
-  let overlayBody = document.getElementById('overlayArea'); 
+function displayAddContactOverlay() {
+  let overlayBody = document.getElementById('overlayArea');
   let realBody = document.getElementById('body');
-   overlayBody.innerHTML = '';
+  overlayBody.innerHTML = '';
   overlayBody.innerHTML += `
       <div onclick="closeAddContactOverlay()" id="outer-add-contact-overlay">
         <div onclick="stopPropagation(event)" id="add-contact-overlay">
@@ -134,10 +131,18 @@ function displayAddContactOverlay()
       </div>`;
 }
 
-function editContactOverlay(key, users)
-{
-  let user = users[key];
-  let overlayBody = document.getElementById('overlayArea'); 
+function editContactOverlay(key, users) {
+  const user = users[key];
+  const nameInput = document.getElementById('big-user-name');
+  const emailInput = document.getElementById('user-email');
+  const phoneInput = document.getElementById('user-phone-number');
+  let name = user.name;
+  let email = user.e_mail;
+  let phone = user.phone;
+  if (nameInput && nameInput.innerText) name = nameInput.innerText;
+  if (emailInput && emailInput.innerText) email = emailInput.innerText;
+  if (phoneInput && phoneInput.innerText) phone = phoneInput.innerText;
+  let overlayBody = document.getElementById('overlayArea');
   overlayBody.innerHTML = `
       <div onclick="closeEditOverlay()" class="" id="outer-edit-contact-overlay">
         <div onclick="stopPropagation(event)" id="edit-contact-overlay">
@@ -162,21 +167,21 @@ function editContactOverlay(key, users)
               <form id="editContactForm" data-key="${key}" class="edit-contact-form" onsubmit="return validateAndSubmitForm(event)">
                 <div class="input-group">
                   <div class="input-and-icon">
-                    <input required type="text" id="fullName" value="${user.name}" placeholder="Name" />
+                    <input required type="text" id="fullName" value="${name}" placeholder="Name" />
                     <img class="icon" src="/assets/icons/person.svg">
                   </div>
                   <p id="fullName-error" class="error-text hidden">Name must not contain numbers</p>
                 </div>
                 <div class="input-group">
                   <div class="input-and-icon">
-                    <input required type="email" id="new-email" value="${user.e_mail}" placeholder="E-Mail" />
+                    <input required type="email" id="new-email" value="${email}" placeholder="E-Mail" />
                     <img class="icon" src="/assets/icons/mail.svg">
                   </div>
                   <p id="new-email-error" class="error-text hidden">Invalid email address</p>
                 </div>
                 <div class="input-group">
                   <div class="input-and-icon">
-                    <input required type="tel" id="new-phone" value="${user.phone}" placeholder="Phone" />
+                    <input required type="tel" id="new-phone" value="${phone}" placeholder="Phone" />
                     <img class="icon" src="/assets/icons/call.svg">
                   </div>
                   <p id="new-phone-error" class="error-text hidden">Phone number must contain only digits</p>
