@@ -152,57 +152,58 @@ async function loadUserNameAndGreeting() {
   } catch (error) {
     errorLoading(error);
   }
-
-  /**
-   * Fetches the user object from the database by email.
-   * @returns {Promise<Object|undefined>} The user object or undefined if not found.
-   */
-  async function fetchUser() {
-    const response = await fetch(`${BASE_URL}user.json`);
-    const data = await response.json();
-    const user = Object.values(data).find(
-      (userObj) => userObj.email.toLowerCase() === email.toLowerCase()
-    );
-    return user;
-  }
-
-  /**
-   * Handles the guest user case and updates the greeting UI.
-   */
-  function guestUser() {
-    const greeting = getGreetings();
-    document.getElementById("dashboard-time").innerText = greeting;
-    return;
-  }
-
-  /**
-   * Handles errors during user loading and updates the UI.
-   * @param {Error} error - The error object.
-   */
-  function errorLoading(error) {
-    console.error("❌ Fehler beim Laden:", error);
-    document.getElementById("dashboard-name").innerText = "Fehler beim Laden";
-  }
-
-  /**
-   * Handles the case when the user is not found and updates the UI.
-   */
-  function userNotFoundInfo() {
-    console.warn("❌ Nutzer nicht gefunden.");
-    document.getElementById("dashboard-name").innerText = "Nutzer nicht gefunden";
-  }
-
-  /**
-   * Updates the UI with the user's name and greeting.
-   * @param {Object} user - The user object.
-   */
-  function greetingUser(user) {
-    const name = user.name;
-    const greeting = getGreetings();
-    document.getElementById("dashboard-name").innerText = name;
-    document.getElementById("dashboard-time").innerText = greeting;
-  }
 }
+
+/**
+ * Fetches the user object from the database by email.
+ * @returns {Promise<Object|undefined>} The user object or undefined if not found.
+ */
+async function fetchUser() {
+  const response = await fetch(`${BASE_URL}user.json`);
+  const data = await response.json();
+  const user = Object.values(data).find(
+    (userObj) => userObj.email.toLowerCase() === email.toLowerCase()
+  );
+  return user;
+}
+
+/**
+ * Handles the guest user case and updates the greeting UI.
+ */
+function guestUser() {
+  const greeting = getGreetings();
+  document.getElementById("dashboard-time").innerText = greeting;
+  return;
+}
+
+/**
+ * Handles errors during user loading and updates the UI.
+ * @param {Error} error - The error object.
+ */
+function errorLoading(error) {
+  console.error("❌ Fehler beim Laden:", error);
+  document.getElementById("dashboard-name").innerText = "Fehler beim Laden";
+}
+
+/**
+ * Handles the case when the user is not found and updates the UI.
+ */
+function userNotFoundInfo() {
+  console.warn("❌ Nutzer nicht gefunden.");
+  document.getElementById("dashboard-name").innerText = "Nutzer nicht gefunden";
+}
+
+/**
+ * Updates the UI with the user's name and greeting.
+ * @param {Object} user - The user object.
+ */
+function greetingUser(user) {
+  const name = user.name;
+  const greeting = getGreetings();
+  document.getElementById("dashboard-name").innerText = name;
+  document.getElementById("dashboard-time").innerText = greeting;
+}
+
 
 /**
  * Updates the hover-scale class on elements based on window width for responsive design.
