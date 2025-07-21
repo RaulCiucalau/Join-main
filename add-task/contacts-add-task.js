@@ -52,24 +52,33 @@ document.addEventListener("DOMContentLoaded", function () {
   const dialog = document.getElementById("dialogAddTask");
   const assignedSection = document.querySelector(".assigned-to-section");
   if (dialog && assignedSection) {
-    /**
-     * Handles click events on the dialog to close the contact list if clicking outside the assigned section.
-     * @param {Event} event - The click event.
-     */
-    dialog.addEventListener("click", function (event) {
-      if (!assignedSection.contains(event.target)) {
-        closeContactList();
-      }
-    });
-    /**
-     * Handles click events on the assigned section to prevent event propagation.
-     * @param {Event} event - The click event.
-     */
-    assignedSection.addEventListener("click", function (event) {
-      event.stopPropagation();
-    });
+    initDialogClickHandler(dialog, assignedSection);
+    initAssignedSectionClickHandler(assignedSection);
   }
 });
+
+/**
+ * Sets up the click handler for the dialog to close the contact list if clicking outside the assigned section.
+ * @param {HTMLElement} dialog - The dialog element.
+ * @param {HTMLElement} assignedSection - The assigned section element.
+ */
+function initDialogClickHandler(dialog, assignedSection) {
+  dialog.addEventListener("click", function (event) {
+    if (!assignedSection.contains(event.target)) {
+      closeContactList();
+    }
+  });
+}
+
+/**
+ * Sets up the click handler for the assigned section to prevent event propagation.
+ * @param {HTMLElement} assignedSection - The assigned section element.
+ */
+function initAssignedSectionClickHandler(assignedSection) {
+  assignedSection.addEventListener("click", function (event) {
+    event.stopPropagation();
+  });
+}
 
 /**
  * Selects a contact from the dropdown list.

@@ -240,10 +240,10 @@ function deleteEditedSubtask(item, subtaskObject) {
   subtask = subtask.filter(s => s.id !== subtaskObject.id);
 }
 
+/**
+ * Returns the array of current subtasks for the task being edited or created.
+ * @returns {Array<Object>} Array of subtask objects.
+ */
 function getSubtasksArray() {
-  /**
-   * Returns the array of current subtasks.
-   * @returns {Array<Object>} Array of subtasks.
-   */
   return subtask;
 }

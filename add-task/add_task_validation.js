@@ -8,10 +8,8 @@ function areInputsEmpty() {
     const title = get("add-task-title");
     const category = get("category");
     const dueDate = get("add-task-due-date");
-
     const titleOrCategoryInvalid = isTextInputInvalid(title, category);
     const dueDateInvalid = validateDueDate(dueDate);
-
     return titleOrCategoryInvalid || dueDateInvalid;
 }
 
