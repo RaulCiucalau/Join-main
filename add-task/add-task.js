@@ -187,32 +187,22 @@ function taskAlreadyExists(tasksArr, title) {
 }
 
 /**
- * Validates a required field using if...else logic.
- * @param {string} fieldId - ID of the input field.
- * @param {string} warningId - ID of the warning element.
- */
-function validateField(fieldId, warningId) {
-  const field = document.getElementById(fieldId);
-  const warning = document.getElementById(warningId);
-
-  if (field.value.trim() === "") {
-    field.style.border = "1px solid red";
-    warning.classList.remove("dp-none");
-  } else {
-    field.style.border = "";
-    warning.classList.add("dp-none");
-  }
-}
-
-/**
- * Runs validation on required form fields.
+ * Shows required field warnings for empty or invalid task input fields.
  */
 function showFieldRequired() {
-  validateField("add-task-title", "required-title");
-  validateField("add-task-due-date", "required-date");
-  validateField("category", "required-category");
+  if (document.getElementById("add-task-title").value.trim() === "") {
+    document.getElementById("add-task-title").style.border = "1px solid red";
+    document.getElementById("required-title").classList.remove("dp-none");
+  }
+  if (document.getElementById("add-task-due-date").value.trim() === "") {
+    document.getElementById("required-date").classList.remove("dp-none");
+    document.getElementById("add-task-due-date").style.border = "1px solid red";
+  }
+  if (document.getElementById("category").value.trim() === "") {
+    document.getElementById("category").style.border = "1px solid red";
+    document.getElementById("required-category").classList.remove("dp-none");
+  }
 }
-
 
 /**
  * Displays a message indicating that a task was added to the board.

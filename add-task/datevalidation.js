@@ -7,10 +7,8 @@
 function isDateInFuture(dateString) {
   const today = new Date();
   const selectedDate = new Date(dateString);
-
   today.setHours(0, 0, 0, 0);
   selectedDate.setHours(0, 0, 0, 0);
-
   return selectedDate >= today;
 }
 
@@ -68,14 +66,11 @@ function handleSubmit(dateInput) {
  */
 document.addEventListener('DOMContentLoaded', () => {
   const { dateInput, submitBtn } = getDateElements();
-
   if (!dateInput) {
     noDateInput();
     return;
   }
-
   setMinDateToToday(dateInput);
-
   if (submitBtn) {
     submitBtn.addEventListener('click', () => handleSubmit(dateInput));
   }

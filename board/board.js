@@ -213,7 +213,8 @@ function removeHighlight(event) {
 async function moveTo(event, newStatus) {
     event.preventDefault();
     event.currentTarget.classList.remove("drag-highlight");
-    const task = tasks.find(t => t.id === currentDraggedTaskId);
+    // Ensure both IDs are compared as strings for robustness
+    const task = tasks.find(t => String(t.id) === String(currentDraggedTaskId));
     const draggedElement = document.getElementById(`dragTask${currentDraggedTaskId}`);
     if (draggedElement) {
         draggedElement.classList.remove("dragging");
@@ -221,7 +222,7 @@ async function moveTo(event, newStatus) {
     if (task && task.status !== newStatus) {
         task.status = newStatus;
         await updateTaskInDatabase(task);
-        renderCards(tasks)
+        renderCards(tasks);
         hideProgressBarsForTasksWithoutSubtasks(tasks);
     }
     currentDraggedTaskId = null;

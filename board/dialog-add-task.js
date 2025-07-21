@@ -104,6 +104,7 @@ function createTask() {
 /**
  * Saves the task inputs, generates a new ID, creates the task object, and stores it in Firebase.
  */
+
 function saveTaskInputs() {
   if (canSaveTask()) {
     let maxId = 0;
@@ -112,17 +113,28 @@ function saveTaskInputs() {
       if (!isNaN(currentId) && currentId > maxId) {
         maxId = currentId;
       }
-    };
-    newId(maxId);
+    }
+    handleNewId(maxId);
   } else {
     console.log("Task already exists or the input fields are empty");
   }
+}
 
-  function newId(maxId) {
-    let newId = maxId + 1;
-    const task = createTaskObject(newId);
-    tasks.push(task);
-    addTaskToDatabase(newId, task);
+/**
+ * Handles creating a new task with a new ID, pushing to tasks, and saving to database.
+ * @param {number} maxId - The current maximum task ID.
+ */
+
+function handleNewId(maxId) {
+  let newId = maxId + 1;
+  const task = createTaskObject(newId);
+  tasks.push(task);
+  addTaskToDatabase(newId, task);
+  if (window.tasks && Array.isArray(window.tasks)) {
+    window.tasks.push(task);
+    if (typeof window.renderCards === 'function') {
+      window.renderCards(window.tasks);
+    }
   }
 }
 
