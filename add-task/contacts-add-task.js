@@ -1,6 +1,10 @@
 let selectedContacts = [];
 let selectedContactsNames = [];
 
+/**
+ * Renders the list of contacts in the dropdown menu by generating and inserting
+ * the HTML for each contact option. Highlights already selected contacts.
+ */
 function renderContactList() {
   document.getElementById("drop-down-contact-list").innerHTML += "";
   document.getElementById("drop-down-contact-list").innerHTML = "";

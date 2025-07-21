@@ -20,6 +20,11 @@ function showCategoryList(event) {
   }
 }
 
+
+/**
+ * Renders the list of categories in the dropdown menu by generating and inserting
+ * the HTML for each category option.
+ */
 function renderCategoryList() {
   document.getElementById("drop-down-category-list").innerHTML = "";
   for (let i = 0; i < category.length; i++) {

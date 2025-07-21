@@ -213,6 +213,10 @@ function showFieldRequired() {
   validateField("category", "required-category");
 }
 
+
+/**
+ * Displays a message indicating that a task was added to the board.
+ */
 function showLog() {
   document.getElementById("log").innerHTML = `<div class="added-to-board-msg">
     <p>Task added to board</p>
