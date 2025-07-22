@@ -1,4 +1,40 @@
 /**
+ * Returns HTML for up to 4 contact avatars.
+ * @param {Array<Object>} contacts - List of contact objects.
+ * @returns {string} HTML string for the avatars.
+ */
+function getAvatarHtml(contacts) {
+  return contacts
+    .slice(0, 4)
+    .map(contact =>
+      `<div class="selected-avatars" style="background-color:${contact.color};">${contact.avatar}</div>`
+    )
+    .join("");
+}
+
+/**
+ * Returns HTML for the extra avatar count (e.g., "+2").
+ * @param {number} extraCount - The number of extra contacts beyond 4.
+ * @returns {string} HTML string for the extra avatar count or empty string.
+ */
+function getExtraAvatarHtml(extraCount) {
+  return extraCount > 0
+    ? `<div class="selected-avatar extra-avatar">+${extraCount}</div>`
+    : "";
+}
+/**
+ * Returns the HTML for an empty task column.
+ * @param {string} label - The label for the empty column (e.g., 'to do').
+ * @returns {string} HTML string for the empty task column.
+ */
+function getEmptyTaskHtml(label) {
+    return `
+        <div class="task-card no-cursor-pointer">
+            <div class="empty-task dashed-border">No tasks ${label}</div>
+        </div>
+    `;
+}
+/**
  * Generates the HTML template for a task card displayed on the board.
  *
  * @param {Object} task - The task object containing details to render.

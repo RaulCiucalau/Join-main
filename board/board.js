@@ -133,11 +133,7 @@ function renderCards(tasks) {
         const tasksArray = Object.values(tasks || {}).filter(task => task && task.status !== undefined);
         const filteredTasks = tasksArray.filter(task => task.status === id);
         if (filteredTasks.length === 0) {
-            container.innerHTML = `
-                <div class="task-card no-cursor-pointer">
-                    <div class="empty-task dashed-border">No tasks ${label}</div>
-                </div>
-            `;
+            container.innerHTML = getEmptyTaskHtml(label);
         } else {
             filteredTasks.forEach(task => {
                 container.innerHTML += getCardsTemplate(task);

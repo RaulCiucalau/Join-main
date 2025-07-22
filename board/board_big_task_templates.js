@@ -1,4 +1,27 @@
 /**
+ * Returns the HTML for a 'Task not found' message in the big dialog.
+ * @returns {string} - HTML string for the not found message.
+ */
+function getTaskNotFoundHtml() {
+    return "<div class='dialog-card'>Task not found. Please try again.</div>";
+}
+/**
+ * Returns the HTML for the "No subtasks" message.
+ * @returns {string} HTML for the no subtasks message.
+ */
+function getNoSubtasksHtml() {
+  return '<p class="dialog-card-typography-content">No subtasks.</p>';
+}
+/**
+ * Returns the HTML string for a priority icon image.
+ * @param {string} iconSrc - The source URL for the priority icon image.
+ * @returns {string} HTML for the priority icon image.
+ */
+function getPriorityIconHtml(iconSrc) {
+  return `<img class="priority-symbol" src="${iconSrc}" alt="Priority symbol">`;
+}
+
+/**
  * Builds the HTML for the contact avatars and extra count badge.
  * @param {Array<Object>} visibleContacts - Contacts to display (max 4).
  * @param {number} extraCount - How many more contacts are hidden.

@@ -105,18 +105,7 @@ function renderLeftColumnContacts() {
   }
 }
 
-/**
- * Returns HTML template for a contact initial section.
- * @param {string} initial - First letter of a contact group.
- * @returns {string} HTML string.
- */
-function renderLeftColumnContactsInitalsTemplate(initial) {
-  return `
-        <div class="contact-separator">
-          <span class="contact-initial">${initial}</span>
-          <div class="contact-divider"></div>
-        </div>`;
-}
+
 
 /**
  * Handles rendering and style setup for a single contact.

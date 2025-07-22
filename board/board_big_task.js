@@ -42,7 +42,7 @@ function openBigTaskDialogById(taskId, attempt = 1) {
         if (attempt < 5) {
             setTimeout(() => openBigTaskDialogById(taskId, attempt + 1), 200);
         } else {
-            bigDialog.innerHTML = "<div class='dialog-card'>Task not found. Please try again.</div>";
+            bigDialog.innerHTML = getTaskNotFoundHtml();
         }
         return;
     }
@@ -103,7 +103,7 @@ function renderAssignedContactsBigDialog(assignedList) {
 function renderPriority(priority) {
     const normalized = priority.toLowerCase();
     const validPriority = Object.keys(priorityImg).find(p => p.toLowerCase() === normalized);
-    return `<img class="priority-symbol" src="${priorityImg[validPriority]}" alt="Priority symbol">`
+    return getPriorityIconHtml(priorityImg[validPriority]);
 }
 
 /**
@@ -125,7 +125,7 @@ function renderBigTaskDialog(tasks) {
  */
 function renderSubtasks(task) {
   if (!task.subtasks || task.subtasks.length === 0) {
-    return '<p class="dialog-card-typography-content">No subtasks.</p>';
+    return getNoSubtasksHtml();
   }
   return buildSubtasksHTML(task.subtasks);
 }

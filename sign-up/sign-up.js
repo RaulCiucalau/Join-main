@@ -209,9 +209,7 @@ function completeSignUp() {
  * Displays a sign-up successful message.
  */
 function showLog() {
-  document.getElementById("log").innerHTML = `<div class="signup-successful-msg">
-    <p>You Signed Up Successfully</p> 
-  </div>`;
+  document.getElementById("log").innerHTML = getSignUpSuccessHtml();
 }
 
 /**

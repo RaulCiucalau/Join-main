@@ -1,3 +1,23 @@
+/**
+ * Returns HTML template for a contact initial section.
+ * @param {string} initial - First letter of a contact group.
+ * @returns {string} HTML string.
+ */
+function renderLeftColumnContactsInitalsTemplate(initial) {
+  return `
+        <div class="contact-separator">
+          <span class="contact-initial">${initial}</span>
+          <div class="contact-divider"></div>
+        </div>`;
+}
+
+/**
+ * Returns the HTML for the contact deleted notification.
+ * @returns {string} HTML string for the notification.
+ */
+function getContactDeletedNotificationHtml() {
+  return `<div class="success-notifications" id="success-notification">Contact was successfully deleted.</div>`;
+}
 function renderLeftColumnContactsTemplate(user, indexOfUser, key) {
   if (!user) return;
   const name = user.name || "Unbekannt";

@@ -33,17 +33,6 @@ function renderCategoryList() {
 }
 
 /**
- * Generates the HTML template for a category dropdown item.
- * @param {number} indexCategory - The index of the category in the array.
- * @returns {string} - The HTML string for the category dropdown item.
- */
-function categoryDropDownTemplate(indexCategory) {
-  return `<div class="categoryListElement" onclick="selectCategory(${indexCategory})">
-            <span class="category">${category[indexCategory]}</span>
-            </div>`;
-}
-
-/**
  * Selects a category from the dropdown list and sets it as the input value.
  * @param {number} i - The index of the selected category in the array.
  */

@@ -137,13 +137,7 @@ function createSubtaskObject(text) {
 function createSubtaskElement(subtaskObject) {
   const item = document.createElement('div');
   item.className = 'subtask-list-item';
-  item.innerHTML = `
-    <span class="subtask-text">• ${subtaskObject.title}</span>
-    <div class="subtask-list-item-btns dp-none">
-      <img src="../assets/icons/edit.svg" class="subtask-edit-icons" title="Edit">
-      <img src="../assets/icons/delete.svg" class="subtask-edit-icons" title="Delete">
-    </div>
-  `;
+  item.innerHTML = getSubtaskHtml(subtaskObject);
   return item;
 }
 
@@ -188,14 +182,7 @@ function enterEditMode(item, subtaskObject) {
  * @param {string} currentText - The current subtask text.
  */
 function renderEditSubtask(item, currentText) {
-  item.innerHTML = `
-    <input type="text" class="subtask-edit-input" value="${currentText}">
-    <div class="subtask-list-item-btns">
-      <img src="../assets/icons/delete.svg" class="subtask-edit-icons" title="Delete">
-      <div class="subtask-list-item-separator-2"></div>
-      <img src="../assets/icons/check.svg" class="subtask-edit-icons" title="Save">
-    </div>
-  `;
+  item.innerHTML = getEditSubtaskHtml(currentText);
 }
 
 /**

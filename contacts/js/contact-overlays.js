@@ -20,7 +20,6 @@ document.body.addEventListener("click", function (e) {
   }
 });
 
-
 /**
  * Handles overlay form data collection, validation, and submission.
  */
@@ -108,7 +107,7 @@ function validateOverlayPhone(phone, phoneError) {
 
 function contactsuccessfullyDeletedNotification() {
   let displayArea = document.getElementById("contact-details-area");
-  displayArea.innerHTML = `<div class="success-notifications" id="success-notification">Contact was successfully deleted.</div>`;
+  displayArea.innerHTML = getContactDeletedNotificationHtml();
   if (window.innerWidth < 1250) {
     setTimeout(function () {
       window.location.reload();
