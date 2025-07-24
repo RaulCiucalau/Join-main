@@ -54,10 +54,8 @@ function loadLoginInfo(key) {
   return data ? JSON.parse(data) : null;
 }
 
-
 let userData = {};
 let usersArr = [];
-
 const BASE_URL = "https://join-460-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /**
@@ -121,7 +119,7 @@ async function processLogin() {
       userLoggedIn: {
         name: filteredUser[0].user.name,
         avatar: filteredUser[0].user.avatar,
-        email: filteredUser[0].user.email // 👈 Important!
+        email: filteredUser[0].user.email
       }
     });
   }
@@ -229,11 +227,9 @@ function goToSummary() {
 window.addEventListener("load", async () => {
   await initSecond();
   const { greeting, logo, logoWhite, targetLogo, isMobile } = pullElementsForAnimation();
-
   if (greeting && logo && logoWhite && targetLogo) {
     requestAnimationFrame(() => {
       const { transformLogo, transformWhite } = calculateAnimation();
-
       setTimeoutAnimation(transformLogo, transformWhite);
     });
   }
@@ -248,7 +244,6 @@ window.addEventListener("load", async () => {
       logo.style.transform = transformLogo;
       logoWhite.style.transform = transformWhite;
     }, 300);
-
     setTimeout(() => {
       greeting.classList.add("hide");
     }, isMobile ? 700 : 1200);

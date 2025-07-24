@@ -1,9 +1,4 @@
 /**
- * Stores the currently selected priority.
- * @type {string}
- */
-
-/**
  * Selects a priority button and updates its style.
  * @param {string} prio - The priority to select ("urgent", "medium", or "low").
  */
