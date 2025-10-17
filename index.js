@@ -222,7 +222,7 @@ function removeErrorMsgs(errorId, inputId) {
  * Redirects the user to the summary page.
  */
 function goToSummary() {
-  window.location.href = "/summary/summary.html";
+  window.location.href = "./summary/summary.html";
 }
 window.addEventListener("load", async () => {
   await initSecond();
