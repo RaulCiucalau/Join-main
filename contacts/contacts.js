@@ -46,8 +46,8 @@ async function contactFirebase() {
 /**
  * Initializes the contacts page, loads contacts, hides details, and checks orientation.
  */
-function init() {
-  contactFirebase();
+async function init() {
+  await contactFirebase();
   rightContactDetailsHideOnLoad();
   checkOrientation();
 }
