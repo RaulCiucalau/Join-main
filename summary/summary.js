@@ -3,10 +3,10 @@
  */
 async function init() {
   updateHoverScaleClass();
-  await onloadFunc(); // Tasks laden
-  showTasksCounts(tasks); // Tasks anzeigen
-  showUrgentDate(tasks); // Dringend-Datum anzeigen
-  await loadUserNameAndGreeting(); // Name + Gruß anzeigen
+  await onloadFunc();
+  showTasksCounts(tasks);
+  showUrgentDate(tasks);
+  await loadUserNameAndGreeting();
   loadAvatarForHeader();
   checkOrientation();
 }
