@@ -212,7 +212,7 @@ function updateHoverScaleClass() {
   const container = document.getElementById('boxInfoTask');
   if (!container) return;
 
-  if (window.innerWidth <= 1418) {
+  if (window.innerWidth <= 1400) {
     const hoverElements = container.querySelectorAll('.hover-scale');
     hoverElements.forEach(el => el.classList.remove('hover-scale'));
   }
