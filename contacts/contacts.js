@@ -219,7 +219,7 @@ function handleResponsiveView(paramKey, users) {
     let userContactHeader = document.getElementById("user-contact-header");
     rightColumn.style.display = "flex";
     userContactHeader.innerHTML = `<button class="go-back-arrow" onclick="hideContactDetails(users)">
-                                    <img src="/assets/icons/back-arrow.svg">
+                                    <img src="../assets/icons/back-arrow.svg">
                                    </button>`;
     leftColumn.style.display = "none";
     rightColumn.style.display = "block";
