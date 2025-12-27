@@ -24,7 +24,7 @@ This repository is the result of a **collaborative training project**. My indivi
 
 ## 📂 Repository
 
-👉 https://github.com/MeikBehr/Join
+👉 https://github.com/RaulCiucalau/Join-main
 
 ---
 
