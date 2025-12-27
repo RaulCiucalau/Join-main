@@ -1,71 +1,68 @@
-JOIN – Kanban Task Management App
+# JOIN – Kanban Task Management App
 
-JOIN is a browser-based task management tool built around the Kanban principle. It allows users to create, manage, and assign tasks to contacts in a clear and intuitive way. The app is implemented as a single-page frontend application, featuring well-structured logic, a polished user interface, and a fully responsive design.
+JOIN is a browser-based task management application built around the **Kanban methodology**. It enables users to create, organize, and assign tasks to contacts with ease. The app is developed as a **single-page frontend project**, featuring clean code structure, an intuitive UI, and a fully responsive layout.
 
-This repository originates from a team-based training project. My individual responsibilities and contributions are outlined below.
+This repository is the result of a **collaborative training project**. My individual responsibilities and contributions are documented below.
 
-🛠️ Technology Stack
+---
 
-HTML5
+## 🛠️ Tech Stack
 
-CSS / SCSS
+- HTML5  
+- CSS / SCSS  
+- JavaScript (Vanilla)  
+- REST API (JSON)  
+- Git & GitHub  
 
-Vanilla JavaScript
+---
 
-REST API (JSON)
-
-Git & GitHub
-
-🌐 Live Version
+## 🌍 Live Demo
 
 👉 https://raul-ciucalau.de/Projects/Join-main/index.html
 
-📁 Source Code
+---
 
-👉 https://github.com/RaulCiucalau/Join-main
+## 📂 Repository
 
-⭐ Key Functionality
+👉 https://github.com/MeikBehr/Join
 
-User authentication (login & registration)
+---
 
-Create, update, and remove tasks
+## ⭐ Core Features
 
-Interactive Kanban board with drag-and-drop
+- User authentication (login & registration)  
+- Create, edit, and delete tasks  
+- Kanban board with drag-and-drop functionality  
+- Contact management  
+- Task status tracking (To Do, In Progress, Awaiting Feedback, Done)  
+- Responsive design for desktop and mobile  
+- Local data storage and API integration  
 
-Contact and user management
+---
 
-Task workflow states (To Do, In Progress, Awaiting Feedback, Done)
+## 👨‍💻 My Personal Contribution
 
-Mobile-friendly and responsive layout
+Within the project team, I was mainly responsible for:
 
-Local persistence and API-based data handling
+- Implementing the login and sign-up system  
+- Developing the summary (dashboard) view  
+- Testing, validation, and bug fixing in the final phase  
+- Providing technical support to teammates during critical stages  
+- Coordinating work via Discord, including:
+  - Team communication  
+  - Decision documentation  
+  - Writing internal notes and process documentation  
 
-👨‍💻 My Role in the Project
+This experience gave me strong insights into **collaborative frontend development, structured teamwork, and problem-solving under time constraints**.
 
-As part of the development team, my main responsibilities included:
+---
 
-Building the login and registration features
+## 🎓 Project Background
 
-Developing the summary/dashboard overview
+This project was developed as part of the **Frontend Developer training program** at the Developer Akademie.
 
-Debugging and validating core functionality before release
+---
 
-Supporting teammates during high-pressure development stages
+## 📌 Status
 
-Coordinating via Discord, including:
-
-Team communication
-
-Decision tracking
-
-Writing internal documentation and notes
-
-Through this, I gained valuable experience in team collaboration, structured frontend development, and problem-solving under deadlines.
-
-🎓 Project Context
-
-This application was created during the Frontend Developer training program at the Developer Akademie.
-
-📍 Project Status
-
-✅ Finished, stable, and ready to use.
+✅ Project completed and fully functional.
