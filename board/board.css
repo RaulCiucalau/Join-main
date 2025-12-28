@@ -120,7 +120,7 @@ h1 {
 }
 
 .status_title img:hover {
-    content: url(../assets/img/board_icons/plus_button_hover.svg);
+    content: url(./assets/img/board_icons/plus_button_hover.svg);
     animation-timing-function: ease-in-out;
     animation-duration: 125ms;
 }

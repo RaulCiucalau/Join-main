@@ -84,7 +84,7 @@ function getBigTaskDialog(task) {
     <div onclick="stopPropagation(event)" id="bigDialog" class="dialog-card">
         <div class="dialog-card-header">
             <label class="${getLabelClass(task.category)} typography-label">${task.category}</label>
-            <img onclick="toggleBigTaskDialog()" class="close-btn" src="../assets/img/board_icons/close_button.svg" alt="Close">
+            <img onclick="toggleBigTaskDialog()" class="close-btn" src="./assets/img/board_icons/close_button.svg" alt="Close">
         </div>
         <div class="dialog-card-content">
             <p class="dialog-card-title">${task.title}</p>
@@ -97,7 +97,7 @@ function getBigTaskDialog(task) {
                 <p class="dialog-card-typography-content font-blue">Priority:</p>
                 <div class="dialog-card-priority-type">
                     <p class="dialog-card-typography-content">${task.priority}</p>
-                    <img src="../assets/img/board_icons/priority_${task.priority.toLowerCase()}.svg" alt="Priority ${task.priority}">
+                    <img src="./assets/img/board_icons/priority_${task.priority.toLowerCase()}.svg" alt="Priority ${task.priority}">
                 </div>
             </div>
             <div class="dialog-card-contacts">
@@ -113,12 +113,12 @@ function getBigTaskDialog(task) {
         </div>
         <div class="dialog-card-btns-bottom">
             <div class="dialog-card-btn" onclick="deleteTaskById('${task.id}')">
-                <img class="" src="../assets/img/board_icons/delete_button.svg" alt="Delete">
+                <img class="" src="./assets/img/board_icons/delete_button.svg" alt="Delete">
                 <p>Delete</p>
             </div>
             <div class="dialog-card-separator"></div>
             <div class="dialog-card-btn" onclick="openEditTaskDialogById('${task.id}')">
-                <img class="" src="../assets/img/board_icons/edit_button.svg" alt="Edit">
+                <img class="" src="./assets/img/board_icons/edit_button.svg" alt="Edit">
                 <p>Edit</p>
             </div>
         </div>
@@ -143,7 +143,7 @@ function contactListTemplate(contact, index, isAssigned, taskId) {
             <span class="avatar" style="background-color: ${contact.color}">${contact.avatar}</span>
             <span id="contactName${index}">${contact.name}</span>
         </div>
-        <img id="checkBox${index}" src="../assets/icons/${checkboxIcon}" alt="checkbox">
+        <img id="checkBox${index}" src="./assets/icons/${checkboxIcon}" alt="checkbox">
     </div>
   `;
 }
@@ -165,7 +165,7 @@ function getEditTaskDialog(task) {
     return `
     <div onclick="stopPropagation(event)" id="editDialog" class="dialog-card">
             <div class="dialog-card-header flex-end">
-                <img onclick="toggleEditTaskDialog()" class="close-btn" src="../assets/img/board_icons/close_button.svg" alt="">
+                <img onclick="toggleEditTaskDialog()" class="close-btn" src="./assets/img/board_icons/close_button.svg" alt="">
             </div>
             <div class="content-edit-task-dialog">
                 <div class="dialog-edit-title">
@@ -187,17 +187,17 @@ function getEditTaskDialog(task) {
                         <div class="priority-btns">
                             <div class="priority-btn" id="prios-btn-urgent" onclick="togglePrioritys('urgent')">
                                 <p>Urgent</p>
-                                <img id="prios-img-urgent" class="priority-img" src="../assets/icons/priority-urgent.svg"
+                                <img id="prios-img-urgent" class="priority-img" src="./assets/icons/priority-urgent.svg"
                                     alt="Priority Urgent" />
                             </div>
                             <div class="priority-btn" id="prios-btn-medium" onclick="togglePrioritys('medium')">
                                 <p>Medium</p>
-                                <img id="prios-img-medium" class="priority-img" src="../assets/icons/priority-medium.svg"
+                                <img id="prios-img-medium" class="priority-img" src="./assets/icons/priority-medium.svg"
                                     alt="Priority Medium" />
                             </div>
                             <div class="priority-btn" id="prios-btn-low" onclick="togglePrioritys('low')">
                                 <p>Low</p>
-                                <img id="prios-img-low" class="priority-img" src="../assets/icons/priority-low.svg"
+                                <img id="prios-img-low" class="priority-img" src="./assets/icons/priority-low.svg"
                                     alt="Priority Low" />
                             </div>
                         </div>
@@ -210,10 +210,10 @@ function getEditTaskDialog(task) {
                             <input type="text" id="assignee-input" class="selection hover-border" placeholder="Select contacts to assign"
                                 onclick="toggleAssigneeDropdown(event, ${task.id})" />
                             <img id="assignee-img-down" class="assigned-to-img"
-                                src="../assets/icons/arrow_drop_down.svg" alt="Select contact dropdown arrow"
+                                src="./assets/icons/arrow_drop_down.svg" alt="Select contact dropdown arrow"
                                 onclick="toggleAssigneeDropdown(event, ${task.id})">
                             <img id="assignee-img-up" class="assigned-to-img dp-none"
-                                src="../assets/icons/arrow_drop_down_up.svg" alt="Select contact dropdown arrow"
+                                src="./assets/icons/arrow_drop_down_up.svg" alt="Select contact dropdown arrow"
                                 onclick="toggleAssigneeDropdown(event, ${task.id})">
                         </div>
                         <div class="drop-down-contact-list dp-none" id="assignee-dropdown-list">
@@ -227,8 +227,8 @@ function getEditTaskDialog(task) {
                     <div id="subtaskContainer" class="input-container-add-subtask hover-active-border">
                         <input onkeydown="createSubtaskOnEnter(${task.id})" onclick="showBtnToAddSubtask()" id="newSubtaskInput" class="noborder-input standard-input-edit-task" type="text" placeholder="Add new Subtask">
                         <div class="btns-new-subtask visibility-hidden">
-                            <img onclick="cancelBtnAddSubtask()" src="../assets/icons/cancel.svg" class="subtask-edit-page-icons pointer" title="Cancel">
-                            <img onclick="addNewSubtaskToList(${task.id})" src="../assets/icons/check.svg" class="subtask-edit-page-icons pointer" title="Save">
+                            <img onclick="cancelBtnAddSubtask()" src="./assets/icons/cancel.svg" class="subtask-edit-page-icons pointer" title="Cancel">
+                            <img onclick="addNewSubtaskToList(${task.id})" src="./assets/icons/check.svg" class="subtask-edit-page-icons pointer" title="Save">
                         </div>
                     </div>
                     <div id="subtasksList" class="subtasks-list-container">
