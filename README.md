@@ -12,14 +12,8 @@ This repository is the result of a **collaborative training project**. My indivi
 - CSS / SCSS  
 - JavaScript (Vanilla)  
 - REST API (JSON)  
-- Git & GitHub  
-
----
-
-## 🌍 Live Demo
-
-👉 https://raul-ciucalau.de/Projects/Join-main/index.html
-
+- Git & GitHub
+  
 ---
 
 ## 📂 Repository
