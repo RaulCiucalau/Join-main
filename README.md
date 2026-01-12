@@ -22,6 +22,12 @@ This repository is the result of a **collaborative training project**. My indivi
 
 ---
 
+## 🌍 Live Demo
+
+👉 https://raul-ciucalau.de/Projects/Join-main/index.html
+
+---
+
 ## ⭐ Core Features
 
 - User authentication (login & registration)  
