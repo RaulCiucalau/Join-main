@@ -16,15 +16,15 @@ This repository is the result of a **collaborative training project**. My indivi
 
 ---
 
-## 🌍 Live Demo
-
-👉 https://raul-ciucalau.de/Projects/Join-main/index.html
-
----
-
 ## 📂 Repository
 
 👉 https://github.com/RaulCiucalau/Join-main
+
+---
+
+## 🌍 Live Demo
+
+👉 https://raul-ciucalau.de/Projects/Join-main/index.html
 
 ---
 
