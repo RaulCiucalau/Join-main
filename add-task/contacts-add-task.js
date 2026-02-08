@@ -105,7 +105,7 @@ function unselectContact(i) {
   document.getElementById(`${i}`).style.backgroundColor = "white";
   document.getElementById(`${i}`).style.color = "black";
   document.getElementById(`${i}`).style.borderRadius = "10px";
-  document.getElementById(`btn-checkbox-${i}`).src = "../assets/icons/btn-unchecked.svg";
+  document.getElementById(`btn-checkbox-${i}`).src = "/assets/icons/btn-unchecked.svg";
   const index = selectedContacts.indexOf(i);
   if (index > -1) {
     selectedContacts.splice(index, 1);

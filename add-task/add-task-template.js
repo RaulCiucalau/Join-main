@@ -23,7 +23,7 @@ function contactListDropDownTemplate(i) {
               <span class="avatar" style="background-color: ${contacts[i].color}">${contacts[i].avatar}</span>
               <span>${contacts[i].name}</span>
               </div>
-              <div><img id="btn-checkbox-${i}" src="./assets/icons/btn-unchecked.svg" alt="Button Unchecked"/></div>
+              <div><img id="btn-checkbox-${i}" src="/assets/icons/btn-unchecked.svg" alt="Button Unchecked"/></div>
               </div>`;
 }
 
@@ -36,8 +36,8 @@ function getSubtaskHtml(subtaskObject) {
   return `
     <span class="subtask-text">• ${subtaskObject.title}</span>
     <div class="subtask-list-item-btns dp-none">
-      <img src="./assets/icons/edit.svg" class="subtask-edit-icons" title="Edit">
-      <img src="./assets/icons/delete.svg" class="subtask-edit-icons" title="Delete">
+      <img src="/assets/icons/edit.svg" class="subtask-edit-icons" title="Edit">
+      <img src="/assets/icons/delete.svg" class="subtask-edit-icons" title="Delete">
     </div>
   `
 }

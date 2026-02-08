@@ -49,7 +49,7 @@ function applySelectedStyles(taskId) {
       if (el && icon) {
         el.style.backgroundColor = "#2a3647";
         el.style.color = "white";
-        icon.src = "../assets/icons/btn-checked.svg";
+        icon.src = "/assets/icons/btn-checked.svg";
       }
     }
   });
@@ -115,7 +115,7 @@ function unassignContact(task, name, textEl, containerEl, iconEl) {
   task.assigned_to.splice(pos, 1);
   textEl.style.color = "black";
   containerEl.style.backgroundColor = "white";
-  iconEl.src = "../assets/icons/btn-unchecked.svg";
+  iconEl.src = "/assets/icons/btn-unchecked.svg";
 }
 
 /**
@@ -125,7 +125,7 @@ function assignContact(task, name, textEl, containerEl, iconEl) {
   task.assigned_to.push(name);
   textEl.style.color = "white";
   containerEl.style.backgroundColor = "#2a3647";
-  iconEl.src = "../assets/icons/btn-checked.svg";
+  iconEl.src = "/assets/icons/btn-checked.svg";
 }
 
 

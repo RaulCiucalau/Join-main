@@ -6,9 +6,9 @@ let isDialogOpen = false;
  * Maps priority levels to their corresponding icon image paths.
  */
 let priorityImg = {
-    "Low": "../assets/img/board_icons/priority_low.svg",
-    "Medium": "../assets/img/board_icons/priority_medium.svg",
-    "Urgent": "../assets/img/board_icons/priority_urgent.svg"
+    "Low": "/assets/img/board_icons/priority_low.svg",
+    "Medium": "/assets/img/board_icons/priority_medium.svg",
+    "Urgent": "/assets/img/board_icons/priority_urgent.svg"
 };
 
 /**

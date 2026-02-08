@@ -15,13 +15,13 @@ function buildSubtasksToEditHTML(task) {
       <div id="subtaskEditBtns" class="subtask-list-item-btns subtask-icons-d-none">
         <img 
           onclick="editSelectedSubtask(${task.id}, ${index})" 
-          src="./assets/icons/edit.svg" 
+          src="/assets/icons/edit.svg" 
           class="subtask-edit-page-icons pointer" 
           title="Edit"
         >
         <img 
           onclick="deleteSelectedTask(${task.id}, ${index})" 
-          src="./assets/icons/delete.svg" 
+          src="/assets/icons/delete.svg" 
           class="subtask-edit-page-icons pointer" 
           title="Delete"
         >
@@ -44,14 +44,14 @@ function buildEditSubtaskHTML(task, subtaskIndex, subtask) {
       <div class="subtask-list-item-btns">
         <img 
           onclick="deleteSelectedTask(${task.id}, ${subtaskIndex})" 
-          src="./assets/icons/delete.svg" 
+          src="/assets/icons/delete.svg" 
           class="subtask-edit-page-icons pointer" 
           title="Delete"
         >
         <img
           id="saveBtn" 
           onclick="saveSelectedTask(${task.id}, ${subtaskIndex})" 
-          src="./assets/icons/check.svg" 
+          src="/assets/icons/check.svg" 
           class="subtask-edit-page-icons pointer" 
           title="Save"
         >

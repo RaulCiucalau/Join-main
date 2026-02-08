@@ -117,11 +117,11 @@ function disableSignupBtn() {
  */
 function acceptPolicy() {
   if (!policyAccepted) {
-    document.getElementById("checkbox").src = "./assets/icons/btn-checked-blue.svg";
+    document.getElementById("checkbox").src = "/assets/icons/btn-checked-blue.svg";
     policyAccepted = true;
     enableSignupBtn();
   } else {
-    document.getElementById("checkbox").src = "./assets/icons/btn-unchecked.svg";
+    document.getElementById("checkbox").src = "/assets/icons/btn-unchecked.svg";
     policyAccepted = false;
     disableSignupBtn();
   }
