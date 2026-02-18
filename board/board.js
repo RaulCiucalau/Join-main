@@ -1,3 +1,4 @@
+// board.js
 /** @type {boolean} Indicates whether the "Add Task" dialog is currently open. */
 let isDialogOpen = false;
 
