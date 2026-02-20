@@ -65,4 +65,3 @@ This project was developed as part of the **Frontend Developer training program*
 
 ## 📌 Status
 Completed Project and fully functional.
-
