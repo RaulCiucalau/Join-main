@@ -43,9 +43,9 @@ async function loadContacts(path) {
  * @returns {{secondLetter: string|undefined, firstLetter: string}}
  */
 function constFirstLetter(user) {
-  const firstLetter = user.name.charAt(0).toUpperCase();
-  const secondLetter = user.name.split(" ")[1]?.[0]?.toUpperCase();
-  return { secondLetter, firstLetter };
+  const firstInitial = (user.name || '').trim().charAt(0).toUpperCase();
+  const secondLetter = (user.name || '').split(" ")[1]?.[0]?.toUpperCase();
+  return { secondLetter, firstLetter: firstInitial };
 }
 
 /**
