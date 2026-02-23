@@ -306,8 +306,8 @@ async function fetchSubtask(taskId, subtaskId) {
 async function updateSubtaskState(event, subtask, completed, taskId, subtaskId) {
     subtask.completed = completed;
     event.target.src = completed 
-        ? '../assets/img/board_icons/checked_button.svg' 
-        : '../assets/img/board_icons/unchecked_button.svg';
+        ? './assets/img/board_icons/checked_button.svg' 
+        : './assets/img/board_icons/unchecked_button.svg';
     await fetch(`${BASE_URL}tasks/${taskId}/subtasks/${subtaskId}.json`, {
         method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(subtask)
     });
