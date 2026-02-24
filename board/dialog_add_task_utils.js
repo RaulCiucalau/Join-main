@@ -1,6 +1,6 @@
 
 /**
- * Changes the clear icon to blue on hover.
+ * Show the blue variant of the clear icon while the pointer is hovering.
  */
 function changeToBlueIcon() {
   document.getElementById("clear").classList.add("dp-none");
@@ -8,7 +8,7 @@ function changeToBlueIcon() {
 }
 
 /**
- * Changes the clear icon back to black when not hovered.
+ * Restore the default (black) clear icon when hovering stops.
  */
 function changeToBlackIcon() {
   document.getElementById("clear").classList.remove("dp-none");
@@ -16,9 +16,9 @@ function changeToBlackIcon() {
 }
 
 /**
- * Converts an array to an object with numeric keys.
- * @param {Array} array - The array to convert.
- * @returns {Object} The resulting object.
+ * Transform an array into an object keyed by numeric indices.
+ * @param {Array} array - Array to transform.
+ * @returns {Object} Object where keys are indices and values are items.
  */
 function mapArrayToObject(array) {
   return array.reduce((obj, item, index) => {
@@ -28,8 +28,8 @@ function mapArrayToObject(array) {
 }
 
 /**
- * Generates a unique ID for a new task.
- * @returns {string}
+ * Create and return a new unique task identifier.
+ * @returns {string} New unique id as a string.
  */
 function generateUniqueId() {
   currentMaxId += 1;
@@ -37,8 +37,8 @@ function generateUniqueId() {
 }
 
 /**
- * Loads all tasks from Firebase and updates `tasksArr`.
- * @param {string} path - Firebase path for tasks.
+ * Retrieve all tasks from Firebase and populate `tasksArr`.
+ * @param {string} path - Location in Firebase to fetch tasks from.
  */
 async function loadTasks(path = "tasks") {
   try {
@@ -55,8 +55,8 @@ async function loadTasks(path = "tasks") {
   }
 
   /**
-   * Converts the tasks data object from Firebase into an array and updates the currentMaxId.
-   * @param {Object} data - The tasks data object from Firebase, with task IDs as keys.
+   * Build `tasksArr` from the Firebase object and update `currentMaxId`.
+   * @param {Object} data - Firebase tasks object keyed by id.
    */
   function taskArrObject(data) {
     tasksArr = Object.values(data);
@@ -66,8 +66,8 @@ async function loadTasks(path = "tasks") {
 }
 
 /**
- * Fetches and displays the logged-in user's avatar or guest initial in the UI.
- * Sets the initial letter to 'G' for guests or the user's avatar for logged-in users.
+ * Load login data and display either the guest initial or the user's avatar.
+ * Shows 'G' for guest sessions; otherwise uses the stored avatar character.
  */
 async function showLoggedInInfo() {
   try {
@@ -86,7 +86,7 @@ async function showLoggedInInfo() {
 }
 
 /**
- * Highlights the current menu item in the navigation bar based on the page URL.
+ * Mark the active navigation link based on the current page pathname.
  */
 function highlightMenuActual() {
   const path = window.location.pathname;
@@ -101,17 +101,17 @@ function highlightMenuActual() {
 }
 
 /**
- * Capitalizes the first letter of a string.
- * @param {string} string - The input string.
- * @returns {string}
+ * Return the string with its first character converted to uppercase.
+ * @param {string} string - Text to convert.
+ * @returns {string} The input with the initial character capitalized.
  */
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 /**
- * Converts the subtasks array to an array of subtask objects with title and completed properties.
- * @returns {Array<Object>} Array of subtask objects.
+ * Convert titles in `subtasks` into objects containing `title` and `completed` flags.
+ * @returns {Array<Object>} List of subtask objects prepared for saving.
  */
 function getSubtasksArray() {
   return subtasks.map(title => ({ title: title, completed: false }));
