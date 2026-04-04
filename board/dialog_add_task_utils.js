@@ -1,8 +1,8 @@
-
 /**
  * Show the blue variant of the clear icon while the pointer is hovering.
  */
 function changeToBlueIcon() {
+  console.log("Changing to blue icon");
   document.getElementById("clear").classList.add("dp-none");
   document.getElementById("clear-hover").classList.remove("dp-none");
 }
