@@ -1,4 +1,3 @@
-
 /** @type {boolean} Indicates whether the "Add Task" dialog is currently open. */
 let isDialogOpen = false;
 
@@ -22,6 +21,8 @@ const statusIds = [
     { id: "AwaitFeedback", label: "awaiting feedback" },
     { id: "Done", label: "done" }
 ];
+
+console.log("Status IDs loaded");
 
 /** @type {string|null} ID of the task currently being dragged. */
 let currentDraggedTaskId;
