@@ -2,6 +2,7 @@
  * Initializes the dashboard by loading tasks, updating UI elements, and setting user greeting.
  */
 async function init() {
+  console.log("Initializing dashboard");
   updateHoverScaleClass();
   await onloadFunc();
   showTasksCounts(tasks);
