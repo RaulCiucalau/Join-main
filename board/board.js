@@ -22,8 +22,6 @@ const statusIds = [
     { id: "Done", label: "done" }
 ];
 
-console.log("Status IDs loaded");
-
 /** @type {string|null} ID of the task currently being dragged. */
 let currentDraggedTaskId;
 
